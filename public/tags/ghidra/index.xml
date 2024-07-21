@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Ghidra on 1337</title>
+    <link>http://localhost:1313/tags/ghidra/</link>
+    <description>Recent content in Ghidra on 1337</description>
+    <generator>Hugo</generator>
+    <language>en</language>
+    <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
+    <lastBuildDate>Fri, 15 Dec 2023 14:16:56 +0530</lastBuildDate>
+    <atom:link href="http://localhost:1313/tags/ghidra/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Setting up Ghidra on Linux</title>
+      <link>http://localhost:1313/posts/ghidra-setup-linux/</link>
+      <pubDate>Fri, 15 Dec 2023 14:16:56 +0530</pubDate>
+      <guid>http://localhost:1313/posts/ghidra-setup-linux/</guid>
+      <description>The recent release of Ghidra 11.0 caught my eye and I wanted to give it a spin again after a distasteful first experience of using it in 2020.I am sharing these installtion notes to help those who find Ghidra&amp;rsquo;s no-installer no-shortcut approach rather tedious.&#xA;Installing Ghidra Nothing much in this section, the docs cover it well. You need jdk 17 to run Ghidra. Simple command gets the job done:&#xA;apt install -y openjdk-17-jdk Setting up App Shortcut As you must know by now, to run Ghidra you&amp;rsquo;ll have to manually execute the script inside the folder.</description>
+    </item>
+  </channel>
+</rss>
