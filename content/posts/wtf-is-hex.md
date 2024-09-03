@@ -2,6 +2,7 @@
 title: "What da Hex"
 date: 2024-03-10T06:36:44+05:30
 draft: false
+author: 1ikeadragon
 toc: true
 images:
 tags:

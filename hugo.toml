@@ -25,7 +25,7 @@ paginate     = 10
   enableThemeToggle = true
   # Metadata mostly used in document's head
   description = "Reverse engineering blog leaning towards Windows and Game Security"
-  keywords = "homepage, blog"
+  keywords = "reverse-engineering, anti-cheat, game security, blog, programming"
   images = [""]
 
 [[params.social]]
@@ -64,7 +64,7 @@ languageCode = 'en-us'
     readOtherPosts = "Read other posts"
 
 #   [languages.en.params]
-#     subtitle  = "basic blog"
+#     subtitle  = "Reverse engineering blog"
 
     [languages.en.params.logo]
       logoText = "1@pwn#:"
