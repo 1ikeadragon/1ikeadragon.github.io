@@ -9,7 +9,7 @@ tags:
   - mathematics
 ---
 
-`0xDEADBEEF` `0xBEEF`. Saw these before? So did I. I could tell at a glance that these are hexadecimal numbers. But what exactly is Hex and why is it so common?
+`0xDEADBEEF` `0xBEEF`. Saw these before? These are hexadecimal numbers. But what exactly is Hex and why is it so common when reverse engineering?
 ## Touching down on Bases
 
 Every number that you see can be represented by a power of the bases of its numerical system. Decimal numbers have a range of 0-9 and can be represented by power of it's base i.e. 10.

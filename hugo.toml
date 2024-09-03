@@ -1,5 +1,5 @@
 baseurl      = "https://1ikeadragon.github.io/"
-title        = "notes"
+title        = "Reverse engineering blog"
 languageCode = "en-us"
 theme        = "hello-friend-ng"
 paginate     = 10
@@ -24,7 +24,7 @@ paginate     = 10
   enableGlobalLanguageMenu = false
   enableThemeToggle = true
   # Metadata mostly used in document's head
-  description = "My notes on programming, hacking and life."
+  description = "Reverse engineering blog leaning towards Windows and Game Security"
   keywords = "homepage, blog"
   images = [""]
 
