@@ -58,7 +58,7 @@ languageCode = 'en-us'
 
 [languages]
   [languages.en]
-    title = "1337"
+    title = "Reverse engineering blog"
     keywords = ""
     copyright = '<a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener">CC BY-NC 4.0</a>'
     readOtherPosts = "Read other posts"

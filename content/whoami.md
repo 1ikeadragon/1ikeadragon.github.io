@@ -9,4 +9,4 @@ tags:
   - intro 
 ---
 
-Always learning.
+Reverse engineering blog inclined towards Windows and Game Security.
