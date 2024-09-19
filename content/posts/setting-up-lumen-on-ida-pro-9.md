@@ -9,7 +9,7 @@ tags:
   - reverse engineering
   - idapro
 ---
-
+![screenshot of lumina working on IDA PRO 9 Linux](image.png)
 Straight to the point private Lumen server setup guide tested on Linux, IDA PRO 9 BETA;
 
 ## Install OpenLumina Plugin
