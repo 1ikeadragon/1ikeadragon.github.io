@@ -1,0 +1,34 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>Posts on Reverse engineering blog</title>
+        <link>http://localhost:1313/posts/</link>
+        <description>Recent content in Posts on Reverse engineering blog</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>en</language>
+        <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
+        <lastBuildDate>Thu, 05 Sep 2024 01:01:51 +0530</lastBuildDate>
+        <atom:link href="http://localhost:1313/posts/index.xml" rel="self" type="application/rss+xml" />
+        
+        <item>
+            <title>What da Hex</title>
+            <link>http://localhost:1313/posts/wtf-is-hex/</link>
+            <pubDate>Sun, 10 Mar 2024 06:36:44 +0530</pubDate>
+            
+            <guid>http://localhost:1313/posts/wtf-is-hex/</guid>
+            <description>&lt;p&gt;&lt;code&gt;0xDEADBEEF&lt;/code&gt; &lt;code&gt;0xBEEF&lt;/code&gt;. Saw these before? These are hexadecimal numbers. But what exactly is Hex and why is it so common when reverse engineering?&lt;/p&gt;
+&lt;h2 id=&#34;touching-down-on-bases&#34;&gt;Touching down on Bases&lt;/h2&gt;
+&lt;p&gt;Every number that you see can be represented by a power of the bases of its numerical system. Decimal numbers have a range of 0-9 and can be represented by power of it&amp;rsquo;s base i.e. 10.&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;1337&lt;/code&gt; can be represented as:&lt;/p&gt;</description>
+            <content type="html"><![CDATA[<p><code>0xDEADBEEF</code> <code>0xBEEF</code>. Saw these before? These are hexadecimal numbers. But what exactly is Hex and why is it so common when reverse engineering?</p>
+<h2 id="touching-down-on-bases">Touching down on Bases</h2>
+<p>Every number that you see can be represented by a power of the bases of its numerical system. Decimal numbers have a range of 0-9 and can be represented by power of it&rsquo;s base i.e. 10.</p>
+<p><code>1337</code> can be represented as:</p>
+<p>1 * 10^3</p>
+<p>3 * 10^2</p>
+<p>3 * 10^1</p>
+<p>7 * 10^0</p>
+]]></content>
+        </item>
+        
+    </channel>
+</rss>

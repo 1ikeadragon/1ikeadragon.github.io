@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Reverse engineering blog</title>
+    <link>http://localhost:1313/</link>
+    <description>Recent content on Reverse engineering blog</description>
+    <generator>Hugo</generator>
+    <language>en</language>
+    <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
+    <lastBuildDate>Sun, 10 Mar 2024 06:36:44 +0530</lastBuildDate>
+    <atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>What da Hex</title>
+      <link>http://localhost:1313/posts/wtf-is-hex/</link>
+      <pubDate>Sun, 10 Mar 2024 06:36:44 +0530</pubDate>
+      <guid>http://localhost:1313/posts/wtf-is-hex/</guid>
+      <description>&lt;p&gt;&lt;code&gt;0xDEADBEEF&lt;/code&gt; &lt;code&gt;0xBEEF&lt;/code&gt;. Saw these before? These are hexadecimal numbers. But what exactly is Hex and why is it so common when reverse engineering?&lt;/p&gt;&#xA;&lt;h2 id=&#34;touching-down-on-bases&#34;&gt;Touching down on Bases&lt;/h2&gt;&#xA;&lt;p&gt;Every number that you see can be represented by a power of the bases of its numerical system. Decimal numbers have a range of 0-9 and can be represented by power of it&amp;rsquo;s base i.e. 10.&lt;/p&gt;&#xA;&lt;p&gt;&lt;code&gt;1337&lt;/code&gt; can be represented as:&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>whoami</title>
+      <link>http://localhost:1313/whoami/</link>
+      <pubDate>Thu, 29 Feb 2024 14:16:56 +0530</pubDate>
+      <guid>http://localhost:1313/whoami/</guid>
+      <description>&lt;p&gt;Reverse engineering blog inclined towards Windows and Game Security.&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>
