@@ -1,5 +1,5 @@
 ---
-title: "Setting Up Lumen on Ida Pro 9"
+title: "Setting Up Lumen For IDA Pro 9"
 date: 2024-09-19T10:06:36+05:30
 draft: false
 author: 1ikeadragon
