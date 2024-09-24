@@ -11,7 +11,7 @@ tags:
 ---
 ![screenshot of lumina working on IDA PRO 9 Windows](resources\imgs\ida_lumina.png)
 
-Straight to the point private Lumen server setup guide tested with IDA PRO 9 Widnows/Linux/macOS.
+Straight to the point private Lumen server setup guide tested with IDA PRO 9 Widnows/Linux/macOS. If you have the official private Lumina and HexVault files checkout this [Dockerfile I wrote](https://github.com/1ikeadragon/lumina-docker).
 
 ## Install OpenLumina Plugin
 
