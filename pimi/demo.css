@@ -1,4 +1,6 @@
 .workflow {
+  --demo-height: clamp(395px, 80svh, 760px);
+  --demo-footroom: 40px;
   --panel: #faf5f6;
   --rail: #f4eaee;
   --tint: #f0e3e9;
@@ -23,12 +25,14 @@
 }
 .workflow[data-scroll]::after { display: block; height: 238svh; content: ""; }
 .workflow-sticky { position: relative; }
-[data-scroll] .workflow-sticky { position: sticky; top: max(16px, calc((100svh - 566px) / 2)); }
+[data-scroll] .workflow-sticky {
+  position: sticky;
+  top: max(12px, calc((100svh - var(--demo-height) - var(--demo-footroom)) / 2));
+}
 .demo-window {
   display: grid;
   grid-template-columns: 168px minmax(0, 1fr);
-  height: min(525px, 74svh);
-  min-height: 395px;
+  height: var(--demo-height);
   overflow: hidden;
   border-radius: 15px;
   background: var(--panel);
@@ -85,7 +89,7 @@
 .demo-chip { border-radius: 20px; white-space: nowrap; color: var(--muted); }
 .demo-action[aria-pressed="true"], .demo-action[aria-expanded="true"] { background: var(--tint); border-color: var(--focus); }
 
-.demo-board { position: relative; display: grid; grid-template-columns: repeat(5, minmax(104px, 1fr)); gap: 8px; width: 100%; overflow-x: auto; padding-bottom: 6px; }
+.demo-board { position: relative; display: grid; grid-template-columns: repeat(5, minmax(104px, 1fr)); flex: 1; min-height: 0; gap: 8px; width: 100%; overflow-x: auto; padding-bottom: 6px; }
 .demo-lane { min-height: 235px; min-width: 0; padding: 7px; border-radius: 9px; background: var(--lane); border: 1px solid var(--line); }
 .demo-lane h3 { display: flex; gap: 5px; align-items: center; min-height: 22px; margin-bottom: 8px; font-size: 11px; white-space: nowrap; }
 .demo-lane h3 i { width: 6px; height: 6px; flex: none; border-radius: 50%; border: 1px solid var(--muted); }
@@ -186,7 +190,7 @@
 #demo-import-session:disabled { opacity: .65; cursor: default; }
 .demo-import-status { color: var(--positive); font-size: 11px; }
 
-.demo-controls { display: grid; place-items: center; min-height: 40px; color: var(--muted); }
+.demo-controls { display: grid; place-items: center; min-height: var(--demo-footroom); color: var(--muted); }
 .demo-controls button { display: grid; place-items: center; border: 1px solid var(--line); background: var(--surface); border-radius: 50%; width: 26px; height: 26px; padding: 0; flex: none; }
 .pet {
   position: absolute; z-index: 2; left: calc(100% + 10px); bottom: 44px;
@@ -215,9 +219,9 @@
   .pet { left: calc(100% + 1px); width: 70px; }
 }
 @media (max-width: 880px) {
-  .workflow { width: calc(100% - 32px); }
+  .workflow { --demo-height: clamp(342px, 79svh, 660px); --demo-footroom: 60px; width: calc(100% - 32px); }
   .workflow[data-scroll]::after { height: 208svh; }
-  .demo-window { grid-template-columns: minmax(0, 1fr); grid-template-rows: auto minmax(0, 1fr); height: min(480px, 71svh); }
+  .demo-window { grid-template-columns: minmax(0, 1fr); grid-template-rows: auto minmax(0, 1fr); }
   .demo-sidebar { padding: 5px 7px; border-right: 0; border-bottom: 1px solid var(--line); }
   .demo-nav { display: flex; overflow: auto; scrollbar-width: thin; }
   .demo-nav button { flex: none; gap: 4px; font-size: 11px; }
@@ -227,8 +231,6 @@
   .demo-controls { position: absolute; bottom: 0; left: 70px; right: 70px; min-height: 38px; }
 }
 @media (max-width: 540px) {
-  [data-scroll] .workflow-sticky { top: 12px; }
-  .demo-window { min-height: 342px; }
   .demo-view { gap: 11px; }
   .demo-window h2 { font-size: 20px; }
   .demo-board { grid-template-columns: repeat(5, minmax(103px, 1fr)); }
