@@ -42,17 +42,16 @@
 .demo-window h3 { font-size: 13px; }
 .demo-window small { font-size: 11px; color: var(--muted); }
 .demo-icons { position: absolute; width: 0; height: 0; overflow: hidden; }
-.demo-window button, .demo-caption button, .pet, .demo-window select { font: inherit; color: inherit; }
-.demo-window button, .demo-caption button, .pet { cursor: pointer; }
-.demo-window button svg, .demo-caption button svg {
+.demo-window button, .demo-controls button, .pet, .demo-window select { font: inherit; color: inherit; }
+.demo-window button, .demo-controls button, .pet { cursor: pointer; }
+.demo-window button svg, .demo-controls button svg {
   width: 15px; height: 15px; flex: none; fill: none; stroke: currentColor;
   stroke-width: 1.65; stroke-linecap: round; stroke-linejoin: round;
 }
 .demo-sidebar { min-width: 0; padding: 16px 10px; background: var(--rail); border-right: 1px solid var(--line); }
 .demo-brand { display: flex; align-items: center; gap: 8px; margin: 0 6px 17px; }
 .demo-brand img { border-radius: 6px; }
-.demo-brand strong, .demo-brand small { display: block; white-space: nowrap; }
-.demo-brand small { font-size: 9px; }
+.demo-brand strong { display: block; white-space: nowrap; }
 .demo-nav { display: grid; gap: 3px; }
 .demo-nav button {
   display: flex; align-items: center; gap: 8px; padding: 6px 8px;
@@ -158,9 +157,8 @@
 .demo-note p { max-width: 44ch; }
 .demo-note code { justify-self: start; background: var(--tint); padding: 4px 8px; border-radius: 5px; }
 
-.demo-caption { display: flex; align-items: center; justify-content: center; gap: 10px; min-height: 40px; font-size: 12px; color: var(--muted); }
-.demo-label { color: var(--ink); font-weight: 650; white-space: nowrap; }
-.demo-caption button { display: grid; place-items: center; border: 1px solid var(--line); background: var(--surface); border-radius: 50%; width: 26px; height: 26px; padding: 0; flex: none; }
+.demo-controls { display: grid; place-items: center; min-height: 40px; color: var(--muted); }
+.demo-controls button { display: grid; place-items: center; border: 1px solid var(--line); background: var(--surface); border-radius: 50%; width: 26px; height: 26px; padding: 0; flex: none; }
 .pet {
   position: absolute; z-index: 2; left: calc(100% + 10px); bottom: 44px;
   display: grid; justify-items: center; width: 107px; padding: 0; border: 0; background: none;
@@ -197,8 +195,7 @@
   .demo-nav button svg { width: 13px; height: 13px; }
   .demo-brand, .demo-sessions { display: none; }
   .pet { position: relative; bottom: auto; left: auto; width: 65px; margin-left: auto; }
-  .demo-caption { position: absolute; bottom: 0; left: 0; right: 70px; justify-content: flex-start; min-height: 38px; gap: 7px; padding-left: 3px; font-size: 11px; }
-  .demo-caption button { margin-left: auto; }
+  .demo-controls { position: absolute; bottom: 0; left: 70px; right: 70px; min-height: 38px; }
 }
 @media (max-width: 540px) {
   [data-scroll] .workflow-sticky { top: 12px; }

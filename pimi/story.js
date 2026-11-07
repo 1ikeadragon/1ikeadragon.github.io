@@ -84,19 +84,18 @@ const reviews = [
 ];
 
 const stages = [
-  { view: 'tasks', caption: 'Follow one task across your agents' },
-  { view: 'tasks', caption: 'Completed work moves the task into Review', ready: true },
-  { view: 'chat', caption: 'Turn a conversation into a task' },
-  { view: 'voice', caption: 'Watch a spoken brief become text', dictation: true },
-  { view: 'work', caption: 'Follow three worktrees across three repositories' },
-  { view: 'reports', caption: 'Compare the agents’ findings' },
-  { view: 'review', caption: 'Review two worktrees side by side', compare: 1 },
-  { view: 'review', caption: 'Swap in a different diff without closing the first', compare: 2, tour: true },
-  { view: 'memory', caption: 'Share project context across providers' },
-  { view: 'setup', caption: 'Connect a Git host and start working' },
+  { view: 'tasks' },
+  { view: 'tasks', ready: true },
+  { view: 'chat' },
+  { view: 'voice', dictation: true },
+  { view: 'work' },
+  { view: 'reports' },
+  { view: 'review', compare: 1 },
+  { view: 'review', compare: 2, tour: true },
+  { view: 'memory' },
+  { view: 'setup' },
 ];
 
-const caption = document.querySelector('#demo-caption');
 const next = document.querySelector('#demo-next');
 const panels = [...document.querySelectorAll('.demo-view')];
 const nav = [...document.querySelectorAll('[data-view]')];
@@ -315,8 +314,7 @@ function moveTask(ready) {
   }
 }
 
-function showView(view, message, focusHeading = false) {
-  caption.textContent = message;
+function showView(view, focusHeading = false) {
   if (shown === view) return;
   if (shown === 'voice' && voice.hasAttribute('data-recording')) finishRecording();
   const panel = document.querySelector('#demo-' + view);
@@ -341,7 +339,7 @@ function showView(view, message, focusHeading = false) {
 function showStep(index) {
   currentStep = index;
   const stage = stages[index];
-  showView(stage.view, stage.caption);
+  showView(stage.view);
   if (stage.view === 'tasks') moveTask(Boolean(stage.ready));
   if (stage.dictation) startRecording();
   if (stage.compare) {
@@ -357,7 +355,7 @@ workflow.addEventListener('click', (event) => {
   const view = button.dataset.view ?? button.dataset.open;
   const index = stages.findIndex((stage) => stage.view === view);
   currentStep = index;
-  showView(view, stages[index].caption, button.hasAttribute('data-open'));
+  showView(view, button.hasAttribute('data-open'));
   if (button.dataset.review !== undefined) setReview(0, Number(button.dataset.review));
 });
 next.addEventListener('click', () => showStep((currentStep + 1) % stages.length));

@@ -56,7 +56,7 @@ h1 {
   letter-spacing: -.028em;
   text-wrap: balance;
 }
-.intro { margin-top: 15px; color: var(--muted); font-size: 16px; line-height: 1.5; text-wrap: balance; }
+
 .downloads { display: flex; justify-content: center; gap: 9px; margin-top: 23px; }
 .download {
   position: relative;
@@ -118,9 +118,9 @@ h1 {
 [data-theme="dark"] .theme-toggle .sun { display: block; }
 .site-bottom { padding: 36px 0 30px; color: var(--muted); font-size: 12px; }
 .install { text-align: center; }
-.install summary { display: inline-block; cursor: pointer; list-style: none; line-height: 1.7; }
+.install summary { display: inline-block; cursor: pointer; list-style: none; line-height: 1.7; text-decoration: underline; }
 .install summary::-webkit-details-marker { display: none; }
-.install summary span { margin-left: 12px; text-decoration: underline; text-underline-offset: 3px; }
+
 .install-content { max-width: 540px; margin: 15px auto 25px; line-height: 1.8; color: var(--muted); }
 .install-content p + p { margin-top: 5px; }
 .install-content a + a { margin-left: 16px; }
@@ -145,10 +145,10 @@ footer a:hover { text-decoration: underline; }
   .brand { font-size: 20px; }
   .brand img { width: 33px; height: 33px; }
   h1 { margin-top: 14px; font-size: clamp(52px, 11vw, 70px); }
-  .intro { margin-top: 12px; font-size: 14px; max-width: 280px; }
+
   .downloads { margin-top: 19px; }
   .site-bottom { padding-top: 26px; }
-  .install summary span { display: block; margin: 4px 0 0; }
+
 }
 @media (max-width: 480px) {
   .download { --revealed-radius: 9px; }

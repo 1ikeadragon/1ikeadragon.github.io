@@ -8,9 +8,9 @@
   <link rel="canonical" href="https://1ikeadragon.github.io/pimi/">
   <link rel="icon" href="icon.png">
   <link rel="preload" href="fonts/caveat-brush-latin.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="site.css?v=9">
-  <link rel="stylesheet" href="demo.css?v=2">
-  <script type="module" src="story.js?v=8"></script>
+  <link rel="stylesheet" href="site.css?v=10">
+  <link rel="stylesheet" href="demo.css?v=3">
+  <script type="module" src="story.js?v=9"></script>
   <title>Pimi — Your swarm’s best friend</title>
 </head>
 <body>
@@ -22,7 +22,6 @@
     <section class="hero wrap" aria-labelledby="headline">
       <p class="brand"><img src="icon.png" width="38" height="38" alt="">Pimi</p>
       <h1 id="headline">Your swarm’s best friend.</h1>
-      <p class="intro">Parallel agents. One place to follow the work.</p>
       <div class="downloads">
         <a class="download download-macos" aria-label="Download for macOS" href="https://github.com/1ikeadragon/1ikeadragon.github.io/releases/download/pimi-v0.15.3-preview.2/Pimi-0.15.3-arm64.dmg">
           <svg viewBox="0 0 24 24" aria-hidden="true">
@@ -38,11 +37,11 @@
       </div>
     </section>
 
-    <section class="workflow wrap" aria-label="Interactive Pimi demo">
+    <section class="workflow wrap" aria-label="Pimi demo">
       <div class="workflow-sticky">
         <div class="demo-window">
           <aside class="demo-sidebar">
-            <div class="demo-brand"><img src="icon.png" width="25" height="25" alt=""><div><strong>Pimi</strong><small>Your swarm’s best friend</small></div></div>
+            <div class="demo-brand"><img src="icon.png" width="25" height="25" alt=""><strong>Pimi</strong></div>
             <nav class="demo-nav" aria-label="Demo views">
               <button type="button" data-view="tasks" aria-current="true"><svg aria-hidden="true"><use href="#icon-tasks"/></svg>Tasks</button>
               <button type="button" data-view="chat"><svg aria-hidden="true"><use href="#icon-chat"/></svg>Chat</button>
@@ -55,7 +54,7 @@
           </aside>
           <div class="demo-main">
             <section class="demo-view" id="demo-tasks">
-              <div class="demo-heading"><div><span class="eyebrow">Workspace</span><h2>Tasks</h2></div><button type="button" class="demo-primary" data-open="voice"><svg aria-hidden="true"><use href="#icon-compose"/></svg>New task</button></div>
+              <div class="demo-heading"><div><h2>Tasks</h2></div><button type="button" class="demo-primary" data-open="voice"><svg aria-hidden="true"><use href="#icon-compose"/></svg>New task</button></div>
               <div class="demo-board">
                 <section class="demo-lane"><h3><i></i>To Do <small>1</small><button type="button" data-open="voice" aria-label="New task in To Do"><svg aria-hidden="true"><use href="#icon-compose"/></svg></button></h3><article class="demo-card"><strong>Document cache invalidation</strong><small>Brief only</small></article></section>
                 <section class="demo-lane"><h3><i></i>Ready <small>1</small></h3><article class="demo-card"><strong>Improve cancellation handling</strong><small>RelayKit</small></article></section>
@@ -74,7 +73,7 @@
               <div class="demo-composer"><span>Ask a follow-up…</span><button type="button" data-open="voice" aria-label="Try dictation"><svg aria-hidden="true"><use href="#icon-mic"/></svg></button></div>
             </section>
             <section class="demo-view" id="demo-voice" hidden>
-              <div class="demo-heading"><div><span class="eyebrow">Tasks</span><h2>New task</h2></div><button type="button" class="demo-action" data-open="tasks">Back to Tasks</button></div>
+              <div class="demo-heading"><div><h2>New task</h2></div><button type="button" class="demo-action" data-open="tasks">Back to Tasks</button></div>
               <div class="demo-brief">
                 <div><small>Title</small><strong>Improve provider metadata</strong></div>
                 <div><small>Brief</small><p id="demo-transcript" aria-live="polite">Dictate a brief…</p></div>
@@ -90,7 +89,7 @@
               <div class="demo-work" id="demo-work-items"></div>
             </section>
             <section class="demo-view" id="demo-reports" hidden>
-              <div class="demo-heading"><div><span class="eyebrow">Tasks / Review</span><h2>Improve provider metadata</h2></div><span class="demo-chip">3 reports ready</span></div>
+              <div class="demo-heading"><div><h2>Improve provider metadata</h2></div><span class="demo-chip">3 reports ready</span></div>
               <div class="demo-reports" id="demo-reports-list"></div>
               <button type="button" class="demo-primary" data-open="review"><svg aria-hidden="true"><use href="#icon-split"/></svg>Compare diffs</button>
             </section>
@@ -100,7 +99,7 @@
               <p class="demo-tour-note" hidden><strong>1 / 2</strong> Cache the lookup at the request boundary so workers can reuse it safely. <button type="button" class="demo-action" id="demo-tour-next">Next</button></p>
             </section>
             <section class="demo-view" id="demo-memory" hidden>
-              <div class="demo-heading"><div><span class="eyebrow">Across providers</span><h2>Shared memory</h2></div><span class="demo-chip">Claude Code · Codex</span></div>
+              <div class="demo-heading"><div><h2>Shared memory</h2></div><span class="demo-chip">Claude Code · Codex</span></div>
               <div class="demo-memory-scopes" aria-label="Memory scope">
                 <button type="button" class="demo-action" data-scope="project" aria-pressed="true">RelayKit</button>
                 <button type="button" class="demo-action" data-scope="global" aria-pressed="false">Across projects</button>
@@ -108,7 +107,7 @@
               <div class="demo-note" aria-live="polite"></div>
             </section>
             <section class="demo-view" id="demo-setup" hidden>
-              <div class="demo-heading"><div><span class="eyebrow">Get started</span><h2>Connect a Git host</h2></div></div>
+              <div class="demo-heading"><div><h2>Connect a Git host</h2></div></div>
               <div class="demo-setup-options" aria-label="Git host">
                 <button type="button" class="demo-action" data-host="GitHub" aria-pressed="true">GitHub</button>
                 <button type="button" class="demo-action" data-host="GitLab" aria-pressed="false">GitLab</button>
@@ -118,7 +117,9 @@
             </section>
           </div>
         </div>
-        <div class="demo-caption"><span class="demo-label">Interactive demo</span><span id="demo-caption">Follow one task across your agents</span><button type="button" id="demo-next" aria-label="Next demo step" title="Next demo step"><svg aria-hidden="true"><use href="#icon-next"/></svg></button></div>
+        <div class="demo-controls">
+          <button type="button" id="demo-next" aria-label="Next demo step"><svg aria-hidden="true"><use href="#icon-next"/></svg></button>
+        </div>
         <button type="button" class="pet" aria-label="Pet Pimi">
           <svg viewBox="0 0 128 118" aria-hidden="true">
             <ellipse cx="67" cy="108" rx="45" ry="6" fill="currentColor" opacity=".09"/>
@@ -160,11 +161,11 @@
 
     <div class="site-bottom wrap">
       <details class="install" id="install">
-        <summary>Apple silicon · macOS 13+ / Windows x64 <span>Installation details</span></summary>
+        <summary>Installation</summary>
         <div class="install-content">
-          <p><strong>macOS.</strong> Drag Pimi into Applications. The preview is ad-hoc signed and isn’t notarized by Apple.</p>
+          <p><strong>macOS 13+ · Apple silicon.</strong> Drag Pimi into Applications. The preview is ad-hoc signed and isn’t notarized by Apple.</p>
           <p><a href="https://support.apple.com/en-us/102445">First-launch help</a><a href="https://github.com/1ikeadragon/1ikeadragon.github.io/releases/download/pimi-v0.15.3-preview.2/SHA256SUMS.txt">macOS checksum</a></p>
-          <p><strong>Windows.</strong> Run the x64 installer. The preview installer is unsigned.</p>
+          <p><strong>Windows x64.</strong> Run the installer. The preview installer is unsigned.</p>
           <p><a href="https://github.com/1ikeadragon/1ikeadragon.github.io/releases/download/pimi-v0.15.3-windows-preview/SHA256SUMS.txt">Windows checksum</a></p>
         </div>
       </details>
