@@ -9,7 +9,7 @@
   <link rel="icon" href="icon.png">
   <link rel="preload" href="fonts/caveat-brush-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="site.css?v=9">
-  <link rel="stylesheet" href="demo.css?v=1">
+  <link rel="stylesheet" href="demo.css?v=2">
   <script type="module" src="story.js?v=8"></script>
   <title>Pimi — Your swarm’s best friend</title>
 </head>
@@ -119,30 +119,29 @@
           </div>
         </div>
         <div class="demo-caption"><span class="demo-label">Interactive demo</span><span id="demo-caption">Follow one task across your agents</span><button type="button" id="demo-next" aria-label="Next demo step" title="Next demo step"><svg aria-hidden="true"><use href="#icon-next"/></svg></button></div>
-        <button type="button" class="pet" aria-label="Pet Pimi" title="Pet Pimi">
+        <button type="button" class="pet" aria-label="Pet Pimi">
           <svg viewBox="0 0 128 118" aria-hidden="true">
             <ellipse cx="67" cy="108" rx="45" ry="6" fill="currentColor" opacity=".09"/>
             <g class="pet-tail">
-              <path d="M92 95c20-8 32-25 24-40-5-9-16-10-23-5 8 0 12 8 6 13-5 3-9 1-11-5-4 8-2 17 4 23Z" fill="#c77d50" stroke="#704132" stroke-width="1.6" stroke-linejoin="round"/>
-              <path d="M105 53c7 4 7 11 3 17-3 4-7 6-12 7" fill="none" stroke="#f4c79d" stroke-width="2.2" stroke-linecap="round"/>
+              <path d="M92 95c20-8 32-25 24-40-5-9-16-10-23-5 8 0 12 8 6 13-5 3-9 1-11-5-4 8-2 17 4 23Z" fill="#f2eadb" stroke="#252326" stroke-width="1.9" stroke-linejoin="round"/>
+              <path d="M105 53c7 4 7 11 3 17-3 4-7 6-12 7" fill="none" stroke="#fffdf8" stroke-width="2.2" stroke-linecap="round"/>
             </g>
-            <path d="M35 71c-12 8-15 22-7 31 4 4 17 5 23 2 9 5 29 4 37 0 10 2 17-3 17-9-1-10-9-21-21-28Z" fill="#d99462" stroke="#704132" stroke-width="1.6"/>
-            <path d="M48 71c-9 6-14 15-9 24 3 6 8 6 13 9l6-5 6 5 7-6c10-5 11-17 4-26Z" fill="#fff0d9"/>
-            <path d="M33 103c4-3 10-3 14-1m35 2c4-3 9-3 14-1" fill="none" stroke="#8c563e" stroke-width="1.5" stroke-linecap="round"/>
+            <path d="M35 71c-12 8-15 22-7 31 4 4 17 5 23 2 9 5 29 4 37 0 10 2 17-3 17-9-1-10-9-21-21-28Z" fill="#f5eee2" stroke="#252326" stroke-width="1.9"/>
+            <path d="M48 71c-9 6-14 15-9 24 3 6 8 6 13 9l6-5 6 5 7-6c10-5 11-17 4-26Z" fill="#fffefa"/>
+            <path d="M33 103c4-3 10-3 14-1m35 2c4-3 9-3 14-1" fill="none" stroke="#383433" stroke-width="1.5" stroke-linecap="round"/>
             <g class="pet-head">
-              <path d="M34 41c-2-7-1-20 3-29 7 3 14 9 17 15 6-2 12-2 18 0 5-7 11-12 18-14 4 9 4 20 1 29 7 5 11 12 9 20l-4-1 2 7-6-1-1 6-6-1c-6 8-14 11-22 9-10 2-18-1-24-8l-7 2-1-6-6 1 3-7-5 1c-1-9 4-17 11-23Z" fill="#e4a36b" stroke="#704132" stroke-width="1.6" stroke-linejoin="round"/>
-              <path d="M39 21c-1 6-1 12 1 17l10-6c-3-5-6-8-11-11Zm48 1c1 6 0 12-2 17l-9-6c3-5 7-9 11-11Z" fill="#bd6c62"/>
-              <path d="M32 59c4-4 11-6 17-3 5 2 9 0 14-4 5 4 9 6 14 4 7-3 14 0 17 4l-5 9-6-1c-4 6-11 10-20 9-11 1-16-3-21-9l-6 1Z" fill="#fff0d9"/>
-              <path d="M48 40q6-4 12-4m6 0q7 0 12 4" fill="none" stroke="#efbc8b" stroke-width="2" stroke-linecap="round"/>
-              <g class="pet-eyes" fill="#3d2729"><ellipse cx="47" cy="51" rx="3.3" ry="4"/><ellipse cx="79" cy="51" rx="3.3" ry="4"/><circle cx="48" cy="50" r="1" fill="#fff2e4"/><circle cx="80" cy="50" r="1" fill="#fff2e4"/></g>
-              <path class="pet-happy-eyes" d="M43 52q4-5 8 0m24 0q4-5 8 0" fill="none" stroke="#3d2729" stroke-width="2" stroke-linecap="round"/>
-              <path d="M58 59q5-3 10 0c1 3-2 6-5 6s-6-3-5-6Z" fill="#493037"/>
-              <path class="pet-mouth" d="M54 65q4 5 9 1 5 4 9-1" fill="none" stroke="#633f42" stroke-width="1.5" stroke-linecap="round"/>
-              <g class="pet-smile"><path d="M53 65q10 7 20 0c0 9-4 13-10 13s-10-4-10-13Z" fill="#593337"/><path d="M58 74q5-5 10 0-5 6-10 0Z" fill="#ec9b9b"/></g>
+              <path d="M34 41c-2-7-1-20 3-29 7 3 14 9 17 15 6-2 12-2 18 0 5-7 11-12 18-14 4 9 4 20 1 29 7 5 11 12 9 20l-4-1 2 7-6-1-1 6-6-1c-6 8-14 11-22 9-10 2-18-1-24-8l-7 2-1-6-6 1 3-7-5 1c-1-9 4-17 11-23Z" fill="#fffefa" stroke="#252326" stroke-width="1.9" stroke-linejoin="round"/>
+              <path d="M39 21c-1 6-1 12 1 17l10-6c-3-5-6-8-11-11Zm48 1c1 6 0 12-2 17l-9-6c3-5 7-9 11-11Z" fill="#ded0bf"/>
+              <path d="M32 59c4-4 11-6 17-3 5 2 9 0 14-4 5 4 9 6 14 4 7-3 14 0 17 4l-5 9-6-1c-4 6-11 10-20 9-11 1-16-3-21-9l-6 1Z" fill="#f3ecdf"/>
+              <path d="M48 40q6-4 12-4m6 0q7 0 12 4" fill="none" stroke="#e2d8c9" stroke-width="2" stroke-linecap="round"/>
+              <g class="pet-eyes" fill="#252326"><ellipse cx="47" cy="51" rx="3.3" ry="4"/><ellipse cx="79" cy="51" rx="3.3" ry="4"/><circle cx="48" cy="50" r="1" fill="#fffefa"/><circle cx="80" cy="50" r="1" fill="#fffefa"/></g>
+              <path class="pet-happy-eyes" d="M43 52q4-5 8 0m24 0q4-5 8 0" fill="none" stroke="#252326" stroke-width="2" stroke-linecap="round"/>
+              <path d="M58 59q5-3 10 0c1 3-2 6-5 6s-6-3-5-6Z" fill="#252326"/>
+              <path class="pet-mouth" d="M54 65q4 5 9 1 5 4 9-1" fill="none" stroke="#383433" stroke-width="1.5" stroke-linecap="round"/>
+              <g class="pet-smile"><path d="M53 65q10 7 20 0c0 9-4 13-10 13s-10-4-10-13Z" fill="#302c2d"/><path d="M58 74q5-5 10 0-5 6-10 0Z" fill="#d7c7bc"/></g>
             </g>
-            <path class="pet-heart" d="M105 26c-11-7-4-15 0-10 4-5 11 3 0 10Z" fill="#d87d92"/>
+            <path class="pet-heart" d="M105 26c-11-7-4-15 0-10 4-5 11 3 0 10Z" fill="currentColor"/>
           </svg>
-          <span>Pet Pimi</span>
         </button>
       </div>
     </section>

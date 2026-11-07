@@ -166,7 +166,6 @@
   display: grid; justify-items: center; width: 107px; padding: 0; border: 0; background: none;
 }
 .pet svg { display: block; width: 100%; overflow: visible; }
-.pet span { font: 16px/1 "Caveat Brush", cursive; color: var(--muted); }
 .pet-tail { transform-origin: 91px 88px; }
 .pet-head { transform-origin: 63px 67px; }
 .pet-smile, .pet-happy-eyes, .pet-heart { opacity: 0; }
@@ -187,7 +186,6 @@
 @media (max-width: 1320px) {
   .workflow { width: min(1020px, calc(100% - 144px)); }
   .pet { left: calc(100% + 1px); width: 70px; }
-  .pet span { font-size: 13px; }
 }
 @media (max-width: 880px) {
   .workflow { width: calc(100% - 32px); }
