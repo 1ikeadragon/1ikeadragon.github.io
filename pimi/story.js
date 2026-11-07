@@ -87,9 +87,11 @@ const stages = [
   { view: 'tasks' },
   { view: 'tasks', ready: true },
   { view: 'chat' },
-  { view: 'voice', dictation: true },
+  { view: 'chat', command: true, rail: true },
+  { view: 'voice', rail: false, draft: true },
   { view: 'work' },
   { view: 'reports' },
+  { view: 'artifact', artifact: 'file' },
   { view: 'review', compare: 1 },
   { view: 'review', compare: 2, tour: true },
   { view: 'memory' },
@@ -115,13 +117,29 @@ const laneReview = document.querySelector('[data-lane="review"]');
 const voice = document.querySelector('#demo-voice');
 const transcript = document.querySelector('#demo-transcript');
 const voiceStatus = document.querySelector('#demo-voice-status');
+const dictationWave = voiceStatus.querySelector('.wave');
+const dictationStatus = voiceStatus.lastElementChild;
 const record = document.querySelector('#demo-record');
+const windowFrame = document.querySelector('.demo-window');
+const sidebarToggle = document.querySelector('#demo-sidebar-toggle');
+const windowTitle = document.querySelector('#demo-window-title');
+const taskLayout = document.querySelector('#demo-task-layout');
+const reportPicker = document.querySelector('#demo-report-worker');
+const reportReader = document.querySelector('.demo-report-reader');
+const reportWork = document.querySelector('#demo-report-work');
+const reportDocument = document.querySelector('#demo-report-document');
+const copyReport = document.querySelector('#demo-copy-report');
+const liveToggle = document.querySelector('#demo-live-toggle');
+const liveStatus = document.querySelector('#demo-live-status');
+const liveGlyph = document.querySelector('#demo-live-glyph');
+const brief = 'Compare request caching and a shared cache across RelayKit and ControlPlane. Add metrics so we can see which approach helps.';
 
 let shown = 'tasks';
 let currentStep = 0;
 let scrollStep = 0;
 let scrollFrame = 0;
 let recordingTimer;
+let commandTimer;
 let petTimer;
 
 function node(tag, text, className) {
@@ -135,16 +153,70 @@ for (const [index, review] of reviews.entries()) {
   const work = node('button', '', 'demo-work-item');
   work.type = 'button';
   work.dataset.open = 'reports';
+  work.dataset.worker = String(index);
   work.append(node('strong', review.branch), node('small', review.repo), node('span', 'Ready for review'));
-  document.querySelector('#demo-work-items').append(work);
-
-  const report = node('button', '', 'demo-report');
-  report.type = 'button';
-  report.dataset.open = 'review';
-  report.dataset.review = String(index);
-  report.append(node('strong', review.branch), node('span', review.repo), node('small', review.summary));
-  document.querySelector('#demo-reports-list').append(report);
+  reportWork.append(work);
+  const card = work.cloneNode(true);
+  card.className = 'demo-card';
+  document.querySelector('#demo-work-items').append(card);
+  reportPicker.add(new Option(review.branch + ' · ' + review.repo, index));
 }
+
+function showReport(index) {
+  const review = reviews[index];
+  reportPicker.value = index;
+  document.querySelector('#demo-report-title').textContent = review.branch;
+  document.querySelector('#demo-report-review').dataset.review = String(index);
+  copyReport.textContent = 'Copy report';
+  reportDocument.replaceChildren(
+    node('h4', 'Findings'),
+    node('p', review.summary),
+    node('h4', 'Review'),
+    node('p', 'The change is in ' + review.file + '. Compare this approach with the other worktrees before rollout.'),
+  );
+}
+
+const reportTabs = [...document.querySelectorAll('[data-task-view]')];
+function showTaskView(view) {
+  reportReader.hidden = view !== 'reports';
+  reportWork.hidden = view !== 'work';
+  reportTabs.forEach(button => button.setAttribute('aria-pressed', String(button.dataset.taskView === view)));
+}
+reportTabs.forEach(button => button.addEventListener('click', () => showTaskView(button.dataset.taskView)));
+reportPicker.addEventListener('change', () => showReport(Number(reportPicker.value)));
+copyReport.addEventListener('click', async () => {
+  try {
+    await navigator.clipboard.writeText(reportDocument.innerText);
+    copyReport.textContent = 'Copied';
+  } catch {
+    copyReport.textContent = 'Copy unavailable';
+  }
+});
+showReport(0);
+
+function showArtifact(kind) {
+  const review = reviews[Number(reportPicker.value)];
+  const web = kind === 'web';
+  document.querySelector('#demo-artifact-tab').textContent = web ? 'Provider cache report' : 'research-report.md';
+  document.querySelector('.demo-artifact-toolbar').hidden = !web;
+  document.querySelector('#demo-artifact-summary').textContent = review.summary;
+}
+
+function setSidebar(rail) {
+  windowFrame.dataset.sidebar = rail ? 'rail' : 'dock';
+  sidebarToggle.setAttribute('aria-expanded', String(!rail));
+}
+sidebarToggle.addEventListener('click', () => setSidebar(windowFrame.dataset.sidebar !== 'rail'));
+
+taskLayout.addEventListener('click', () => {
+  const list = board.dataset.layout !== 'list';
+  board.dataset.layout = list ? 'list' : 'board';
+  const label = list ? 'Switch to Board view' : 'Switch to List view';
+  taskLayout.setAttribute('aria-pressed', String(list));
+  taskLayout.setAttribute('aria-label', label);
+  taskLayout.title = label;
+  document.querySelector('#demo-task-layout-icon').setAttribute('href', list ? '#icon-split' : '#icon-list');
+});
 
 const pickers = ['Primary review', 'Comparison review'].map((label) => {
   const pane = node('article', '', 'diff-card');
@@ -221,19 +293,21 @@ document.querySelector('#demo-tour-next').addEventListener('click', () => {
   showTour(true, (Number(tourNote.dataset.step) + 1) % tourNotes.length);
 });
 
-const wave = document.querySelector('.wave');
-for (const [index, height] of [6, 13, 10, 24, 16, 26, 15, 22, 10, 15, 7].entries()) {
-  const bar = document.createElement('i');
-  bar.style.setProperty('--amplitude', height + 'px');
-  bar.style.setProperty('--delay', -index * 73 + 'ms');
-  wave.append(bar);
+for (const wave of document.querySelectorAll('.wave')) {
+  for (const [index, height] of [8, 14, 10].entries()) {
+    const bar = document.createElement('i');
+    bar.style.setProperty('--amplitude', height + 'px');
+    bar.style.setProperty('--delay', -index * 73 + 'ms');
+    wave.append(bar);
+  }
 }
 
-function finishRecording() {
+function finishRecording(insert = true) {
   clearTimeout(recordingTimer);
   voice.removeAttribute('data-recording');
-  voiceStatus.textContent = 'Inserted';
-  transcript.textContent = 'Compare request caching and a shared cache across RelayKit and ControlPlane. Add metrics so we can see which approach helps.';
+  dictationWave.hidden = true;
+  dictationStatus.textContent = insert ? 'Inserted' : '';
+  if (insert) transcript.value = brief;
   record.setAttribute('aria-label', 'Try sample dictation again');
   record.title = 'Try sample dictation again';
 }
@@ -241,8 +315,8 @@ function finishRecording() {
 function startRecording() {
   clearTimeout(recordingTimer);
   voice.setAttribute('data-recording', '');
-  voiceStatus.textContent = 'Listening';
-  transcript.textContent = 'Listening to the sample brief…';
+  dictationWave.hidden = false;
+  dictationStatus.textContent = 'Listening';
   record.setAttribute('aria-label', 'Insert brief');
   record.title = 'Insert brief';
   recordingTimer = setTimeout(finishRecording, 2600);
@@ -251,6 +325,44 @@ function startRecording() {
 record.addEventListener('click', () => {
   if (voice.hasAttribute('data-recording')) finishRecording();
   else startRecording();
+});
+
+function setListening(active, status = '', speaking = false) {
+  liveToggle.setAttribute('aria-pressed', String(active));
+  const label = active ? 'Stop listening' : 'Try voice commands';
+  liveToggle.setAttribute('aria-label', label);
+  liveToggle.title = label;
+  liveGlyph.setAttribute('href', active ? '#icon-stop' : '#icon-mic');
+  liveStatus.hidden = !status;
+  liveStatus.querySelector('span').textContent = status;
+  liveStatus.toggleAttribute('data-speaking', speaking);
+}
+
+function fillTaskDraft() {
+  document.querySelector('#demo-task-title').value = 'Improve provider metadata';
+  transcript.value = brief;
+  setListening(true, 'Got it · Opening task draft');
+}
+
+function runVoiceCommand(openDraft) {
+  clearTimeout(commandTimer);
+  setListening(true, 'Listening', true);
+  commandTimer = setTimeout(() => {
+    fillTaskDraft();
+    if (openDraft) {
+      currentStep = stages.findIndex(stage => stage.view === 'voice');
+      showView('voice', true);
+    }
+  }, 1100);
+}
+
+liveToggle.addEventListener('click', () => {
+  if (liveToggle.getAttribute('aria-pressed') === 'true') {
+    clearTimeout(commandTimer);
+    setListening(false);
+  } else {
+    runVoiceCommand(true);
+  }
 });
 
 const memory = {
@@ -389,7 +501,7 @@ function moveTask(ready) {
 
 function showView(view, focusHeading = false) {
   if (shown === view) return;
-  if (shown === 'voice' && voice.hasAttribute('data-recording')) finishRecording();
+  if (shown === 'voice' && voice.hasAttribute('data-recording')) finishRecording(false);
   const panel = document.querySelector('#demo-' + view);
   const focusWasInPanel = panels.some((item) => item.contains(document.activeElement));
   shown = view;
@@ -397,7 +509,8 @@ function showView(view, focusHeading = false) {
     item.hidden = item !== panel;
     item.classList.toggle('demo-enter', item === panel);
   }
-  const navView = ['voice', 'reports'].includes(view) ? 'tasks' : view === 'import' ? 'setup' : view;
+  const navView = ['voice', 'reports'].includes(view) ? 'tasks' : view === 'import' ? 'setup' : view === 'artifact' ? 'chat' : view;
+  windowTitle.textContent = navView === 'chat' ? 'RelayKit  ›  Provider metadata' : '';
   for (const button of nav) {
     if (button.dataset.view === navView) button.setAttribute('aria-current', 'true');
     else button.removeAttribute('aria-current');
@@ -412,9 +525,15 @@ function showView(view, focusHeading = false) {
 function showStep(index) {
   currentStep = index;
   const stage = stages[index];
+  clearTimeout(commandTimer);
+  setListening(false);
+  if (stage.rail !== undefined) setSidebar(stage.rail);
+  if (stage.artifact) showArtifact(stage.artifact);
+  if (stage.view === 'reports') showTaskView('reports');
   showView(stage.view);
   if (stage.view === 'tasks') moveTask(Boolean(stage.ready));
-  if (stage.dictation) startRecording();
+  if (stage.command) runVoiceCommand(false);
+  if (stage.draft) fillTaskDraft();
   if (stage.compare) {
     renderDiff(0, 0);
     renderDiff(1, stage.compare);
@@ -426,6 +545,18 @@ workflow.addEventListener('click', (event) => {
   const button = event.target.closest('button[data-view], button[data-open]');
   if (!button) return;
   const view = button.dataset.view ?? button.dataset.open;
+  if (button.id === 'demo-use-brief') {
+    if (!document.querySelector('#demo-task-title').reportValidity() || !transcript.reportValidity()) return;
+  }
+  if (liveStatus.hasAttribute('data-speaking')) {
+    clearTimeout(commandTimer);
+    setListening(false);
+  }
+  if (view === 'reports') {
+    showTaskView('reports');
+    if (button.dataset.worker !== undefined) showReport(Number(button.dataset.worker));
+  }
+  if (button.dataset.artifact) showArtifact(button.dataset.artifact);
   const index = stages.findIndex((stage) => stage.view === view);
   currentStep = index;
   showView(view, button.hasAttribute('data-open'));

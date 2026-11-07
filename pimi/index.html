@@ -9,8 +9,8 @@
   <link rel="icon" href="icon.png">
   <link rel="preload" href="fonts/caveat-brush-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="site.css?v=10">
-  <link rel="stylesheet" href="demo.css?v=6">
-  <script type="module" src="story.js?v=10"></script>
+  <link rel="stylesheet" href="demo.css?v=7">
+  <script type="module" src="story.js?v=11"></script>
   <title>Your swarm’s best friend</title>
 </head>
 <body>
@@ -40,21 +40,26 @@
     <section class="workflow wrap" aria-label="Pimi demo">
       <div class="workflow-sticky">
         <div class="demo-window">
-          <aside class="demo-sidebar">
+          <div class="demo-titlebar">
+            <span class="demo-traffic-lights" aria-hidden="true"><i></i><i></i><i></i></span>
+            <button type="button" id="demo-sidebar-toggle" aria-controls="demo-sidebar" aria-expanded="true" aria-label="Toggle session sidebar" title="Toggle session sidebar"><svg aria-hidden="true"><use href="#icon-split"/></svg></button>
+            <span id="demo-window-title"></span>
+          </div>
+          <aside id="demo-sidebar" class="demo-sidebar">
             <div class="demo-brand"><img src="icon.png" width="25" height="25" alt=""><strong>Pimi</strong></div>
             <nav class="demo-nav" aria-label="Demo views">
-              <button type="button" data-view="tasks" aria-current="true"><svg aria-hidden="true"><use href="#icon-tasks"/></svg>Tasks</button>
-              <button type="button" data-view="chat"><svg aria-hidden="true"><use href="#icon-chat"/></svg>Chat</button>
-              <button type="button" data-view="work"><svg aria-hidden="true"><use href="#icon-branch"/></svg>Work</button>
-              <button type="button" data-view="review"><svg aria-hidden="true"><use href="#icon-split"/></svg>Review</button>
-              <button type="button" data-view="memory"><svg aria-hidden="true"><use href="#icon-memory"/></svg>Memory</button>
-              <button type="button" data-view="setup"><svg aria-hidden="true"><use href="#icon-gear"/></svg>Setup</button>
+              <button type="button" data-view="chat" title="Chat"><svg aria-hidden="true"><use href="#icon-chat"/></svg><span>Chat</span></button>
+              <button type="button" data-view="tasks" title="Tasks" aria-current="true"><svg aria-hidden="true"><use href="#icon-tasks"/></svg><span>Tasks</span></button>
+              <button type="button" data-view="work" title="Work"><svg aria-hidden="true"><use href="#icon-branch"/></svg><span>Work</span></button>
+              <button type="button" data-view="review" title="Review"><svg aria-hidden="true"><use href="#icon-split"/></svg><span>Review</span></button>
+              <button type="button" data-view="memory" title="Memory"><svg aria-hidden="true"><use href="#icon-memory"/></svg><span>Memory</span></button>
             </nav>
             <div class="demo-sessions"><small>Sessions</small><p><i>R</i> RelayKit</p><p><i>C</i> ControlPlane</p><p><i>O</i> Observatory</p></div>
+            <div class="demo-nav demo-sidebar-footer"><button type="button" data-view="setup" title="Setup"><svg aria-hidden="true"><use href="#icon-gear"/></svg><span>Setup</span></button></div>
           </aside>
           <div class="demo-main">
             <section class="demo-view" id="demo-tasks">
-              <div class="demo-heading"><div><h2>Tasks</h2></div><button type="button" class="demo-primary" data-open="voice"><svg aria-hidden="true"><use href="#icon-compose"/></svg>New task</button></div>
+              <div class="demo-heading"><h2>Tasks</h2><div class="demo-tools"><button type="button" class="demo-action" id="demo-task-layout" aria-pressed="false" aria-label="Switch to List view" title="Switch to List view"><svg aria-hidden="true"><use id="demo-task-layout-icon" href="#icon-list"/></svg></button><button type="button" class="demo-primary" data-open="voice"><svg aria-hidden="true"><use href="#icon-compose"/></svg>New task</button></div></div>
               <div class="demo-board">
                 <section class="demo-lane"><h3><i></i>To Do <small>1</small><button type="button" data-open="voice" aria-label="New task in To Do"><svg aria-hidden="true"><use href="#icon-compose"/></svg></button></h3><article class="demo-card"><strong>Document cache invalidation</strong><small>Brief only</small></article></section>
                 <section class="demo-lane"><h3><i></i>Ready <small>1</small></h3><article class="demo-card"><strong>Improve cancellation handling</strong><small>RelayKit</small></article></section>
@@ -64,34 +69,70 @@
               </div>
             </section>
             <section class="demo-view" id="demo-chat" hidden>
-              <div class="demo-heading"><div><span class="eyebrow">RelayKit</span><h2>Provider metadata</h2></div><span class="demo-chip">Claude Code</span></div>
+              <div class="demo-chat-tabs"><span><svg aria-hidden="true"><use href="#icon-chat"/></svg>Provider metadata</span></div>
+              <h2 class="demo-sr-only">Provider metadata</h2>
               <div class="demo-conversation">
                 <p class="demo-bubble">Could we stop looking up provider metadata for every request?</p>
                 <p>We can try request caching and a shared cache in separate worktrees, then compare the trade-offs.</p>
                 <button type="button" class="demo-action" data-open="voice">Review task draft <span aria-hidden="true">↗</span></button>
               </div>
-              <div class="demo-composer"><span>Ask a follow-up…</span><button type="button" data-open="voice" aria-label="Try dictation"><svg aria-hidden="true"><use href="#icon-mic"/></svg></button></div>
+              <div class="demo-composer"><span>Message the agent, tag @files, or use /commands and /skills</span><div><small>Claude Code</small><button type="button" data-open="voice" aria-label="Try dictation"><svg aria-hidden="true"><use href="#icon-mic"/></svg></button></div></div>
             </section>
             <section class="demo-view" id="demo-voice" hidden>
-              <div class="demo-heading"><div><h2>New task</h2></div><button type="button" class="demo-action" data-open="tasks">Back to Tasks</button></div>
+              <div class="demo-heading"><h2>Tasks</h2></div>
               <div class="demo-brief">
-                <div><small>Title</small><strong>Improve provider metadata</strong></div>
-                <div><small>Brief</small><p id="demo-transcript" aria-live="polite">Dictate a brief…</p></div>
-              </div>
-              <div class="demo-dictation">
-                <div class="voice-signal"><span class="voice-dot"></span><div class="wave" aria-hidden="true"></div><span id="demo-voice-status">Ready</span></div>
-                <button type="button" class="demo-action" id="demo-record" aria-label="Try sample dictation" title="Try sample dictation"><svg aria-hidden="true"><use href="#icon-mic"/></svg></button>
-                <button type="button" class="demo-primary" id="demo-use-brief" data-open="work">Create task</button>
+                <h3>New task</h3>
+                <label>Title<input id="demo-task-title" type="text" value="Improve provider metadata" required></label>
+                <label>Brief<textarea id="demo-transcript" rows="3" placeholder="What are we trying to accomplish?" required></textarea></label>
+                <label>Worker workspace<select><option>Chat</option><option>Git worktree</option></select></label>
+                <label>Repository<select><option>Attach later</option><option>RelayKit</option><option>ControlPlane</option></select></label>
+                <div class="demo-dictation">
+                  <button type="button" class="demo-action" data-open="tasks">Cancel</button>
+                  <span id="demo-voice-status" role="status"><span class="wave" aria-hidden="true" hidden></span><span></span></span>
+                  <button type="button" class="demo-action" id="demo-record" aria-label="Try sample dictation" title="Try sample dictation"><svg aria-hidden="true"><use href="#icon-mic"/></svg></button>
+                  <button type="button" class="demo-primary" id="demo-use-brief" data-open="work">Create task</button>
+                </div>
               </div>
             </section>
             <section class="demo-view" id="demo-work" hidden>
               <div class="demo-heading"><div><span class="eyebrow">3 repositories</span><h2>Work</h2></div><span class="demo-chip">Provider metadata</span></div>
-              <div class="demo-work" id="demo-work-items"></div>
+              <div class="demo-board demo-work-board" aria-label="Work board">
+                <section class="demo-lane"><h3><i></i>Ready</h3><article class="demo-card"><strong>Cancellation handling</strong><small>RelayKit</small></article></section>
+                <section class="demo-lane lane-running"><h3><i></i>In progress</h3><article class="demo-card"><strong>Checkout status</strong><small>ControlPlane</small></article></section>
+                <section class="demo-lane lane-review" id="demo-work-items"><h3><i></i>Review</h3></section>
+                <section class="demo-lane"><h3><i></i>Needs attention</h3><small>Nothing needs attention</small></section>
+              </div>
             </section>
             <section class="demo-view" id="demo-reports" hidden>
-              <div class="demo-heading"><div><h2>Improve provider metadata</h2></div><span class="demo-chip">3 reports ready</span></div>
-              <div class="demo-reports" id="demo-reports-list"></div>
-              <button type="button" class="demo-primary" data-open="review"><svg aria-hidden="true"><use href="#icon-split"/></svg>Compare diffs</button>
+              <button type="button" class="demo-action" data-open="tasks">‹ Tasks</button>
+              <div class="demo-heading"><h2>Improve provider metadata</h2></div>
+              <p class="demo-report-brief">Compare ways to cut redundant provider lookups and measure the trade-offs.</p>
+              <div class="demo-report-tabs" aria-label="Task view">
+                <button type="button" class="demo-action" data-task-view="reports" aria-pressed="true">Reports · 3</button>
+                <button type="button" class="demo-action" data-task-view="work" aria-pressed="false">Work items</button>
+              </div>
+              <div class="demo-report-reader">
+                <div class="demo-report-picker"><select id="demo-report-worker" aria-label="Report worker"></select><small>3 of 3 ready</small></div>
+                <div class="demo-report-header"><h3 id="demo-report-title"></h3><div class="demo-report-actions"><button type="button" class="demo-action" id="demo-copy-report">Copy report</button><button type="button" class="demo-action" data-open="chat">Open chat</button></div></div>
+                <article id="demo-report-document"></article>
+                <div class="demo-report-actions">
+                  <button type="button" class="demo-action" data-open="artifact" data-artifact="file">research-report.md ↗</button>
+                  <button type="button" class="demo-action" data-open="artifact" data-artifact="web">Web report ↗</button>
+                  <button type="button" class="demo-action" id="demo-report-review" data-open="review">Review changes</button>
+                </div>
+              </div>
+              <div id="demo-report-work" class="demo-work" hidden></div>
+            </section>
+            <section class="demo-view" id="demo-artifact" hidden>
+              <div class="demo-chat-tabs"><button type="button" class="demo-action" data-open="chat">Provider metadata</button><span id="demo-artifact-tab"></span></div>
+              <div class="demo-artifact-toolbar" hidden>reports.relaykit.example/provider-cache</div>
+              <article class="demo-artifact-body" aria-labelledby="demo-artifact-heading">
+                <h2 id="demo-artifact-heading">Provider cache findings</h2>
+                <p id="demo-artifact-summary"></p>
+                <h3>How to verify</h3>
+                <p>Compare lookup counts across the same request, then confirm the cache expires at the expected boundary.</p>
+                <button type="button" class="demo-action" data-open="reports">Back to report</button>
+              </article>
             </section>
             <section class="demo-view" id="demo-review" hidden>
               <div class="demo-heading"><div><span class="eyebrow">Provider metadata</span><h2>Review</h2></div><div class="demo-tools"><button type="button" class="demo-action" id="demo-tile" aria-pressed="false" aria-label="Stack review panes" title="Stack review panes"><svg aria-hidden="true"><use href="#icon-split"/></svg></button><button type="button" class="demo-action" id="demo-tour" aria-expanded="false">Code tour</button></div></div>
@@ -129,6 +170,12 @@
               <button type="button" class="demo-primary" id="demo-import-session"><svg aria-hidden="true"><use href="#icon-import"/></svg><span>Import</span></button>
               <span class="demo-import-status" role="status"></span>
             </section>
+            <div class="demo-live">
+              <div id="demo-live-status" class="demo-live-status" role="status" hidden><div class="wave" aria-hidden="true"></div><span></span></div>
+              <button type="button" id="demo-live-toggle" aria-label="Try voice commands" aria-pressed="false" title="Try voice commands">
+                <img src="voice-dog.svg" alt=""><span><svg aria-hidden="true"><use id="demo-live-glyph" href="#icon-mic"/></svg></span>
+              </button>
+            </div>
           </div>
         </div>
         <div class="demo-controls">
@@ -171,6 +218,8 @@
       <symbol id="icon-compose" viewBox="0 0 24 24"><path d="M11 4H6a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-5m-10 1 1-4 7-7 3 3-7 7-4 1Z"/></symbol>
       <symbol id="icon-mic" viewBox="0 0 24 24"><rect x="9" y="3" width="6" height="12" rx="3"/><path d="M5 11a7 7 0 0 0 14 0m-7 7v3"/></symbol>
       <symbol id="icon-import" viewBox="0 0 24 24"><path d="M12 3v12m-4-4 4 4 4-4M5 17v3h14v-3"/></symbol>
+      <symbol id="icon-stop" viewBox="0 0 24 24"><rect x="6" y="6" width="12" height="12" rx="2"/></symbol>
+      <symbol id="icon-list" viewBox="0 0 24 24"><path d="M9 6h11M9 12h11M9 18h11M4 6h1m-1 6h1m-1 6h1"/></symbol>
       <symbol id="icon-next" viewBox="0 0 24 24"><path d="m9 5 7 7-7 7"/></symbol>
     </svg>
 
