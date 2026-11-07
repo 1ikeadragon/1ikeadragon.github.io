@@ -9,8 +9,8 @@
   <link rel="icon" href="icon.png">
   <link rel="preload" href="fonts/caveat-brush-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="site.css?v=10">
-  <link rel="stylesheet" href="demo.css?v=3">
-  <script type="module" src="story.js?v=9"></script>
+  <link rel="stylesheet" href="demo.css?v=4">
+  <script type="module" src="story.js?v=10"></script>
   <title>Pimi — Your swarm’s best friend</title>
 </head>
 <body>
@@ -104,16 +104,29 @@
                 <button type="button" class="demo-action" data-scope="project" aria-pressed="true">RelayKit</button>
                 <button type="button" class="demo-action" data-scope="global" aria-pressed="false">Across projects</button>
               </div>
-              <div class="demo-note" aria-live="polite"></div>
+              <div class="demo-memory-layout">
+                <div class="demo-memory-list" role="group" aria-label="Memory notes"></div>
+                <article class="demo-note" aria-live="polite"></article>
+              </div>
             </section>
             <section class="demo-view" id="demo-setup" hidden>
-              <div class="demo-heading"><div><h2>Connect a Git host</h2></div></div>
-              <div class="demo-setup-options" aria-label="Git host">
-                <button type="button" class="demo-action" data-host="GitHub" aria-pressed="true">GitHub</button>
-                <button type="button" class="demo-action" data-host="GitLab" aria-pressed="false">GitLab</button>
-                <button type="button" class="demo-action" data-host="Local repository" aria-pressed="false">Local repository</button>
-              </div>
-              <div class="demo-note" id="demo-setup-note" aria-live="polite"><small>GitHub</small><h3>Use the GitHub CLI</h3><code>gh auth login</code></div>
+              <div class="demo-heading"><h2>Git providers</h2></div>
+              <ul class="demo-connections">
+                <li><strong>GitHub</strong><span class="connection-state connected">Connected</span></li>
+                <li><strong>GitLab</strong><span class="connection-state connected">Connected</span></li>
+                <li><strong>Bitbucket</strong><span class="connection-state">Not connected</span></li>
+              </ul>
+              <button type="button" class="demo-primary" data-open="import"><svg aria-hidden="true"><use href="#icon-import"/></svg>Import session</button>
+            </section>
+            <section class="demo-view" id="demo-import" hidden>
+              <div class="demo-heading"><h2>Import session</h2></div>
+              <fieldset class="demo-import-list" aria-label="Local sessions">
+                <label><input type="radio" name="demo-session" checked><span><strong>Provider cache investigation</strong><small>RelayKit · Claude Code</small></span></label>
+                <label><input type="radio" name="demo-session"><span><strong>Retry logic audit</strong><small>ControlPlane · Codex</small></span></label>
+                <label><input type="radio" name="demo-session"><span><strong>Compare cache metrics</strong><small>Observatory · Codex</small></span></label>
+              </fieldset>
+              <button type="button" class="demo-primary" id="demo-import-session"><svg aria-hidden="true"><use href="#icon-import"/></svg><span>Import</span></button>
+              <span class="demo-import-status" role="status"></span>
             </section>
           </div>
         </div>
@@ -156,6 +169,7 @@
       <symbol id="icon-gear" viewBox="0 0 24 24"><path d="M3 7h18M3 17h18"/><circle cx="9" cy="7" r="3"/><circle cx="15" cy="17" r="3"/></symbol>
       <symbol id="icon-compose" viewBox="0 0 24 24"><path d="M11 4H6a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-5m-10 1 1-4 7-7 3 3-7 7-4 1Z"/></symbol>
       <symbol id="icon-mic" viewBox="0 0 24 24"><rect x="9" y="3" width="6" height="12" rx="3"/><path d="M5 11a7 7 0 0 0 14 0m-7 7v3"/></symbol>
+      <symbol id="icon-import" viewBox="0 0 24 24"><path d="M12 3v12m-4-4 4 4 4-4M5 17v3h14v-3"/></symbol>
       <symbol id="icon-next" viewBox="0 0 24 24"><path d="m9 5 7 7-7 7"/></symbol>
     </svg>
 

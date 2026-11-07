@@ -94,6 +94,7 @@ const stages = [
   { view: 'review', compare: 2, tour: true },
   { view: 'memory' },
   { view: 'setup' },
+  { view: 'import' },
 ];
 
 const next = document.querySelector('#demo-next');
@@ -253,37 +254,109 @@ record.addEventListener('click', () => {
 });
 
 const memory = {
-  project: ['RelayKit · Project memory', 'Provider cache decision', 'Start with request-scoped caching. Keep the shared cache behind a flag until hit-rate metrics justify the added complexity.'],
-  global: ['Across projects', 'Review conventions', 'Show a short summary and the main trade-off before opening the diff. Flag anything that needs a human decision.'],
+  project: [
+    {
+      title: 'Provider cache decision',
+      kind: 'Architecture',
+      text: 'Start with request-scoped caching. Keep the shared cache behind a flag until hit-rate metrics justify the added complexity.',
+      detail: 'Measure cache hit rate and p95 request latency before enabling the flag for more traffic.',
+    },
+    {
+      title: 'Cache expiry',
+      kind: 'Reliability',
+      text: 'Expire shared metadata after 60 seconds. Invalidate it immediately when a provider configuration changes.',
+    },
+    {
+      title: 'Telemetry contract',
+      kind: 'Observability',
+      text: 'Record hit or miss on each lookup. Keep provider IDs out of metric labels so dashboards stay usable.',
+    },
+    {
+      title: 'Release gate',
+      kind: 'Rollout',
+      text: 'Review the RelayKit and ControlPlane diffs together before flipping the shared cache flag.',
+    },
+  ],
+  global: [
+    {
+      title: 'Review conventions',
+      kind: 'Code review',
+      text: 'Show a short summary and the main trade-off before opening the diff. Flag anything that needs a human decision.',
+    },
+    {
+      title: 'Agent handoffs',
+      kind: 'Workflow',
+      text: 'Hand off the branch, what changed, and how to verify it. Record open questions where the next agent can find them.',
+    },
+    {
+      title: 'Commit messages',
+      kind: 'Convention',
+      text: 'Use a short subject that says what changed. Put the reason and any rollout notes in the body.',
+    },
+    {
+      title: 'Parallel work',
+      kind: 'Workflow',
+      text: 'Give each approach its own worktree. Compare the results against the same brief and baseline.',
+    },
+  ],
 };
 const scopes = [...document.querySelectorAll('[data-scope]')];
-const note = document.querySelector('#demo-memory .demo-note');
+const memoryList = document.querySelector('.demo-memory-list');
+const note = document.querySelector('.demo-note');
+
 function showMemory(scope) {
-  const [label, title, text] = memory[scope];
-  note.replaceChildren(node('small', label), node('h3', title), node('p', text));
   for (const button of scopes) {
     button.setAttribute('aria-pressed', String(button.dataset.scope === scope));
   }
+  const entries = memory[scope];
+  const buttons = entries.map(({ title, kind }, index) => {
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.append(node('strong', title), node('small', kind));
+    button.addEventListener('click', () => selectNote(index));
+    return button;
+  });
+
+  function selectNote(index) {
+    const { title, kind, text, detail } = entries[index];
+    note.replaceChildren(node('small', kind), node('h3', title), node('p', text));
+    if (detail) note.append(node('p', detail));
+    buttons.forEach((button, position) => {
+      button.setAttribute('aria-pressed', String(position === index));
+    });
+  }
+
+  memoryList.replaceChildren(...buttons);
+  selectNote(0);
 }
 showMemory('project');
 for (const button of scopes) button.addEventListener('click', () => showMemory(button.dataset.scope));
 
-const hosts = {
-  GitHub: ['Use the GitHub CLI', 'gh auth login'],
-  GitLab: ['Use the GitLab CLI', 'glab auth login'],
-  'Local repository': ['Open an existing checkout', 'Choose a folder'],
-};
-const hostButtons = [...document.querySelectorAll('[data-host]')];
-for (const button of hostButtons) {
-  button.addEventListener('click', () => {
-    const host = button.dataset.host;
-    const [title, instruction] = hosts[host];
-    document.querySelector('#demo-setup-note').replaceChildren(
-      node('small', host), node('h3', title), node('code', instruction),
-    );
-    for (const option of hostButtons) option.setAttribute('aria-pressed', String(option === button));
-  });
+const sessionList = document.querySelector('.demo-import-list');
+const importSession = document.querySelector('#demo-import-session');
+const importStatus = document.querySelector('.demo-import-status');
+const importedSessions = new Set();
+
+function selectedSession() {
+  return sessionList.querySelector('input:checked');
 }
+
+function updateImport() {
+  const imported = importedSessions.has(selectedSession());
+  importSession.disabled = imported;
+  importSession.querySelector('span').textContent = imported ? 'Imported' : 'Import';
+}
+
+sessionList.addEventListener('change', () => {
+  importStatus.textContent = '';
+  updateImport();
+});
+importSession.addEventListener('click', () => {
+  const session = selectedSession();
+  importedSessions.add(session);
+  importStatus.textContent = session.labels[0].querySelector('strong').textContent + ' imported.';
+  updateImport();
+});
 
 const pet = document.querySelector('.pet');
 pet.addEventListener('click', () => {
@@ -324,7 +397,7 @@ function showView(view, focusHeading = false) {
     item.hidden = item !== panel;
     item.classList.toggle('demo-enter', item === panel);
   }
-  const navView = ['voice', 'reports'].includes(view) ? 'tasks' : view;
+  const navView = ['voice', 'reports'].includes(view) ? 'tasks' : view === 'import' ? 'setup' : view;
   for (const button of nav) {
     if (button.dataset.view === navView) button.setAttribute('aria-current', 'true');
     else button.removeAttribute('aria-current');
