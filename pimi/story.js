@@ -1,117 +1,69 @@
-const story = document.querySelector(".story");
-const scenes = [...story.querySelectorAll(".scene")];
-const controls = story.querySelector(".story-controls");
-const tabs = [...controls.querySelectorAll("[role=tab]")];
-const play = controls.querySelector(".story-play");
-const icon = play.querySelector("use");
-const progress = controls.querySelector(".story-progress");
-const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
-const sceneDuration = 5200;
-let selected = 0;
-let timer;
-let sweep;
-let startedAt = 0;
-let remaining = sceneDuration;
-let paused = false;
+(() => {
+  const workflow = document.querySelector('.workflow');
+  const app = workflow?.querySelector('.app-window');
+  if (!app) return;
+  const scenes = [...app.querySelectorAll('[data-scene]')];
+  const motion = window.matchMedia('(prefers-reduced-motion: reduce)');
+  const states = ['tasks', 'reports', 'review'];
+  const labels = ['Two agents working', 'Two reports ready', 'Comparing worktrees'];
+  let frame = 0;
+  let current = -1;
+  let ready;
 
-function show(index) {
-  selected = index;
-  scenes.forEach((scene, position) => {
-    const active = position === index;
-    scene.hidden = !active;
-    tabs[position].setAttribute("aria-selected", String(active));
-    tabs[position].tabIndex = active ? 0 : -1;
-  });
-}
+  function moveCard(progress) {
+    const travel = Math.max(0, Math.min(1, (progress - .05) / .3));
+    app.style.setProperty('--card-travel', travel.toFixed(4));
+    const nextReady = travel > .85;
+    if (ready === nextReady) return;
+    ready = nextReady;
+    app.toggleAttribute('data-card-ready', ready);
+    app.querySelector('[data-count=running]').textContent = ready ? '0' : '1';
+    app.querySelector('[data-count=review]').textContent = ready ? '1' : '0';
+    app.querySelectorAll('.work-state').forEach((state) => state.textContent = ready ? 'Ready' : 'Running');
+    app.querySelector('.card-state').textContent = ready ? 'Reports ready' : 'Agents at work';
+    if (current === 0) app.querySelector('.footer-state').textContent = ready ? labels[1] : labels[0];
+  }
 
-function setPlayControl(label, playing) {
-  story.toggleAttribute("data-playing", playing);
-  play.setAttribute("aria-label", label);
-  play.querySelector("span").textContent = label;
-  icon.setAttribute("href", playing ? "#pause-icon" : "#play-icon");
-}
-
-function stop(label = "Play tour") {
-  clearTimeout(timer);
-  timer = undefined;
-  sweep?.cancel();
-  paused = false;
-  remaining = sceneDuration;
-  setPlayControl(label, false);
-}
-
-function pause() {
-  if (timer === undefined) return;
-  remaining = Math.max(0, remaining - (performance.now() - startedAt));
-  clearTimeout(timer);
-  timer = undefined;
-  sweep?.cancel();
-  paused = true;
-  setPlayControl("Resume tour", false);
-}
-
-function advance() {
-  sweep?.cancel();
-  if (!reducedMotion.matches && remaining > 0) {
-    const fraction = 1 - remaining / sceneDuration;
-    sweep = progress.animate([{ transform: `scaleX(${fraction})` }, { transform: "scaleX(1)" }], {
-      duration: remaining,
-      fill: "forwards",
+  function show(index) {
+    if (index === current) return;
+    current = index;
+    app.dataset.phase = states[index];
+    scenes.forEach((scene, position) => {
+      scene.setAttribute('aria-hidden', String(position !== index));
+      scene.inert = position !== index;
     });
+    app.querySelector('.footer-state').textContent = labels[index === 0 && ready ? 1 : index];
   }
-  startedAt = performance.now();
-  timer = setTimeout(() => {
-    if (selected === scenes.length - 1) {
-      stop("Replay tour");
-      return;
+
+  function update() {
+    frame = 0;
+    if (motion.matches) { moveCard(0); return show(0); }
+    const stickyTop = parseFloat(getComputedStyle(app).top) || 0;
+    const distance = Math.max(1, workflow.offsetHeight - app.offsetHeight);
+    const progress = Math.max(0, Math.min(1, (stickyTop - workflow.getBoundingClientRect().top) / distance));
+    // The board gets most of the scroll: finish the move before opening the outcome.
+    moveCard(progress);
+    show(progress < .58 ? 0 : progress < .82 ? 1 : 2);
+  }
+
+  function schedule() {
+    if (!frame) frame = requestAnimationFrame(update);
+  }
+
+  function configure() {
+    workflow.toggleAttribute('data-scroll', !motion.matches);
+    if (motion.matches) {
+      window.removeEventListener('scroll', schedule);
+      window.removeEventListener('resize', schedule);
+      moveCard(0);
+      show(0);
+    } else {
+      window.addEventListener('scroll', schedule, { passive: true });
+      window.addEventListener('resize', schedule, { passive: true });
+      schedule();
     }
-    show(selected + 1);
-    remaining = sceneDuration;
-    advance();
-  }, remaining);
-}
-
-play.addEventListener("click", () => {
-  if (timer !== undefined) {
-    pause();
-    return;
   }
-  if (!paused) show(0);
-  paused = false;
-  setPlayControl("Pause tour", true);
-  advance();
-});
 
-tabs.forEach((tab, index) => {
-  scenes[index].setAttribute("role", "tabpanel");
-  scenes[index].setAttribute("aria-labelledby", tab.id);
-  tab.addEventListener("click", () => {
-    stop();
-    show(index);
-  });
-  tab.addEventListener("keydown", (event) => {
-    const positions = {
-      ArrowLeft: (index + tabs.length - 1) % tabs.length,
-      ArrowRight: (index + 1) % tabs.length,
-      Home: 0,
-      End: tabs.length - 1,
-    };
-    if (!Object.hasOwn(positions, event.key)) return;
-    event.preventDefault();
-    stop();
-    show(positions[event.key]);
-    tabs[selected].focus();
-  });
-});
-
-document.addEventListener("visibilitychange", () => {
-  if (document.hidden) pause();
-});
-if ("IntersectionObserver" in window) {
-  new IntersectionObserver(([entry]) => {
-    if (!entry.isIntersecting) pause();
-  }).observe(story);
-}
-show(0);
-story.dataset.enhanced = "";
-controls.hidden = false;
+  motion.addEventListener('change', configure);
+  configure();
+})();
