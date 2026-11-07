@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -8,11 +8,16 @@
   <link rel="canonical" href="https://1ikeadragon.github.io/pimi/">
   <link rel="icon" href="icon.png">
   <link rel="preload" href="fonts/caveat-brush-latin.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="site.css?v=7">
-  <script src="story.js?v=6" defer></script>
+  <link rel="stylesheet" href="site.css?v=8">
+  <link rel="stylesheet" href="demo.css?v=1">
+  <script type="module" src="story.js?v=8"></script>
   <title>Pimi — Your swarm’s best friend</title>
 </head>
 <body>
+  <button class="theme-toggle" type="button" aria-label="Dark mode" aria-pressed="false" title="Switch color theme" hidden>
+    <svg class="moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 15a8 8 0 0 1-11-11 8.5 8.5 0 1 0 11 11Z"/></svg>
+    <svg class="sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M2 12h2m16 0h2M5 5l2 2m10 10 2 2M5 19l2-2M17 7l2-2"/></svg>
+  </button>
   <main>
     <section class="hero wrap" aria-labelledby="headline">
       <p class="brand"><img src="icon.png" width="38" height="38" alt="">Pimi</p>
@@ -28,58 +33,126 @@
       </div>
     </section>
 
-    <section class="workflow wrap" aria-label="A workflow in Pimi">
+    <section class="workflow wrap" aria-label="Interactive Pimi demo">
       <div class="workflow-sticky">
-        <figure class="scene" data-active>
-          <div class="screen">
-            <img src="showcase/task-board.webp" width="1200" height="800" fetchpriority="high" alt="Pimi's Tasks board with five lanes and a new-task shortcut in To Do.">
-            <div class="board-motion" aria-hidden="true">
-              <img src="showcase/task-board-motion.webp" width="1200" height="4600" alt="">
-            </div>
+        <div class="demo-window">
+          <aside class="demo-sidebar">
+            <div class="demo-brand"><img src="icon.png" width="25" height="25" alt=""><div><strong>Pimi</strong><small>Your swarm’s best friend</small></div></div>
+            <nav class="demo-nav" aria-label="Demo views">
+              <button type="button" data-view="tasks" aria-current="true"><svg aria-hidden="true"><use href="#icon-tasks"/></svg>Tasks</button>
+              <button type="button" data-view="chat"><svg aria-hidden="true"><use href="#icon-chat"/></svg>Chat</button>
+              <button type="button" data-view="work"><svg aria-hidden="true"><use href="#icon-branch"/></svg>Work</button>
+              <button type="button" data-view="review"><svg aria-hidden="true"><use href="#icon-split"/></svg>Review</button>
+              <button type="button" data-view="memory"><svg aria-hidden="true"><use href="#icon-memory"/></svg>Memory</button>
+              <button type="button" data-view="setup"><svg aria-hidden="true"><use href="#icon-gear"/></svg>Setup</button>
+            </nav>
+            <div class="demo-sessions"><small>Sessions</small><p><i>R</i> RelayKit</p><p><i>C</i> ControlPlane</p><p><i>O</i> Observatory</p></div>
+          </aside>
+          <div class="demo-main">
+            <section class="demo-view" id="demo-tasks">
+              <div class="demo-heading"><div><span class="eyebrow">Workspace</span><h2>Tasks</h2></div><button type="button" class="demo-primary" data-open="voice"><svg aria-hidden="true"><use href="#icon-compose"/></svg>New task</button></div>
+              <div class="demo-board">
+                <section class="demo-lane"><h3><i></i>To Do <small>1</small><button type="button" data-open="voice" aria-label="New task in To Do"><svg aria-hidden="true"><use href="#icon-compose"/></svg></button></h3><article class="demo-card"><strong>Document cache invalidation</strong><small>Brief only</small></article></section>
+                <section class="demo-lane"><h3><i></i>Ready <small>1</small></h3><article class="demo-card"><strong>Improve cancellation handling</strong><small>RelayKit</small></article></section>
+                <section class="demo-lane lane-running" data-lane="running"><h3><i></i>In progress <small>1</small></h3><button type="button" class="demo-card moving-task" data-open="reports"><strong>Improve provider metadata</strong><small>3 repositories</small><span class="task-progress"><span></span></span><small class="card-status">Agents working</small></button></section>
+                <section class="demo-lane lane-review" data-lane="review"><h3><i></i>Review <small>0</small></h3></section>
+                <section class="demo-lane lane-done"><h3><i></i>Done <small>1</small></h3><article class="demo-card"><strong>Document the provider fallback</strong><small>RelayKit</small></article></section>
+              </div>
+            </section>
+            <section class="demo-view" id="demo-chat" hidden>
+              <div class="demo-heading"><div><span class="eyebrow">RelayKit</span><h2>Provider metadata</h2></div><span class="demo-chip">Claude Code</span></div>
+              <div class="demo-conversation">
+                <p class="demo-bubble">Could we stop looking up provider metadata for every request?</p>
+                <p>We can try request caching and a shared cache in separate worktrees, then compare the trade-offs.</p>
+                <button type="button" class="demo-action" data-open="voice">Review task draft <span aria-hidden="true">↗</span></button>
+              </div>
+              <div class="demo-composer"><span>Ask a follow-up…</span><button type="button" data-open="voice" aria-label="Try dictation"><svg aria-hidden="true"><use href="#icon-mic"/></svg></button></div>
+            </section>
+            <section class="demo-view" id="demo-voice" hidden>
+              <div class="demo-heading"><div><span class="eyebrow">Tasks</span><h2>New task</h2></div><button type="button" class="demo-action" data-open="tasks">Back to Tasks</button></div>
+              <div class="demo-brief">
+                <div><small>Title</small><strong>Improve provider metadata</strong></div>
+                <div><small>Brief</small><p id="demo-transcript" aria-live="polite">Dictate a brief…</p></div>
+              </div>
+              <div class="demo-dictation">
+                <div class="voice-signal"><span class="voice-dot"></span><div class="wave" aria-hidden="true"></div><span id="demo-voice-status">Ready</span></div>
+                <button type="button" class="demo-action" id="demo-record" aria-label="Try sample dictation" title="Try sample dictation"><svg aria-hidden="true"><use href="#icon-mic"/></svg></button>
+                <button type="button" class="demo-primary" id="demo-use-brief" data-open="work">Create task</button>
+              </div>
+            </section>
+            <section class="demo-view" id="demo-work" hidden>
+              <div class="demo-heading"><div><span class="eyebrow">3 repositories</span><h2>Work</h2></div><span class="demo-chip">Provider metadata</span></div>
+              <div class="demo-work" id="demo-work-items"></div>
+            </section>
+            <section class="demo-view" id="demo-reports" hidden>
+              <div class="demo-heading"><div><span class="eyebrow">Tasks / Review</span><h2>Improve provider metadata</h2></div><span class="demo-chip">3 reports ready</span></div>
+              <div class="demo-reports" id="demo-reports-list"></div>
+              <button type="button" class="demo-primary" data-open="review"><svg aria-hidden="true"><use href="#icon-split"/></svg>Compare diffs</button>
+            </section>
+            <section class="demo-view" id="demo-review" hidden>
+              <div class="demo-heading"><div><span class="eyebrow">Provider metadata</span><h2>Review</h2></div><div class="demo-tools"><button type="button" class="demo-action" id="demo-tile" aria-pressed="false" aria-label="Stack review panes" title="Stack review panes"><svg aria-hidden="true"><use href="#icon-split"/></svg></button><button type="button" class="demo-action" id="demo-tour" aria-expanded="false">Code tour</button></div></div>
+              <div class="demo-review-grid" data-layout="side-by-side"></div>
+              <p class="demo-tour-note" hidden><strong>1 / 2</strong> Cache the lookup at the request boundary so workers can reuse it safely. <button type="button" class="demo-action" id="demo-tour-next">Next</button></p>
+            </section>
+            <section class="demo-view" id="demo-memory" hidden>
+              <div class="demo-heading"><div><span class="eyebrow">Across providers</span><h2>Shared memory</h2></div><span class="demo-chip">Claude Code · Codex</span></div>
+              <div class="demo-memory-scopes" aria-label="Memory scope">
+                <button type="button" class="demo-action" data-scope="project" aria-pressed="true">RelayKit</button>
+                <button type="button" class="demo-action" data-scope="global" aria-pressed="false">Across projects</button>
+              </div>
+              <div class="demo-note" aria-live="polite"></div>
+            </section>
+            <section class="demo-view" id="demo-setup" hidden>
+              <div class="demo-heading"><div><span class="eyebrow">Get started</span><h2>Connect a Git host</h2></div></div>
+              <div class="demo-setup-options" aria-label="Git host">
+                <button type="button" class="demo-action" data-host="GitHub" aria-pressed="true">GitHub</button>
+                <button type="button" class="demo-action" data-host="GitLab" aria-pressed="false">GitLab</button>
+                <button type="button" class="demo-action" data-host="Local repository" aria-pressed="false">Local repository</button>
+              </div>
+              <div class="demo-note" id="demo-setup-note" aria-live="polite"><small>GitHub</small><h3>Use the GitHub CLI</h3><code>gh auth login</code></div>
+            </section>
           </div>
-          <figcaption><strong>Tasks</strong><span>A live board for the whole swarm</span></figcaption>
-        </figure>
-        <figure class="scene">
-          <div class="screen"><img src="showcase/tasks.webp" width="1440" height="960" alt="A single task with three work items and their agent reports from separate repositories."></div>
-          <figcaption><strong>Agent reports</strong><span>Three approaches, one brief</span></figcaption>
-        </figure>
-        <figure class="scene">
-          <div class="screen"><img src="showcase/board.webp" width="1440" height="861" alt="The Work board showing worktrees across repositories, with separate lanes for changes ready to review and work that needs attention."></div>
-          <figcaption><strong>Work</strong><span>See what each worktree is doing</span></figcaption>
-        </figure>
-        <figure class="scene">
-          <div class="screen"><img src="showcase/review.webp" width="1440" height="861" alt="Pimi's Review layout with code diffs from two worktrees open side by side."></div>
-          <figcaption><strong>Review</strong><span>Compare diffs across worktrees</span></figcaption>
-        </figure>
+        </div>
+        <div class="demo-caption"><span class="demo-label">Interactive demo</span><span id="demo-caption">Follow one task across your agents</span><button type="button" id="demo-next" aria-label="Next demo step" title="Next demo step"><svg aria-hidden="true"><use href="#icon-next"/></svg></button></div>
+        <button type="button" class="pet" aria-label="Pet Pimi" title="Pet Pimi">
+          <svg viewBox="0 0 128 118" aria-hidden="true">
+            <ellipse cx="67" cy="108" rx="45" ry="6" fill="currentColor" opacity=".09"/>
+            <g class="pet-tail">
+              <path d="M92 95c20-8 32-25 24-40-5-9-16-10-23-5 8 0 12 8 6 13-5 3-9 1-11-5-4 8-2 17 4 23Z" fill="#c77d50" stroke="#704132" stroke-width="1.6" stroke-linejoin="round"/>
+              <path d="M105 53c7 4 7 11 3 17-3 4-7 6-12 7" fill="none" stroke="#f4c79d" stroke-width="2.2" stroke-linecap="round"/>
+            </g>
+            <path d="M35 71c-12 8-15 22-7 31 4 4 17 5 23 2 9 5 29 4 37 0 10 2 17-3 17-9-1-10-9-21-21-28Z" fill="#d99462" stroke="#704132" stroke-width="1.6"/>
+            <path d="M48 71c-9 6-14 15-9 24 3 6 8 6 13 9l6-5 6 5 7-6c10-5 11-17 4-26Z" fill="#fff0d9"/>
+            <path d="M33 103c4-3 10-3 14-1m35 2c4-3 9-3 14-1" fill="none" stroke="#8c563e" stroke-width="1.5" stroke-linecap="round"/>
+            <g class="pet-head">
+              <path d="M34 41c-2-7-1-20 3-29 7 3 14 9 17 15 6-2 12-2 18 0 5-7 11-12 18-14 4 9 4 20 1 29 7 5 11 12 9 20l-4-1 2 7-6-1-1 6-6-1c-6 8-14 11-22 9-10 2-18-1-24-8l-7 2-1-6-6 1 3-7-5 1c-1-9 4-17 11-23Z" fill="#e4a36b" stroke="#704132" stroke-width="1.6" stroke-linejoin="round"/>
+              <path d="M39 21c-1 6-1 12 1 17l10-6c-3-5-6-8-11-11Zm48 1c1 6 0 12-2 17l-9-6c3-5 7-9 11-11Z" fill="#bd6c62"/>
+              <path d="M32 59c4-4 11-6 17-3 5 2 9 0 14-4 5 4 9 6 14 4 7-3 14 0 17 4l-5 9-6-1c-4 6-11 10-20 9-11 1-16-3-21-9l-6 1Z" fill="#fff0d9"/>
+              <path d="M48 40q6-4 12-4m6 0q7 0 12 4" fill="none" stroke="#efbc8b" stroke-width="2" stroke-linecap="round"/>
+              <g class="pet-eyes" fill="#3d2729"><ellipse cx="47" cy="51" rx="3.3" ry="4"/><ellipse cx="79" cy="51" rx="3.3" ry="4"/><circle cx="48" cy="50" r="1" fill="#fff2e4"/><circle cx="80" cy="50" r="1" fill="#fff2e4"/></g>
+              <path class="pet-happy-eyes" d="M43 52q4-5 8 0m24 0q4-5 8 0" fill="none" stroke="#3d2729" stroke-width="2" stroke-linecap="round"/>
+              <path d="M58 59q5-3 10 0c1 3-2 6-5 6s-6-3-5-6Z" fill="#493037"/>
+              <path class="pet-mouth" d="M54 65q4 5 9 1 5 4 9-1" fill="none" stroke="#633f42" stroke-width="1.5" stroke-linecap="round"/>
+              <g class="pet-smile"><path d="M53 65q10 7 20 0c0 9-4 13-10 13s-10-4-10-13Z" fill="#593337"/><path d="M58 74q5-5 10 0-5 6-10 0Z" fill="#ec9b9b"/></g>
+            </g>
+            <path class="pet-heart" d="M105 26c-11-7-4-15 0-10 4-5 11 3 0 10Z" fill="#d87d92"/>
+          </svg>
+          <span>Pet Pimi</span>
+        </button>
       </div>
     </section>
 
-    <section class="gallery wrap" aria-label="More of Pimi">
-      <figure>
-        <img src="showcase/chat.webp" width="1440" height="960" loading="lazy" decoding="async" alt="An agent conversation with a follow-up and provider controls in the composer.">
-        <figcaption><strong>Agent chat</strong><span>Steer, queue, and fork chats across providers</span></figcaption>
-      </figure>
-      <figure>
-        <img src="showcase/dictation.webp" width="1440" height="960" loading="lazy" decoding="async" alt="A task draft with the floating dictation controls at the bottom.">
-        <figcaption><strong>Dictation</strong><span>Talk through a brief</span></figcaption>
-      </figure>
-      <figure>
-        <img src="showcase/memory.webp" width="1440" height="861" loading="lazy" decoding="async" alt="Memory with a project selected and a saved code-review preference.">
-        <figcaption><strong>Shared memory</strong><span>Carry project and global notes across providers</span></figcaption>
-      </figure>
-      <figure>
-        <img src="showcase/review-tour.webp" width="1440" height="861" loading="lazy" decoding="async" alt="A review tour points to a highlighted code change and explains it in a text pop-up.">
-        <figcaption><strong>Code tours</strong><span>Walk through changes at your own pace</span></figcaption>
-      </figure>
-      <figure>
-        <img src="showcase/dark.webp" width="1200" height="800" loading="lazy" decoding="async" alt="The Tasks board in Pimi's dark appearance.">
-        <figcaption><strong>Appearances</strong><span>Blush, Paper, and Dark</span></figcaption>
-      </figure>
-      <figure>
-        <img src="showcase/git-providers.webp" width="1440" height="861" loading="lazy" decoding="async" alt="Pimi setup with choices for GitHub, GitLab, and a local repository.">
-        <figcaption><strong>Setup</strong><span>Connect a Git host and start chatting</span></figcaption>
-      </figure>
-    </section>
+    <svg class="demo-icons" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+      <symbol id="icon-tasks" viewBox="0 0 24 24"><path d="m3 7 2 2 4-4m3 2h9M3 13h6m3 0h9M3 19h6m3 0h9"/></symbol>
+      <symbol id="icon-chat" viewBox="0 0 24 24"><path d="M4 4h16v13h-9l-7 4Z"/></symbol>
+      <symbol id="icon-branch" viewBox="0 0 24 24"><path d="M7 5v14m0-5c6 0 10-2 10-7"/><circle cx="7" cy="4" r="2"/><circle cx="7" cy="20" r="2"/><circle cx="17" cy="5" r="2"/></symbol>
+      <symbol id="icon-split" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M12 4v16"/></symbol>
+      <symbol id="icon-memory" viewBox="0 0 24 24"><rect x="5" y="3" width="15" height="18" rx="2"/><path d="M3 8h4m-4 4h4m-4 4h4m3-6h6m-6 4h6"/></symbol>
+      <symbol id="icon-gear" viewBox="0 0 24 24"><path d="M3 7h18M3 17h18"/><circle cx="9" cy="7" r="3"/><circle cx="15" cy="17" r="3"/></symbol>
+      <symbol id="icon-compose" viewBox="0 0 24 24"><path d="M11 4H6a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-5m-10 1 1-4 7-7 3 3-7 7-4 1Z"/></symbol>
+      <symbol id="icon-mic" viewBox="0 0 24 24"><rect x="9" y="3" width="6" height="12" rx="3"/><path d="M5 11a7 7 0 0 0 14 0m-7 7v3"/></symbol>
+      <symbol id="icon-next" viewBox="0 0 24 24"><path d="m9 5 7 7-7 7"/></symbol>
+    </svg>
 
     <div class="site-bottom wrap">
       <details class="install" id="install">

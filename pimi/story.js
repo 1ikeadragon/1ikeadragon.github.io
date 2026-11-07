@@ -1,60 +1,399 @@
-(() => {
-  const workflow = document.querySelector('.workflow');
-  const sticky = workflow?.querySelector('.workflow-sticky');
-  if (!sticky) return;
+const workflow = document.querySelector('.workflow');
+const sticky = workflow.querySelector('.workflow-sticky');
+const motion = window.matchMedia('(prefers-reduced-motion: reduce)');
+const tallViewport = window.matchMedia('(min-height: 651px)');
+const themeToggle = document.querySelector('.theme-toggle');
+const themeColor = document.querySelector('meta[name="theme-color"]');
+const root = document.documentElement;
 
-  const scenes = [...sticky.querySelectorAll('.scene')];
-  const frames = sticky.querySelector('.board-motion img');
-  const motion = window.matchMedia('(prefers-reduced-motion: reduce)');
-  const frameCount = 10;
-  const sceneBreaks = [.37, .57, .77];
-  let scheduled = 0;
-  let active;
+function setTheme(theme) {
+  root.dataset.theme = theme;
+  themeToggle.setAttribute('aria-pressed', String(theme === 'dark'));
+  themeColor.content = theme === 'dark' ? '#18161e' : '#f8f5f2';
+}
 
-  function show(index) {
-    if (index === active) return;
-    active = index;
-    scenes.forEach((scene, position) => {
-      scene.toggleAttribute('data-active', position === index);
-      scene.toggleAttribute('inert', index !== undefined && position !== index);
-    });
+try {
+  setTheme(localStorage.getItem('pimi-site-theme') === 'dark' ? 'dark' : 'light');
+} catch {
+  setTheme('light');
+}
+themeToggle.hidden = false;
+let themeTransition;
+themeToggle.addEventListener('click', () => {
+  const theme = root.dataset.theme === 'dark' ? 'light' : 'dark';
+  themeTransition?.skipTransition();
+  if (!motion.matches && document.startViewTransition) {
+    themeTransition = document.startViewTransition(() => setTheme(theme));
+  } else {
+    setTheme(theme);
   }
-
-  function update() {
-    scheduled = 0;
-    const top = parseFloat(getComputedStyle(sticky).top);
-    const distance = workflow.offsetHeight - sticky.offsetHeight;
-    const progress = Math.max(0, Math.min(1, (top - workflow.getBoundingClientRect().top) / distance));
-    const index = sceneBreaks.filter((start) => progress >= start).length;
-    const move = Math.max(0, Math.min(1, (progress - .04) / .24));
-    const frame = Math.round(move * (frameCount - 1));
-    workflow.toggleAttribute('data-moving', progress > .04 && index === 0 && frames.naturalWidth > 0);
-    frames.style.setProperty('--frame-offset', `${-100 * frame / frameCount}%`);
-    show(index);
+  try {
+    localStorage.setItem('pimi-site-theme', theme);
+  } catch {
+    // The toggle still works for this page if storage is disabled.
   }
+});
 
-  function schedule() {
-    if (!scheduled) scheduled = requestAnimationFrame(update);
+const reviews = [
+  {
+    repo: 'RelayKit',
+    branch: 'Request cache',
+    file: 'src/provider-cache.ts',
+    summary: 'Cache metadata for one request to avoid duplicate lookups.',
+    diff: [
+      [' ', 'export async function metadata(id, request) {'],
+      ['-', '  return fetchMetadata(id)'],
+      ['+', '  const cached = request.cache.get(id)'],
+      ['+', '  if (cached) return cached'],
+      ['+', '  const value = await fetchMetadata(id)'],
+      ['+', '  request.cache.set(id, value)'],
+      ['+', '  return value'],
+      [' ', '}'],
+    ],
+  },
+  {
+    repo: 'ControlPlane',
+    branch: 'Expiring shared cache',
+    file: 'src/shared-cache.ts',
+    summary: 'Reuse cached metadata across requests with a short expiry.',
+    diff: [
+      [' ', 'export async function read(key) {'],
+      ['-', '  return provider.lookup(key)'],
+      ['+', '  const cached = await store.get(key)'],
+      ['+', '  if (cached) return cached'],
+      ['+', '  const value = await provider.lookup(key)'],
+      ['+', '  await store.set(key, value, { ttl: 60 })'],
+      ['+', '  return value'],
+      [' ', '}'],
+    ],
+  },
+  {
+    repo: 'Observatory',
+    branch: 'Cache metrics',
+    file: 'src/telemetry.ts',
+    summary: 'Track cache hits and misses to compare both approaches.',
+    diff: [
+      [' ', 'export function recordLookup(hit) {'],
+      ['-', '  metrics.lookup.add(1)'],
+      ['+', '  metrics.lookup.add(1, {'],
+      ['+', "    outcome: hit ? 'hit' : 'miss',"],
+      ['+', '  })'],
+      [' ', '}'],
+    ],
+  },
+];
+
+const stages = [
+  { view: 'tasks', caption: 'Follow one task across your agents' },
+  { view: 'tasks', caption: 'Completed work moves the task into Review', ready: true },
+  { view: 'chat', caption: 'Turn a conversation into a task' },
+  { view: 'voice', caption: 'Watch a spoken brief become text', dictation: true },
+  { view: 'work', caption: 'Follow three worktrees across three repositories' },
+  { view: 'reports', caption: 'Compare the agents’ findings' },
+  { view: 'review', caption: 'Review two worktrees side by side', compare: 1 },
+  { view: 'review', caption: 'Swap in a different diff without closing the first', compare: 2, tour: true },
+  { view: 'memory', caption: 'Share project context across providers' },
+  { view: 'setup', caption: 'Connect a Git host and start working' },
+];
+
+const caption = document.querySelector('#demo-caption');
+const next = document.querySelector('#demo-next');
+const panels = [...document.querySelectorAll('.demo-view')];
+const nav = [...document.querySelectorAll('[data-view]')];
+const grid = document.querySelector('.demo-review-grid');
+const tile = document.querySelector('#demo-tile');
+const tour = document.querySelector('#demo-tour');
+const tourNote = document.querySelector('.demo-tour-note');
+const tourStep = tourNote.querySelector('strong');
+const tourCopy = document.createTextNode('');
+tourNote.replaceChild(tourCopy, tourStep.nextSibling);
+const task = document.querySelector('.moving-task');
+const taskStatus = task.querySelector('.card-status');
+const board = document.querySelector('.demo-board');
+const laneRunning = document.querySelector('[data-lane="running"]');
+const laneReview = document.querySelector('[data-lane="review"]');
+const voice = document.querySelector('#demo-voice');
+const transcript = document.querySelector('#demo-transcript');
+const voiceStatus = document.querySelector('#demo-voice-status');
+const record = document.querySelector('#demo-record');
+
+let shown = 'tasks';
+let currentStep = 0;
+let scrollStep = 0;
+let scrollFrame = 0;
+let recordingTimer;
+let petTimer;
+
+function node(tag, text, className) {
+  const element = document.createElement(tag);
+  element.textContent = text;
+  if (className) element.className = className;
+  return element;
+}
+
+for (const [index, review] of reviews.entries()) {
+  const work = node('button', '', 'demo-work-item');
+  work.type = 'button';
+  work.dataset.open = 'reports';
+  work.append(node('strong', review.branch), node('small', review.repo), node('span', 'Ready for review'));
+  document.querySelector('#demo-work-items').append(work);
+
+  const report = node('button', '', 'demo-report');
+  report.type = 'button';
+  report.dataset.open = 'review';
+  report.dataset.review = String(index);
+  report.append(node('strong', review.branch), node('span', review.repo), node('small', review.summary));
+  document.querySelector('#demo-reports-list').append(report);
+}
+
+const pickers = ['Primary review', 'Comparison review'].map((label) => {
+  const pane = node('article', '', 'diff-card');
+  const header = node('div', '', 'diff-header');
+  const picker = document.createElement('select');
+  picker.setAttribute('aria-label', label);
+  for (const [index, review] of reviews.entries()) {
+    picker.add(new Option(review.repo + ' · ' + review.branch, index));
   }
+  const file = node('div', '', 'diff-file');
+  const code = node('pre', '', 'diff-code');
+  header.append(picker, file);
+  pane.append(header, code);
+  grid.append(pane);
+  return { picker, file, code };
+});
 
-  function configure() {
-    workflow.toggleAttribute('data-scroll', !motion.matches);
-    if (motion.matches) {
-      cancelAnimationFrame(scheduled);
-      scheduled = 0;
-      workflow.removeAttribute('data-moving');
-      window.removeEventListener('scroll', schedule);
-      window.removeEventListener('resize', schedule);
-      frames.removeEventListener('load', schedule);
-      show(undefined);
-    } else {
-      window.addEventListener('scroll', schedule, { passive: true });
-      window.addEventListener('resize', schedule);
-      frames.addEventListener('load', schedule);
-      schedule();
-    }
+function renderDiff(pane, index) {
+  const { picker, file, code } = pickers[pane];
+  const review = reviews[index];
+  picker.value = index;
+  const added = review.diff.filter(([kind]) => kind === '+').length;
+  const removed = review.diff.filter(([kind]) => kind === '-').length;
+  file.replaceChildren(node('code', review.file), node('span', '+' + added + ' / −' + removed));
+  code.replaceChildren(...review.diff.map(([kind, source]) => {
+    const line = node('span', '', 'diff-line');
+    if (kind === '+') line.classList.add('added');
+    if (kind === '-') line.classList.add('removed');
+    line.append(node('b', kind), document.createTextNode(source));
+    return line;
+  }));
+}
+
+function setReview(pane, index) {
+  const otherPane = 1 - pane;
+  const otherIndex = Number(pickers[otherPane].picker.value);
+  if (otherIndex === index) {
+    renderDiff(otherPane, (index + 1) % reviews.length);
   }
+  renderDiff(pane, index);
+}
 
-  motion.addEventListener('change', configure);
-  configure();
-})();
+for (const [pane, { picker }] of pickers.entries()) {
+  picker.addEventListener('change', () => setReview(pane, Number(picker.value)));
+}
+renderDiff(0, 0);
+renderDiff(1, 1);
+
+tile.addEventListener('click', () => {
+  const stacked = grid.dataset.layout !== 'stacked';
+  grid.dataset.layout = stacked ? 'stacked' : 'side-by-side';
+  const label = stacked ? 'Tile reviews side by side' : 'Stack review panes';
+  tile.setAttribute('aria-pressed', String(stacked));
+  tile.setAttribute('aria-label', label);
+  tile.title = label;
+});
+
+const tourNotes = [
+  'Cache the lookup at the request boundary so workers can reuse it safely.',
+  'Compare the other worktree to see how it handles the lifetime of cached data.',
+];
+
+function showTour(open, index = 0) {
+  tour.setAttribute('aria-expanded', String(open));
+  tourNote.hidden = !open;
+  if (!open) return;
+  tourStep.textContent = (index + 1) + ' / ' + tourNotes.length;
+  tourCopy.textContent = tourNotes[index];
+  tourNote.dataset.step = index;
+}
+
+tour.addEventListener('click', () => showTour(tourNote.hidden));
+document.querySelector('#demo-tour-next').addEventListener('click', () => {
+  showTour(true, (Number(tourNote.dataset.step) + 1) % tourNotes.length);
+});
+
+const wave = document.querySelector('.wave');
+for (const [index, height] of [6, 13, 10, 24, 16, 26, 15, 22, 10, 15, 7].entries()) {
+  const bar = document.createElement('i');
+  bar.style.setProperty('--amplitude', height + 'px');
+  bar.style.setProperty('--delay', -index * 73 + 'ms');
+  wave.append(bar);
+}
+
+function finishRecording() {
+  clearTimeout(recordingTimer);
+  voice.removeAttribute('data-recording');
+  voiceStatus.textContent = 'Inserted';
+  transcript.textContent = 'Compare request caching and a shared cache across RelayKit and ControlPlane. Add metrics so we can see which approach helps.';
+  record.setAttribute('aria-label', 'Try sample dictation again');
+  record.title = 'Try sample dictation again';
+}
+
+function startRecording() {
+  clearTimeout(recordingTimer);
+  voice.setAttribute('data-recording', '');
+  voiceStatus.textContent = 'Listening';
+  transcript.textContent = 'Listening to the sample brief…';
+  record.setAttribute('aria-label', 'Insert brief');
+  record.title = 'Insert brief';
+  recordingTimer = setTimeout(finishRecording, 2600);
+}
+
+record.addEventListener('click', () => {
+  if (voice.hasAttribute('data-recording')) finishRecording();
+  else startRecording();
+});
+
+const memory = {
+  project: ['RelayKit · Project memory', 'Provider cache decision', 'Start with request-scoped caching. Keep the shared cache behind a flag until hit-rate metrics justify the added complexity.'],
+  global: ['Across projects', 'Review conventions', 'Show a short summary and the main trade-off before opening the diff. Flag anything that needs a human decision.'],
+};
+const scopes = [...document.querySelectorAll('[data-scope]')];
+const note = document.querySelector('#demo-memory .demo-note');
+function showMemory(scope) {
+  const [label, title, text] = memory[scope];
+  note.replaceChildren(node('small', label), node('h3', title), node('p', text));
+  for (const button of scopes) {
+    button.setAttribute('aria-pressed', String(button.dataset.scope === scope));
+  }
+}
+showMemory('project');
+for (const button of scopes) button.addEventListener('click', () => showMemory(button.dataset.scope));
+
+const hosts = {
+  GitHub: ['Use the GitHub CLI', 'gh auth login'],
+  GitLab: ['Use the GitLab CLI', 'glab auth login'],
+  'Local repository': ['Open an existing checkout', 'Choose a folder'],
+};
+const hostButtons = [...document.querySelectorAll('[data-host]')];
+for (const button of hostButtons) {
+  button.addEventListener('click', () => {
+    const host = button.dataset.host;
+    const [title, instruction] = hosts[host];
+    document.querySelector('#demo-setup-note').replaceChildren(
+      node('small', host), node('h3', title), node('code', instruction),
+    );
+    for (const option of hostButtons) option.setAttribute('aria-pressed', String(option === button));
+  });
+}
+
+const pet = document.querySelector('.pet');
+pet.addEventListener('click', () => {
+  pet.setAttribute('data-petted', '');
+  clearTimeout(petTimer);
+  petTimer = setTimeout(() => pet.removeAttribute('data-petted'), 1200);
+});
+
+function moveTask(ready) {
+  const target = ready ? laneReview : laneRunning;
+  if (task.parentElement === target) return;
+  const from = task.getBoundingClientRect();
+  target.append(task);
+  laneRunning.querySelector('h3 small').textContent = ready ? '0' : '1';
+  laneReview.querySelector('h3 small').textContent = ready ? '1' : '0';
+  taskStatus.textContent = ready ? '3 reports ready' : 'Agents working';
+  const to = task.getBoundingClientRect();
+  const reveal = ready ? Math.max(0, target.offsetLeft + target.offsetWidth - board.clientWidth) : 0;
+  board.scrollTo({ left: reveal, behavior: motion.matches ? 'instant' : 'smooth' });
+  if (!motion.matches && from.width && to.width) {
+    const x = from.left - to.left;
+    const y = from.top - to.top;
+    task.animate([
+      { transform: 'translate(' + x + 'px, ' + y + 'px)' },
+      { transform: 'translate(' + x / 2 + 'px, ' + (y / 2 - 4) + 'px)' },
+      { transform: 'translate(0, 0)' },
+    ], { duration: 340, easing: 'cubic-bezier(.25,.65,.25,1)' });
+  }
+}
+
+function showView(view, message, focusHeading = false) {
+  caption.textContent = message;
+  if (shown === view) return;
+  if (shown === 'voice' && voice.hasAttribute('data-recording')) finishRecording();
+  const panel = document.querySelector('#demo-' + view);
+  const focusWasInPanel = panels.some((item) => item.contains(document.activeElement));
+  shown = view;
+  for (const item of panels) {
+    item.hidden = item !== panel;
+    item.classList.toggle('demo-enter', item === panel);
+  }
+  const navView = ['voice', 'reports'].includes(view) ? 'tasks' : view;
+  for (const button of nav) {
+    if (button.dataset.view === navView) button.setAttribute('aria-current', 'true');
+    else button.removeAttribute('aria-current');
+  }
+  if (focusHeading || focusWasInPanel) {
+    const heading = panel.querySelector('h2');
+    heading.tabIndex = -1;
+    heading.focus({ preventScroll: true });
+  }
+}
+
+function showStep(index) {
+  currentStep = index;
+  const stage = stages[index];
+  showView(stage.view, stage.caption);
+  if (stage.view === 'tasks') moveTask(Boolean(stage.ready));
+  if (stage.dictation) startRecording();
+  if (stage.compare) {
+    renderDiff(0, 0);
+    renderDiff(1, stage.compare);
+    showTour(Boolean(stage.tour));
+  }
+}
+
+workflow.addEventListener('click', (event) => {
+  const button = event.target.closest('button[data-view], button[data-open]');
+  if (!button) return;
+  const view = button.dataset.view ?? button.dataset.open;
+  const index = stages.findIndex((stage) => stage.view === view);
+  currentStep = index;
+  showView(view, stages[index].caption, button.hasAttribute('data-open'));
+  if (button.dataset.review !== undefined) setReview(0, Number(button.dataset.review));
+});
+next.addEventListener('click', () => showStep((currentStep + 1) % stages.length));
+
+function updateScroll() {
+  scrollFrame = 0;
+  const top = parseFloat(getComputedStyle(sticky).top);
+  const start = workflow.getBoundingClientRect().top + window.scrollY - top;
+  const end = document.documentElement.scrollHeight - window.innerHeight;
+  const distance = Math.min(workflow.offsetHeight - sticky.offsetHeight, end - start);
+  if (distance <= 0 || !Number.isFinite(top)) return;
+  const progress = Math.max(0, Math.min(1, (window.scrollY - start) / distance));
+  const index = Math.min(stages.length - 1, Math.floor(progress * stages.length));
+  if (index === scrollStep) return;
+  scrollStep = index;
+  showStep(index);
+}
+
+function scheduleScroll() {
+  if (!scrollFrame) scrollFrame = requestAnimationFrame(updateScroll);
+}
+
+function configureScroll() {
+  const enabled = !motion.matches && tallViewport.matches;
+  workflow.toggleAttribute('data-scroll', enabled);
+  if (enabled) {
+    window.addEventListener('scroll', scheduleScroll, { passive: true });
+    window.addEventListener('resize', scheduleScroll);
+    scheduleScroll();
+  } else {
+    cancelAnimationFrame(scrollFrame);
+    scrollFrame = 0;
+    window.removeEventListener('scroll', scheduleScroll);
+    window.removeEventListener('resize', scheduleScroll);
+  }
+}
+motion.addEventListener('change', configureScroll);
+tallViewport.addEventListener('change', configureScroll);
+configureScroll();
