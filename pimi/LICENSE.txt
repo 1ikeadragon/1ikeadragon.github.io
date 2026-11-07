@@ -1,3 +1,12 @@
+Pimi License
+============
+
+Pimi modifications are credited to Asbra. Pimi is distributed under the
+Apache License, Version 2.0. Third-party components retain their licenses.
+
+Upstream Paseo notice
+---------------------
+
 Copyright (c) 2025-present Mohamed Boudra
 
 Portions of this software are licensed as follows:
