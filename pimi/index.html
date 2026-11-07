@@ -7,8 +7,9 @@
   <meta name="theme-color" content="#f8f5f2">
   <link rel="canonical" href="https://1ikeadragon.github.io/pimi/">
   <link rel="icon" href="icon.png">
-  <link rel="stylesheet" href="site.css?v=5">
-  <script src="story.js?v=5" defer></script>
+  <link rel="preload" href="fonts/caveat-brush-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="site.css?v=6">
+  <script src="story.js?v=6" defer></script>
   <title>Pimi — Your swarm’s best friend</title>
 </head>
 <body>
@@ -22,46 +23,57 @@
       </a>
     </section>
 
-    <section class="workflow wrap" aria-label="Illustrative Pimi workflow: a task, agent reports, and code review">
-      <div class="app-window" data-phase="tasks">
-        <div class="window-bar" aria-hidden="true"><span class="traffic-lights"><i></i><i></i><i></i></span><span>Pimi</span><span class="window-mark">⌘ K</span></div>
-        <div class="app-body">
-          <aside class="sidebar" aria-hidden="true">
-            <div class="sidebar-brand"><img src="icon.png" width="23" height="23" alt="">Pimi</div>
-            <div class="nav-row nav-tasks"><span>▦</span>Tasks</div>
-            <div class="nav-row"><span>◫</span>Work</div>
-            <div class="nav-row nav-review"><span>⌥</span>Review</div>
-            <div class="sidebar-heading">PROJECTS</div>
-            <div class="project-row"><span class="repo-dot"></span>acme</div>
-            <div class="agent-row"><span class="status-dot running"></span>Request cache</div>
-            <div class="agent-row"><span class="status-dot running"></span>Shared cache</div>
-          </aside>
-          <div class="app-content">
-            <article class="app-scene board-scene" data-scene="tasks">
-              <div class="view-heading"><h2>Tasks</h2><span class="subtle">acme</span></div>
-              <div class="board">
-                <div class="lane"><div class="lane-title"><span class="status-dot"></span>Ready<span>1</span></div><div class="task-card quiet-card"><h3>Polish the settings</h3><p>acme</p><div class="card-foot">Brief ready</div></div></div>
-                <div class="lane"><div class="lane-title"><span class="status-dot running"></span>In progress<span data-count="running">1</span></div><div class="task-card active-card"><div class="card-repo">acme</div><h3>Make search feel instant</h3><p>Try two caching approaches.</p><div class="work-row"><span class="status-dot running"></span>Request cache<span class="work-state">Running</span></div><div class="work-row"><span class="status-dot running"></span>Shared cache<span class="work-state">Running</span></div><div class="card-foot"><span class="agent-avatars"><i>C</i><i>A</i></span><span class="card-state">Agents at work</span></div></div></div>
-                <div class="lane"><div class="lane-title"><span class="status-dot review"></span>Review<span data-count="review">0</span></div></div>
-              </div>
-            </article>
-            <article class="app-scene report-scene" data-scene="reports" aria-hidden="true" inert>
-              <div class="view-heading"><span class="breadcrumb">Tasks <span>›</span> Make search feel instant</span><span class="badge">Review</span></div>
-              <div class="task-summary"><span class="subtle">acme</span><h2>Make search feel instant</h2><p>Try two caching approaches.</p></div>
-              <div class="report-item"><div class="report-heading"><span class="report-icon">✓</span><div><h3>Request cache</h3><span class="subtle">Codex · research/request-cache</span></div><span class="report-ready">Report ready</span></div><div class="report-body"><p>Repeated searches now reuse the same request.</p><div class="file-summary"><span>search.ts</span><span class="added">+24</span><span class="removed">−8</span></div><div class="review-link">Review changes <span>↗</span></div></div></div>
-              <div class="report-item compact"><span class="report-icon">✓</span><div><h3>Shared cache</h3><span class="subtle">Claude · research/shared-cache</span></div><span class="report-ready">Report ready</span></div>
-            </article>
-            <article class="app-scene diff-scene" data-scene="review" aria-hidden="true" inert>
-              <div class="view-heading"><h2>Review</h2><span class="subtle">Make search feel instant</span></div>
-              <div class="diffs">
-                <div class="diff-pane"><div class="diff-title"><span class="agent-avatar">C</span><strong>Request cache</strong></div><div class="diff-file">search.ts <span><b class="added">+24</b> <b class="removed">−8</b></span></div><div class="code"><div><i>12</i><code>async function search(query) {</code></div><div class="code-remove"><i>13</i><code>− return fetchResults(query);</code></div><div class="code-add"><i>13</i><code>+ const key = normalize(query);</code></div><div class="code-add"><i>14</i><code>+ if (pending.has(key)) {</code></div><div class="code-add"><i>15</i><code>+   return pending.get(key);</code></div><div class="code-add"><i>16</i><code>+ }</code></div><div><i>17</i><code>  const result = fetchResults(key);</code></div><div class="code-add"><i>18</i><code>+ pending.set(key, result);</code></div><div><i>19</i><code>  return result;</code></div><div><i>20</i><code>}</code></div></div></div>
-                <div class="diff-pane"><div class="diff-title"><span class="agent-avatar second">A</span><strong>Shared cache</strong></div><div class="diff-file">cache.ts <span><b class="added">+38</b> <b class="removed">−3</b></span></div><div class="code"><div><i>8</i><code>export class SearchCache {</code></div><div class="code-add"><i>9</i><code>+ entries = new Map();</code></div><div><i>10</i><code> </code></div><div class="code-add"><i>11</i><code>+ async get(query) {</code></div><div class="code-add"><i>12</i><code>+   const key = normalize(query);</code></div><div class="code-add"><i>13</i><code>+   const hit = this.entries.get(key);</code></div><div class="code-add"><i>14</i><code>+   if (hit) return hit;</code></div><div><i>15</i><code>    return this.load(key);</code></div><div><i>16</i><code>  }</code></div><div><i>17</i><code>}</code></div></div></div>
-              </div>
-            </article>
+    <section class="workflow wrap" aria-label="A workflow in Pimi">
+      <div class="workflow-sticky">
+        <figure class="scene" data-active>
+          <div class="screen">
+            <img src="showcase/task-board.webp" width="1200" height="800" fetchpriority="high" alt="Pimi's Tasks board with five lanes and a new-task shortcut in To Do.">
+            <div class="board-motion" aria-hidden="true">
+              <img src="showcase/task-board-motion.webp" width="1200" height="4600" alt="">
+            </div>
           </div>
-        </div>
-        <div class="window-footer" aria-hidden="true"><span>acme</span><span class="footer-state">Two agents working</span><span class="demo-label">Demo project</span></div>
+          <figcaption><strong>Tasks</strong><span>A live board for the whole swarm</span></figcaption>
+        </figure>
+        <figure class="scene">
+          <div class="screen"><img src="showcase/tasks.webp" width="1440" height="960" alt="A single task with three work items and their agent reports from separate repositories."></div>
+          <figcaption><strong>Agent reports</strong><span>Three approaches, one brief</span></figcaption>
+        </figure>
+        <figure class="scene">
+          <div class="screen"><img src="showcase/board.webp" width="1440" height="861" alt="The Work board showing worktrees across repositories, with separate lanes for changes ready to review and work that needs attention."></div>
+          <figcaption><strong>Work</strong><span>See what each worktree is doing</span></figcaption>
+        </figure>
+        <figure class="scene">
+          <div class="screen"><img src="showcase/review.webp" width="1440" height="861" alt="Pimi's Review layout with code diffs from two worktrees open side by side."></div>
+          <figcaption><strong>Review</strong><span>Compare diffs across worktrees</span></figcaption>
+        </figure>
       </div>
+    </section>
+
+    <section class="gallery wrap" aria-label="More of Pimi">
+      <figure>
+        <img src="showcase/chat.webp" width="1440" height="960" loading="lazy" decoding="async" alt="An agent conversation with a follow-up and provider controls in the composer.">
+        <figcaption><strong>Agent chat</strong><span>Steer, queue, and fork chats across providers</span></figcaption>
+      </figure>
+      <figure>
+        <img src="showcase/dictation.webp" width="1440" height="960" loading="lazy" decoding="async" alt="A task draft with the floating dictation controls at the bottom.">
+        <figcaption><strong>Dictation</strong><span>Talk through a brief</span></figcaption>
+      </figure>
+      <figure>
+        <img src="showcase/memory.webp" width="1440" height="861" loading="lazy" decoding="async" alt="Memory with a project selected and a saved code-review preference.">
+        <figcaption><strong>Shared memory</strong><span>Carry project and global notes across providers</span></figcaption>
+      </figure>
+      <figure>
+        <img src="showcase/review-tour.webp" width="1440" height="861" loading="lazy" decoding="async" alt="A review tour points to a highlighted code change and explains it in a text pop-up.">
+        <figcaption><strong>Code tours</strong><span>Walk through changes at your own pace</span></figcaption>
+      </figure>
+      <figure>
+        <img src="showcase/dark.webp" width="1200" height="800" loading="lazy" decoding="async" alt="The Tasks board in Pimi's dark appearance.">
+        <figcaption><strong>Appearances</strong><span>Blush, Paper, and Dark</span></figcaption>
+      </figure>
+      <figure>
+        <img src="showcase/git-providers.webp" width="1440" height="861" loading="lazy" decoding="async" alt="Pimi setup with choices for GitHub, GitLab, and a local repository.">
+        <figcaption><strong>Setup</strong><span>Connect a Git host and start chatting</span></figcaption>
+      </figure>
     </section>
 
     <div class="site-bottom wrap">
