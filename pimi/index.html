@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Download Pimi for Apple silicon Macs. Run coding agents in parallel, track their work, and review their diffs together.">
+  <meta name="theme-color" content="#f7f3ee">
+  <link rel="canonical" href="https://1ikeadragon.github.io/pimi/">
+  <link rel="icon" href="icon.png">
+  <link rel="stylesheet" href="site.css">
+  <title>Download Pimi for macOS</title>
+</head>
+<body>
+  <header class="top wrap">
+    <a class="brand" href="./"><img src="icon.png" width="34" height="34" alt=""> Pimi</a>
+    <a class="header-link" href="#install">Installation</a>
+  </header>
+  <main class="wrap">
+    <section class="hero" aria-labelledby="headline">
+      <p class="eyebrow">macOS preview</p>
+      <h1 id="headline">Your swarm’s<br>best friend.</h1>
+      <p class="intro">Run coding agents in parallel, follow their work across repositories, and review their changes side by side.</p>
+      <div class="downloads">
+        <a class="download" href="https://github.com/1ikeadragon/1ikeadragon.github.io/releases/download/pimi-v0.15.3-preview.1/Pimi-0.15.3-arm64.dmg">
+          <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12m-5-5 5 5 5-5M4 16v4h16v-4"/></svg>
+          Download for macOS
+        </a>
+        <a class="checksum" href="https://github.com/1ikeadragon/1ikeadragon.github.io/releases/download/pimi-v0.15.3-preview.1/SHA256SUMS.txt">SHA-256 checksum</a>
+      </div>
+      <p class="meta">0.15.3 preview · Apple silicon · macOS 13 or later</p>
+    </section>
+    <figure class="product">
+      <img src="tasks.jpg" width="1440" height="840" alt="Pimi’s Dark Tasks board showing agent work grouped by stage, with the session sidebar open.">
+      <figcaption>Tasks moves cards as linked agent work progresses.</figcaption>
+    </figure>
+    <section class="features" aria-label="Highlights">
+      <article><h2>Track a swarm</h2><p>Link worktrees across repositories to one task and follow agent progress on the board.</p></article>
+      <article><h2>Review in place</h2><p>Compare worktree diffs side by side, inspect source, and walk through changed files.</p></article>
+      <article><h2>Continue with another agent</h2><p>Fork a conversation into another configured provider and bring the selected chat history along.</p></article>
+    </section>
+    <section class="install" id="install">
+      <h2>Install on your Mac</h2>
+      <p>Open the disk image, drag <strong>Pimi</strong> into Applications, and open it from there. The app bundles its local daemon. Set up an agent provider during onboarding.</p>
+      <p>This preview is ad-hoc signed and has not been notarized by Apple. macOS may show a security warning on first launch. <a href="https://support.apple.com/en-us/102445">Apple’s guidance on downloaded apps</a></p>
+    </section>
+  </main>
+  <footer class="wrap foot">
+    <p>Pimi builds on <a href="https://github.com/getpaseo/paseo">Paseo</a>.</p>
+    <a href="LICENSE.txt">License and attribution</a>
+  </footer>
+</body>
+</html>
