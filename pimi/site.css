@@ -27,7 +27,8 @@ h1 {
   text-wrap: balance;
 }
 .intro { margin-top: 15px; color: #6c6066; font-size: 16px; line-height: 1.5; text-wrap: balance; }
-.download { display: inline-flex; align-items: center; justify-content: center; gap: 9px; min-height: 44px; margin-top: 23px; padding: 0 17px; border-radius: 9px; color: #fff; background: #382e34; text-decoration: none; font-size: 14px; font-weight: 580; box-shadow: 0 2px 3px #35242c12, inset 0 1px #fff2; }
+.downloads { display: flex; flex-wrap: wrap; justify-content: center; gap: 9px; margin-top: 23px; }
+.download { display: inline-flex; align-items: center; justify-content: center; gap: 9px; min-height: 44px; padding: 0 17px; border-radius: 9px; color: #fff; background: #382e34; text-decoration: none; font-size: 14px; font-weight: 580; box-shadow: 0 2px 3px #35242c12, inset 0 1px #fff2; }
 .download:hover { background: #51424a; }
 .download svg { width: 17px; height: 17px; fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
 
@@ -101,7 +102,8 @@ footer a:hover { text-decoration: underline; }
   .brand img { width: 33px; height: 33px; }
   h1 { margin-top: 14px; font-size: clamp(52px, 11vw, 70px); }
   .intro { margin-top: 12px; font-size: 14px; max-width: 280px; }
-  .download { margin-top: 19px; font-size: 13px; }
+  .downloads { margin-top: 19px; }
+  .download { gap: 6px; padding-inline: 12px; font-size: 13px; }
   .workflow[data-scroll]::after { height: 63svh; }
   [data-scroll] .workflow-sticky { top: max(17px, calc((100svh - 290px) / 2)); }
   .screen { border-radius: 8px; }
@@ -109,4 +111,7 @@ footer a:hover { text-decoration: underline; }
   .gallery { grid-template-columns: minmax(0, 1fr); gap: 23px; margin-top: 30px; }
   .site-bottom { padding-top: 26px; }
   .install summary span { display: block; margin: 4px 0 0; }
+}
+@media (max-width: 420px) {
+  .download-prefix { display: none; }
 }

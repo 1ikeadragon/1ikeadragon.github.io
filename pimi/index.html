@@ -3,12 +3,12 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Pimi brings your coding agents, tasks, and diffs together on your Mac.">
+  <meta name="description" content="Pimi brings your coding agents, tasks, and diffs together on macOS and Windows.">
   <meta name="theme-color" content="#f8f5f2">
   <link rel="canonical" href="https://1ikeadragon.github.io/pimi/">
   <link rel="icon" href="icon.png">
   <link rel="preload" href="fonts/caveat-brush-latin.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="site.css?v=6">
+  <link rel="stylesheet" href="site.css?v=7">
   <script src="story.js?v=6" defer></script>
   <title>Pimi — Your swarm’s best friend</title>
 </head>
@@ -18,9 +18,14 @@
       <p class="brand"><img src="icon.png" width="38" height="38" alt="">Pimi</p>
       <h1 id="headline">Your swarm’s best friend.</h1>
       <p class="intro">Parallel agents. One place to follow the work.</p>
-      <a class="download" href="https://github.com/1ikeadragon/1ikeadragon.github.io/releases/download/pimi-v0.15.3-preview.2/Pimi-0.15.3-arm64.dmg">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m-4-4 4 4 4-4M5 17v3h14v-3"/></svg>Download for macOS
-      </a>
+      <div class="downloads">
+        <a class="download" aria-label="Download for macOS" href="https://github.com/1ikeadragon/1ikeadragon.github.io/releases/download/pimi-v0.15.3-preview.2/Pimi-0.15.3-arm64.dmg">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m-4-4 4 4 4-4M5 17v3h14v-3"/></svg><span><span class="download-prefix">Download for </span>macOS</span>
+        </a>
+        <a class="download" aria-label="Download for Windows" href="https://github.com/1ikeadragon/1ikeadragon.github.io/releases/download/pimi-v0.15.3-windows-preview/Pimi-Setup-0.15.3-x64.exe">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m-4-4 4 4 4-4M5 17v3h14v-3"/></svg><span><span class="download-prefix">Download for </span>Windows</span>
+        </a>
+      </div>
     </section>
 
     <section class="workflow wrap" aria-label="A workflow in Pimi">
@@ -77,7 +82,15 @@
     </section>
 
     <div class="site-bottom wrap">
-      <details class="install" id="install"><summary>Apple silicon · macOS 13+ <span>Installation details</span></summary><div class="install-content"><p>Drag Pimi into Applications, then connect a provider.</p><p>Preview 0.15.3. This build is ad-hoc signed and isn’t notarized by Apple.</p><p><a href="https://support.apple.com/en-us/102445">First-launch help</a><a href="https://github.com/1ikeadragon/1ikeadragon.github.io/releases/download/pimi-v0.15.3-preview.2/SHA256SUMS.txt">SHA-256 checksum</a></p></div></details>
+      <details class="install" id="install">
+        <summary>Apple silicon · macOS 13+ / Windows x64 <span>Installation details</span></summary>
+        <div class="install-content">
+          <p><strong>macOS.</strong> Drag Pimi into Applications. The preview is ad-hoc signed and isn’t notarized by Apple.</p>
+          <p><a href="https://support.apple.com/en-us/102445">First-launch help</a><a href="https://github.com/1ikeadragon/1ikeadragon.github.io/releases/download/pimi-v0.15.3-preview.2/SHA256SUMS.txt">macOS checksum</a></p>
+          <p><strong>Windows.</strong> Run the x64 installer. The preview installer is unsigned.</p>
+          <p><a href="https://github.com/1ikeadragon/1ikeadragon.github.io/releases/download/pimi-v0.15.3-windows-preview/SHA256SUMS.txt">Windows checksum</a></p>
+        </div>
+      </details>
       <footer>
         <a href="https://x.com/iminurputer">Twitter / X</a>
         <a href="https://www.linkedin.com/in/debxrshi">LinkedIn</a>
