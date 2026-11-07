@@ -12,8 +12,10 @@
 
   function moveCard(progress) {
     const travel = Math.max(0, Math.min(1, (progress - .05) / .3));
-    app.style.setProperty('--card-travel', travel.toFixed(4));
-    const nextReady = travel > .85;
+    const glide = travel * travel * (3 - 2 * travel);
+    app.style.setProperty('--card-travel', glide);
+    app.style.setProperty('--card-lift', `${-20 * glide * (1 - glide)}px`);
+    const nextReady = glide >= .95;
     if (ready === nextReady) return;
     ready = nextReady;
     app.toggleAttribute('data-card-ready', ready);
