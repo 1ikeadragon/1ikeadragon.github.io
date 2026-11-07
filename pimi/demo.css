@@ -173,6 +173,7 @@
 }
 .demo-connections li, .demo-import-list label { display: flex; align-items: center; gap: 9px; padding: 10px 12px; }
 .demo-connections li { justify-content: space-between; }
+.provider-mark { width: 20px; height: 20px; flex: none; fill: currentColor; }
 .demo-connections li + li, .demo-import-list label + label { border-top: 1px solid var(--line); }
 .connection-state { display: inline-flex; align-items: center; gap: 6px; color: var(--muted); font-size: 11px; }
 .connection-state::before { content: ""; width: 6px; height: 6px; border-radius: 50%; border: 1px solid currentColor; }
