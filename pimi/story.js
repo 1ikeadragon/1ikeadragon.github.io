@@ -48,19 +48,28 @@ const task = document.querySelector('.animated-task');
 const runningLane = document.querySelector('.running-lane');
 const reviewLane = document.querySelector('.review-lane');
 let taskAnimation;
+const taskMoveDuration = 1050;
+const taskDetailStep = 3;
+const taskMoveStep = 4;
+const taskReviewStep = 5;
+
+function currentTaskStep() {
+  return task.dataset.stage === 'review' ? taskReviewStep : taskDetailStep;
+}
 
 function moveTask(ready, animate) {
-  taskAnimation?.cancel();
+  const destination = ready ? reviewLane : runningLane;
+  if (task.parentElement === destination) return;
   const before = animate ? task.getBoundingClientRect() : null;
-  (ready ? reviewLane : runningLane).append(task);
-  task.querySelector('.task-state').textContent = ready ? 'Ready for review' : 'Agents working';
-  if (before) {
-    const after = task.getBoundingClientRect();
-    taskAnimation = task.animate([
-      { transform: `translate(${before.x - after.x}px, ${before.y - after.y}px)` },
-      { transform: 'translate(0, 0)' },
-    ], { duration: 550, easing: 'cubic-bezier(.2,.7,.2,1)' });
-  }
+  taskAnimation?.cancel();
+  destination.append(task);
+  if (!before) return;
+  const after = task.getBoundingClientRect();
+  const offset = `translate(${before.x - after.x}px, ${before.y - after.y}px)`;
+  taskAnimation = task.animate([
+    { transform: offset },
+    { transform: 'translate(0, 0)' },
+  ], { duration: taskMoveDuration, easing: 'cubic-bezier(.32,.06,.22,1)' });
 }
 
 const tourStops = [
@@ -71,22 +80,15 @@ function showTour(index) {
   document.querySelector('.tour-count').textContent = `${index + 1} / ${tourStops.length}`;
   document.querySelector('.tour-title').textContent = tourStops[index].title;
   document.querySelector('.tour-description').textContent = tourStops[index].text;
-  document.querySelectorAll('[data-stop]').forEach(line => line.classList.toggle('current', Number(line.dataset.stop) === index));
+  for (const target of document.querySelectorAll('[data-stop], [data-review-stop]')) {
+    target.classList.toggle('current', Number(target.dataset.stop ?? target.dataset.reviewStop) === index);
+  }
 }
 
-const memoryNotes = [
-  { kind: 'Architecture', title: 'Redaction rules', text: 'Redact tokens and credential fields before writing an event.', detail: 'Keep the tool name and event order so a trace is still readable.' },
-  { kind: 'Review', title: 'Replay checklist', text: 'Check that replay renders recorded results without calling tools.', detail: 'Test a trace with redacted credentials and repeated calls.' },
-  { kind: 'Workflow', title: 'Capture handoff', text: 'The capture branch writes events in order.', detail: 'The replay branch consumes the redacted trace format.' },
-];
 function showMemory(index) {
-  const note = document.querySelector('.memory-note');
-  const data = memoryNotes[index];
-  note.querySelector('small').textContent = data.kind;
-  note.querySelector('h3').textContent = data.title;
-  note.querySelector('p').textContent = data.text;
-  note.querySelector('p.small-muted').textContent = data.detail;
-  document.querySelectorAll('.memory-list span').forEach((item, i) => item.classList.toggle('selected', i === index));
+  document.querySelectorAll('[data-memory-step]').forEach(card => {
+    card.classList.toggle('current', Number(card.dataset.memoryStep) === index);
+  });
 }
 
 function showAgentStates(finished) {
@@ -97,8 +99,11 @@ function showAgentStates(finished) {
   });
 }
 
-function showWorkState(ready, animate = false) {
-  moveTask(ready, animate);
+function showWorkState(ready) {
+  moveTask(ready, false);
+  taskAnimation?.cancel();
+  task.dataset.stage = ready ? 'review' : 'working';
+  task.querySelector('.task-state').textContent = ready ? 'Ready for review' : 'Agents working';
   document.querySelectorAll('.work-state').forEach(state => {
     state.textContent = ready ? 'Ready for review' : 'In progress';
   });
@@ -118,10 +123,11 @@ function showTrackedTask(open) {
   trackedTask.setAttribute('aria-expanded', String(open));
   const feature = trackedTask.closest('[data-scene]');
   if (open) {
+    if (Number(feature.dataset.step) === taskMoveStep) showWorkState(true);
     clearTimeout(timers.get(feature));
     timers.delete(feature);
   } else if (canAnimate(feature)) {
-    renderScene(feature, 2, true);
+    renderScene(feature, currentTaskStep(), true);
   }
 }
 trackedTask.addEventListener('click', () => showTrackedTask(trackedDetail.hidden));
@@ -133,24 +139,52 @@ document.querySelector('#tracked-stage').addEventListener('change', event => {
   document.querySelectorAll('.task-lane')[Number(event.target.value)].append(trackedTask);
 });
 
-// Explicit user interaction is required before any third-party media is loaded.
+// Load only these fixed URLs after their cards enter the viewport. YouTube
+// uses the standard player URL so the visitor decides when to start it.
 const embeds = {
-  paper: 'https://arxiv.org/html/2210.03629',
   youtube: 'https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ',
   x: 'https://platform.twitter.com/embed/Tweet.html?id=2117279420377694564&dnt=true',
   reddit: 'embed/reddit.html',
 };
-const embedLabels = { paper: 'paper', youtube: 'video', x: 'post', reddit: 'post' };
-for (const card of document.querySelectorAll('[data-embed]')) {
-  const frame = card.querySelector('iframe');
-  const label = card.querySelector('summary > .small-muted');
-  const noun = embedLabels[card.dataset.embed];
-  card.addEventListener('toggle', () => {
-    frame.hidden = !card.open;
-    if (card.open) frame.src = embeds[card.dataset.embed];
-    else frame.removeAttribute('src');
-    label.textContent = card.open ? `Hide ${noun}` : `Load ${noun}`;
-  });
+if ('IntersectionObserver' in window) {
+  const embedObserver = new IntersectionObserver(entries => {
+    for (const { target, isIntersecting } of entries) {
+      if (!isIntersecting) continue;
+      const frame = target.querySelector('iframe');
+      if (target.dataset.embed === 'youtube') {
+        target.querySelector('.video-art img').src = 'https://i.ytimg.com/vi/dQw4w9WgXcQ/hqdefault.jpg';
+      }
+      frame.addEventListener('load', () => target.classList.add('has-embed'), { once: true });
+      frame.src = embeds[target.dataset.embed];
+      frame.hidden = false;
+      embedObserver.unobserve(target);
+    }
+  }, { threshold: .15 });
+  document.querySelectorAll('[data-embed]').forEach(card => embedObserver.observe(card));
+}
+
+const papers = {
+  exo: '2611.00463',
+  'agentic-scientist': '2610.18933',
+  'harness-squared': '2610.14224',
+};
+const reader = document.querySelector('.paper-reader');
+if (typeof reader.showModal === 'function') {
+  const frame = reader.querySelector('iframe');
+  const title = reader.querySelector('#paper-reader-title');
+  const source = reader.querySelector('.paper-reader-source');
+  for (const preview of document.querySelectorAll('[data-paper]')) {
+    preview.hidden = false;
+    preview.addEventListener('click', () => {
+      const id = papers[preview.dataset.paper];
+      title.textContent = preview.closest('.paper-card').querySelector('.paper-title').textContent;
+      source.href = `https://arxiv.org/abs/${id}`;
+      frame.title = title.textContent;
+      frame.src = `https://arxiv.org/html/${id}`;
+      reader.showModal();
+    });
+  }
+  reader.addEventListener('close', () => frame.removeAttribute('src'));
 }
 
 const voiceState = document.querySelector('.voice-state');
@@ -188,19 +222,20 @@ const scenes = {
     [replayDelay, () => showAgentStates(4)],
   ],
   tasks: [
-    [1400, () => { showWorkState(false); showTaskHandoff(false); }],
-    [1000, () => showTaskHandoff(true)],
-    [2200],
-    [replayDelay, animate => { showTaskHandoff(true); showWorkState(true, animate); }],
+    [1600, () => showTaskHandoff(false)],
+    [1200, () => { showTaskHandoff(true); showWorkState(false); }],
+    [1550],
+    [1800],
+    [taskMoveDuration, animate => moveTask(true, animate)],
+    [replayDelay, () => { showTaskHandoff(true); showWorkState(true); }],
   ],
   review: [
     [2200, () => showTour(0)],
     [replayDelay, () => showTour(1)],
   ],
   memory: [
-    [2200, () => showMemory(0)],
-    [2200, () => showMemory(1)],
-    [replayDelay, () => showMemory(2)],
+    [2400, () => showMemory(0)],
+    [replayDelay, () => showMemory(1)],
   ],
   spaces: [[1400], [replayDelay]],
   voice: [
@@ -237,7 +272,7 @@ function syncFeature(feature) {
   }
   feature.toggleAttribute('data-active', active);
   if (active) {
-    renderScene(feature, feature.dataset.scene === 'tasks' && !trackedDetail.hidden ? 2 : 0, true);
+    renderScene(feature, feature.dataset.scene === 'tasks' && !trackedDetail.hidden ? currentTaskStep() : 0, true);
   } else {
     clearTimeout(timers.get(feature));
     timers.delete(feature);

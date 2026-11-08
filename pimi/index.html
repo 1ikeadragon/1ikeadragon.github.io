@@ -9,8 +9,8 @@
   <link rel="icon" href="icon.png">
   <link rel="preload" href="fonts/caveat-brush-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="site.css?v=11">
-  <link rel="stylesheet" href="demo.css?v=10">
-  <script type="module" src="story.js?v=14"></script>
+  <link rel="stylesheet" href="demo.css?v=11">
+  <script type="module" src="story.js?v=15"></script>
   <title>Your swarm’s best friend</title>
 </head>
 <body>
@@ -74,10 +74,10 @@
 
     <div class="feature-stories">
       <p class="project-intro">Follow a sample project called Run Replay, a local flight recorder for coding agents.</p>
-      <section class="feature" id="tasks" data-scene="tasks" aria-labelledby="tasks-heading">
+      <section class="feature feature-wide" id="tasks" data-scene="tasks" aria-labelledby="tasks-heading">
         <div class="feature-copy">
           <h2 id="tasks-heading">Go from chat to a task</h2>
-          <p>Start with a chat and turn the idea into a task. Give event capture, redaction, and playback their own worktrees, then follow both in Tasks and Work.</p>
+          <p>Start with a chat and turn the idea into a task. Give event capture, redaction, and playback their own worktrees, then follow them in Tasks and Work.</p>
         </div>
         <div class="scene task-scene">
           <article class="float-panel task-chat-panel">
@@ -118,71 +118,129 @@
         </div>
       </section>
 
-      <section class="feature" id="review" data-scene="review" aria-labelledby="review-heading">
+      <section class="feature feature-wide" id="review" data-scene="review" aria-labelledby="review-heading">
         <div class="feature-copy">
           <h2 id="review-heading">Review across repos</h2>
-          <p>Check your GitHub PR queue, compare worktree diffs side by side, and step through the changes with a file tour.</p>
+          <p>Follow a change from the recorder to the replay UI. Keep both worktree diffs open as the file tour takes you through them.</p>
         </div>
         <div class="scene review-scene">
-          <div class="float-panel pr-panel"><header><svg aria-hidden="true"><use href="#icon-branch"/></svg><strong>Pull requests</strong><span class="small-muted">GitHub</span></header><div class="pr-row"><span class="pr-symbol">⑂</span><div><strong>Record redacted MCP events</strong><small>#42 · capture-events</small></div><span class="pr-state">Open · Checks passed</span></div><div class="pr-row"><span class="pr-symbol merged">⑂</span><div><strong>Sketch the replay view</strong><small>#41 · docs/replay-view</small></div><span class="pr-state merged">Merged</span></div></div>
-          <div class="diff-pair">
-            <article class="float-panel diff-panel"><header><strong>trace-core</strong><span class="small-muted">Capture tool calls</span></header><div class="diff-file">record-event.ts <span>+3 −1</span></div><pre><code><span class="code-context">export function record(event, sink) {</span><span class="line removed">− sink.write(JSON.stringify(event));</span><span class="line added tour-target" data-stop="0">+ const safe = redactCredentials(event);</span><span class="line added">+ const line = JSON.stringify(safe);</span><span class="line added">+ sink.write(line + "\n");</span><span class="code-context">}</span></code></pre></article>
-            <article class="float-panel diff-panel comparison"><header><strong>replay-ui</strong><span class="small-muted">Replay the trace</span></header><div class="diff-file">playback.ts <span>+3 −1</span></div><pre><code><span class="code-context">export function replay(events, timeline) {</span><span class="line removed">− rerunTools(events);</span><span class="line added tour-target" data-stop="1">+ for (const event of events) {</span><span class="line added">+   timeline.append(event);</span><span class="line added">+ }</span><span class="code-context">}</span></code></pre></article>
-          </div>
-          <aside class="float-panel tour-panel"><span class="tour-count">1 / 2</span><div><strong class="tour-title">Redact before saving</strong><p class="tour-description">The recorder writes the cleaned event to disk.</p></div><svg aria-hidden="true"><use href="#icon-next"/></svg></aside>
+          <article class="float-panel review-shell">
+            <header><svg aria-hidden="true"><use href="#icon-branch"/></svg><strong>Review</strong><span class="review-tab selected">Changes</span><span class="review-tab">Pull requests</span><span class="small-muted">Compare worktrees</span></header>
+            <div class="review-body">
+              <aside class="review-tree" aria-label="Review files and pull requests">
+                <small>Changed files</small>
+                <div class="review-file-list">
+                  <div class="review-repo current" data-review-stop="0"><strong>trace-core</strong><small>capture-events</small><span>src/record-event.ts</span></div>
+                  <div class="review-repo" data-review-stop="1"><strong>replay-ui</strong><small>timeline-player</small><span>src/playback.ts</span></div>
+                </div>
+                <small>Pull requests</small>
+                <div class="review-prs"><div><span>#42 · trace-core</span><strong>Record redacted events</strong><small>Checks passed</small></div><div><span>#18 · replay-ui</span><strong>Replay a recorded trace</strong><small>Open for review</small></div></div>
+              </aside>
+              <div class="review-main">
+                <div class="diff-pair">
+                  <article class="diff-panel"><header><strong>trace-core</strong><small>capture-events</small></header><div class="diff-file"><span>src/record-event.ts</span><span class="diff-stats"><b>+3</b> <b>−1</b></span></div><pre tabindex="0" aria-label="Diff for src/record-event.ts in trace-core"><code><span class="code-context" data-line="5"> import { redactCredentials } from "./secrets";</span><span class="code-context" data-line="6"> </span><span class="code-context" data-line="7"> async function recordEvent(event, sink) {</span><span class="line removed" data-line="8">−  await sink.write(JSON.stringify(event));</span><span class="line added tour-target current" data-line="8" data-stop="0">+  const safe = redactCredentials(event);</span><span class="line added" data-line="9">+  const line = JSON.stringify(safe);</span><span class="line added" data-line="10">+  await sink.write(line + "\n");</span><span class="code-context" data-line="11"> }</span></code></pre></article>
+                  <article class="diff-panel"><header><strong>replay-ui</strong><small>timeline-player</small></header><div class="diff-file"><span>src/playback.ts</span><span class="diff-stats"><b>+3</b> <b>−1</b></span></div><pre tabindex="0" aria-label="Diff for src/playback.ts in replay-ui"><code><span class="code-context" data-line="9"> import type { ToolEvent } from "./types";</span><span class="code-context" data-line="10"> </span><span class="code-context" data-line="11"> function replay(events, timeline) {</span><span class="line removed" data-line="12">−  return runTools(events);</span><span class="line added tour-target" data-line="12" data-stop="1">+  for (const event of events) {</span><span class="line added" data-line="13">+    timeline.append(event);</span><span class="line added" data-line="14">+  }</span><span class="code-context" data-line="15"> }</span></code></pre></article>
+                </div>
+                <aside class="tour-panel"><svg aria-hidden="true"><use href="#icon-list"/></svg><div><strong class="tour-title">Redact before saving</strong><p class="tour-description">The recorder writes the cleaned event to disk.</p></div><span class="tour-count">1 / 2</span></aside>
+              </div>
+            </div>
+          </article>
         </div>
       </section>
 
-      <section class="feature feature-reverse" id="memory" data-scene="memory" aria-labelledby="memory-heading">
+      <section class="feature feature-wide" id="memory" data-scene="memory" aria-labelledby="memory-heading">
         <div class="feature-copy">
           <h2 id="memory-heading">Keep the context when you switch agents</h2>
-          <p>Save project decisions in Memory so a new chat can pick up where the last one left off, even on a different provider.</p>
+          <p>Save a decision once. The next agent can look it up, even if you switch providers.</p>
         </div>
         <div class="scene memory-scene">
-          <article class="float-panel memory-panel"><header><svg aria-hidden="true"><use href="#icon-memory"/></svg><strong>Memory</strong><span class="small-muted">Run Replay</span></header><div class="memory-body"><div class="memory-list"><span class="selected">Redaction rules</span><span>Replay checklist</span><span>Capture handoff</span></div><div class="memory-note"><small>Architecture</small><h3>Redaction rules</h3><p>Redact tokens and credential fields before writing an event.</p><p class="small-muted">Keep the tool name and event order so a trace is still readable.</p></div></div></article>
-          <div class="float-panel memory-shared"><span class="provider-dot"><svg aria-label="Claude Code" role="img"><use href="#provider-claude"/></svg></span><span>Claude Code</span><span class="shared-line" aria-hidden="true"></span><svg aria-hidden="true"><use href="#icon-memory"/></svg><span class="shared-line" aria-hidden="true"></span><span class="provider-dot codex"><svg aria-label="Codex" role="img"><use href="#provider-codex"/></svg></span><span>Codex</span></div>
+          <article class="float-panel memory-panel">
+            <header><svg aria-hidden="true"><use href="#icon-memory"/></svg><strong>Memory</strong><span class="small-muted">Run Replay</span></header>
+            <div class="memory-body">
+              <div class="memory-list"><small>Project memory</small><span class="selected">Redaction rules</span><span>Replay checklist</span><span>Capture handoff</span></div>
+              <div class="memory-note">
+                <small>Architecture</small><h3>Redaction rules</h3>
+                <div class="memory-rules"><div><strong>Mask</strong><code>authorization</code><code>api_key</code><code>token</code></div><div><strong>Keep</strong><code>tool_name</code><code>event_order</code></div></div>
+                <p>Apply these rules before writing an event to disk.</p>
+              </div>
+              <div class="memory-chat">
+                <article data-memory-step="0">
+                  <header><span class="provider-dot"><svg aria-hidden="true"><use href="#provider-claude"/></svg></span><strong>Claude Code</strong></header>
+                  <p>We agreed on what to mask. I’ve saved it for the replay work.</p>
+                  <span class="memory-attachment"><svg aria-hidden="true"><use href="#icon-memory"/></svg>Saved Redaction rules</span>
+                </article>
+                <article data-memory-step="1">
+                  <header><span class="provider-dot codex"><svg aria-hidden="true"><use href="#provider-codex"/></svg></span><strong>Codex</strong></header>
+                  <span class="memory-attachment"><svg aria-hidden="true"><use href="#icon-memory"/></svg>Read Redaction rules</span>
+                  <p>I’ll use the same fields in the playback fixture.</p>
+                </article>
+              </div>
+            </div>
+          </article>
         </div>
       </section>
 
-      <section class="feature" id="spaces" data-scene="spaces" aria-labelledby="spaces-heading">
+      <section class="feature feature-wide" id="spaces" data-scene="spaces" aria-labelledby="spaces-heading">
         <div class="feature-copy">
           <h2 id="spaces-heading">Give your references a home</h2>
-          <p>Save papers, videos, and rough notes in Spaces. Pass an agent a card ID to pull a reference into the chat.</p>
+          <p>Save a paper, a video, or a rough note. Give an agent a card ID to pull it into the chat.</p>
         </div>
         <div class="scene spaces-scene">
           <article class="float-panel spaces-panel">
             <header><svg aria-hidden="true"><use href="#icon-compose"/></svg><strong>Spaces</strong><span class="small-muted">Run Replay</span></header>
-            <div class="space-cards">
-              <a class="space-card" href="https://arxiv.org/abs/1706.03762"><small>arXiv · 1706.03762</small><strong>Attention Is All You Need</strong><p>Vaswani et al.</p></a>
-              <a class="space-card" href="https://arxiv.org/abs/2005.11401"><small>arXiv · 2005.11401</small><strong>Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks</strong><p>Lewis et al.</p></a>
+            <div class="space-cards" aria-label="Saved papers">
+              <article class="space-card paper-card">
+                <div class="paper-cover">
+                  <a href="https://arxiv.org/abs/2611.00463" aria-label="Read Exo: An Architecture for Self-Improving Systems at Runtime on arXiv"><img src="showcase/papers/exo.webp" width="565" height="730" alt="" fetchpriority="low"></a>
+                  <button type="button" data-paper="exo" aria-label="Preview Exo: An Architecture for Self-Improving Systems at Runtime" hidden><svg aria-hidden="true"><use href="#icon-compose"/></svg><span>Preview</span></button>
+                </div>
+                <div class="paper-caption"><small>arXiv · 2611.00463</small><a class="paper-title" href="https://arxiv.org/abs/2611.00463">Exo: An Architecture for Self-Improving Systems at Runtime</a><small>Krentsel et al. · <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a></small></div>
+              </article>
+              <article class="space-card paper-card">
+                <div class="paper-cover">
+                  <a href="https://arxiv.org/abs/2610.18933" aria-label="Read The Agentic Scientist: Orchestrating Coding Agents for Automated Scientific (Co-)Discovery on arXiv"><img src="showcase/papers/agentic-scientist.webp" width="517" height="730" alt="" fetchpriority="low"></a>
+                  <button type="button" data-paper="agentic-scientist" aria-label="Preview The Agentic Scientist: Orchestrating Coding Agents for Automated Scientific (Co-)Discovery" hidden><svg aria-hidden="true"><use href="#icon-compose"/></svg><span>Preview</span></button>
+                </div>
+                <div class="paper-caption"><small>arXiv · 2610.18933</small><a class="paper-title" href="https://arxiv.org/abs/2610.18933">The Agentic Scientist: Orchestrating Coding Agents for Automated Scientific (Co-)Discovery</a><small>Lange et al. · <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a></small></div>
+              </article>
+              <article class="space-card paper-card">
+                <div class="paper-cover">
+                  <a href="https://arxiv.org/abs/2610.14224" aria-label="Read Harness²: Recursive Agent Harnessing for an Open World on arXiv"><img src="showcase/papers/harness-squared.webp" width="517" height="730" alt="" fetchpriority="low"></a>
+                  <button type="button" data-paper="harness-squared" aria-label="Preview Harness²: Recursive Agent Harnessing for an Open World" hidden><svg aria-hidden="true"><use href="#icon-compose"/></svg><span>Preview</span></button>
+                </div>
+                <div class="paper-caption"><small>arXiv · 2610.14224</small><a class="paper-title" href="https://arxiv.org/abs/2610.14224">Harness²: Recursive Agent Harnessing for an Open World</a><small>Xu et al. · <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a></small></div>
+              </article>
             </div>
-            <details class="spaces-embed spaces-paper" data-embed="paper">
-              <summary><span><strong>ReAct: Synergizing Reasoning and Acting in Language Models</strong><small>Yao et al. · arXiv:2210.03629</small></span><span class="small-muted">Load paper</span></summary>
-              <a class="embed-source" href="https://arxiv.org/abs/2210.03629">Open on arXiv</a>
-              <iframe title="ReAct paper on arXiv" sandbox referrerpolicy="no-referrer" loading="lazy" hidden></iframe>
-            </details>
-            <details class="spaces-embed spaces-video" data-embed="youtube">
-              <summary><svg aria-hidden="true"><use href="#icon-play"/></svg><span><strong>Never Gonna Give You Up</strong><small>Rick Astley · YouTube</small></span><span class="small-muted">Load video</span></summary>
-              <iframe title="Rick Astley – Never Gonna Give You Up" sandbox="allow-scripts allow-same-origin allow-presentation" allow="encrypted-media; fullscreen; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" hidden></iframe>
-              <a class="embed-source" href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">Open on YouTube</a>
-            </details>
             <div class="spaces-embed-group">
+              <article class="spaces-embed spaces-video" data-embed="youtube">
+                <div class="embed-preview">
+                  <span class="video-art" aria-hidden="true"><img alt="" referrerpolicy="no-referrer"><span class="video-play"><svg><use href="#icon-play"/></svg></span></span>
+                  <span class="embed-caption"><small>YouTube · Rick Astley</small><strong>Never Gonna Give You Up</strong></span>
+
+                </div>
+                <div class="embed-media"><iframe title="Rick Astley – Never Gonna Give You Up" sandbox="allow-scripts allow-same-origin allow-presentation" allow="encrypted-media; fullscreen; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" hidden></iframe></div>
+                <a class="embed-source" href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">Open on YouTube</a>
+              </article>
               <div class="spaces-linked-note">
                 <p class="space-note"><small>Note</small><strong>TODO: Add deep review to PRs</strong></p>
-                <details class="spaces-embed spaces-social" data-embed="x">
-                  <summary><span><strong>Deep Review on X</strong><small>Debarshi · @iminurputer</small></span><span class="small-muted">Load post</span></summary>
+                <article class="spaces-embed spaces-social" data-embed="x">
+                  <div class="embed-preview"><span class="social-brand" aria-hidden="true">𝕏</span><span class="embed-caption"><small>Debarshi · @iminurputer</small><strong>Deep Review</strong><span class="social-excerpt">A closer look at the code behind a PR.</span></span></div>
                   <a class="embed-source" href="https://x.com/iminurputer/status/2117279420377694564">Open the post on X</a>
-                  <iframe title="Debarshi’s Deep Review post on X" sandbox="allow-scripts allow-same-origin" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" hidden></iframe>
-                </details>
+                  <div class="embed-media"><iframe title="Debarshi’s Deep Review post on X" sandbox="allow-scripts allow-same-origin" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" hidden></iframe></div>
+                </article>
               </div>
-              <details class="spaces-embed spaces-social" data-embed="reddit">
-                <summary><span><strong>A replay timeline for coding agents</strong><small>u/kenthesaint · r/ClaudeCode</small></span><span class="small-muted">Load post</span></summary>
+              <article class="spaces-embed spaces-social" data-embed="reddit">
+                <div class="embed-preview"><span class="social-brand reddit-brand" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M16 8l1-5 4 1M5 11a3 3 0 1 0-2 5m16-5a3 3 0 1 1 2 5"/><ellipse cx="12" cy="15" rx="9" ry="6"/><path d="M9 17c1.5 1.5 4.5 1.5 6 0M8 14h.01m8 0h.01" stroke-width="2"/></svg></span><span class="embed-caption"><small>r/ClaudeCode · u/kenthesaint</small><strong>A trace tab for replaying Claude Code sessions</strong><span class="social-excerpt">Inspect a run on a timeline, tool calls and all.</span></span></div>
                 <a class="embed-source" href="https://www.reddit.com/r/ClaudeCode/comments/1x42oxf/i_built_a_trace_tab_that_replays_a_whole_claude/">Open the discussion on Reddit</a>
-                <iframe title="Reddit discussion about replaying coding-agent sessions" sandbox="allow-scripts" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" hidden></iframe>
-              </details>
+                <div class="embed-media"><iframe title="Reddit discussion about replaying coding-agent sessions" sandbox="allow-scripts" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" hidden></iframe></div>
+              </article>
             </div>
           </article>
-          <div class="float-panel space-reference"><svg aria-hidden="true"><use href="#icon-chat"/></svg><p>Use the ReAct paper from Spaces for background.</p><span class="small-muted">Card ID copied</span></div>
+          <div class="float-panel space-reference"><svg aria-hidden="true"><use href="#icon-chat"/></svg><p>Use the Agentic Scientist paper from Spaces.</p><span class="small-muted">Card ID copied</span></div>
+          <dialog class="paper-reader" aria-labelledby="paper-reader-title">
+            <header><strong id="paper-reader-title">Paper preview</strong><a class="paper-reader-source">Open on arXiv</a><form method="dialog"><button aria-label="Close paper preview" autofocus>×</button></form></header>
+            <iframe title="Paper on arXiv" sandbox referrerpolicy="no-referrer"></iframe>
+          </dialog>
         </div>
       </section>
 
