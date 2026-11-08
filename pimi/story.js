@@ -35,59 +35,51 @@ pet.addEventListener('click', () => {
   petTimer = setTimeout(() => pet.removeAttribute('data-petted'), 1200);
 });
 
-// These are local illustrative scenes, not live agents or a connected account.
-// Each timeline runs once on entry. Replay is explicit; offscreen work is stopped.
+// The showcase uses sample work. Each visible scene runs independently.
 const features = [...document.querySelectorAll('[data-scene]')];
-const timelines = new Map(features.map(feature => [feature, new Set()]));
+const video = document.querySelector('#overview-video');
+const motionToggle = document.querySelector('.motion-toggle');
+const visible = new Set();
+const timers = new Map();
+const replayDelay = 2000;
+let paused = false;
+
 const task = document.querySelector('.animated-task');
 const runningLane = document.querySelector('.running-lane');
 const reviewLane = document.querySelector('.review-lane');
 let taskAnimation;
 
-function stopTimeline(feature) {
-  for (const timer of timelines.get(feature)) clearTimeout(timer);
-  timelines.get(feature).clear();
-}
-function later(feature, delay, callback) {
-  const timer = setTimeout(() => {
-    timelines.get(feature).delete(timer);
-    callback();
-  }, delay);
-  timelines.get(feature).add(timer);
-}
-function moveTask(ready, animate = false) {
+function moveTask(ready, animate) {
   taskAnimation?.cancel();
-  const before = task.getBoundingClientRect();
+  const before = animate ? task.getBoundingClientRect() : null;
   (ready ? reviewLane : runningLane).append(task);
   task.querySelector('.task-state').textContent = ready ? 'Ready for review' : 'Agents working';
-  if (animate && !motion.matches) {
+  if (before) {
     const after = task.getBoundingClientRect();
     taskAnimation = task.animate([
       { transform: `translate(${before.x - after.x}px, ${before.y - after.y}px)` },
       { transform: 'translate(0, 0)' },
-    ], { duration: 650, easing: 'cubic-bezier(.2,.7,.2,1)' });
+    ], { duration: 550, easing: 'cubic-bezier(.2,.7,.2,1)' });
   }
 }
+
 const tourStops = [
-  { title: 'Keep the context', text: 'Include the tenant and provider in the cache key.' },
-  { title: 'Compare the lifetime', text: 'Check when shared data expires before reusing it.' },
+  { title: 'Scope the cache key', text: 'Include both the tenant and the provider.' },
+  { title: 'Check expiry', text: 'Reuse a shared entry while its data is fresh.' },
 ];
-let tourIndex = 0;
 function showTour(index) {
-  tourIndex = index;
   document.querySelector('.tour-count').textContent = `${index + 1} / ${tourStops.length}`;
   document.querySelector('.tour-title').textContent = tourStops[index].title;
   document.querySelector('.tour-description').textContent = tourStops[index].text;
   document.querySelectorAll('[data-stop]').forEach(line => line.classList.toggle('current', Number(line.dataset.stop) === index));
 }
+
 const memoryNotes = [
-  { kind: 'Architecture', title: 'Provider cache decision', text: 'Keep cache keys scoped to the tenant and provider.', detail: 'Compare each approach in its own worktree before choosing one.' },
-  { kind: 'Code review', title: 'Review conventions', text: 'Show the change and the trade-off together.', detail: 'Leave a clear question when a decision needs a human.' },
-  { kind: 'Workflow', title: 'Agent handoffs', text: 'Carry the branch, findings, and open questions forward.', detail: 'The next agent should know where to pick up.' },
+  { kind: 'Architecture', title: 'Provider cache decision', text: 'Scope every cache key to a tenant and a provider.', detail: 'Compare the two approaches in separate worktrees before choosing one.' },
+  { kind: 'Code review', title: 'Review conventions', text: 'Explain the trade-off alongside the change.', detail: 'Flag anything that needs a human decision.' },
+  { kind: 'Workflow', title: 'Agent handoffs', text: 'Share the branch, findings, and open questions.', detail: 'The next agent should know where to pick up.' },
 ];
-let memoryIndex = 0;
 function showMemory(index) {
-  memoryIndex = index;
   const note = document.querySelector('.memory-note');
   const data = memoryNotes[index];
   note.querySelector('small').textContent = data.kind;
@@ -96,6 +88,27 @@ function showMemory(index) {
   note.querySelector('p.small-muted').textContent = data.detail;
   document.querySelectorAll('.memory-list span').forEach((item, i) => item.classList.toggle('selected', i === index));
 }
+
+function showAgentStates(finished) {
+  document.querySelectorAll('.agent-status').forEach((status, index) => {
+    const done = index < finished;
+    status.toggleAttribute('data-finished', done);
+    status.querySelector('span').textContent = done ? 'Finished' : 'Working';
+  });
+}
+
+function showWorkState(ready, animate = false) {
+  moveTask(ready, animate);
+  document.querySelectorAll('.work-state').forEach(state => {
+    state.textContent = ready ? 'Ready for review' : 'In progress';
+  });
+  document.querySelector('.task-work-items').hidden = ready;
+  document.querySelector('.task-report').hidden = !ready;
+  document.querySelectorAll('.report-panel .tabs span').forEach((tab, index) => {
+    tab.classList.toggle('active', index === Number(ready));
+  });
+}
+
 const trackedTask = document.querySelector('.personal-task');
 const trackedDetail = document.querySelector('#tracked-task-detail');
 const report = document.querySelector('.report-panel');
@@ -112,113 +125,109 @@ document.querySelector('#close-tracked').addEventListener('click', () => {
 document.querySelector('#tracked-stage').addEventListener('change', event => {
   document.querySelectorAll('.task-lane')[Number(event.target.value)].append(trackedTask);
 });
-const voiceText = document.querySelector('.voice-transcript').textContent;
 
-function finishScene(feature) {
-  stopTimeline(feature);
-  feature.dataset.phase = 'done';
-  if (feature.dataset.scene === 'agents') {
-    feature.querySelectorAll('.agent-status span').forEach(status => { status.textContent = 'Ready for review'; });
-  } else if (feature.dataset.scene === 'tasks') moveTask(true, true);
-  else if (feature.dataset.scene === 'voice') {
-    feature.querySelector('.voice-transcript').textContent = voiceText;
-    feature.querySelector('.voice-state').textContent = 'Inserted';
-  }
+const voiceState = document.querySelector('.voice-state');
+function showVoiceStatus(ready) {
+  voiceState.textContent = ready ? 'Got it · Opening task draft' : 'Listening';
 }
-function startScene(feature) {
-  stopTimeline(feature);
-  feature.dataset.phase = 'start';
-  if (motion.matches) { finishScene(feature); return; }
-  const kind = feature.dataset.scene;
-  if (kind === 'agents') {
-    feature.querySelectorAll('.agent-status span').forEach(status => { status.textContent = 'Working'; });
-    later(feature, 1200, () => { feature.dataset.phase = 'working'; });
-    later(feature, 4200, () => finishScene(feature));
-  } else if (kind === 'tasks') {
-    moveTask(false);
-    later(feature, 600, () => { feature.dataset.phase = 'working'; });
-    later(feature, 3200, () => finishScene(feature));
-  } else if (kind === 'review') {
-    showTour(0);
-    later(feature, 2800, () => { showTour(1); finishScene(feature); });
-  } else if (kind === 'memory') {
-    showMemory(0);
-    later(feature, 3000, () => { showMemory(1); finishScene(feature); });
-  } else if (kind === 'voice') {
-    const transcript = feature.querySelector('.voice-transcript');
-    transcript.textContent = '';
-    feature.querySelector('.voice-state').textContent = 'Listening';
-    later(feature, 700, () => {
-      feature.dataset.phase = 'working';
-      let character = 0;
-      function typeNext() {
-        character += 1;
-        transcript.textContent = voiceText.slice(0, character);
-        if (character < voiceText.length) later(feature, 38, typeNext);
-        else later(feature, 500, () => finishScene(feature));
-      }
-      typeNext();
-    });
+
+const scenes = {
+  agents: [
+    [1100, () => showAgentStates(0)],
+    [1100, () => showAgentStates(2)],
+    [replayDelay, () => showAgentStates(4)],
+  ],
+  tasks: [
+    [2200, () => showWorkState(false)],
+    [replayDelay, animate => showWorkState(true, animate)],
+  ],
+  review: [
+    [2200, () => showTour(0)],
+    [replayDelay, () => showTour(1)],
+  ],
+  memory: [
+    [2200, () => showMemory(0)],
+    [2200, () => showMemory(1)],
+    [replayDelay, () => showMemory(2)],
+  ],
+  spaces: [[1400], [replayDelay]],
+  voice: [
+    [1700, () => showVoiceStatus(false)],
+    [replayDelay, () => showVoiceStatus(true)],
+  ],
+  automations: [[900], [replayDelay]],
+};
+
+function renderScene(feature, index, animate) {
+  const steps = scenes[feature.dataset.scene];
+  const [delay, render] = steps[index];
+  feature.dataset.phase = index === 0 ? 'start' : index === steps.length - 1 ? 'done' : 'working';
+  render?.(animate);
+  if (animate) {
+    timers.set(feature, setTimeout(() => renderScene(feature, (index + 1) % steps.length, true), delay));
   }
 }
 
-for (const feature of features) {
-  feature.querySelectorAll('button[hidden]').forEach(button => { button.hidden = false; });
-  feature.querySelector('[data-replay]')?.addEventListener('click', () => startScene(feature));
+function canAnimate(element) {
+  return visible.has(element) && !document.hidden && !motion.matches && !paused;
 }
-document.querySelector('#tour-next').addEventListener('click', () => {
-  const feature = document.querySelector('#review');
-  stopTimeline(feature);
-  showTour((tourIndex + 1) % tourStops.length);
-  feature.dataset.phase = 'done';
-});
-document.querySelector('#memory-next').addEventListener('click', () => {
-  const feature = document.querySelector('#memory');
-  stopTimeline(feature);
-  showMemory((memoryIndex + 1) % memoryNotes.length);
-  feature.dataset.phase = 'done';
-});
-showTour(0);
 
+function syncFeature(feature) {
+  const active = canAnimate(feature);
+  if (active === feature.hasAttribute('data-active')) {
+    if (!active && (paused || motion.matches) && feature.dataset.phase !== 'done') {
+      renderScene(feature, scenes[feature.dataset.scene].length - 1, false);
+    }
+    return;
+  }
+  feature.toggleAttribute('data-active', active);
+  if (active) {
+    renderScene(feature, 0, true);
+  } else {
+    clearTimeout(timers.get(feature));
+    timers.delete(feature);
+    if (paused || motion.matches) {
+      renderScene(feature, scenes[feature.dataset.scene].length - 1, false);
+    }
+  }
+}
+
+function syncVideo() {
+  if (canAnimate(video)) void video.play().catch(() => {});
+  else video.pause();
+}
+
+function syncMotion() {
+  motionToggle.hidden = motion.matches || !('IntersectionObserver' in window);
+  features.forEach(syncFeature);
+  syncVideo();
+}
+
+motionToggle.addEventListener('click', () => {
+  paused = !paused;
+  root.toggleAttribute('data-showcase-paused', paused);
+  motionToggle.textContent = paused ? 'Resume motion' : 'Pause motion';
+  syncMotion();
+});
+document.addEventListener('visibilitychange', syncMotion);
+motion.addEventListener('change', syncMotion);
+
+for (const feature of features) renderScene(feature, scenes[feature.dataset.scene].length - 1, false);
 if ('IntersectionObserver' in window) {
   const observer = new IntersectionObserver(entries => {
-    for (const { target: feature, isIntersecting } of entries) {
-      feature.toggleAttribute('data-active', isIntersecting && !document.hidden);
-      if (isIntersecting) {
-        feature.setAttribute('data-seen', '');
-        if (feature.dataset.phase !== 'done' && !document.hidden) startScene(feature);
-      } else {
-        stopTimeline(feature);
+    for (const entry of entries) {
+      const element = entry.target;
+      const inView = entry.intersectionRatio >= .25;
+      if (inView) visible.add(element);
+      else visible.delete(element);
+      if (element === video) syncVideo();
+      else {
+        if (inView) element.setAttribute('data-seen', '');
+        syncFeature(element);
       }
     }
   }, { threshold: .25 });
+  observer.observe(video);
   features.forEach(feature => { feature.setAttribute('data-ready', ''); observer.observe(feature); });
-} else {
-  // Static, complete scenes preserve all content on older browsers.
-  features.forEach(finishScene);
 }
-function settleMotion() {
-  if (motion.matches) features.forEach(finishScene);
-}
-motion.addEventListener('change', settleMotion);
-document.addEventListener('visibilitychange', () => {
-  if (document.hidden) {
-    features.forEach(feature => {
-      feature.removeAttribute('data-active');
-      stopTimeline(feature);
-    });
-  } else {
-    for (const feature of features) {
-      const bounds = feature.getBoundingClientRect();
-      if (bounds.bottom > 0 && bounds.top < innerHeight) {
-        feature.setAttribute('data-active', '');
-        if (feature.dataset.phase !== 'done') startScene(feature);
-      }
-    }
-  }
-});
-
-// Video remains user-controlled, with native playback, seeking, and fullscreen.
-// Avoid autoplay motion, unexpected downloads, or resuming after a manual pause.
-const video = document.querySelector('#overview-video');
-document.addEventListener('visibilitychange', () => { if (document.hidden) video.pause(); });
+syncMotion();
