@@ -49,9 +49,9 @@ const runningLane = document.querySelector('.running-lane');
 const reviewLane = document.querySelector('.review-lane');
 let taskAnimation;
 const taskMoveDuration = 1050;
-const taskDetailStep = 3;
-const taskMoveStep = 4;
-const taskReviewStep = 5;
+const taskDetailStep = 5;
+const taskMoveStep = 6;
+const taskReviewStep = 7;
 
 function currentTaskStep() {
   return task.dataset.stage === 'review' ? taskReviewStep : taskDetailStep;
@@ -191,9 +191,39 @@ function showVoiceStatus(ready) {
   voiceState.textContent = ready ? 'Got it · Opening task draft' : 'Listening';
 }
 
-const taskHandoff = document.querySelector('.task-handoff-label');
-function showTaskHandoff(created) {
-  taskHandoff.textContent = created ? 'Task created' : 'Creating task';
+const taskFeature = document.querySelector('#tasks');
+const taskHandoff = taskFeature.querySelector('.task-handoff-label');
+const taskTyped = taskFeature.querySelector('.task-typed-text');
+const taskPrompt = [...taskFeature.querySelector('.task-prompt').textContent];
+const keyDelays = [24, 38, 27, 46, 25];
+let keyTime = 360;
+const taskTypingTimes = taskPrompt.map((character, index) => {
+  keyTime += '.,?!'.includes(character) ? 95 : character === ' ' ? 48 : keyDelays[index % keyDelays.length];
+  return keyTime;
+});
+const taskTypingDuration = keyTime + 320;
+let typingFrame;
+
+function showTaskChat(beat) {
+  taskFeature.dataset.taskView = 'chat';
+  taskFeature.dataset.taskChatBeat = beat;
+  taskHandoff.textContent = beat === 'created' ? 'Task created' : 'Creating task';
+}
+
+function typeTaskPrompt() {
+  cancelAnimationFrame(typingFrame);
+  showTaskChat('typing');
+  taskTyped.textContent = '';
+  const started = performance.now();
+  let typed = 0;
+  function typeFrame(now) {
+    if (!canAnimate(taskFeature) || taskFeature.dataset.taskChatBeat !== 'typing') return;
+    const previous = typed;
+    while (typed < taskPrompt.length && taskTypingTimes[typed] <= now - started) typed++;
+    if (typed > previous) taskTyped.textContent += taskPrompt.slice(previous, typed).join('');
+    if (typed < taskPrompt.length) typingFrame = requestAnimationFrame(typeFrame);
+  }
+  typingFrame = requestAnimationFrame(typeFrame);
 }
 
 const exampleSkill = document.querySelector('.sample-skill');
@@ -259,12 +289,19 @@ const scenes = {
     [replayDelay, () => showAgentStates(4)],
   ],
   tasks: [
-    [1600, () => showTaskHandoff(false)],
-    [1200, () => { showTaskHandoff(true); showWorkState(false); }],
-    [1550],
-    [1800],
+    [taskTypingDuration, typeTaskPrompt],
+    [750, () => showTaskChat('sent')],
+    [1050, () => showTaskChat('creating')],
+    [1200, () => { showTaskChat('created'); showWorkState(false); }],
+    [1550, () => { taskFeature.dataset.taskView = 'board'; }],
+    [1800, () => { taskFeature.dataset.taskView = 'detail'; }],
     [taskMoveDuration, animate => moveTask(true, animate)],
-    [replayDelay, () => { showTaskHandoff(true); showWorkState(true); }],
+    [replayDelay, () => {
+      taskFeature.dataset.taskView = 'detail';
+      taskFeature.dataset.taskChatBeat = 'created';
+      taskHandoff.textContent = 'Task created';
+      showWorkState(true);
+    }],
   ],
   review: [
     [2200, () => showTour(0)],
