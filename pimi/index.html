@@ -69,7 +69,6 @@
             <path class="pet-heart" d="M105 26c-11-7-4-15 0-10 4-5 11 3 0 10Z" fill="currentColor"/>
           </svg>
         </button>
-        <button class="motion-toggle" type="button" hidden>Pause motion</button>
       </div>
     </section>
 
@@ -94,10 +93,10 @@
           </article>
           <div class="float-panel task-panel"><header><svg aria-hidden="true"><use href="#icon-tasks"/></svg><strong>Tasks</strong><span class="small-muted">Board</span></header><div class="task-board">
             <div class="task-lane"><h3><i></i>To Do</h3><button type="button" class="task-card personal-task" aria-expanded="false" aria-controls="tracked-task-detail"><strong>Pick a trace fixture</strong><small>No delegated work</small></button></div>
-            <div class="task-lane"><h3><i></i>Ready</h3><article class="task-card"><strong>Add a timeline search</strong><small>Run Replay</small></article></div>
+            <div class="task-lane"><h3><i></i>Ready</h3><article class="task-card"><strong>Add a timeline search</strong></article></div>
             <div class="task-lane running-lane"><h3><i></i>In progress</h3><article class="task-card animated-task"><strong>Build a local run recorder</strong><small>3 worktrees</small><span class="progress-track"><i></i></span><small class="task-state">Agents working</small></article></div>
             <div class="task-lane review-lane"><h3><i></i>Review</h3></div>
-            <div class="task-lane done-lane"><h3><i></i>Done</h3><article class="task-card"><strong>Sketch the replay view</strong><small>Run Replay</small></article></div>
+            <div class="task-lane done-lane"><h3><i></i>Done</h3><article class="task-card"><strong>Sketch the replay view</strong></article></div>
           </div></div>
           <article class="float-panel report-panel"><header><svg aria-hidden="true"><use href="#icon-list"/></svg><strong>Build a local run recorder</strong></header><div class="report-content"><div class="tabs"><span class="active">Work items</span><span>Reports</span></div><div class="task-work-items"><div class="work-item"><svg aria-hidden="true"><use href="#icon-branch"/></svg><div><strong>Capture tool calls</strong><small>trace-core · capture-events</small></div><span class="work-state">In progress</span></div><div class="work-item"><svg aria-hidden="true"><use href="#icon-branch"/></svg><div><strong>Redact credentials</strong><small>trace-core · redact-secrets</small></div><span class="work-state">In progress</span></div><div class="work-item"><svg aria-hidden="true"><use href="#icon-branch"/></svg><div><strong>Replay the trace</strong><small>replay-ui · timeline-player</small></div><span class="work-state">In progress</span></div></div><div class="task-report" hidden><strong>Capture tool calls</strong><p>Write redacted MCP events as newline-delimited JSON so playback can read them in order.</p><div class="report-file"><svg aria-hidden="true"><use href="#icon-compose"/></svg>trace-format.md</div></div></div></article>
           <article class="float-panel tracked-panel" id="tracked-task-detail" hidden><header><strong>Pick a trace fixture</strong><button type="button" id="close-tracked" aria-label="Close tracked task">×</button></header><div class="tracked-content"><strong>Work items</strong><p>No delegated work</p><label>Stage <select id="tracked-stage"><option value="0">To Do</option><option value="1">Ready</option><option value="2">In progress</option><option value="3">Review</option><option value="4">Done</option></select></label></div></article>
@@ -161,7 +160,7 @@
         </div>
         <div class="scene memory-scene">
           <article class="float-panel memory-panel">
-            <header><svg aria-hidden="true"><use href="#icon-memory"/></svg><strong>Memory</strong><span class="small-muted">Run Replay</span></header>
+            <header><svg aria-hidden="true"><use href="#icon-memory"/></svg><strong>Memory</strong></header>
             <div class="memory-body">
               <div class="memory-list"><small>Project memory</small><span class="selected">Redaction rules</span><span>Replay checklist</span><span>Capture handoff</span></div>
               <div class="memory-note">
@@ -193,7 +192,7 @@
         </div>
         <div class="scene spaces-scene">
           <article class="float-panel spaces-panel">
-            <header><svg aria-hidden="true"><use href="#icon-compose"/></svg><strong>Spaces</strong><span class="small-muted">Run Replay</span></header>
+            <header><svg aria-hidden="true"><use href="#icon-compose"/></svg><strong>Spaces</strong></header>
             <div class="space-cards" aria-label="Saved papers">
               <article class="space-card paper-card">
                 <div class="paper-cover">
@@ -243,7 +242,7 @@
                     <span class="embed-caption"><small>GitHub</small><strong>MCP Inspector</strong><span class="social-excerpt">Inspect and test the tools your agent calls.</span></span>
                   </a>
                 </article>
-                <p class="space-note">if the trace gets huge, maybe fold repeted calls and let me expand the weird ones</p>
+                <p class="space-note space-scratch-note">if the trace gets huge, maybe fold repeted calls and let me expand the weird ones</p>
               </div>
             </div>
           </article>
@@ -288,7 +287,7 @@
         </div>
         <div class="scene automation-scene">
           <article class="float-panel automation-panel">
-            <header><svg aria-hidden="true"><use href="#icon-rocket"/></svg><strong>Automations</strong><span class="small-muted">Run Replay</span></header>
+            <header><svg aria-hidden="true"><use href="#icon-rocket"/></svg><strong>Automations</strong></header>
             <div class="automation-row">
               <span class="automation-symbol"><svg aria-hidden="true"><use href="#icon-clock"/></svg></span>
               <div><strong>Replay regression checks</strong><small>Fridays · 9:00 AM</small></div>

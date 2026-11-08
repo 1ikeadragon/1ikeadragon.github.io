@@ -38,11 +38,9 @@ pet.addEventListener('click', () => {
 // The showcase uses sample work. Each visible scene runs independently.
 const features = [...document.querySelectorAll('[data-scene]')];
 const video = document.querySelector('#overview-video');
-const motionToggle = document.querySelector('.motion-toggle');
 const visible = new Set();
 const timers = new Map();
 const replayDelay = 2000;
-let paused = false;
 
 const task = document.querySelector('.animated-task');
 const runningLane = document.querySelector('.running-lane');
@@ -377,14 +375,14 @@ function renderScene(feature, index, animate) {
 }
 
 function canAnimate(element) {
-  return visible.has(element) && !document.hidden && !motion.matches && !paused;
+  return visible.has(element) && !document.hidden && !motion.matches;
 }
 
 function syncFeature(feature) {
   if (feature === usage && usageInteracted) return;
   const active = canAnimate(feature);
   if (active === feature.hasAttribute('data-active')) {
-    if (!active && (paused || motion.matches) && feature.dataset.phase !== 'done') {
+    if (!active && motion.matches && feature.dataset.phase !== 'done') {
       renderScene(feature, scenes[feature.dataset.scene].length - 1, false);
     }
     return;
@@ -395,7 +393,7 @@ function syncFeature(feature) {
   } else {
     clearTimeout(timers.get(feature));
     timers.delete(feature);
-    if (paused || motion.matches) {
+    if (motion.matches) {
       renderScene(feature, scenes[feature.dataset.scene].length - 1, false);
     }
   }
@@ -407,17 +405,10 @@ function syncVideo() {
 }
 
 function syncMotion() {
-  motionToggle.hidden = motion.matches || !('IntersectionObserver' in window);
   features.forEach(syncFeature);
   syncVideo();
 }
 
-motionToggle.addEventListener('click', () => {
-  paused = !paused;
-  root.toggleAttribute('data-showcase-paused', paused);
-  motionToggle.textContent = paused ? 'Resume motion' : 'Pause motion';
-  syncMotion();
-});
 document.addEventListener('visibilitychange', syncMotion);
 motion.addEventListener('change', syncMotion);
 
