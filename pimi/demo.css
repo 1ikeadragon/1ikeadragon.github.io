@@ -125,8 +125,8 @@
 .memory-note p { margin-top: 9px; font-size: 12px; }
 .memory-shared { display: flex; align-items: center; gap: 8px; padding: 14px 18px; right: 0; top: 257px; font-size: 11px; z-index: 2; }
 .shared-line { width: 25px; height: 1px; background: var(--line); }
-.space-cards { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; padding: 12px; }
-.space-card { display: grid; align-content: start; gap: 6px; min-height: 135px; padding: 10px; border: 1px solid var(--line); border-radius: 8px; background: var(--rail); overflow-wrap: anywhere; }
+.space-cards { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; padding: 12px; }
+.space-card { display: grid; align-content: start; gap: 6px; min-height: 95px; padding: 10px; border: 1px solid var(--line); border-radius: 8px; background: var(--rail); overflow-wrap: anywhere; }
 .space-card p { color: var(--muted); font-size: 11px; }
 [data-phase="done"] .space-card:first-child { background: var(--tint); }
 .space-reference { position: relative; display: flex; align-items: center; gap: 8px; max-width: 100%; width: fit-content; margin: 12px 0 0 auto; padding: 13px; font-size: 12px; }
@@ -234,7 +234,7 @@
   .memory-note h3 { font-size: 17px; margin: 5px 0 10px; }
   .memory-shared { top: 264px; }
   .space-cards { gap: 5px; padding: 8px; }
-  .space-card { min-height: 144px; padding: 7px; font-size: 11px; }
+  .space-card { padding: 7px; font-size: 11px; }
   .space-reference { font-size: 11px; }
   .voice-scene { height: 375px; }
   .voice-panel, .voice-result { width: 96%; left: 0; }
@@ -278,6 +278,7 @@
 .spaces-embed summary > span { display: grid; }
 .spaces-embed summary > .small-muted { margin-left: auto; white-space: nowrap; }
 .spaces-embed iframe { display: block; width: 100%; border: 0; background: var(--panel); }
+.spaces-paper iframe { height: 440px; }
 .spaces-video iframe { aspect-ratio: 16 / 9; background: var(--ink); }
 .spaces-social iframe { height: 410px; }
 .spaces-embed-group { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: start; gap: 8px; padding: 0 12px 12px; }

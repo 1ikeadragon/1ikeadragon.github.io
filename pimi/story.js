@@ -135,14 +135,16 @@ document.querySelector('#tracked-stage').addEventListener('change', event => {
 
 // Explicit user interaction is required before any third-party media is loaded.
 const embeds = {
+  paper: 'https://arxiv.org/html/2210.03629',
   youtube: 'https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ',
   x: 'https://platform.twitter.com/embed/Tweet.html?id=2117279420377694564&dnt=true',
   reddit: 'embed/reddit.html',
 };
+const embedLabels = { paper: 'paper', youtube: 'video', x: 'post', reddit: 'post' };
 for (const card of document.querySelectorAll('[data-embed]')) {
   const frame = card.querySelector('iframe');
   const label = card.querySelector('summary > .small-muted');
-  const noun = card.dataset.embed === 'youtube' ? 'video' : 'post';
+  const noun = embedLabels[card.dataset.embed];
   card.addEventListener('toggle', () => {
     frame.hidden = !card.open;
     if (card.open) frame.src = embeds[card.dataset.embed];
