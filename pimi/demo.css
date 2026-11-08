@@ -188,7 +188,6 @@
 @media (max-width: 760px) { .tracked-panel { top: 245px; width: 78%; right: -2%; } }
 
 /* Run Replay walkthrough */
-.project-intro { width: min(660px, calc(100% - 48px)); margin: 0 auto; text-align: center; color: var(--muted); font-size: 15px; line-height: 1.6; }
 /* The main workflows get the same full-width stage as the product recording. */
 .feature.feature-wide { display: grid; grid-template-columns: minmax(0, 1fr); width: min(1100px, calc(100% - 64px)); min-height: 0; gap: 29px; padding-block: 66px 76px; }
 .feature-wide .feature-copy { max-width: 620px; margin-inline: auto; text-align: center; }
