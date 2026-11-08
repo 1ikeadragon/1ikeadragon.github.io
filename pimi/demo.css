@@ -291,7 +291,8 @@
 .spaces-video .embed-media { position: absolute; inset: 0 0 auto; }
 .spaces-video:not(.has-embed) iframe { visibility: hidden; }
 .social-brand { display: grid; width: 31px; height: 31px; place-items: center; border-radius: 7px; color: #fff; background: #242126; font-size: 15px; }
-.reddit-brand { background: #d63617; }
+.spaces-repository a { color: inherit; text-decoration: none; }
+.spaces-repository a:is(:hover, :focus-visible) { background: var(--rail); }
 .social-brand svg { width: 20px; height: 20px; }
 .social-excerpt { color: var(--muted); font-size: 12px; }
 .spaces-embed iframe { display: block; width: 100%; border: 0; background: var(--panel); }
