@@ -9,8 +9,8 @@
   <link rel="icon" href="icon.png">
   <link rel="preload" href="fonts/caveat-brush-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="site.css?v=11">
-  <link rel="stylesheet" href="demo.css?v=12">
-  <script type="module" src="story.js?v=16"></script>
+  <link rel="stylesheet" href="demo.css?v=13">
+  <script type="module" src="story.js?v=17"></script>
   <title>Your swarm’s best friend</title>
 </head>
 <body>
@@ -191,17 +191,17 @@
             <div class="space-cards" aria-label="Saved papers">
               <article class="space-card paper-card">
                 <div class="paper-cover">
-                  <a href="https://arxiv.org/abs/2611.00463" aria-label="Read Exo: An Architecture for Self-Improving Systems at Runtime on arXiv"><img src="showcase/papers/exo.webp" width="565" height="730" alt="" fetchpriority="low"></a>
-                  <button type="button" data-paper="exo" aria-label="Preview Exo: An Architecture for Self-Improving Systems at Runtime" hidden><svg aria-hidden="true"><use href="#icon-compose"/></svg><span>Preview</span></button>
-                </div>
-                <div class="paper-caption"><small>arXiv · 2611.00463</small><a class="paper-title" href="https://arxiv.org/abs/2611.00463">Exo: An Architecture for Self-Improving Systems at Runtime</a><small>Krentsel et al. · <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a></small></div>
-              </article>
-              <article class="space-card paper-card">
-                <div class="paper-cover">
                   <a href="https://arxiv.org/abs/2610.18933" aria-label="Read The Agentic Scientist: Orchestrating Coding Agents for Automated Scientific (Co-)Discovery on arXiv"><img src="showcase/papers/agentic-scientist.webp" width="517" height="730" alt="" fetchpriority="low"></a>
                   <button type="button" data-paper="agentic-scientist" aria-label="Preview The Agentic Scientist: Orchestrating Coding Agents for Automated Scientific (Co-)Discovery" hidden><svg aria-hidden="true"><use href="#icon-compose"/></svg><span>Preview</span></button>
                 </div>
                 <div class="paper-caption"><small>arXiv · 2610.18933</small><a class="paper-title" href="https://arxiv.org/abs/2610.18933">The Agentic Scientist: Orchestrating Coding Agents for Automated Scientific (Co-)Discovery</a><small>Lange et al. · <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a></small></div>
+              </article>
+              <article class="space-card paper-card">
+                <div class="paper-cover">
+                  <a href="https://arxiv.org/abs/2611.00463" aria-label="Read Exo: An Architecture for Self-Improving Systems at Runtime on arXiv"><img src="showcase/papers/exo.webp" width="565" height="730" alt="" fetchpriority="low"></a>
+                  <button type="button" data-paper="exo" aria-label="Preview Exo: An Architecture for Self-Improving Systems at Runtime" hidden><svg aria-hidden="true"><use href="#icon-compose"/></svg><span>Preview</span></button>
+                </div>
+                <div class="paper-caption"><small>arXiv · 2611.00463</small><a class="paper-title" href="https://arxiv.org/abs/2611.00463">Exo: An Architecture for Self-Improving Systems at Runtime</a><small>Krentsel et al. · <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a></small></div>
               </article>
               <article class="space-card paper-card">
                 <div class="paper-cover">
@@ -211,6 +211,7 @@
                 <div class="paper-caption"><small>arXiv · 2610.14224</small><a class="paper-title" href="https://arxiv.org/abs/2610.14224">Harness²: Recursive Agent Harnessing for an Open World</a><small>Xu et al. · <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a></small></div>
               </article>
             </div>
+            <div class="space-reference"><svg aria-hidden="true"><use href="#icon-chat"/></svg><p>Use The Agentic Scientist for background.</p><span class="space-copy-state">Card ID copied</span></div>
             <div class="spaces-embed-group">
               <article class="spaces-embed spaces-video" data-embed="youtube">
                 <div class="embed-preview">
@@ -224,19 +225,17 @@
               <div class="spaces-linked-note">
                 <p class="space-note"><small>Note</small><strong>TODO: Add deep review to PRs</strong></p>
                 <article class="spaces-embed spaces-social" data-embed="x">
-                  <div class="embed-preview"><span class="social-brand" aria-hidden="true">𝕏</span><span class="embed-caption"><small>Debarshi · @iminurputer</small><strong>Deep Review</strong><span class="social-excerpt">A closer look at the code behind a PR.</span></span></div>
-                  <a class="embed-source" href="https://x.com/iminurputer/status/2117279420377694564">Open the post on X</a>
+                  <div class="embed-preview"><span class="social-brand" aria-hidden="true">𝕏</span><span class="embed-caption"><small>@iminurputer</small><strong>Deep Review</strong></span></div>
+                  <a class="embed-source" href="https://x.com/iminurputer/status/2117279420377694564">View on X</a>
                   <div class="embed-media"><iframe title="Debarshi’s Deep Review post on X" sandbox="allow-scripts allow-same-origin" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" hidden></iframe></div>
                 </article>
               </div>
-              <article class="spaces-embed spaces-social" data-embed="reddit">
+              <article class="spaces-embed spaces-social">
                 <div class="embed-preview"><span class="social-brand reddit-brand" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M16 8l1-5 4 1M5 11a3 3 0 1 0-2 5m16-5a3 3 0 1 1 2 5"/><ellipse cx="12" cy="15" rx="9" ry="6"/><path d="M9 17c1.5 1.5 4.5 1.5 6 0M8 14h.01m8 0h.01" stroke-width="2"/></svg></span><span class="embed-caption"><small>r/ClaudeCode · u/kenthesaint</small><strong>A trace tab for replaying Claude Code sessions</strong><span class="social-excerpt">Inspect a run on a timeline, tool calls and all.</span></span></div>
                 <a class="embed-source" href="https://www.reddit.com/r/ClaudeCode/comments/1x42oxf/i_built_a_trace_tab_that_replays_a_whole_claude/">Open the discussion on Reddit</a>
-                <div class="embed-media"><iframe title="Reddit discussion about replaying coding-agent sessions" sandbox="allow-scripts" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" hidden></iframe></div>
               </article>
             </div>
           </article>
-          <div class="float-panel space-reference"><svg aria-hidden="true"><use href="#icon-chat"/></svg><p>Use the Agentic Scientist paper from Spaces.</p><span class="small-muted">Card ID copied</span></div>
           <dialog class="paper-reader" aria-labelledby="paper-reader-title">
             <header><strong id="paper-reader-title">Paper preview</strong><a class="paper-reader-source">Open on arXiv</a><form method="dialog"><button aria-label="Close paper preview" autofocus>×</button></form></header>
             <iframe title="Paper on arXiv" sandbox referrerpolicy="no-referrer"></iframe>

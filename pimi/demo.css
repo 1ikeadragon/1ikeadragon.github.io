@@ -296,11 +296,11 @@
 .social-excerpt { color: var(--muted); font-size: 12px; }
 .spaces-embed iframe { display: block; width: 100%; border: 0; background: var(--panel); }
 .spaces-video iframe { aspect-ratio: 16 / 9; }
-.spaces-social iframe { height: 405px; }
+[data-embed="x"] iframe { height: 245px; }
 .space-note { display: grid; gap: 3px; margin-bottom: 8px; padding: 10px 12px; border: 1px solid var(--line); border-radius: 7px; background: var(--tint); }
 .embed-source { display: inline-block; margin: 0 11px 10px; color: var(--muted); font-size: 11px; }
-.space-reference { position: relative; display: flex; align-items: center; gap: 8px; max-width: 100%; width: fit-content; margin: 12px 0 0 auto; padding: 13px; font-size: 12px; }
-.space-reference .small-muted { white-space: nowrap; }
+.space-reference { display: flex; align-items: center; gap: 8px; width: fit-content; margin: 0 14px 14px auto; padding: 9px 11px; border: 1px solid var(--line); border-radius: 8px; background: var(--panel); font-size: 12px; }
+.space-copy-state { padding: 3px 6px; border-radius: 4px; color: var(--positive); background: var(--added); font-size: 10px; white-space: nowrap; }
 .paper-reader { width: min(880px, calc(100% - 24px)); height: min(78vh, 850px); max-width: none; max-height: none; padding: 0; overflow: hidden; border: 1px solid var(--line); border-radius: 12px; color: var(--ink); background: var(--panel); box-shadow: var(--panel-shadow); }
 .paper-reader::backdrop { background: #251f276e; }
 .paper-reader[open] { display: grid; grid-template-rows: auto minmax(0, 1fr); }
@@ -421,8 +421,8 @@
   .paper-caption small { font-size: 9px; }
   .paper-caption .paper-title { font-size: 11px; }
   .spaces-embed-group { grid-template-columns: minmax(0, 1fr); gap: 8px; padding: 4px 6px 6px; }
-  .space-reference { font-size: 11px; }
-  .space-reference .small-muted { white-space: normal; }
+  .space-reference { max-width: calc(100% - 16px); margin: 0 8px 8px auto; padding: 7px; font-size: 11px; }
+  .space-copy-state { font-size: 9px; }
   .library-scene { height: 425px; }
   .library-panel { width: 95%; }
   .hooks-panel { width: 88%; top: 230px; }

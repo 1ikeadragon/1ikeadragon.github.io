@@ -144,7 +144,6 @@ document.querySelector('#tracked-stage').addEventListener('change', event => {
 const embeds = {
   youtube: 'https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ',
   x: 'https://platform.twitter.com/embed/Tweet.html?id=2117279420377694564&dnt=true',
-  reddit: 'embed/reddit.html',
 };
 if ('IntersectionObserver' in window) {
   const embedObserver = new IntersectionObserver(entries => {
