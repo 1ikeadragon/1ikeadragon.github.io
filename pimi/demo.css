@@ -53,7 +53,7 @@
 .grid-filter { display: flex; align-items: center; gap: 3px; margin-left: auto; padding: 2px; border: 1px solid var(--line); border-radius: 7px; color: var(--muted); font-size: 10px; }
 .grid-filter span { padding: 2px 6px; border-radius: 4px; }
 .grid-filter .active { color: var(--ink); background: var(--panel); }
-.grid-tiles { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; padding: 8px; background: var(--rail); }
+.grid-tiles { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; padding: 8px; background: var(--rail); }
 .grid-tile { display: grid; align-content: start; gap: 5px; min-width: 0; min-height: 133px; padding: 10px; border: 1px solid var(--line); border-radius: 8px; background: var(--panel); font-size: 11px; overflow-wrap: anywhere; }
 .grid-tile header { display: flex; align-items: center; gap: 6px; }
 .grid-tile .grid-provider { width: 13px; height: 13px; fill: currentColor; stroke: none; }
@@ -64,7 +64,8 @@
 .agent-status { display: flex; align-items: center; gap: 7px; color: var(--muted); font-size: 11px; }
 .agent-status i { width: 6px; height: 6px; border-radius: 50%; background: #7593c9; flex: none; }
 .agent-status[data-finished] { color: var(--positive); }
-.agent-status[data-finished] i { background: currentColor; }
+.agent-status[data-needs-input] { color: var(--negative); }
+.agent-status:is([data-finished], [data-needs-input]) i { background: currentColor; }
 .task-board { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 7px; padding: 12px; min-height: 260px; background: url("blush.svg") center / cover; }
 [data-theme="dark"] .task-board { background: url("night-garden.svg") center / cover; }
 .task-lane { min-width: 0; padding: 8px 6px; border: 1px solid var(--line); border-radius: 8px; background: color-mix(in srgb, var(--rail) 75%, transparent); }
@@ -400,6 +401,7 @@
 .usage-limits .progress-track i { width: 31%; }
 .usage-limits .usage-row:last-child .progress-track i { width: 42%; }
 @media (max-width: 760px) {
+  .grid-tiles { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .feature.feature-wide { width: min(570px, calc(100% - 24px)); gap: 21px; padding-block: 37px 49px; }
   .feature-wide .feature-copy { padding-inline: 8px; }
   .task-scene { height: 530px; }

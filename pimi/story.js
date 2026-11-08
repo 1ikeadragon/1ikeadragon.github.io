@@ -92,7 +92,7 @@ function showMemory(index) {
 }
 
 function showAgentStates(finished) {
-  document.querySelectorAll('.agent-status').forEach((status, index) => {
+  document.querySelectorAll('.agent-status:not([data-static-status])').forEach((status, index) => {
     const done = index < finished;
     status.toggleAttribute('data-finished', done);
     status.querySelector('span').textContent = done ? 'Finished' : 'Working';

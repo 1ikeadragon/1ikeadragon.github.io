@@ -9,8 +9,8 @@
   <link rel="icon" href="icon.png">
   <link rel="preload" href="fonts/caveat-brush-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="site.css?v=11">
-  <link rel="stylesheet" href="demo.css?v=17">
-  <script type="module" src="story.js?v=18"></script>
+  <link rel="stylesheet" href="demo.css?v=18">
+  <script type="module" src="story.js?v=19"></script>
   <title>Your swarm’s best friend</title>
 </head>
 <body>
@@ -117,6 +117,8 @@
               <article class="grid-tile"><header><svg class="grid-provider" aria-label="Codex" role="img"><use href="#provider-codex"/></svg><strong>Capture tool calls</strong></header><small>trace-core · capture-events</small><p class="chat-bubble">Capture MCP calls and their results in order.</p><p><code>record-event.ts</code> updated.</p><span class="agent-status"><i></i><span>Working</span></span></article>
               <article class="grid-tile"><header><svg class="grid-provider claude" aria-label="Claude Code" role="img"><use href="#provider-claude"/></svg><strong>Redact credentials</strong></header><small>trace-core · redact-secrets</small><p class="chat-bubble">Strip secrets before traces touch disk.</p><p>Tokens and credential fields are masked.</p><span class="agent-status"><i></i><span>Working</span></span></article>
               <article class="grid-tile"><header><svg class="grid-provider" aria-label="Codex" role="img"><use href="#provider-codex"/></svg><strong>Replay the trace</strong></header><small>replay-ui · timeline-player</small><p class="chat-bubble">Play a sample run without invoking tools.</p><p>The timeline renders from recorded events.</p><span class="agent-status"><i></i><span>Working</span></span></article>
+              <article class="grid-tile"><header><svg class="grid-provider" aria-label="Codex" role="img"><use href="#provider-codex"/></svg><strong>Seed the replay fixture</strong></header><small>trace-core · fixture</small><p class="chat-bubble">Keep a trace we can replay offline.</p><p>The sample trace is committed.</p><span class="agent-status" data-static-status data-finished><i></i><span>Finished</span></span></article>
+              <article class="grid-tile"><header><svg class="grid-provider claude" aria-label="Claude Code" role="img"><use href="#provider-claude"/></svg><strong>Check replay in the browser</strong></header><small>replay-ui · smoke</small><p class="chat-bubble">Open the local replay page.</p><p>Waiting for permission to launch the browser.</p><span class="agent-status" data-static-status data-needs-input><i></i><span>Needs input</span></span></article>
             </div>
           </article>
         </div>
