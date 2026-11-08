@@ -8,9 +8,9 @@
   <link rel="canonical" href="https://1ikeadragon.github.io/pimi/">
   <link rel="icon" href="icon.png">
   <link rel="preload" href="fonts/caveat-brush-latin.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="site.css?v=10">
-  <link rel="stylesheet" href="demo.css?v=7">
-  <script type="module" src="story.js?v=11"></script>
+  <link rel="stylesheet" href="site.css?v=11">
+  <link rel="stylesheet" href="demo.css?v=8">
+  <script type="module" src="story.js?v=12"></script>
   <title>Your swarm’s best friend</title>
 </head>
 <body>
@@ -37,151 +37,15 @@
       </div>
     </section>
 
-    <section class="workflow wrap" aria-label="Pimi demo">
-      <div class="workflow-sticky">
-        <div class="demo-window">
-          <div class="demo-titlebar">
-            <span class="demo-traffic-lights" aria-hidden="true"><i></i><i></i><i></i></span>
-            <button type="button" id="demo-sidebar-toggle" aria-controls="demo-sidebar" aria-expanded="true" aria-label="Toggle session sidebar" title="Toggle session sidebar"><svg aria-hidden="true"><use href="#icon-split"/></svg></button>
-            <span id="demo-window-title"></span>
-          </div>
-          <aside id="demo-sidebar" class="demo-sidebar">
-            <div class="demo-brand"><img src="icon.png" width="25" height="25" alt=""><strong>Pimi</strong></div>
-            <nav class="demo-nav" aria-label="Demo views">
-              <button type="button" data-view="chat" title="Chat"><svg aria-hidden="true"><use href="#icon-chat"/></svg><span>Chat</span></button>
-              <button type="button" data-view="tasks" title="Tasks" aria-current="true"><svg aria-hidden="true"><use href="#icon-tasks"/></svg><span>Tasks</span></button>
-              <button type="button" data-view="work" title="Work"><svg aria-hidden="true"><use href="#icon-branch"/></svg><span>Work</span></button>
-              <button type="button" data-view="review" title="Review"><svg aria-hidden="true"><use href="#icon-split"/></svg><span>Review</span></button>
-              <button type="button" data-view="memory" title="Memory"><svg aria-hidden="true"><use href="#icon-memory"/></svg><span>Memory</span></button>
-            </nav>
-            <div class="demo-sessions"><small>Sessions</small><p><i>R</i> RelayKit</p><p><i>C</i> ControlPlane</p><p><i>O</i> Observatory</p></div>
-            <div class="demo-nav demo-sidebar-footer"><button type="button" data-view="setup" title="Setup"><svg aria-hidden="true"><use href="#icon-gear"/></svg><span>Setup</span></button></div>
-          </aside>
-          <div class="demo-main">
-            <section class="demo-view" id="demo-tasks">
-              <div class="demo-heading"><h2>Tasks</h2><div class="demo-tools"><button type="button" class="demo-action" id="demo-task-layout" aria-pressed="false" aria-label="Switch to List view" title="Switch to List view"><svg aria-hidden="true"><use id="demo-task-layout-icon" href="#icon-list"/></svg></button><button type="button" class="demo-primary" data-open="voice"><svg aria-hidden="true"><use href="#icon-compose"/></svg>New task</button></div></div>
-              <div class="demo-board">
-                <section class="demo-lane"><h3><i></i>To Do <small>1</small><button type="button" data-open="voice" aria-label="New task in To Do"><svg aria-hidden="true"><use href="#icon-compose"/></svg></button></h3><article class="demo-card"><strong>Document cache invalidation</strong><small>Brief only</small></article></section>
-                <section class="demo-lane"><h3><i></i>Ready <small>1</small></h3><article class="demo-card"><strong>Improve cancellation handling</strong><small>RelayKit</small></article></section>
-                <section class="demo-lane lane-running" data-lane="running"><h3><i></i>In progress <small>1</small></h3><button type="button" class="demo-card moving-task" data-open="reports"><strong>Improve provider metadata</strong><small>3 repositories</small><span class="task-progress"><span></span></span><small class="card-status">Agents working</small></button></section>
-                <section class="demo-lane lane-review" data-lane="review"><h3><i></i>Review <small>0</small></h3></section>
-                <section class="demo-lane lane-done"><h3><i></i>Done <small>1</small></h3><article class="demo-card"><strong>Document the provider fallback</strong><small>RelayKit</small></article></section>
-              </div>
-            </section>
-            <section class="demo-view" id="demo-chat" hidden>
-              <div class="demo-chat-tabs"><span><svg aria-hidden="true"><use href="#icon-chat"/></svg>Provider metadata</span></div>
-              <h2 class="demo-sr-only">Provider metadata</h2>
-              <div class="demo-conversation">
-                <p class="demo-bubble">Could we stop looking up provider metadata for every request?</p>
-                <p>We can try request caching and a shared cache in separate worktrees, then compare the trade-offs.</p>
-                <button type="button" class="demo-action" data-open="voice">Review task draft <span aria-hidden="true">↗</span></button>
-              </div>
-              <div class="demo-composer"><span>Message the agent, tag @files, or use /commands and /skills</span><div><small>Claude Code</small><button type="button" data-open="voice" aria-label="Try dictation"><svg aria-hidden="true"><use href="#icon-mic"/></svg></button></div></div>
-            </section>
-            <section class="demo-view" id="demo-voice" hidden>
-              <div class="demo-heading"><h2>Tasks</h2></div>
-              <div class="demo-brief">
-                <h3>New task</h3>
-                <label>Title<input id="demo-task-title" type="text" value="Improve provider metadata" required></label>
-                <label>Brief<textarea id="demo-transcript" rows="3" placeholder="What are we trying to accomplish?" required></textarea></label>
-                <label>Worker workspace<select><option>Chat</option><option>Git worktree</option></select></label>
-                <label>Repository<select><option>Attach later</option><option>RelayKit</option><option>ControlPlane</option></select></label>
-                <div class="demo-dictation">
-                  <button type="button" class="demo-action" data-open="tasks">Cancel</button>
-                  <span id="demo-voice-status" role="status"><span class="wave" aria-hidden="true" hidden></span><span></span></span>
-                  <button type="button" class="demo-action" id="demo-record" aria-label="Try sample dictation" title="Try sample dictation"><svg aria-hidden="true"><use href="#icon-mic"/></svg></button>
-                  <button type="button" class="demo-primary" id="demo-use-brief" data-open="work">Create task</button>
-                </div>
-              </div>
-            </section>
-            <section class="demo-view" id="demo-work" hidden>
-              <div class="demo-heading"><div><span class="eyebrow">3 repositories</span><h2>Work</h2></div><span class="demo-chip">Provider metadata</span></div>
-              <div class="demo-board demo-work-board" aria-label="Work board">
-                <section class="demo-lane"><h3><i></i>Ready</h3><article class="demo-card"><strong>Cancellation handling</strong><small>RelayKit</small></article></section>
-                <section class="demo-lane lane-running"><h3><i></i>In progress</h3><article class="demo-card"><strong>Checkout status</strong><small>ControlPlane</small></article></section>
-                <section class="demo-lane lane-review" id="demo-work-items"><h3><i></i>Review</h3></section>
-                <section class="demo-lane"><h3><i></i>Needs attention</h3><small>Nothing needs attention</small></section>
-              </div>
-            </section>
-            <section class="demo-view" id="demo-reports" hidden>
-              <button type="button" class="demo-action" data-open="tasks">‹ Tasks</button>
-              <div class="demo-heading"><h2>Improve provider metadata</h2></div>
-              <p class="demo-report-brief">Compare ways to cut redundant provider lookups and measure the trade-offs.</p>
-              <div class="demo-report-tabs" aria-label="Task view">
-                <button type="button" class="demo-action" data-task-view="reports" aria-pressed="true">Reports · 3</button>
-                <button type="button" class="demo-action" data-task-view="work" aria-pressed="false">Work items</button>
-              </div>
-              <div class="demo-report-reader">
-                <div class="demo-report-picker"><select id="demo-report-worker" aria-label="Report worker"></select><small>3 of 3 ready</small></div>
-                <div class="demo-report-header"><h3 id="demo-report-title"></h3><div class="demo-report-actions"><button type="button" class="demo-action" id="demo-copy-report">Copy report</button><button type="button" class="demo-action" data-open="chat">Open chat</button></div></div>
-                <article id="demo-report-document"></article>
-                <div class="demo-report-actions">
-                  <button type="button" class="demo-action" data-open="artifact" data-artifact="file">research-report.md ↗</button>
-                  <button type="button" class="demo-action" data-open="artifact" data-artifact="web">Web report ↗</button>
-                  <button type="button" class="demo-action" id="demo-report-review" data-open="review">Review changes</button>
-                </div>
-              </div>
-              <div id="demo-report-work" class="demo-work" hidden></div>
-            </section>
-            <section class="demo-view" id="demo-artifact" hidden>
-              <div class="demo-chat-tabs"><button type="button" class="demo-action" data-open="chat">Provider metadata</button><span id="demo-artifact-tab"></span></div>
-              <div class="demo-artifact-toolbar" hidden>reports.relaykit.example/provider-cache</div>
-              <article class="demo-artifact-body" aria-labelledby="demo-artifact-heading">
-                <h2 id="demo-artifact-heading">Provider cache findings</h2>
-                <p id="demo-artifact-summary"></p>
-                <h3>How to verify</h3>
-                <p>Compare lookup counts across the same request, then confirm the cache expires at the expected boundary.</p>
-                <button type="button" class="demo-action" data-open="reports">Back to report</button>
-              </article>
-            </section>
-            <section class="demo-view" id="demo-review" hidden>
-              <div class="demo-heading"><div><span class="eyebrow">Provider metadata</span><h2>Review</h2></div><div class="demo-tools"><button type="button" class="demo-action" id="demo-tile" aria-pressed="false" aria-label="Stack review panes" title="Stack review panes"><svg aria-hidden="true"><use href="#icon-split"/></svg></button><button type="button" class="demo-action" id="demo-tour" aria-expanded="false">Code tour</button></div></div>
-              <div class="demo-review-grid" data-layout="side-by-side"></div>
-              <p class="demo-tour-note" hidden><strong>1 / 2</strong> Cache the lookup at the request boundary so workers can reuse it safely. <button type="button" class="demo-action" id="demo-tour-next">Next</button></p>
-            </section>
-            <section class="demo-view" id="demo-memory" hidden>
-              <div class="demo-heading"><div><h2>Shared memory</h2></div><span class="demo-chip">Claude Code · Codex</span></div>
-              <div class="demo-memory-scopes" aria-label="Memory scope">
-                <button type="button" class="demo-action" data-scope="project" aria-pressed="true">RelayKit</button>
-                <button type="button" class="demo-action" data-scope="global" aria-pressed="false">Across projects</button>
-              </div>
-              <div class="demo-memory-layout">
-                <div class="demo-memory-list" role="group" aria-label="Memory notes"></div>
-                <article class="demo-note" aria-live="polite"></article>
-              </div>
-            </section>
-            <section class="demo-view" id="demo-setup" hidden>
-              <div class="demo-heading"><h2>Git providers</h2></div>
-              <!-- Provider marks from Simple Icons. -->
-              <ul class="demo-connections">
-                <li><svg class="provider-mark" viewBox="0 0 24 24" role="img" aria-label="GitHub"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg><span class="connection-state connected">Connected</span></li>
-                <li><svg class="provider-mark" viewBox="0 0 24 24" role="img" aria-label="GitLab"><path d="m23.6004 9.5927-.0337-.0862L20.3.9814a.851.851 0 0 0-.3362-.405.8748.8748 0 0 0-.9997.0539.8748.8748 0 0 0-.29.4399l-2.2055 6.748H7.5375l-2.2057-6.748a.8573.8573 0 0 0-.29-.4412.8748.8748 0 0 0-.9997-.0537.8585.8585 0 0 0-.3362.4049L.4332 9.5015l-.0325.0862a6.0657 6.0657 0 0 0 2.0119 7.0105l.0113.0087.03.0213 4.976 3.7264 2.462 1.8633 1.4995 1.1321a1.0085 1.0085 0 0 0 1.2197 0l1.4995-1.1321 2.4619-1.8633 5.006-3.7489.0125-.01a6.0682 6.0682 0 0 0 2.0094-7.003z"/></svg><span class="connection-state connected">Connected</span></li>
-                <li><svg class="provider-mark" viewBox="0 0 24 24" role="img" aria-label="Bitbucket"><path d="M.778 1.213a.768.768 0 00-.768.892l3.263 19.81c.084.5.515.868 1.022.873H19.95a.772.772 0 00.77-.646l3.27-20.03a.768.768 0 00-.768-.891zM14.52 15.53H9.522L8.17 8.466h7.561z"/></svg><span class="connection-state">Not connected</span></li>
-              </ul>
-              <button type="button" class="demo-primary" data-open="import"><svg aria-hidden="true"><use href="#icon-import"/></svg>Import session</button>
-            </section>
-            <section class="demo-view" id="demo-import" hidden>
-              <div class="demo-heading"><h2>Import session</h2></div>
-              <fieldset class="demo-import-list" aria-label="Local sessions">
-                <label><input type="radio" name="demo-session" checked><span><strong>Provider cache investigation</strong><small>RelayKit · Claude Code</small></span></label>
-                <label><input type="radio" name="demo-session"><span><strong>Retry logic audit</strong><small>ControlPlane · Codex</small></span></label>
-                <label><input type="radio" name="demo-session"><span><strong>Compare cache metrics</strong><small>Observatory · Codex</small></span></label>
-              </fieldset>
-              <button type="button" class="demo-primary" id="demo-import-session"><svg aria-hidden="true"><use href="#icon-import"/></svg><span>Import</span></button>
-              <span class="demo-import-status" role="status"></span>
-            </section>
-            <div class="demo-live">
-              <div id="demo-live-status" class="demo-live-status" role="status" hidden><div class="wave" aria-hidden="true"></div><span></span></div>
-              <button type="button" id="demo-live-toggle" aria-label="Try voice commands" aria-pressed="false" title="Try voice commands">
-                <img src="voice-dog.svg" alt=""><span><svg aria-hidden="true"><use id="demo-live-glyph" href="#icon-mic"/></svg></span>
-              </button>
-            </div>
-          </div>
-        </div>
-        <div class="demo-controls">
-          <button type="button" id="demo-next" aria-label="Next demo step"><svg aria-hidden="true"><use href="#icon-next"/></svg></button>
-        </div>
-        <button type="button" class="pet" aria-label="Pet Pimi">
+    <section class="overview" aria-label="Pimi in action">
+      <div class="overview-frame">
+        <div class="window-bar" aria-hidden="true"><span class="traffic"><i></i><i></i><i></i></span><span>Pimi</span><svg aria-hidden="true"><use href="#icon-split"/></svg></div>
+        <video id="overview-video" controls muted loop playsinline preload="metadata" poster="showcase/overview.webp" aria-label="Recorded in Pimi: tasks, agent grid, tiled review, memory, and automations">
+          <source src="showcase/overview.mp4" type="video/mp4">
+          <a href="showcase/overview.mp4">Watch the Pimi walkthrough</a>
+        </video>
+      </div>
+      <div class="overview-bottom"><a href="#agents" class="scroll-cue">A little room for every idea <span aria-hidden="true">↓</span></a>        <button type="button" class="pet" aria-label="Pet Pimi">
           <svg viewBox="0 0 128 118" aria-hidden="true">
             <ellipse cx="67" cy="108" rx="45" ry="6" fill="currentColor" opacity=".09"/>
             <g class="pet-tail">
@@ -204,10 +68,64 @@
             </g>
             <path class="pet-heart" d="M105 26c-11-7-4-15 0-10 4-5 11 3 0 10Z" fill="currentColor"/>
           </svg>
-        </button>
-      </div>
+        </button></div>
     </section>
 
+    <div class="feature-stories">
+      <section class="feature" id="agents" data-scene="agents" aria-labelledby="agents-heading">
+        <div class="feature-copy"><h2 id="agents-heading">A whole team.<br>One place.</h2><p>Your agents, side by side.<br>Each with room to work.</p><button class="scene-replay" type="button" data-replay hidden aria-label="Replay parallel agent demo">Replay <span aria-hidden="true">↻</span></button></div>
+        <div class="scene agent-scene">
+          <article class="float-panel agent-panel agent-lead"><header><span class="provider-dot"><svg aria-label="Claude Code" role="img"><use href="#provider-claude"/></svg></span><strong>Plan the change</strong><span class="provider-name">Claude Code</span></header><div class="chat-content"><p class="chat-bubble">Try both approaches in separate worktrees.</p><p>I'll keep the work together and compare the results.</p><div class="tool-call"><svg aria-hidden="true"><use href="#icon-branch"/></svg>Create worktree <code>request-cache</code></div><div class="tool-call second"><svg aria-hidden="true"><use href="#icon-branch"/></svg>Create worktree <code>shared-cache</code></div></div><div class="mini-composer">Message the agent<span>⌘ ↵</span></div></article>
+          <article class="float-panel agent-panel agent-worker"><header><span class="provider-dot codex"><svg aria-label="Codex" role="img"><use href="#provider-codex"/></svg></span><strong>Request cache</strong><span class="provider-name">Codex</span></header><div class="chat-content"><small class="branch-label">⑂ request-cache</small><p>Keep metadata local to each request.</p><div class="tool-call"><svg aria-hidden="true"><use href="#icon-compose"/></svg>Edit <code>provider-cache.ts</code></div><div class="code-preview"><span>const cache = new Map();</span><span>const key = cacheKey(tenant, provider);</span><span>return readMetadata(key);</span></div><div class="agent-status"><i></i><span>Working</span></div></div></article>
+          <article class="float-panel agent-panel agent-third"><header><span class="provider-dot"><svg aria-label="Claude Code" role="img"><use href="#provider-claude"/></svg></span><strong>Shared cache</strong><span class="provider-name">Claude Code</span></header><div class="chat-content"><small class="branch-label">⑂ shared-cache</small><p>Explore reuse across requests.</p><div class="tool-call"><svg aria-hidden="true"><use href="#icon-compose"/></svg>Edit <code>shared-cache.ts</code></div><div class="agent-status"><i></i><span>Working</span></div></div></article>
+        </div>
+      </section>
+
+      <section class="feature feature-reverse" id="tasks" data-scene="tasks" aria-labelledby="tasks-heading">
+        <div class="feature-copy"><h2 id="tasks-heading">Keep the thread.<br>Move the work.</h2><p>Track it yourself, or bring in agents.<br>The task stays with you.</p><button class="scene-replay" type="button" data-replay hidden aria-label="Replay task workflow demo">Replay <span aria-hidden="true">↻</span></button></div>
+        <div class="scene task-scene">
+          <div class="float-panel task-panel"><header><svg aria-hidden="true"><use href="#icon-tasks"/></svg><strong>Tasks</strong><span class="small-muted">Board</span></header><div class="task-board">
+            <div class="task-lane"><h3><i></i>To Do</h3><button type="button" class="task-card personal-task" aria-expanded="false" aria-controls="tracked-task-detail"><strong>Notes for the next release</strong><small>No delegated work</small></button></div>
+            <div class="task-lane"><h3><i></i>Ready</h3><article class="task-card"><strong>Improve cancellation</strong><small>RelayKit</small></article></div>
+            <div class="task-lane running-lane"><h3><i></i>In progress</h3><article class="task-card animated-task"><strong>Improve provider metadata</strong><small>2 worktrees</small><span class="progress-track"><i></i></span><small class="task-state">Agents working</small></article></div>
+            <div class="task-lane review-lane"><h3><i></i>Review</h3></div>
+            <div class="task-lane done-lane"><h3><i></i>Done</h3><article class="task-card"><strong>Document the fallback</strong><small>RelayKit</small></article></div>
+          </div></div>
+          <article class="float-panel report-panel"><header><svg aria-hidden="true"><use href="#icon-list"/></svg><strong>Improve provider metadata</strong><span class="status-dot"></span></header><div class="report-content"><div class="tabs"><span class="active">Reports</span><span>Work items</span></div><strong>Request cache</strong><p>One cache per request. Fresh metadata on the next.</p><div class="report-file"><svg aria-hidden="true"><use href="#icon-compose"/></svg>research-report.md <span>↗</span></div></div></article>
+          <article class="float-panel tracked-panel" id="tracked-task-detail" hidden><header><strong>Notes for the next release</strong><button type="button" id="close-tracked" aria-label="Close tracked task">×</button></header><div class="tracked-content"><strong>Work items</strong><p>No delegated work</p><label>Stage <select id="tracked-stage"><option value="0">To Do</option><option value="1">Ready</option><option value="2">In progress</option><option value="3">Review</option><option value="4">Done</option></select></label></div></article>
+        </div>
+      </section>
+
+      <section class="feature" id="review" data-scene="review" aria-labelledby="review-heading">
+        <div class="feature-copy"><h2 id="review-heading">See the change.<br>Follow the why.</h2><p>Pull requests, tiled diffs,<br>and a tour through the code.</p><button class="scene-replay" type="button" id="tour-next" hidden>Next tour stop <span aria-hidden="true">→</span></button></div>
+        <div class="scene review-scene">
+          <div class="float-panel pr-panel"><header><svg aria-hidden="true"><use href="#icon-branch"/></svg><strong>Pull requests</strong><span class="small-muted">GitHub</span></header><div class="pr-row"><span class="pr-symbol">⑂</span><div><strong>Cache provider metadata</strong><small>#42 · request-cache</small></div><span class="pr-state">Open · Checks passed</span></div><div class="pr-row"><span class="pr-symbol merged">⑂</span><div><strong>Document the fallback</strong><small>#41 · docs/fallback</small></div><span class="pr-state merged">Merged</span></div></div>
+          <div class="diff-pair">
+            <article class="float-panel diff-panel"><header><strong>RelayKit</strong><span class="small-muted">Request cache</span></header><div class="diff-file">provider-cache.ts <span>+4 −1</span></div><pre><code><span class="code-context">export async function metadata() {</span><span class="line removed">− return provider.lookup();</span><span class="line added tour-target" data-stop="0">+ const key = cacheKey(tenant, provider);</span><span class="line added">+ const cached = cache.get(key);</span><span class="line added">+ if (cached) return cached;</span><span class="line added">+ return fetchAndCache(key);</span><span class="code-context">}</span></code></pre></article>
+            <article class="float-panel diff-panel comparison"><header><strong>ControlPlane</strong><span class="small-muted">Shared cache</span></header><div class="diff-file">shared-cache.ts <span>+4 −1</span></div><pre><code><span class="code-context">export async function read(key) {</span><span class="line removed">− return provider.lookup(key);</span><span class="line added">+ const entry = store.get(key);</span><span class="line added tour-target" data-stop="1">+ if (entry &amp;&amp; isFresh(entry)) {</span><span class="line added">+   return entry.value;</span><span class="line added">+ }</span><span class="code-context">}</span></code></pre></article>
+          </div>
+          <aside class="float-panel tour-panel"><span class="tour-count">1 / 2</span><div><strong class="tour-title">Keep the context</strong><p class="tour-description">Include the tenant and provider in the cache key.</p></div><svg aria-hidden="true"><use href="#icon-next"/></svg></aside>
+        </div>
+      </section>
+
+      <section class="feature feature-reverse" id="memory" data-scene="memory" aria-labelledby="memory-heading">
+        <div class="feature-copy"><h2 id="memory-heading">Pick up where<br>you left off.</h2><p>Shared memory for your agents.<br>Spaces for the things you keep.</p><button class="scene-replay" type="button" id="memory-next" hidden>Another note <span aria-hidden="true">→</span></button></div>
+        <div class="scene memory-scene">
+          <article class="float-panel memory-panel"><header><svg aria-hidden="true"><use href="#icon-memory"/></svg><strong>Memory</strong><span class="small-muted">RelayKit</span></header><div class="memory-body"><div class="memory-list"><span class="selected">Provider cache decision</span><span>Review conventions</span><span>Agent handoffs</span></div><div class="memory-note"><small>Architecture</small><h3>Provider cache decision</h3><p>Keep cache keys scoped to the tenant and provider.</p><p class="small-muted">Compare each approach in its own worktree before choosing one.</p></div></div></article>
+          <div class="float-panel memory-shared"><span class="provider-dot"><svg aria-label="Claude Code" role="img"><use href="#provider-claude"/></svg></span><span>Claude Code</span><span class="shared-line" aria-hidden="true"></span><svg aria-hidden="true"><use href="#icon-memory"/></svg><span class="shared-line" aria-hidden="true"></span><span class="provider-dot codex"><svg aria-label="Codex" role="img"><use href="#provider-codex"/></svg></span><span>Codex</span></div>
+          <article class="float-panel spaces-panel"><header><svg aria-hidden="true"><use href="#icon-compose"/></svg><strong>Spaces</strong></header><div class="space-page"><span>↳</span><div><strong>Provider cache research</strong><small>Notes, findings, and the next question.</small></div></div></article>
+        </div>
+      </section>
+
+      <section class="feature" id="voice" data-scene="voice" aria-labelledby="voice-heading">
+        <div class="feature-copy"><h2 id="voice-heading">Say the word.</h2><p>Talk through an idea.<br>Give the routine work a schedule.</p><button class="scene-replay" type="button" data-replay hidden aria-label="Replay voice dictation demo">Replay <span aria-hidden="true">↻</span></button></div>
+        <div class="scene voice-scene">
+          <article class="float-panel voice-panel"><header><svg aria-hidden="true"><use href="#icon-chat"/></svg><strong>New conversation</strong></header><div class="voice-body"><p class="voice-transcript">Compare both approaches and write up the trade-offs.</p><div class="voice-composer"><span>Message the agent, tag @files, or use /skills</span><div><small>Claude Code</small><svg aria-hidden="true"><use href="#icon-mic"/></svg></div></div></div></article>
+          <div class="float-panel voice-pill"><img src="voice-dog.svg" width="33" height="33" alt=""><span class="voice-state">Listening</span><span class="wave" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span></div>
+          <article class="float-panel automation-panel"><header><svg aria-hidden="true"><use href="#icon-tasks"/></svg><strong>Automations</strong><span class="small-muted">Templates</span></header><div class="automation-row"><span class="automation-symbol">↻</span><div><strong>Friday project digest</strong><small>Fridays · 9:00 AM</small></div><span class="schedule-state">Active</span></div></article>
+        </div>
+      </section>
+    </div>
     <svg class="demo-icons" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
       <symbol id="icon-tasks" viewBox="0 0 24 24"><path d="m3 7 2 2 4-4m3 2h9M3 13h6m3 0h9M3 19h6m3 0h9"/></symbol>
       <symbol id="icon-chat" viewBox="0 0 24 24"><path d="M4 4h16v13h-9l-7 4Z"/></symbol>
@@ -221,6 +139,8 @@
       <symbol id="icon-stop" viewBox="0 0 24 24"><rect x="6" y="6" width="12" height="12" rx="2"/></symbol>
       <symbol id="icon-list" viewBox="0 0 24 24"><path d="M9 6h11M9 12h11M9 18h11M4 6h1m-1 6h1m-1 6h1"/></symbol>
       <symbol id="icon-next" viewBox="0 0 24 24"><path d="m9 5 7 7-7 7"/></symbol>
+    <symbol id="provider-claude" viewBox="0 0 24 24"><path d="M4.709 15.955l4.72-2.647.08-.23-.08-.128H9.2l-.79-.048-2.698-.073-2.339-.097-2.266-.122-.571-.121L0 11.784l.055-.352.48-.321.686.06 1.52.103 2.278.158 1.652.097 2.449.255h.389l.055-.157-.134-.098-.103-.097-2.358-1.596-2.552-1.688-1.336-.972-.724-.491-.364-.462-.158-1.008.656-.722.881.06.225.061.893.686 1.908 1.476 2.491 1.833.365.304.145-.103.019-.073-.164-.274-1.355-2.446-1.446-2.49-.644-1.032-.17-.619a2.97 2.97 0 01-.104-.729L6.283.134 6.696 0l.996.134.42.364.62 1.414 1.002 2.229 1.555 3.03.456.898.243.832.091.255h.158V9.01l.128-1.706.237-2.095.23-2.695.08-.76.376-.91.747-.492.584.28.48.685-.067.444-.286 1.851-.559 2.903-.364 1.942h.212l.243-.242.985-1.306 1.652-2.064.73-.82.85-.904.547-.431h1.033l.76 1.129-.34 1.166-1.064 1.347-.881 1.142-1.264 1.7-.79 1.36.073.11.188-.02 2.856-.606 1.543-.28 1.841-.315.833.388.091.395-.328.807-1.969.486-2.309.462-3.439.813-.042.03.049.061 1.549.146.662.036h1.622l3.02.225.79.522.474.638-.079.485-1.215.62-1.64-.389-3.829-.91-1.312-.329h-.182v.11l1.093 1.068 2.006 1.81 2.509 2.33.127.578-.322.455-.34-.049-2.205-1.657-.851-.747-1.926-1.62h-.128v.17l.444.649 2.345 3.521.122 1.08-.17.353-.608.213-.668-.122-1.374-1.925-1.415-2.167-1.143-1.943-.14.08-.674 7.254-.316.37-.729.28-.607-.461-.322-.747.322-1.476.389-1.924.315-1.53.286-1.9.17-.632-.012-.042-.14.018-1.434 1.967-2.18 2.945-1.726 1.845-.414.164-.717-.37.067-.662.401-.589 2.388-3.036 1.44-1.882.93-1.086-.006-.158h-.055L4.132 18.56l-1.13.146-.487-.456.061-.746.231-.243 1.908-1.312-.006.006z"/></symbol>
+    <symbol id="provider-codex" viewBox="0 0 24 24"><path d="M21.55 10.004a5.416 5.416 0 00-.478-4.501c-1.217-2.09-3.662-3.166-6.05-2.66A5.59 5.59 0 0010.831 1C8.39.995 6.224 2.546 5.473 4.838A5.553 5.553 0 001.76 7.496a5.487 5.487 0 00.691 6.5 5.416 5.416 0 00.477 4.502c1.217 2.09 3.662 3.165 6.05 2.66A5.586 5.586 0 0013.168 23c2.443.006 4.61-1.546 5.361-3.84a5.553 5.553 0 003.715-2.66 5.488 5.488 0 00-.693-6.497v.001zm-8.381 11.558a4.199 4.199 0 01-2.675-.954c.034-.018.093-.05.132-.074l4.44-2.53a.71.71 0 00.364-.623v-6.176l1.877 1.069c.02.01.033.029.036.05v5.115c-.003 2.274-1.87 4.118-4.174 4.123zM4.192 17.78a4.059 4.059 0 01-.498-2.763c.032.02.09.055.131.078l4.44 2.53c.225.13.504.13.73 0l5.42-3.088v2.138a.068.068 0 01-.027.057L9.9 19.288c-1.999 1.136-4.552.46-5.707-1.51h-.001zM3.023 8.216A4.15 4.15 0 015.198 6.41l-.002.151v5.06a.711.711 0 00.364.624l5.42 3.087-1.876 1.07a.067.067 0 01-.063.005l-4.489-2.559c-1.995-1.14-2.679-3.658-1.53-5.63h.001zm15.417 3.54l-5.42-3.088L14.896 7.6a.067.067 0 01.063-.006l4.489 2.557c1.998 1.14 2.683 3.662 1.529 5.633a4.163 4.163 0 01-2.174 1.807V12.38a.71.71 0 00-.363-.623zm1.867-2.773a6.04 6.04 0 00-.132-.078l-4.44-2.53a.731.731 0 00-.729 0l-5.42 3.088V7.325a.068.068 0 01.027-.057L14.1 4.713c2-1.137 4.555-.46 5.707 1.513.487.833.664 1.809.499 2.757h.001zm-11.741 3.81l-1.877-1.068a.065.065 0 01-.036-.051V6.559c.001-2.277 1.873-4.122 4.181-4.12.976 0 1.92.338 2.671.954-.034.018-.092.05-.131.073l-4.44 2.53a.71.71 0 00-.365.623l-.003 6.173v.002zm1.02-2.168L12 9.25l2.414 1.375v2.75L12 14.75l-2.415-1.375v-2.75z"/></symbol>
     </svg>
 
     <div class="site-bottom wrap">
