@@ -9,8 +9,8 @@
   <link rel="icon" href="icon.png">
   <link rel="preload" href="fonts/caveat-brush-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="site.css?v=11">
-  <link rel="stylesheet" href="demo.css?v=18">
-  <script type="module" src="story.js?v=19"></script>
+  <link rel="stylesheet" href="demo.css?v=19">
+  <script type="module" src="story.js?v=20"></script>
   <title>Your swarm’s best friend</title>
 </head>
 <body>
@@ -328,7 +328,26 @@
               </div>
             </header>
             <div class="usage-views">
-              <div class="usage-sessions" id="usage-sessions" hidden><div class="usage-session-list"><div class="selected"><strong>Capture tool calls</strong><small>Codex · trace-core</small></div><div><strong>Redact credentials</strong><small>Claude Code · trace-core</small></div><div><strong>Plan Run Replay</strong><small>Claude Code · replay-ui</small></div></div><div class="usage-context"><strong>Capture tool calls</strong><div class="usage-context-body"><div class="context-ring"><strong>25%</strong></div><div><strong>Context window</strong><small>32,128 / 128,000 tokens</small></div></div></div></div>
+              <div class="usage-sessions" id="usage-sessions" hidden>
+                <div class="usage-session-list" role="group" aria-label="Sample sessions">
+                  <button type="button" data-usage-session aria-controls="usage-session-claude" aria-pressed="true"><strong>Redact credentials</strong><small>Claude Code · trace-core</small></button>
+                  <button type="button" data-usage-session aria-controls="usage-session-codex" aria-pressed="false"><strong>Capture tool calls</strong><small>Codex · trace-core</small></button>
+                </div>
+                <div class="usage-context" id="usage-session-claude">
+                  <strong>Redact credentials</strong>
+                  <div class="usage-context-body"><div class="context-ring"><strong>25%</strong></div><div><strong>Context window</strong><small>49,800 / 200,000 tokens</small><small>2 recorded compactions</small></div></div>
+                  <dl class="usage-token-totals"><div><dt>Input</dt><dd>7,800</dd></div><div><dt>Cache read</dt><dd>38,800</dd></div><div><dt>Output</dt><dd>3,200</dd></div></dl>
+                  <section class="usage-breakdown">
+                    <div><strong>Context breakdown</strong><small>Last /context estimate</small></div>
+                    <dl><div><dt>Messages</dt><dd>31,662</dd></div><div><dt>System tools</dt><dd>11,878</dd></div><div><dt>System prompt</dt><dd>4,300</dd></div><div><dt>Skills</dt><dd>1,960</dd></div></dl>
+                  </section>
+                </div>
+                <div class="usage-context" id="usage-session-codex" hidden>
+                  <strong>Capture tool calls</strong>
+                  <div class="usage-context-body"><div class="context-ring"><strong>25%</strong></div><div><strong>Context window</strong><small>32,128 / 128,000 tokens</small><small>1 recorded compaction</small></div></div>
+                  <dl class="usage-token-totals"><div><dt>Input</dt><dd>9,452</dd></div><div><dt>Cache read</dt><dd>20,000</dd></div><div><dt>Output</dt><dd>2,676</dd></div></dl>
+                </div>
+              </div>
               <div class="usage-limits" id="usage-limits" hidden><div class="usage-row"><strong>Codex</strong><small>5-hour window · 31% used</small><span class="progress-track"><i></i></span><small>Resets in 2h 18m</small></div><div class="usage-row"><strong>Claude Code</strong><small>Weekly window · 42% used</small><span class="progress-track"><i></i></span><small>Resets Friday</small></div></div>
               <div class="usage-recap" id="usage-recap">
                 <div class="recap-heading">

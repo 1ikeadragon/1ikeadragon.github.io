@@ -261,6 +261,16 @@ usage.addEventListener('click', stopUsageTour);
 for (const tab of usageTabs) {
   tab.addEventListener('click', () => showUsage(tab.dataset.usageTab));
 }
+const sessionButtons = [...usage.querySelectorAll('[data-usage-session]')];
+for (const button of sessionButtons) {
+  button.addEventListener('click', () => {
+    for (const item of sessionButtons) {
+      const selected = item === button;
+      item.setAttribute('aria-pressed', String(selected));
+      document.getElementById(item.getAttribute('aria-controls')).hidden = !selected;
+    }
+  });
+}
 for (const period of recapPeriods) {
   period.addEventListener('click', () => {
     for (const button of recapPeriods) {
