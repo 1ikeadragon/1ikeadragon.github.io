@@ -9,8 +9,8 @@
   <link rel="icon" href="icon.png">
   <link rel="preload" href="fonts/caveat-brush-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="site.css?v=11">
-  <link rel="stylesheet" href="demo.css?v=19">
-  <script type="module" src="story.js?v=20"></script>
+  <link rel="stylesheet" href="demo.css?v=20">
+  <script type="module" src="story.js?v=21"></script>
   <title>Your swarm’s best friend</title>
 </head>
 <body>
@@ -200,7 +200,7 @@
                   <a href="https://arxiv.org/abs/2610.18933" aria-label="Read The Agentic Scientist: Orchestrating Coding Agents for Automated Scientific (Co-)Discovery on arXiv"><img src="showcase/papers/agentic-scientist.webp" width="517" height="730" alt="" fetchpriority="low"></a>
                   <button type="button" data-paper="agentic-scientist" aria-label="Preview The Agentic Scientist: Orchestrating Coding Agents for Automated Scientific (Co-)Discovery" hidden><svg aria-hidden="true"><use href="#icon-compose"/></svg><span>Preview</span></button>
                 </div>
-                <div class="paper-caption"><small>arXiv · 2610.18933</small><a class="paper-title" href="https://arxiv.org/abs/2610.18933">The Agentic Scientist: Orchestrating Coding Agents for Automated Scientific (Co-)Discovery</a><small>Lange et al. · <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a></small></div>
+                <div class="paper-caption"><small>arXiv · 2610.18933</small><a class="paper-title" href="https://arxiv.org/abs/2610.18933">The Agentic Scientist: Orchestrating Coding Agents for Automated Scientific (Co-)Discovery</a><small>Lange et al. · <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a></small><button type="button" class="space-copy-button" aria-label="Copy sample card ID" title="Copy card ID"><svg aria-hidden="true"><use href="#icon-copy"/></svg></button></div>
               </article>
               <article class="space-card paper-card">
                 <div class="paper-cover">
@@ -217,7 +217,7 @@
                 <div class="paper-caption"><small>arXiv · 2610.14224</small><a class="paper-title" href="https://arxiv.org/abs/2610.14224">Harness²: Recursive Agent Harnessing for an Open World</a><small>Xu et al. · <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a></small></div>
               </article>
             </div>
-            <div class="space-reference"><svg aria-hidden="true"><use href="#icon-chat"/></svg><p>Use The Agentic Scientist for background.</p><span class="space-copy-state">Card ID copied</span></div>
+            <div class="space-copy-toast" role="status"><svg aria-hidden="true"><use href="#icon-info"/></svg><span>Card ID copied</span></div>
             <div class="spaces-embed-group">
               <article class="spaces-embed spaces-video" data-embed="youtube">
                 <div class="embed-preview">
@@ -394,6 +394,8 @@
     </div>
     <svg class="demo-icons" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
       <symbol id="icon-grid" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></symbol>
+      <symbol id="icon-copy" viewBox="0 0 24 24"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"/></symbol>
+      <symbol id="icon-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><path d="M12 11v5m0-8h.01"/></symbol>
       <symbol id="icon-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><path d="M12 8v4l3 2"/></symbol>
       <symbol id="icon-rocket" viewBox="0 0 24 24"><path d="M9 15 6 12c2-5 5-8 13-8 0 8-3 11-8 13l-2-2Zm0 0-3 1-2 4 4-2 1-3Zm-3-3H3l3-4h4m1 9v4l4-4v-3"/><circle cx="14.5" cy="8.5" r="1.5"/></symbol>
       <symbol id="icon-tasks" viewBox="0 0 24 24"><path d="m3 7 2 2 4-4m3 2h9M3 13h6m3 0h9M3 19h6m3 0h9"/></symbol>

@@ -121,8 +121,8 @@
   :root:not([data-showcase-paused]) .feature[data-ready] .float-panel:nth-child(3) { transition-delay: 200ms; }
   .feature[data-active] .agent-status:not([data-finished]) i { animation: pulse 1.6s ease-in-out infinite; }
   .feature[data-active][data-phase="start"] .wave i { animation: speech var(--speed, 700ms) var(--offset, 0ms) linear infinite; }
-  .voice-result, .space-reference { transition: opacity 350ms ease, transform 350ms ease; }
-  .feature[data-active][data-phase="start"] :is(.voice-result, .space-reference) { opacity: 0; transform: translateY(8px); }
+  .voice-result { transition: opacity 350ms ease, transform 350ms ease; }
+  .feature[data-active][data-phase="start"] .voice-result { opacity: 0; transform: translateY(8px); }
   .progress-track i { transition: width 1.5s ease; }
   :root:not([data-showcase-paused]) .pet:is(:hover, :focus-visible, [data-petted]) .pet-tail { animation: wag 300ms ease-in-out infinite alternate; }
   :root:not([data-showcase-paused]) .pet:is(:hover, :focus-visible, [data-petted]) .pet-head { animation: nod 480ms ease-in-out infinite alternate; }
@@ -167,7 +167,6 @@
   .feature-copy > p { font-size: 14px; line-height: 1.6; }
   .grid-tile { padding: 8px; }
   .task-board { grid-template-columns: repeat(5, minmax(82px, 1fr)); overflow-x: auto; min-height: 250px; padding-bottom: 15px; scrollbar-width: thin; }
-  .space-reference { font-size: 11px; }
   .voice-scene { height: 375px; }
   .voice-panel, .voice-result { width: 96%; left: 0; }
   .voice-pill { top: 136px; }
@@ -314,8 +313,17 @@
 [data-embed="x"] iframe { height: 245px; }
 .space-note { display: grid; gap: 3px; margin-bottom: 8px; padding: 10px 12px; border: 1px solid var(--line); border-radius: 7px; background: var(--tint); }
 .embed-source { display: inline-block; margin: 0 11px 10px; color: var(--muted); font-size: 11px; }
-.space-reference { display: flex; align-items: center; gap: 8px; width: fit-content; margin: 0 14px 14px auto; padding: 9px 11px; border: 1px solid var(--line); border-radius: 8px; background: var(--panel); font-size: 12px; }
-.space-copy-state { padding: 3px 6px; border-radius: 4px; color: var(--positive); background: var(--added); font-size: 10px; white-space: nowrap; }
+.paper-caption:has(.space-copy-button) { position: relative; padding-right: 39px; }
+.space-copy-button { position: absolute; right: 7px; bottom: 7px; display: grid; place-items: center; width: 26px; height: 26px; border: 1px solid transparent; border-radius: 6px; color: var(--muted); background: transparent; cursor: pointer; }
+.space-copy-button:is(:hover, :focus-visible) { color: var(--ink); background: var(--rail); border-color: var(--line); }
+.space-copy-button svg { width: 14px; height: 14px; }
+.space-copy-toast { position: absolute; top: 52px; right: 12px; z-index: 2; display: flex; align-items: center; gap: 7px; padding: 7px 11px; border: 1px solid var(--line); border-radius: 8px; color: var(--ink); background: var(--panel); box-shadow: var(--panel-shadow); font-size: 11px; visibility: hidden; opacity: 0; pointer-events: none; }
+.space-copy-toast svg { width: 15px; height: 15px; color: var(--muted); }
+#spaces[data-phase="done"] .space-copy-toast, .space-copy-toast[data-visible] { opacity: 1; visibility: visible; }
+@media (prefers-reduced-motion: no-preference) {
+  .space-copy-toast { transform: translateY(-5px); transition: opacity 230ms ease, transform 230ms ease, visibility 230ms; }
+  #spaces[data-phase="done"] .space-copy-toast, .space-copy-toast[data-visible] { transform: translateY(0); }
+}
 .paper-reader { width: min(880px, calc(100% - 24px)); height: min(78vh, 850px); max-width: none; max-height: none; padding: 0; overflow: hidden; border: 1px solid var(--line); border-radius: 12px; color: var(--ink); background: var(--panel); box-shadow: var(--panel-shadow); }
 .paper-reader::backdrop { background: #251f276e; }
 .paper-reader[open] { display: grid; grid-template-rows: auto minmax(0, 1fr); }
@@ -448,8 +456,6 @@
   .paper-caption small { font-size: 9px; }
   .paper-caption .paper-title { font-size: 11px; }
   .spaces-embed-group { grid-template-columns: minmax(0, 1fr); gap: 8px; padding: 4px 6px 6px; }
-  .space-reference { max-width: calc(100% - 16px); margin: 0 8px 8px auto; padding: 7px; font-size: 11px; }
-  .space-copy-state { font-size: 9px; }
   .library-scene { height: 425px; }
   .library-panel { width: 95%; }
   .hooks-panel { width: 88%; top: 230px; }

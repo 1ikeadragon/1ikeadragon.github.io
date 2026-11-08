@@ -186,6 +186,25 @@ if (typeof reader.showModal === 'function') {
   reader.addEventListener('close', () => frame.removeAttribute('src'));
 }
 
+const spaceCopyButton = document.querySelector('.space-copy-button');
+const spaceCopyToast = document.querySelector('.space-copy-toast');
+let spaceCopyTimer;
+spaceCopyButton.addEventListener('click', async () => {
+  const label = spaceCopyToast.querySelector('span');
+  try {
+    await navigator.clipboard.writeText('space:72ff4360-95e7-47b0-aee0-aa6e013d9b0c');
+    label.textContent = 'Card ID copied';
+  } catch {
+    label.textContent = 'Couldn’t copy card ID';
+  }
+  spaceCopyToast.setAttribute('data-visible', '');
+  clearTimeout(spaceCopyTimer);
+  spaceCopyTimer = setTimeout(() => {
+    spaceCopyToast.removeAttribute('data-visible');
+    label.textContent = 'Card ID copied';
+  }, 1800);
+});
+
 const voiceState = document.querySelector('.voice-state');
 function showVoiceStatus(ready) {
   voiceState.textContent = ready ? 'Got it · Opening task draft' : 'Listening';
