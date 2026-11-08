@@ -64,8 +64,8 @@ function moveTask(ready, animate) {
 }
 
 const tourStops = [
-  { title: 'Scope the cache key', text: 'Include both the tenant and the provider.' },
-  { title: 'Check expiry', text: 'Reuse a shared entry while its data is fresh.' },
+  { title: 'Redact before saving', text: 'The recorder writes the cleaned event to disk.' },
+  { title: 'Replay recorded events', text: 'The timeline displays the trace without invoking tools again.' },
 ];
 function showTour(index) {
   document.querySelector('.tour-count').textContent = `${index + 1} / ${tourStops.length}`;
@@ -75,9 +75,9 @@ function showTour(index) {
 }
 
 const memoryNotes = [
-  { kind: 'Architecture', title: 'Provider cache decision', text: 'Scope every cache key to a tenant and a provider.', detail: 'Compare the two approaches in separate worktrees before choosing one.' },
-  { kind: 'Code review', title: 'Review conventions', text: 'Explain the trade-off alongside the change.', detail: 'Flag anything that needs a human decision.' },
-  { kind: 'Workflow', title: 'Agent handoffs', text: 'Share the branch, findings, and open questions.', detail: 'The next agent should know where to pick up.' },
+  { kind: 'Architecture', title: 'Redaction rules', text: 'Redact tokens and credential fields before writing an event.', detail: 'Keep the tool name and event order so a trace is still readable.' },
+  { kind: 'Review', title: 'Replay checklist', text: 'Check that replay renders recorded results without calling tools.', detail: 'Test a trace with redacted credentials and repeated calls.' },
+  { kind: 'Workflow', title: 'Capture handoff', text: 'The capture branch writes events in order.', detail: 'The replay branch consumes the redacted trace format.' },
 ];
 function showMemory(index) {
   const note = document.querySelector('.memory-note');
@@ -116,6 +116,13 @@ function showTrackedTask(open) {
   trackedDetail.hidden = !open;
   report.hidden = open;
   trackedTask.setAttribute('aria-expanded', String(open));
+  const feature = trackedTask.closest('[data-scene]');
+  if (open) {
+    clearTimeout(timers.get(feature));
+    timers.delete(feature);
+  } else if (canAnimate(feature)) {
+    renderScene(feature, 2, true);
+  }
 }
 trackedTask.addEventListener('click', () => showTrackedTask(trackedDetail.hidden));
 document.querySelector('#close-tracked').addEventListener('click', () => {
@@ -126,9 +133,50 @@ document.querySelector('#tracked-stage').addEventListener('change', event => {
   document.querySelectorAll('.task-lane')[Number(event.target.value)].append(trackedTask);
 });
 
+// Explicit user interaction is required before any third-party media is loaded.
+const embeds = {
+  youtube: 'https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ',
+  x: 'https://platform.twitter.com/embed/Tweet.html?id=2117279420377694564&dnt=true',
+  reddit: 'embed/reddit.html',
+};
+for (const card of document.querySelectorAll('[data-embed]')) {
+  const frame = card.querySelector('iframe');
+  const label = card.querySelector('summary > .small-muted');
+  const noun = card.dataset.embed === 'youtube' ? 'video' : 'post';
+  card.addEventListener('toggle', () => {
+    frame.hidden = !card.open;
+    if (card.open) frame.src = embeds[card.dataset.embed];
+    else frame.removeAttribute('src');
+    label.textContent = card.open ? `Hide ${noun}` : `Load ${noun}`;
+  });
+}
+
 const voiceState = document.querySelector('.voice-state');
 function showVoiceStatus(ready) {
   voiceState.textContent = ready ? 'Got it · Opening task draft' : 'Listening';
+}
+
+const taskHandoff = document.querySelector('.task-handoff-label');
+function showTaskHandoff(created) {
+  taskHandoff.textContent = created ? 'Task created' : 'Creating task';
+}
+
+const exampleSkill = document.querySelector('.sample-skill');
+function showLibraryState(installed) {
+  document.querySelector(installed ? '.installed-skills' : '.available-skills').append(exampleSkill);
+  document.querySelector('.install-skills').textContent = installed ? 'Installed' : 'Install selected';
+  document.querySelector('.install-hooks').textContent = installed ? 'Uninstall hooks' : 'Install hooks';
+  document.querySelectorAll('.hook-state').forEach(state => {
+    state.textContent = installed ? 'Installed' : 'Not installed';
+  });
+}
+
+function showUsage(limits, animate) {
+  document.querySelector('.usage-sessions').hidden = animate && limits;
+  document.querySelector('.usage-limits').hidden = animate && !limits;
+  document.querySelectorAll('.usage-tabs span').forEach((tab, index) => {
+    tab.classList.toggle('active', index === Number(animate && limits));
+  });
 }
 
 const scenes = {
@@ -138,8 +186,10 @@ const scenes = {
     [replayDelay, () => showAgentStates(4)],
   ],
   tasks: [
-    [2200, () => showWorkState(false)],
-    [replayDelay, animate => showWorkState(true, animate)],
+    [1400, () => { showWorkState(false); showTaskHandoff(false); }],
+    [1000, () => showTaskHandoff(true)],
+    [2200],
+    [replayDelay, animate => { showTaskHandoff(true); showWorkState(true, animate); }],
   ],
   review: [
     [2200, () => showTour(0)],
@@ -156,14 +206,17 @@ const scenes = {
     [replayDelay, () => showVoiceStatus(true)],
   ],
   automations: [[900], [replayDelay]],
+  library: [[1700, () => showLibraryState(false)], [replayDelay, () => showLibraryState(true)]],
+  usage: [[2600, animate => showUsage(false, animate)], [replayDelay, animate => showUsage(true, animate)]],
 };
 
 function renderScene(feature, index, animate) {
   const steps = scenes[feature.dataset.scene];
   const [delay, render] = steps[index];
+  feature.dataset.step = index;
   feature.dataset.phase = index === 0 ? 'start' : index === steps.length - 1 ? 'done' : 'working';
   render?.(animate);
-  if (animate) {
+  if (animate && (feature.dataset.scene !== 'tasks' || trackedDetail.hidden)) {
     timers.set(feature, setTimeout(() => renderScene(feature, (index + 1) % steps.length, true), delay));
   }
 }
@@ -182,7 +235,7 @@ function syncFeature(feature) {
   }
   feature.toggleAttribute('data-active', active);
   if (active) {
-    renderScene(feature, 0, true);
+    renderScene(feature, feature.dataset.scene === 'tasks' && !trackedDetail.hidden ? 2 : 0, true);
   } else {
     clearTimeout(timers.get(feature));
     timers.delete(feature);

@@ -9,8 +9,8 @@
   <link rel="icon" href="icon.png">
   <link rel="preload" href="fonts/caveat-brush-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="site.css?v=11">
-  <link rel="stylesheet" href="demo.css?v=9">
-  <script type="module" src="story.js?v=13"></script>
+  <link rel="stylesheet" href="demo.css?v=10">
+  <script type="module" src="story.js?v=14"></script>
   <title>Your swarm’s best friend</title>
 </head>
 <body>
@@ -39,12 +39,12 @@
 
     <section class="overview" aria-label="Pimi in action">
       <div class="overview-frame">
-        <video id="overview-video" muted loop playsinline preload="none" poster="showcase/overview.webp?v=2" aria-label="Recorded in Pimi: tasks, agent grid, tiled review, memory, and automations">
-          <source src="showcase/overview.mp4?v=2" type="video/mp4">
-          <a href="showcase/overview.mp4">Watch the Pimi walkthrough</a>
+        <video id="overview-video" muted loop playsinline preload="none" poster="showcase/overview.webp?v=3" aria-label="Recorded in Pimi: tasks, agent grid, tiled review, memory, and automations">
+          <source src="showcase/overview.mp4?v=3" type="video/mp4">
+          <a href="showcase/overview.mp4?v=3">Watch the Pimi walkthrough</a>
         </video>
       </div>
-      <div class="overview-bottom"><a href="#agents" class="scroll-cue">See how Pimi works <span aria-hidden="true">↓</span></a>        <button type="button" class="pet" aria-label="Pet Pimi">
+      <div class="overview-bottom"><a href="#tasks" class="scroll-cue">See how Pimi works <span aria-hidden="true">↓</span></a>        <button type="button" class="pet" aria-label="Pet Pimi">
           <svg viewBox="0 0 128 118" aria-hidden="true">
             <ellipse cx="67" cy="108" rx="45" ry="6" fill="currentColor" opacity=".09"/>
             <g class="pet-tail">
@@ -73,7 +73,34 @@
     </section>
 
     <div class="feature-stories">
-      <section class="feature" id="agents" data-scene="agents" aria-labelledby="agents-heading">
+      <p class="project-intro">Follow a sample project called Run Replay, a local flight recorder for coding agents.</p>
+      <section class="feature" id="tasks" data-scene="tasks" aria-labelledby="tasks-heading">
+        <div class="feature-copy">
+          <h2 id="tasks-heading">Go from chat to a task</h2>
+          <p>Start with a chat and turn the idea into a task. Give event capture, redaction, and playback their own worktrees, then follow both in Tasks and Work.</p>
+        </div>
+        <div class="scene task-scene">
+          <article class="float-panel task-chat-panel">
+            <header><svg aria-hidden="true"><use href="#icon-chat"/></svg><strong>Run Replay</strong><span class="small-muted">Chat</span></header>
+            <div class="task-chat-body">
+              <p class="chat-bubble">Could we record MCP tool calls, strip credentials, and play back a run without calling the tools again?</p>
+              <p>I’ll make that a task and split capture, redaction, and playback into separate worktrees.</p>
+              <div class="task-handoff"><svg aria-hidden="true"><use href="#icon-tasks"/></svg><span class="task-handoff-label">Creating task</span><strong>Build a local run recorder</strong></div>
+            </div>
+          </article>
+          <div class="float-panel task-panel"><header><svg aria-hidden="true"><use href="#icon-tasks"/></svg><strong>Tasks</strong><span class="small-muted">Board</span></header><div class="task-board">
+            <div class="task-lane"><h3><i></i>To Do</h3><button type="button" class="task-card personal-task" aria-expanded="false" aria-controls="tracked-task-detail"><strong>Pick a trace fixture</strong><small>No delegated work</small></button></div>
+            <div class="task-lane"><h3><i></i>Ready</h3><article class="task-card"><strong>Add a timeline search</strong><small>Run Replay</small></article></div>
+            <div class="task-lane running-lane"><h3><i></i>In progress</h3><article class="task-card animated-task"><strong>Build a local run recorder</strong><small>3 worktrees</small><span class="progress-track"><i></i></span><small class="task-state">Agents working</small></article></div>
+            <div class="task-lane review-lane"><h3><i></i>Review</h3></div>
+            <div class="task-lane done-lane"><h3><i></i>Done</h3><article class="task-card"><strong>Sketch the replay view</strong><small>Run Replay</small></article></div>
+          </div></div>
+          <article class="float-panel report-panel"><header><svg aria-hidden="true"><use href="#icon-list"/></svg><strong>Build a local run recorder</strong><span class="status-dot"></span></header><div class="report-content"><div class="tabs"><span class="active">Work items</span><span>Reports</span></div><div class="task-work-items"><div class="work-item"><svg aria-hidden="true"><use href="#icon-branch"/></svg><div><strong>Capture tool calls</strong><small>trace-core · capture-events</small></div><span class="work-state">In progress</span></div><div class="work-item"><svg aria-hidden="true"><use href="#icon-branch"/></svg><div><strong>Redact credentials</strong><small>trace-core · redact-secrets</small></div><span class="work-state">In progress</span></div><div class="work-item"><svg aria-hidden="true"><use href="#icon-branch"/></svg><div><strong>Replay the trace</strong><small>replay-ui · timeline-player</small></div><span class="work-state">In progress</span></div></div><div class="task-report" hidden><strong>Capture tool calls</strong><p>Write redacted MCP events as newline-delimited JSON so playback can read them in order.</p><div class="report-file"><svg aria-hidden="true"><use href="#icon-compose"/></svg>trace-format.md</div></div></div></article>
+          <article class="float-panel tracked-panel" id="tracked-task-detail" hidden><header><strong>Pick a trace fixture</strong><button type="button" id="close-tracked" aria-label="Close tracked task">×</button></header><div class="tracked-content"><strong>Work items</strong><p>No delegated work</p><label>Stage <select id="tracked-stage"><option value="0">To Do</option><option value="1">Ready</option><option value="2">In progress</option><option value="3">Review</option><option value="4">Done</option></select></label></div></article>
+        </div>
+      </section>
+
+      <section class="feature feature-reverse" id="agents" data-scene="agents" aria-labelledby="agents-heading">
         <div class="feature-copy">
           <h2 id="agents-heading">See what your agents are up to</h2>
           <p>Keep active chats in view with Agent Grid. Jump into any chat to queue a follow-up or fork the conversation to another provider.</p>
@@ -82,30 +109,12 @@
           <article class="float-panel agent-grid-panel">
             <header><svg aria-hidden="true"><use href="#icon-grid"/></svg><strong>Agent Grid</strong><div class="grid-filter"><span class="active">Active</span><span>All</span></div></header>
             <div class="grid-tiles">
-              <article class="grid-tile"><header><svg class="grid-provider claude" aria-label="Claude Code" role="img"><use href="#provider-claude"/></svg><strong>Plan metadata changes</strong></header><small>RelayKit · main</small><p class="chat-bubble">Try both approaches in separate worktrees.</p><p>I’ve opened two worktrees so the changes are easy to compare.</p><span class="agent-status"><i></i><span>Working</span></span></article>
-              <article class="grid-tile"><header><svg class="grid-provider" aria-label="Codex" role="img"><use href="#provider-codex"/></svg><strong>Request cache</strong></header><small>RelayKit · request-cache</small><p class="chat-bubble">Keep metadata local to each request.</p><p><code>provider-cache.ts</code> updated.</p><span class="agent-status"><i></i><span>Working</span></span></article>
-              <article class="grid-tile"><header><svg class="grid-provider claude" aria-label="Claude Code" role="img"><use href="#provider-claude"/></svg><strong>Shared cache</strong></header><small>ControlPlane · shared-cache</small><p class="chat-bubble">Find out when shared data goes stale.</p><p>The expiry check is ready to review.</p><span class="agent-status"><i></i><span>Working</span></span></article>
-              <article class="grid-tile"><header><svg class="grid-provider" aria-label="Codex" role="img"><use href="#provider-codex"/></svg><strong>Review fallback</strong></header><small>RelayKit · fallback-docs</small><p class="chat-bubble">Check the fallback path too.</p><p>I’ve left the findings in the task report.</p><span class="agent-status"><i></i><span>Working</span></span></article>
+              <article class="grid-tile"><header><svg class="grid-provider claude" aria-label="Claude Code" role="img"><use href="#provider-claude"/></svg><strong>Plan Run Replay</strong></header><small>replay-ui · main</small><p class="chat-bubble">Give capture and playback separate branches.</p><p>I’ve created worktrees for capture, redaction, and playback.</p><span class="agent-status"><i></i><span>Working</span></span></article>
+              <article class="grid-tile"><header><svg class="grid-provider" aria-label="Codex" role="img"><use href="#provider-codex"/></svg><strong>Capture tool calls</strong></header><small>trace-core · capture-events</small><p class="chat-bubble">Capture MCP calls and their results in order.</p><p><code>record-event.ts</code> updated.</p><span class="agent-status"><i></i><span>Working</span></span></article>
+              <article class="grid-tile"><header><svg class="grid-provider claude" aria-label="Claude Code" role="img"><use href="#provider-claude"/></svg><strong>Redact credentials</strong></header><small>trace-core · redact-secrets</small><p class="chat-bubble">Strip secrets before traces touch disk.</p><p>Tokens and credential fields are masked.</p><span class="agent-status"><i></i><span>Working</span></span></article>
+              <article class="grid-tile"><header><svg class="grid-provider" aria-label="Codex" role="img"><use href="#provider-codex"/></svg><strong>Replay the trace</strong></header><small>replay-ui · timeline-player</small><p class="chat-bubble">Play a sample run without invoking tools.</p><p>The timeline renders from recorded events.</p><span class="agent-status"><i></i><span>Working</span></span></article>
             </div>
           </article>
-        </div>
-      </section>
-
-      <section class="feature feature-reverse" id="tasks" data-scene="tasks" aria-labelledby="tasks-heading">
-        <div class="feature-copy">
-          <h2 id="tasks-heading">Go from chat to a task</h2>
-          <p>Track an idea yourself or give agents their own worktrees. Tasks follows their progress, and Work shows what’s happening on each branch.</p>
-        </div>
-        <div class="scene task-scene">
-          <div class="float-panel task-panel"><header><svg aria-hidden="true"><use href="#icon-tasks"/></svg><strong>Tasks</strong><span class="small-muted">Board</span></header><div class="task-board">
-            <div class="task-lane"><h3><i></i>To Do</h3><button type="button" class="task-card personal-task" aria-expanded="false" aria-controls="tracked-task-detail"><strong>Notes for the next release</strong><small>No delegated work</small></button></div>
-            <div class="task-lane"><h3><i></i>Ready</h3><article class="task-card"><strong>Improve cancellation</strong><small>RelayKit</small></article></div>
-            <div class="task-lane running-lane"><h3><i></i>In progress</h3><article class="task-card animated-task"><strong>Improve provider metadata</strong><small>2 worktrees</small><span class="progress-track"><i></i></span><small class="task-state">Agents working</small></article></div>
-            <div class="task-lane review-lane"><h3><i></i>Review</h3></div>
-            <div class="task-lane done-lane"><h3><i></i>Done</h3><article class="task-card"><strong>Document the fallback</strong><small>RelayKit</small></article></div>
-          </div></div>
-          <article class="float-panel report-panel"><header><svg aria-hidden="true"><use href="#icon-list"/></svg><strong>Improve provider metadata</strong><span class="status-dot"></span></header><div class="report-content"><div class="tabs"><span class="active">Work items</span><span>Reports</span></div><div class="task-work-items"><div class="work-item"><svg aria-hidden="true"><use href="#icon-branch"/></svg><div><strong>Request cache</strong><small>RelayKit · request-cache</small></div><span class="work-state">In progress</span></div><div class="work-item"><svg aria-hidden="true"><use href="#icon-branch"/></svg><div><strong>Shared cache</strong><small>ControlPlane · shared-cache</small></div><span class="work-state">In progress</span></div></div><div class="task-report" hidden><strong>Request cache</strong><p>Keep the cache local to each request. The next request gets fresh metadata.</p><div class="report-file"><svg aria-hidden="true"><use href="#icon-compose"/></svg>research-report.md</div></div></div></article>
-          <article class="float-panel tracked-panel" id="tracked-task-detail" hidden><header><strong>Notes for the next release</strong><button type="button" id="close-tracked" aria-label="Close tracked task">×</button></header><div class="tracked-content"><strong>Work items</strong><p>No delegated work</p><label>Stage <select id="tracked-stage"><option value="0">To Do</option><option value="1">Ready</option><option value="2">In progress</option><option value="3">Review</option><option value="4">Done</option></select></label></div></article>
         </div>
       </section>
 
@@ -115,12 +124,12 @@
           <p>Check your GitHub PR queue, compare worktree diffs side by side, and step through the changes with a file tour.</p>
         </div>
         <div class="scene review-scene">
-          <div class="float-panel pr-panel"><header><svg aria-hidden="true"><use href="#icon-branch"/></svg><strong>Pull requests</strong><span class="small-muted">GitHub</span></header><div class="pr-row"><span class="pr-symbol">⑂</span><div><strong>Cache provider metadata</strong><small>#42 · request-cache</small></div><span class="pr-state">Open · Checks passed</span></div><div class="pr-row"><span class="pr-symbol merged">⑂</span><div><strong>Document the fallback</strong><small>#41 · docs/fallback</small></div><span class="pr-state merged">Merged</span></div></div>
+          <div class="float-panel pr-panel"><header><svg aria-hidden="true"><use href="#icon-branch"/></svg><strong>Pull requests</strong><span class="small-muted">GitHub</span></header><div class="pr-row"><span class="pr-symbol">⑂</span><div><strong>Record redacted MCP events</strong><small>#42 · capture-events</small></div><span class="pr-state">Open · Checks passed</span></div><div class="pr-row"><span class="pr-symbol merged">⑂</span><div><strong>Sketch the replay view</strong><small>#41 · docs/replay-view</small></div><span class="pr-state merged">Merged</span></div></div>
           <div class="diff-pair">
-            <article class="float-panel diff-panel"><header><strong>RelayKit</strong><span class="small-muted">Request cache</span></header><div class="diff-file">provider-cache.ts <span>+4 −1</span></div><pre><code><span class="code-context">export async function metadata() {</span><span class="line removed">− return provider.lookup();</span><span class="line added tour-target" data-stop="0">+ const key = cacheKey(tenant, provider);</span><span class="line added">+ const cached = cache.get(key);</span><span class="line added">+ if (cached) return cached;</span><span class="line added">+ return fetchAndCache(key);</span><span class="code-context">}</span></code></pre></article>
-            <article class="float-panel diff-panel comparison"><header><strong>ControlPlane</strong><span class="small-muted">Shared cache</span></header><div class="diff-file">shared-cache.ts <span>+4 −1</span></div><pre><code><span class="code-context">export async function read(key) {</span><span class="line removed">− return provider.lookup(key);</span><span class="line added">+ const entry = store.get(key);</span><span class="line added tour-target" data-stop="1">+ if (entry &amp;&amp; isFresh(entry)) {</span><span class="line added">+   return entry.value;</span><span class="line added">+ }</span><span class="code-context">}</span></code></pre></article>
+            <article class="float-panel diff-panel"><header><strong>trace-core</strong><span class="small-muted">Capture tool calls</span></header><div class="diff-file">record-event.ts <span>+3 −1</span></div><pre><code><span class="code-context">export function record(event, sink) {</span><span class="line removed">− sink.write(JSON.stringify(event));</span><span class="line added tour-target" data-stop="0">+ const safe = redactCredentials(event);</span><span class="line added">+ const line = JSON.stringify(safe);</span><span class="line added">+ sink.write(line + "\n");</span><span class="code-context">}</span></code></pre></article>
+            <article class="float-panel diff-panel comparison"><header><strong>replay-ui</strong><span class="small-muted">Replay the trace</span></header><div class="diff-file">playback.ts <span>+3 −1</span></div><pre><code><span class="code-context">export function replay(events, timeline) {</span><span class="line removed">− rerunTools(events);</span><span class="line added tour-target" data-stop="1">+ for (const event of events) {</span><span class="line added">+   timeline.append(event);</span><span class="line added">+ }</span><span class="code-context">}</span></code></pre></article>
           </div>
-          <aside class="float-panel tour-panel"><span class="tour-count">1 / 2</span><div><strong class="tour-title">Keep the context</strong><p class="tour-description">Include the tenant and provider in the cache key.</p></div><svg aria-hidden="true"><use href="#icon-next"/></svg></aside>
+          <aside class="float-panel tour-panel"><span class="tour-count">1 / 2</span><div><strong class="tour-title">Redact before saving</strong><p class="tour-description">The recorder writes the cleaned event to disk.</p></div><svg aria-hidden="true"><use href="#icon-next"/></svg></aside>
         </div>
       </section>
 
@@ -130,7 +139,7 @@
           <p>Save project decisions in Memory so a new chat can pick up where the last one left off, even on a different provider.</p>
         </div>
         <div class="scene memory-scene">
-          <article class="float-panel memory-panel"><header><svg aria-hidden="true"><use href="#icon-memory"/></svg><strong>Memory</strong><span class="small-muted">RelayKit</span></header><div class="memory-body"><div class="memory-list"><span class="selected">Provider cache decision</span><span>Review conventions</span><span>Agent handoffs</span></div><div class="memory-note"><small>Architecture</small><h3>Provider cache decision</h3><p>Keep cache keys scoped to the tenant and provider.</p><p class="small-muted">Compare each approach in its own worktree before choosing one.</p></div></div></article>
+          <article class="float-panel memory-panel"><header><svg aria-hidden="true"><use href="#icon-memory"/></svg><strong>Memory</strong><span class="small-muted">Run Replay</span></header><div class="memory-body"><div class="memory-list"><span class="selected">Redaction rules</span><span>Replay checklist</span><span>Capture handoff</span></div><div class="memory-note"><small>Architecture</small><h3>Redaction rules</h3><p>Redact tokens and credential fields before writing an event.</p><p class="small-muted">Keep the tool name and event order so a trace is still readable.</p></div></div></article>
           <div class="float-panel memory-shared"><span class="provider-dot"><svg aria-label="Claude Code" role="img"><use href="#provider-claude"/></svg></span><span>Claude Code</span><span class="shared-line" aria-hidden="true"></span><svg aria-hidden="true"><use href="#icon-memory"/></svg><span class="shared-line" aria-hidden="true"></span><span class="provider-dot codex"><svg aria-label="Codex" role="img"><use href="#provider-codex"/></svg></span><span>Codex</span></div>
         </div>
       </section>
@@ -138,18 +147,38 @@
       <section class="feature" id="spaces" data-scene="spaces" aria-labelledby="spaces-heading">
         <div class="feature-copy">
           <h2 id="spaces-heading">Give your references a home</h2>
-          <p>Drop links, images, and rough notes into Spaces. Give an agent a card ID when you want it to use something you saved.</p>
+          <p>Save papers, videos, and rough notes in Spaces. Pass an agent a card ID to pull a reference into the chat.</p>
         </div>
         <div class="scene spaces-scene">
           <article class="float-panel spaces-panel">
-            <header><svg aria-hidden="true"><use href="#icon-compose"/></svg><strong>Spaces</strong><span class="small-muted">RelayKit</span></header>
+            <header><svg aria-hidden="true"><use href="#icon-compose"/></svg><strong>Spaces</strong><span class="small-muted">Run Replay</span></header>
             <div class="space-cards">
-              <article class="space-card"><small>Note</small><strong>Cache invalidation</strong><p>Clear the entry when a provider changes.</p></article>
-              <article class="space-card"><small>Link</small><strong>Provider metadata reference</strong><p>Cache headers and expiry</p></article>
-              <article class="space-card"><small>Image</small><strong>Request flow sketch</strong><div class="space-sketch" aria-hidden="true"><span></span><span></span><span></span></div></article>
+              <a class="space-card" href="https://arxiv.org/abs/1706.03762"><small>arXiv · 1706.03762</small><strong>Attention Is All You Need</strong><p>Vaswani et al.</p></a>
+              <a class="space-card" href="https://arxiv.org/abs/2005.11401"><small>arXiv · 2005.11401</small><strong>Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks</strong><p>Lewis et al.</p></a>
+              <a class="space-card" href="https://arxiv.org/abs/2210.03629"><small>arXiv · 2210.03629</small><strong>ReAct: Synergizing Reasoning and Acting in Language Models</strong><p>Yao et al.</p></a>
+            </div>
+            <details class="spaces-embed spaces-video" data-embed="youtube">
+              <summary><svg aria-hidden="true"><use href="#icon-play"/></svg><span><strong>Never Gonna Give You Up</strong><small>Rick Astley · YouTube</small></span><span class="small-muted">Load video</span></summary>
+              <iframe title="Rick Astley – Never Gonna Give You Up" sandbox="allow-scripts allow-same-origin allow-presentation" allow="encrypted-media; fullscreen; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" hidden></iframe>
+              <a class="embed-source" href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">Open on YouTube</a>
+            </details>
+            <div class="spaces-embed-group">
+              <div class="spaces-linked-note">
+                <p class="space-note"><small>Note</small><strong>TODO: Add deep review to PRs</strong></p>
+                <details class="spaces-embed spaces-social" data-embed="x">
+                  <summary><span><strong>Deep Review on X</strong><small>Debarshi · @iminurputer</small></span><span class="small-muted">Load post</span></summary>
+                  <a class="embed-source" href="https://x.com/iminurputer/status/2117279420377694564">Open the post on X</a>
+                  <iframe title="Debarshi’s Deep Review post on X" sandbox="allow-scripts allow-same-origin" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" hidden></iframe>
+                </details>
+              </div>
+              <details class="spaces-embed spaces-social" data-embed="reddit">
+                <summary><span><strong>A replay timeline for coding agents</strong><small>u/kenthesaint · r/ClaudeCode</small></span><span class="small-muted">Load post</span></summary>
+                <a class="embed-source" href="https://www.reddit.com/r/ClaudeCode/comments/1x42oxf/i_built_a_trace_tab_that_replays_a_whole_claude/">Open the discussion on Reddit</a>
+                <iframe title="Reddit discussion about replaying coding-agent sessions" sandbox="allow-scripts" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" hidden></iframe>
+              </details>
             </div>
           </article>
-          <div class="float-panel space-reference"><svg aria-hidden="true"><use href="#icon-chat"/></svg><p>Use the cache invalidation note from Spaces.</p><span class="small-muted">Card ID copied</span></div>
+          <div class="float-panel space-reference"><svg aria-hidden="true"><use href="#icon-chat"/></svg><p>Use the ReAct paper from Spaces for background.</p><span class="small-muted">Card ID copied</span></div>
         </div>
       </section>
 
@@ -161,12 +190,12 @@
         <div class="scene voice-scene">
           <article class="float-panel voice-panel">
             <header><svg aria-hidden="true"><use href="#icon-mic"/></svg><strong>Voice command</strong></header>
-            <div class="voice-body"><p class="voice-transcript">“Start a new task called Compare the cache approaches.”</p></div>
+            <div class="voice-body"><p class="voice-transcript">“Start a new task called Test a redacted replay.”</p></div>
           </article>
           <div class="float-panel voice-pill"><img src="voice-dog.svg" width="33" height="33" alt=""><span class="voice-state">Got it · Opening task draft</span><span class="wave" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span></div>
           <article class="float-panel voice-result">
             <header><svg aria-hidden="true"><use href="#icon-tasks"/></svg><strong>New task</strong><span class="small-muted">Draft</span></header>
-            <div class="voice-result-body"><small>Title</small><p>Compare the cache approaches</p><small>Brief</small><p class="voice-brief">Describe the task or dictate a brief <svg aria-hidden="true"><use href="#icon-mic"/></svg></p></div>
+            <div class="voice-result-body"><small>Title</small><p>Test a redacted replay</p><small>Brief</small><p class="voice-brief">Describe the task or dictate a brief <svg aria-hidden="true"><use href="#icon-mic"/></svg></p></div>
           </article>
         </div>
       </section>
@@ -174,11 +203,40 @@
       <section class="feature" id="automations" data-scene="automations" aria-labelledby="automations-heading">
         <div class="feature-copy">
           <h2 id="automations-heading">Let the routine work run on a schedule</h2>
-          <p>Set up a recurring PR review or project digest. In Usage, check context and the token counts your providers report.</p>
+          <p>Schedule replay regression checks so a fixture catches changes to redaction or event order.</p>
         </div>
         <div class="scene automation-scene">
-          <article class="float-panel automation-panel"><header><svg aria-hidden="true"><use href="#icon-tasks"/></svg><strong>Automations</strong><span class="small-muted">Templates</span></header><div class="automation-row"><span class="automation-symbol" aria-hidden="true">↻</span><div><strong>Friday project digest</strong><small>Fridays · 9:00 AM</small></div><span class="schedule-state">Active</span></div></article>
-          <article class="float-panel usage-panel"><header><svg aria-hidden="true"><use href="#icon-list"/></svg><strong>Usage</strong><span class="small-muted">Sessions</span></header><div class="usage-row"><strong>Request cache</strong><small>Context window</small><span class="progress-track"><i></i></span></div><div class="usage-row"><strong>Shared cache</strong><small>Tokens reported</small><span class="progress-track"><i></i></span></div></article>
+          <article class="float-panel automation-panel"><header><svg aria-hidden="true"><use href="#icon-tasks"/></svg><strong>Automations</strong><span class="small-muted">Templates</span></header><div class="automation-row"><span class="automation-symbol" aria-hidden="true">↻</span><div><strong>Run Replay regression checks</strong><small>Fridays · 9:00 AM</small></div><span class="schedule-state">Active</span></div></article>
+        </div>
+      </section>
+
+      <section class="feature feature-reverse" id="library" data-scene="library" aria-labelledby="library-heading">
+        <div class="feature-copy">
+          <h2 id="library-heading">Give agents the skills they need</h2>
+          <p>Install Pimi’s bundled skills for tasks, worktrees, reviews, and memory. Check Hooks to see which harnesses are reporting terminal activity.</p>
+        </div>
+        <div class="scene library-scene">
+          <article class="float-panel library-panel"><header><svg aria-hidden="true"><use href="#icon-memory"/></svg><strong>Skills</strong><span class="small-muted">Library</span></header><div class="library-body">
+            <div class="library-list-heading"><strong>Installed</strong><span class="mock-chip">Choose skills</span></div><div class="library-list installed-skills"><div><code>pimi-tasks</code></div></div>
+            <div class="library-list-heading"><strong>Available</strong><span class="mock-chip install-skills">Install selected</span></div><div class="library-list available-skills"><div><code>pimi-work</code></div><div class="sample-skill"><code>pimi-review</code></div><div><code>pimi-memory</code></div></div>
+          </div></article>
+          <article class="float-panel hooks-panel"><header><svg aria-hidden="true"><use href="#icon-gear"/></svg><strong>Hooks</strong><span class="small-muted">Terminal activity</span></header><div class="library-body">
+            <div class="library-list-heading"><strong>Installation status</strong><span class="mock-chip install-hooks">Install hooks</span></div>
+            <div class="library-list"><div>Claude Code <span class="hook-state">Installed</span></div><div>Codex <span class="hook-state">Installed</span></div><div>OpenCode <span class="hook-state">Installed</span></div></div>
+          </div></article>
+        </div>
+      </section>
+
+      <section class="feature" id="usage" data-scene="usage" aria-labelledby="usage-heading">
+        <div class="feature-copy">
+          <h2 id="usage-heading">See how much context is left</h2>
+          <p>Check token counts for each chat and the limits your providers report before you start another long run.</p>
+        </div>
+        <div class="scene usage-scene">
+          <article class="float-panel usage-panel"><header><svg aria-hidden="true"><use href="#icon-list"/></svg><strong>Usage</strong><div class="grid-filter usage-tabs"><span class="active">Sessions</span><span>Provider limits</span></div></header>
+            <div class="usage-sessions"><div class="usage-session-list"><div class="selected"><strong>Capture tool calls</strong><small>Codex · trace-core</small></div><div><strong>Redact credentials</strong><small>Claude Code · trace-core</small></div><div><strong>Plan Run Replay</strong><small>Claude Code · replay-ui</small></div></div><div class="usage-context"><strong>Capture tool calls</strong><div class="usage-context-body"><div class="context-ring"><strong>25%</strong></div><div><strong>Context window</strong><small>32,128 / 128,000 tokens</small></div></div></div></div>
+            <div class="usage-limits" hidden><div class="usage-row"><strong>Codex</strong><small>5-hour window · 31% used</small><span class="progress-track"><i></i></span><small>Resets in 2h 18m</small></div><div class="usage-row"><strong>Claude Code</strong><small>Weekly window · 42% used</small><span class="progress-track"><i></i></span><small>Resets Friday</small></div></div>
+          </article>
         </div>
       </section>
       <p class="setup-note">Connect the providers you use, import an existing session, and check for harness updates in Settings.</p>
@@ -194,6 +252,7 @@
       <symbol id="icon-compose" viewBox="0 0 24 24"><path d="M11 4H6a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-5m-10 1 1-4 7-7 3 3-7 7-4 1Z"/></symbol>
       <symbol id="icon-mic" viewBox="0 0 24 24"><rect x="9" y="3" width="6" height="12" rx="3"/><path d="M5 11a7 7 0 0 0 14 0m-7 7v3"/></symbol>
       <symbol id="icon-import" viewBox="0 0 24 24"><path d="M12 3v12m-4-4 4 4 4-4M5 17v3h14v-3"/></symbol>
+      <symbol id="icon-play" viewBox="0 0 24 24"><path d="m9 5 12 7-12 7Z"/></symbol>
       <symbol id="icon-stop" viewBox="0 0 24 24"><rect x="6" y="6" width="12" height="12" rx="2"/></symbol>
       <symbol id="icon-list" viewBox="0 0 24 24"><path d="M9 6h11M9 12h11M9 18h11M4 6h1m-1 6h1m-1 6h1"/></symbol>
       <symbol id="icon-next" viewBox="0 0 24 24"><path d="m9 5 7 7-7 7"/></symbol>

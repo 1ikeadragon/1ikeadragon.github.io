@@ -61,7 +61,6 @@
 .agent-status i, .status-dot { width: 6px; height: 6px; border-radius: 50%; background: #7593c9; flex: none; }
 .agent-status[data-finished] { color: var(--positive); }
 .agent-status[data-finished] i { background: currentColor; }
-.task-scene { height: 450px; }
 .task-panel { top: 20px; width: 108%; left: -4%; }
 .task-board { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 7px; padding: 12px; min-height: 260px; background: url("blush.svg") center / cover; }
 [data-theme="dark"] .task-board { background: url("night-garden.svg") center / cover; }
@@ -126,16 +125,11 @@
 .memory-note p { margin-top: 9px; font-size: 12px; }
 .memory-shared { display: flex; align-items: center; gap: 8px; padding: 14px 18px; right: 0; top: 257px; font-size: 11px; z-index: 2; }
 .shared-line { width: 25px; height: 1px; background: var(--line); }
-.spaces-scene { height: 310px; }
-.spaces-panel { width: 100%; top: 15px; }
 .space-cards { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; padding: 12px; }
 .space-card { display: grid; align-content: start; gap: 6px; min-height: 135px; padding: 10px; border: 1px solid var(--line); border-radius: 8px; background: var(--rail); overflow-wrap: anywhere; }
 .space-card p { color: var(--muted); font-size: 11px; }
 [data-phase="done"] .space-card:first-child { background: var(--tint); }
-.space-sketch { display: flex; flex-wrap: wrap; gap: 3px; align-items: center; margin-top: 10px; }
-.space-sketch span { width: 20px; height: 16px; border: 1px solid var(--focus); border-radius: 3px; }
-.space-sketch span + span::before { content: "→"; position: relative; left: -6px; top: -3px; color: var(--muted); }
-.space-reference { display: flex; align-items: center; gap: 8px; max-width: 100%; right: 0; top: 229px; padding: 13px; font-size: 12px; }
+.space-reference { position: relative; display: flex; align-items: center; gap: 8px; max-width: 100%; width: fit-content; margin: 12px 0 0 auto; padding: 13px; font-size: 12px; }
 .space-reference .small-muted { white-space: nowrap; }
 .voice-scene { height: 382px; }
 .voice-panel { width: 91%; top: 0; left: 0; }
@@ -153,14 +147,11 @@
 .voice-result-body { display: grid; gap: 6px; padding: 14px; }
 .voice-result-body p { padding: 8px 10px; border: 1px solid var(--line); border-radius: 6px; font-size: 12px; }
 .voice-brief { display: flex; justify-content: space-between; align-items: center; gap: 8px; color: var(--muted); }
-.automation-scene { height: 335px; }
-.automation-panel { width: 84%; top: 0; left: 0; }
 .automation-row { display: flex; align-items: center; gap: 13px; padding: 17px; }
 .automation-row > div { display: grid; gap: 4px; }
 .automation-symbol { font-size: 24px; color: var(--muted); }
 .automation-row strong { font-size: 12px; }
 .schedule-state { margin-left: auto; border-radius: 20px; background: var(--added); color: var(--positive); padding: 3px 8px; font-size: 10px; }
-.usage-panel { width: 72%; top: 132px; right: 0; }
 .usage-row { display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 6px; padding: 12px 14px; font-size: 11px; }
 .usage-row + .usage-row { border-top: 1px solid var(--line); }
 .usage-row .progress-track { grid-column: 1 / -1; }
@@ -226,7 +217,6 @@
   .feature h2 { font-size: 32px; margin-bottom: 10px; }
   .feature-copy > p { font-size: 14px; line-height: 1.6; }
   .grid-tile { padding: 8px; }
-  .task-scene { height: 420px; }
   .task-panel { top: 0; left: -3%; width: 106%; }
   .task-board { grid-template-columns: repeat(5, minmax(82px, 1fr)); overflow-x: auto; min-height: 250px; padding-bottom: 15px; scrollbar-width: thin; }
   .report-panel { top: 245px; width: 78%; right: -2%; }
@@ -243,16 +233,13 @@
   .memory-note { padding: 13px; }
   .memory-note h3 { font-size: 17px; margin: 5px 0 10px; }
   .memory-shared { top: 264px; }
-  .spaces-scene { height: 315px; }
   .space-cards { gap: 5px; padding: 8px; }
   .space-card { min-height: 144px; padding: 7px; font-size: 11px; }
-  .space-reference { top: 229px; font-size: 11px; }
+  .space-reference { font-size: 11px; }
   .voice-scene { height: 375px; }
   .voice-panel, .voice-result { width: 96%; left: 0; }
   .voice-pill { top: 136px; }
   .voice-result { top: 194px; }
-  .automation-panel { width: 100%; }
-  .usage-panel { width: 91%; top: 128px; }
   .automation-row { gap: 9px; padding: 14px; }
   .automation-row strong { font-size: 11px; }
   .automation-row small { font-size: 10px; }
@@ -269,3 +256,76 @@
 .tracked-content label { display: flex; align-items: center; justify-content: space-between; gap: 12px; color: var(--muted); font-size: 11px; }
 .tracked-content select { font: inherit; color: var(--ink); border: 1px solid var(--line); border-radius: 6px; background: var(--panel); padding: 5px 9px; }
 @media (max-width: 760px) { .tracked-panel { top: 245px; width: 78%; right: -2%; } }
+
+/* Run Replay walkthrough */
+.project-intro { width: min(660px, calc(100% - 48px)); margin: 0 auto; text-align: center; color: var(--muted); font-size: 15px; line-height: 1.6; }
+.task-scene { height: 490px; }
+.task-chat-panel { width: 95%; top: 36px; left: 0; opacity: 0; visibility: hidden; transform: translateY(-8px); }
+.task-chat-body { display: grid; gap: 16px; padding: 17px; }
+.task-chat-body .chat-bubble { justify-self: end; max-width: 92%; padding: 9px 12px; border-radius: 9px 9px 3px 9px; background: var(--tint); }
+.task-handoff { display: flex; flex-wrap: wrap; gap: 6px 8px; align-items: center; padding: 10px; border: 1px solid var(--line); border-radius: 7px; color: var(--muted); }
+.task-handoff strong { color: var(--ink); }
+[data-step="1"] .task-handoff-label { color: var(--positive); }
+[data-scene="tasks"][data-active]:is([data-step="0"], [data-step="1"]) .task-chat-panel { opacity: 1; visibility: visible; transform: none; }
+[data-scene="tasks"][data-active]:is([data-step="0"], [data-step="1"]) :is(.task-panel, .report-panel) { opacity: 0; visibility: hidden; transform: translateY(10px); }
+.spaces-scene { height: auto; }
+.spaces-panel { position: relative; top: 0; }
+.space-card { text-decoration: none; }
+.space-card:hover { border-color: var(--focus); }
+.spaces-embed { margin: 0 12px 12px; border: 1px solid var(--line); border-radius: 8px; background: var(--rail); overflow: hidden; }
+.spaces-embed summary { list-style: none; display: flex; align-items: center; gap: 8px; padding: 10px; cursor: pointer; }
+.spaces-embed summary::-webkit-details-marker { display: none; }
+.spaces-embed summary > span { display: grid; }
+.spaces-embed summary > .small-muted { margin-left: auto; white-space: nowrap; }
+.spaces-embed iframe { display: block; width: 100%; border: 0; background: var(--panel); }
+.spaces-video iframe { aspect-ratio: 16 / 9; background: var(--ink); }
+.spaces-social iframe { height: 410px; }
+.spaces-embed-group { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: start; gap: 8px; padding: 0 12px 12px; }
+.spaces-embed-group .spaces-embed { margin: 0; }
+.spaces-social[open] { grid-column: 1 / -1; }
+.spaces-linked-note:has(.spaces-social[open]) { grid-column: 1 / -1; }
+.spaces-social summary > span:first-child { overflow-wrap: anywhere; }
+.space-note { display: grid; gap: 3px; margin-bottom: 6px; padding: 8px 10px; border: 1px solid var(--line); border-radius: 7px; background: var(--tint); }
+.embed-source { display: inline-block; margin: 0 10px 10px; color: var(--muted); font-size: 11px; }
+.automation-scene { height: auto; }
+.automation-panel { position: relative; width: 100%; }
+.library-scene { height: 410px; }
+.library-panel { width: 76%; top: 0; left: 0; }
+.hooks-panel { width: 68%; top: 215px; right: 0; }
+.library-body { display: grid; gap: 7px; padding: 11px 13px; font-size: 11px; }
+.library-list-heading { display: flex; align-items: center; justify-content: space-between; gap: 8px; color: var(--muted); }
+.mock-chip { padding: 3px 7px; border: 1px solid var(--line); border-radius: 6px; color: var(--ink); background: var(--rail); white-space: nowrap; }
+.library-list { border: 1px solid var(--line); border-radius: 7px; overflow: hidden; }
+.library-list > div { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 6px 8px; }
+.library-list > div + div { border-top: 1px solid var(--line); }
+.installed-skills .sample-skill { background: var(--added); }
+.hook-state { color: var(--muted); white-space: nowrap; }
+[data-phase="done"] .hook-state { color: var(--positive); }
+.usage-scene { height: auto; }
+.usage-panel { position: relative; width: 100%; top: 0; right: auto; }
+.usage-sessions { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.3fr); gap: 8px; padding: 12px; }
+.usage-session-list { display: grid; align-content: start; }
+.usage-session-list > div { display: grid; gap: 3px; padding: 7px; border-radius: 5px; font-size: 11px; }
+.usage-session-list .selected { background: var(--tint); }
+.usage-context { display: grid; align-content: start; gap: 10px; min-width: 0; padding: 12px; border: 1px solid var(--line); border-radius: 7px; font-size: 11px; }
+.usage-context-body { display: flex; flex-wrap: wrap; align-items: center; gap: 9px; }
+.usage-context-body > div:last-child { display: grid; min-width: 0; }
+.context-ring { display: grid; place-items: center; width: 58px; height: 58px; border-radius: 50%; background: conic-gradient(var(--focus) 25%, var(--rail) 25%); }
+.context-ring strong { display: grid; place-items: center; width: 50px; height: 50px; border-radius: 50%; background: var(--panel); }
+.usage-limits .progress-track i { width: 31%; }
+.usage-limits .usage-row:last-child .progress-track i { width: 42%; }
+@media (max-width: 760px) {
+  .task-scene { height: 460px; }
+  .task-chat-panel { top: 0; width: 100%; }
+  .spaces-embed { margin: 0 8px 8px; }
+  .library-scene { height: 425px; }
+  .library-panel { width: 95%; }
+  .hooks-panel { width: 88%; top: 230px; }
+  .usage-sessions { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 4px; padding: 7px; }
+  .usage-context { padding: 8px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .task-scene { display: grid; gap: 12px; height: auto; }
+  .task-scene > .float-panel { position: relative; inset: auto; width: 100%; }
+  .task-chat-panel { opacity: 1; visibility: visible; transform: none; }
+}
