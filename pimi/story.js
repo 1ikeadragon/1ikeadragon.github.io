@@ -207,11 +207,38 @@ function showLibraryState(installed) {
   });
 }
 
-function showUsage(limits, animate) {
-  document.querySelector('.usage-sessions').hidden = animate && limits;
-  document.querySelector('.usage-limits').hidden = animate && !limits;
-  document.querySelectorAll('.usage-tabs span').forEach((tab, index) => {
-    tab.classList.toggle('active', index === Number(animate && limits));
+const usage = document.querySelector('#usage');
+const usageTabs = [...usage.querySelectorAll('[data-usage-tab]')];
+const recapPeriods = [...usage.querySelectorAll('[data-recap-period]')];
+let usageInteracted = false;
+
+function showUsage(view) {
+  for (const tab of usageTabs) {
+    const selected = tab.dataset.usageTab === view;
+    tab.setAttribute('aria-pressed', String(selected));
+    document.getElementById(tab.getAttribute('aria-controls')).hidden = !selected;
+  }
+}
+
+function stopUsageTour() {
+  usageInteracted = true;
+  clearTimeout(timers.get(usage));
+  timers.delete(usage);
+  usage.removeAttribute('data-active');
+  usage.setAttribute('data-seen', '');
+}
+usage.addEventListener('focusin', stopUsageTour);
+usage.addEventListener('click', stopUsageTour);
+for (const tab of usageTabs) {
+  tab.addEventListener('click', () => showUsage(tab.dataset.usageTab));
+}
+for (const period of recapPeriods) {
+  period.addEventListener('click', () => {
+    for (const button of recapPeriods) {
+      const selected = button === period;
+      button.setAttribute('aria-pressed', String(selected));
+      document.getElementById(button.getAttribute('aria-controls')).hidden = !selected;
+    }
   });
 }
 
@@ -244,7 +271,11 @@ const scenes = {
   ],
   automations: [[900], [replayDelay]],
   library: [[1700, () => showLibraryState(false)], [replayDelay, () => showLibraryState(true)]],
-  usage: [[2600, animate => showUsage(false, animate)], [replayDelay, animate => showUsage(true, animate)]],
+  usage: [
+    [2600, () => showUsage('sessions')],
+    [2400, () => showUsage('limits')],
+    [replayDelay + 2000, () => showUsage('recap')],
+  ],
 };
 
 function renderScene(feature, index, animate) {
@@ -263,6 +294,7 @@ function canAnimate(element) {
 }
 
 function syncFeature(feature) {
+  if (feature === usage && usageInteracted) return;
   const active = canAnimate(feature);
   if (active === feature.hasAttribute('data-active')) {
     if (!active && (paused || motion.matches) && feature.dataset.phase !== 'done') {

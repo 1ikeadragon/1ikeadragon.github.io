@@ -9,8 +9,8 @@
   <link rel="icon" href="icon.png">
   <link rel="preload" href="fonts/caveat-brush-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="site.css?v=11">
-  <link rel="stylesheet" href="demo.css?v=11">
-  <script type="module" src="story.js?v=15"></script>
+  <link rel="stylesheet" href="demo.css?v=12">
+  <script type="module" src="story.js?v=16"></script>
   <title>Your swarm’s best friend</title>
 </head>
 <body>
@@ -289,15 +289,62 @@
         </div>
       </section>
 
-      <section class="feature" id="usage" data-scene="usage" aria-labelledby="usage-heading">
+      <section class="feature feature-wide" id="usage" data-scene="usage" aria-labelledby="usage-heading">
         <div class="feature-copy">
-          <h2 id="usage-heading">See how much context is left</h2>
-          <p>Check token counts for each chat and the limits your providers report before you start another long run.</p>
+          <h2 id="usage-heading">See what you used and what shipped</h2>
+          <p>Check a chat’s context or your provider limits. Open finished tasks and merged PRs from Recap.</p>
         </div>
         <div class="scene usage-scene">
-          <article class="float-panel usage-panel"><header><svg aria-hidden="true"><use href="#icon-list"/></svg><strong>Usage</strong><div class="grid-filter usage-tabs"><span class="active">Sessions</span><span>Provider limits</span></div></header>
-            <div class="usage-sessions"><div class="usage-session-list"><div class="selected"><strong>Capture tool calls</strong><small>Codex · trace-core</small></div><div><strong>Redact credentials</strong><small>Claude Code · trace-core</small></div><div><strong>Plan Run Replay</strong><small>Claude Code · replay-ui</small></div></div><div class="usage-context"><strong>Capture tool calls</strong><div class="usage-context-body"><div class="context-ring"><strong>25%</strong></div><div><strong>Context window</strong><small>32,128 / 128,000 tokens</small></div></div></div></div>
-            <div class="usage-limits" hidden><div class="usage-row"><strong>Codex</strong><small>5-hour window · 31% used</small><span class="progress-track"><i></i></span><small>Resets in 2h 18m</small></div><div class="usage-row"><strong>Claude Code</strong><small>Weekly window · 42% used</small><span class="progress-track"><i></i></span><small>Resets Friday</small></div></div>
+          <article class="float-panel usage-panel">
+            <header>
+              <svg aria-hidden="true"><use href="#icon-list"/></svg><strong>Usage</strong>
+              <div class="grid-filter usage-tabs" role="group" aria-label="Usage views">
+                <button type="button" data-usage-tab="sessions" aria-pressed="false" aria-controls="usage-sessions">Sessions</button>
+                <button type="button" data-usage-tab="limits" aria-pressed="false" aria-controls="usage-limits">Provider limits</button>
+                <button type="button" data-usage-tab="recap" aria-pressed="true" aria-controls="usage-recap">Recap</button>
+              </div>
+            </header>
+            <div class="usage-views">
+              <div class="usage-sessions" id="usage-sessions" hidden><div class="usage-session-list"><div class="selected"><strong>Capture tool calls</strong><small>Codex · trace-core</small></div><div><strong>Redact credentials</strong><small>Claude Code · trace-core</small></div><div><strong>Plan Run Replay</strong><small>Claude Code · replay-ui</small></div></div><div class="usage-context"><strong>Capture tool calls</strong><div class="usage-context-body"><div class="context-ring"><strong>25%</strong></div><div><strong>Context window</strong><small>32,128 / 128,000 tokens</small></div></div></div></div>
+              <div class="usage-limits" id="usage-limits" hidden><div class="usage-row"><strong>Codex</strong><small>5-hour window · 31% used</small><span class="progress-track"><i></i></span><small>Resets in 2h 18m</small></div><div class="usage-row"><strong>Claude Code</strong><small>Weekly window · 42% used</small><span class="progress-track"><i></i></span><small>Resets Friday</small></div></div>
+              <div class="usage-recap" id="usage-recap">
+                <div class="recap-heading">
+                  <h3>What shipped</h3>
+                  <div class="grid-filter recap-periods" role="group" aria-label="Recap week">
+                    <button type="button" data-recap-period="last-week" aria-pressed="true" aria-controls="recap-last-week">Last week</button>
+                    <button type="button" data-recap-period="this-week" aria-pressed="false" aria-controls="recap-this-week">This week</button>
+                  </div>
+                </div>
+                <div id="recap-last-week" class="recap-period">
+                  <p class="recap-range">Oct 26 – Nov 1, 2026</p>
+                  <div class="recap-groups">
+                    <section class="recap-group">
+                      <h4><svg aria-hidden="true"><use href="#icon-tasks"/></svg>Done tasks<span>1</span></h4>
+                      <a class="recap-row" href="#tasks"><span><strong>Sketch the replay view</strong></span><time datetime="2026-10-29">Oct 29</time><svg aria-hidden="true"><use href="#icon-next"/></svg></a>
+                    </section>
+                    <section class="recap-group">
+                      <h4><svg aria-hidden="true"><use href="#icon-branch"/></svg>Merged PRs<span>2</span></h4>
+                      <a class="recap-row" href="#review"><span><strong>Sketch the replay view</strong><small>replay-ui #41</small></span><time datetime="2026-10-29">Oct 29</time><svg aria-hidden="true"><use href="#icon-next"/></svg></a>
+                      <a class="recap-row" href="#review"><span><strong>Add the trace fixture</strong><small>trace-core #37</small></span><time datetime="2026-10-27">Oct 27</time><svg aria-hidden="true"><use href="#icon-next"/></svg></a>
+                    </section>
+                  </div>
+                </div>
+                <div id="recap-this-week" class="recap-period" hidden>
+                  <p class="recap-range">Nov 2–8, 2026</p>
+                  <div class="recap-groups">
+                    <section class="recap-group">
+                      <h4><svg aria-hidden="true"><use href="#icon-tasks"/></svg>Done tasks<span>1</span></h4>
+                      <a class="recap-row" href="#tasks"><span><strong>Build a local run recorder</strong></span><time datetime="2026-11-06">Nov 6</time><svg aria-hidden="true"><use href="#icon-next"/></svg></a>
+                    </section>
+                    <section class="recap-group">
+                      <h4><svg aria-hidden="true"><use href="#icon-branch"/></svg>Merged PRs<span>2</span></h4>
+                      <a class="recap-row" href="#review"><span><strong>Record redacted events</strong><small>trace-core #42</small></span><time datetime="2026-11-06">Nov 6</time><svg aria-hidden="true"><use href="#icon-next"/></svg></a>
+                      <a class="recap-row" href="#review"><span><strong>Replay a recorded trace</strong><small>replay-ui #18</small></span><time datetime="2026-11-05">Nov 5</time><svg aria-hidden="true"><use href="#icon-next"/></svg></a>
+                    </section>
+                  </div>
+                </div>
+              </div>
+            </div>
           </article>
         </div>
       </section>
