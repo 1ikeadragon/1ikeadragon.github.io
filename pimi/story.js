@@ -242,6 +242,17 @@ for (const period of recapPeriods) {
   });
 }
 
+const automationStatus = document.querySelector('.automation-run-state');
+const automationSteps = [...document.querySelectorAll('.automation-steps li')];
+const automationStates = ['Scheduled', 'Starting', 'Running', 'Running', 'Finished'];
+
+function showAutomationRun(progress) {
+  automationStatus.textContent = automationStates[progress];
+  automationSteps.forEach((step, index) => {
+    step.dataset.status = index < progress - 1 ? 'complete' : index === progress - 1 ? 'current' : 'pending';
+  });
+}
+
 const scenes = {
   agents: [
     [1100, () => showAgentStates(0)],
@@ -269,7 +280,13 @@ const scenes = {
     [1700, () => showVoiceStatus(false)],
     [replayDelay, () => showVoiceStatus(true)],
   ],
-  automations: [[900], [replayDelay]],
+  automations: [
+    [1500, () => showAutomationRun(0)],
+    [1300, () => showAutomationRun(1)],
+    [1600, () => showAutomationRun(2)],
+    [1200, () => showAutomationRun(3)],
+    [replayDelay + 1000, () => showAutomationRun(4)],
+  ],
   library: [[1700, () => showLibraryState(false)], [replayDelay, () => showLibraryState(true)]],
   usage: [
     [2600, () => showUsage('sessions')],

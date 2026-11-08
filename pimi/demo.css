@@ -104,11 +104,6 @@
 .voice-result-body { display: grid; gap: 6px; padding: 14px; }
 .voice-result-body p { padding: 8px 10px; border: 1px solid var(--line); border-radius: 6px; font-size: 12px; }
 .voice-brief { display: flex; justify-content: space-between; align-items: center; gap: 8px; color: var(--muted); }
-.automation-row { display: flex; align-items: center; gap: 13px; padding: 17px; }
-.automation-row > div { display: grid; gap: 4px; }
-.automation-symbol { font-size: 24px; color: var(--muted); }
-.automation-row strong { font-size: 12px; }
-.schedule-state { margin-left: auto; border-radius: 20px; background: var(--added); color: var(--positive); padding: 3px 8px; font-size: 10px; }
 .usage-row { display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 6px; padding: 12px 14px; font-size: 11px; }
 .usage-row + .usage-row { border-top: 1px solid var(--line); }
 .usage-row .progress-track { grid-column: 1 / -1; }
@@ -125,7 +120,6 @@
   .voice-result, .space-reference { transition: opacity 350ms ease, transform 350ms ease; }
   .feature[data-active][data-phase="start"] :is(.voice-result, .space-reference) { opacity: 0; transform: translateY(8px); }
   .progress-track i { transition: width 1.5s ease; }
-  [data-scene="automations"][data-active][data-phase="start"] .progress-track i { width: 8%; }
   :root:not([data-showcase-paused]) .pet:is(:hover, :focus-visible, [data-petted]) .pet-tail { animation: wag 300ms ease-in-out infinite alternate; }
   :root:not([data-showcase-paused]) .pet:is(:hover, :focus-visible, [data-petted]) .pet-head { animation: nod 480ms ease-in-out infinite alternate; }
   :root:not([data-showcase-paused]) .pet:is(:hover, :focus-visible, [data-petted]) .pet-heart { animation: heart 850ms ease-out infinite; }
@@ -175,9 +169,6 @@
   .voice-panel, .voice-result { width: 96%; left: 0; }
   .voice-pill { top: 136px; }
   .voice-result { top: 194px; }
-  .automation-row { gap: 9px; padding: 14px; }
-  .automation-row strong { font-size: 11px; }
-  .automation-row small { font-size: 10px; }
   .scene::before { inset: -15px -20px; }
 }
 .provider-dot svg { width: 19px; height: 19px; fill: currentColor; stroke: none; }
@@ -321,6 +312,31 @@
 
 .automation-scene { height: auto; }
 .automation-panel { position: relative; width: 100%; }
+.automation-row { display: flex; align-items: center; gap: 12px; padding: clamp(12px, 3vw, 20px); }
+.automation-row > div { display: grid; gap: 4px; min-width: 0; }
+.automation-row strong { font-size: clamp(12px, 2vw, 15px); }
+.automation-symbol { display: grid; place-items: center; flex: none; width: 32px; height: 32px; color: var(--muted); background: var(--rail); border-radius: 9px; }
+.schedule-state, .automation-run-state { margin-left: auto; border-radius: 20px; padding: 3px 8px; font-size: 11px; white-space: nowrap; }
+.schedule-state, [data-phase="done"] .automation-run-state { background: var(--added); color: var(--positive); }
+.automation-run { margin: 0 clamp(12px, 3vw, 20px) clamp(12px, 3vw, 20px); border: 1px solid var(--line); border-radius: 10px; overflow: hidden; }
+.automation-run-heading, .automation-summary { display: flex; align-items: center; gap: 8px; padding: 10px 13px; background: var(--rail); color: var(--muted); font-size: 11px; }
+.automation-run-state { color: var(--ink); background: var(--tint); }
+.automation-steps { display: grid; gap: 1px; padding: 8px 10px; margin: 0; list-style: none; }
+.automation-steps li { display: grid; grid-template-columns: 12px 1fr auto; align-items: center; gap: 8px; min-height: 34px; padding: 5px; border-radius: 6px; font-size: clamp(11px, 1.7vw, 13px); color: var(--muted); }
+.automation-steps i { display: grid; place-items: center; width: 10px; height: 10px; border: 1px solid currentColor; border-radius: 50%; }
+.automation-steps small { white-space: nowrap; }
+.automation-steps [data-status="pending"] small, .automation-steps [data-status="current"] small { visibility: hidden; }
+.automation-steps [data-status="current"] { color: var(--ink); background: var(--rail); }
+.automation-steps [data-status="current"] i { border: 3px solid var(--tint); background: var(--ink); }
+.automation-steps [data-status="complete"] { color: var(--ink); }
+.automation-steps [data-status="complete"] :is(i, small) { color: var(--positive); }
+.automation-steps [data-status="complete"] i::after { content: ""; width: 5px; height: 3px; border: solid currentColor; border-width: 0 0 1px 1px; transform: translateY(-1px) rotate(-45deg); }
+.automation-summary svg { width: 13px; height: 13px; }
+@media (prefers-reduced-motion: no-preference) {
+  .automation-steps li, .automation-run-state { transition: background 280ms ease, color 280ms ease; }
+  .automation-steps [data-status="current"] i { animation: automation-pulse 950ms ease-in-out infinite alternate; }
+  @keyframes automation-pulse { to { opacity: .5; transform: scale(.84); } }
+}
 .library-scene { height: 410px; }
 .library-panel { width: 76%; top: 0; left: 0; }
 .hooks-panel { width: 68%; top: 215px; right: 0; }
