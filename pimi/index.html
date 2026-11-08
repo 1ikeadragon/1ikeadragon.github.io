@@ -9,8 +9,8 @@
   <link rel="icon" href="icon.png">
   <link rel="preload" href="fonts/caveat-brush-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="site.css?v=11">
-  <link rel="stylesheet" href="demo.css?v=20">
-  <script type="module" src="story.js?v=21"></script>
+  <link rel="stylesheet" href="demo.css?v=21">
+  <script type="module" src="story.js?v=22"></script>
   <title>Your swarm’s best friend</title>
 </head>
 <body>
@@ -251,21 +251,30 @@
         </div>
       </section>
 
-      <section class="feature feature-reverse" id="voice" data-scene="voice" aria-labelledby="voice-heading">
+      <section class="feature feature-wide" id="voice" data-scene="voice" aria-labelledby="voice-heading">
         <div class="feature-copy">
-          <h2 id="voice-heading">Ask Pimi to open it</h2>
-          <p>Start a chat, draft a task, or jump straight to Review with a voice command. Use dictation when you just want to fill in a message or brief.</p>
+          <h2 id="voice-heading">Ask Pimi</h2>
+          <p>Say what you want to do. Pimi opens the view or drafts the message for you.</p>
         </div>
         <div class="scene voice-scene">
-          <article class="float-panel voice-panel">
-            <header><svg aria-hidden="true"><use href="#icon-mic"/></svg><strong>Voice command</strong></header>
-            <div class="voice-body"><p class="voice-transcript">“Start a new task called Test a redacted replay.”</p></div>
-          </article>
-          <div class="float-panel voice-pill"><img src="voice-dog.svg" width="33" height="33" alt=""><span class="voice-state">Got it · Opening task draft</span><span class="wave" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span></div>
-          <article class="float-panel voice-result">
-            <header><svg aria-hidden="true"><use href="#icon-tasks"/></svg><strong>New task</strong><span class="small-muted">Draft</span></header>
-            <div class="voice-result-body"><small>Title</small><p>Test a redacted replay</p><small>Brief</small><p class="voice-brief">Describe the task or dictate a brief <svg aria-hidden="true"><use href="#icon-mic"/></svg></p></div>
-          </article>
+          <div class="float-panel voice-pill"><img src="voice-dog.svg" width="33" height="33" alt=""><span class="voice-state">Got it · Opening chat draft</span><span class="wave" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span></div>
+          <div class="voice-examples">
+            <article class="float-panel voice-example" data-voice-example="1">
+              <header><svg aria-hidden="true"><use href="#icon-tasks"/></svg><strong>New task</strong></header>
+              <p class="voice-transcript">“Start a new task called test a redacted replay.”</p>
+              <div class="voice-outcome"><small>Task draft</small><strong>Test a redacted replay</strong></div>
+            </article>
+            <article class="float-panel voice-example" data-voice-example="2">
+              <header><svg aria-hidden="true"><use href="#icon-compose"/></svg><strong>Find a reference</strong></header>
+              <p class="voice-transcript">“Search Spaces for the replay checklist and use it to draft smoke checks.”</p>
+              <div class="voice-outcome"><small>After you send the draft</small><strong>Searched Spaces · Replay checklist</strong><p>Check that secrets are masked and events still play back in order.</p></div>
+            </article>
+            <article class="float-panel voice-example" data-voice-example="3">
+              <header><svg aria-hidden="true"><use href="#icon-memory"/></svg><strong>Save a rule</strong></header>
+              <p class="voice-transcript">“Open a new chat and type: remember that replay must never call tools.”</p>
+              <div class="voice-outcome"><small>After you send the draft</small><strong>Saved to project Memory</strong><p>Replay reads recorded events without invoking tools.</p></div>
+            </article>
+          </div>
         </div>
       </section>
 

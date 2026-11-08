@@ -206,8 +206,11 @@ spaceCopyButton.addEventListener('click', async () => {
 });
 
 const voiceState = document.querySelector('.voice-state');
-function showVoiceStatus(ready) {
-  voiceState.textContent = ready ? 'Got it · Opening task draft' : 'Listening';
+const voiceExamples = [...document.querySelectorAll('[data-voice-example]')];
+const voiceMessages = ['Listening', 'Got it · Opening task draft', 'Got it · Opening chat draft', 'Got it · Opening chat draft'];
+function showVoiceExample(count) {
+  voiceState.textContent = voiceMessages[count];
+  voiceExamples.forEach((card, index) => card.toggleAttribute('data-waiting', index >= count));
 }
 
 const taskFeature = document.querySelector('#tasks');
@@ -342,8 +345,10 @@ const scenes = {
   ],
   spaces: [[1400], [replayDelay]],
   voice: [
-    [1700, () => showVoiceStatus(false)],
-    [replayDelay, () => showVoiceStatus(true)],
+    [950, () => showVoiceExample(0)],
+    [1200, () => showVoiceExample(1)],
+    [1700, () => showVoiceExample(2)],
+    [replayDelay + 2400, () => showVoiceExample(3)],
   ],
   automations: [
     [1500, () => showAutomationRun(0)],
