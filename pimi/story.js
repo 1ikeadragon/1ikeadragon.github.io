@@ -3,17 +3,30 @@ const motion = window.matchMedia('(prefers-reduced-motion: reduce)');
 const themeToggle = document.querySelector('.theme-toggle');
 const themeColor = document.querySelector('meta[name="theme-color"]');
 const video = document.querySelector('#overview-video');
+const overviewFrame = video.closest('.overview-frame');
+const foldAt = Number(video.dataset.foldAt);
+const phoneAt = Number(video.dataset.phoneAt);
+const unfoldAt = Number(video.dataset.unfoldAt);
 const overviewMedia = {
   light: { src: video.querySelector('source').getAttribute('src'), poster: video.getAttribute('poster') },
   dark: { src: video.dataset.darkSrc, poster: video.dataset.darkPoster },
 };
 let overviewTheme = 'light';
 let seekAfterThemeChange = 0;
+function syncOverviewFrame() {
+  const time = seekAfterThemeChange || video.currentTime;
+  const beforeLoop = !Number.isFinite(video.duration) || time < video.duration - .1;
+  overviewFrame.toggleAttribute('data-handheld', time >= foldAt && beforeLoop);
+  overviewFrame.toggleAttribute('data-phone', time >= phoneAt && time < unfoldAt);
+}
+video.addEventListener('timeupdate', syncOverviewFrame);
+video.addEventListener('seeked', syncOverviewFrame);
 video.addEventListener('loadedmetadata', () => {
   if (seekAfterThemeChange > 0 && Number.isFinite(video.duration) && video.duration > 0) {
     video.currentTime = seekAfterThemeChange % video.duration;
   }
   seekAfterThemeChange = 0;
+  syncOverviewFrame();
 });
 
 function setTheme(theme) {

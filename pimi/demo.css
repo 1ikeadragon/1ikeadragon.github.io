@@ -14,11 +14,11 @@
 .overview-frame { position: relative; border: 1px solid var(--line); border-radius: 17px; overflow: hidden; background: var(--panel); box-shadow: 0 32px 95px -35px #5637474a, 0 2px 8px #46333c12; }
 [data-theme="dark"] .overview-frame { box-shadow: 0 32px 95px -35px #000a, 0 2px 8px #0003; }
 .scene svg { width: 16px; height: 16px; flex: none; fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
-.overview-window-controls { position: absolute; z-index: 1; top: 1.5%; left: max(7px, 1.3%); display: flex; gap: clamp(2px, .44vw, 5px); pointer-events: none; }
-.overview-window-controls i { width: clamp(4px, .91vw, 10px); aspect-ratio: 1; border-radius: 50%; background: #ee8e85; }
-.overview-window-controls i:nth-child(2) { background: #edc174; }
-.overview-window-controls i:nth-child(3) { background: #8dbf87; }
+.overview-frame[data-handheld] { border-color: transparent; box-shadow: none; }
 .overview video { display: block; width: 100%; aspect-ratio: 3 / 2; object-fit: contain; background: var(--panel); }
+@media (prefers-reduced-motion: no-preference) {
+  .overview-frame { transition: border-color 220ms ease, box-shadow 220ms ease; }
+}
 .overview-bottom { position: relative; display: flex; align-items: center; justify-content: center; min-height: 80px; }
 .scroll-cue { display: flex; align-items: center; gap: 12px; color: var(--muted); font-size: 12px; text-decoration: none; padding: 15px; }
 .scroll-cue span { font-size: 18px; }
@@ -153,7 +153,14 @@
 }
 @media (max-width: 760px) {
   .overview { width: calc(100% - 24px); }
-  .overview-frame { border-radius: 10px; }
+  .overview-frame { border-radius: 10px; container-type: inline-size; }
+  .overview video { height: calc(100cqw * 2 / 3); object-fit: cover; }
+  .overview-frame[data-phone] video {
+    height: max(calc(100cqw * 2 / 3), min(175cqw, 80svh));
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .overview video { transition: height 520ms cubic-bezier(.25,.65,.25,1); }
+  }
   .overview-bottom { min-height: 82px; }
   .pet { width: 66px; bottom: 5px; }
   .scroll-cue { align-self: start; margin-top: 3px; font-size: 11px; }
