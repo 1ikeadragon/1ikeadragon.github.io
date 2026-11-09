@@ -149,6 +149,18 @@ function showAgentStates(finished) {
   });
 }
 
+const delegation = document.querySelector('#delegation');
+const delegatedAgents = [...delegation.querySelectorAll('.delegation-worker')];
+
+function showDelegation(finished, summary = false) {
+  delegation.toggleAttribute('data-summary', summary);
+  delegatedAgents.forEach((worker, index) => {
+    const done = index < finished;
+    worker.toggleAttribute('data-finished', done);
+    worker.querySelector('.delegation-status').textContent = done ? 'Finished' : 'Working';
+  });
+}
+
 function showWorkState(ready) {
   moveTask(ready, false);
   taskAnimation?.cancel();
@@ -513,6 +525,13 @@ const scenes = {
     [1100, () => showAgentStates(0)],
     [1100, () => showAgentStates(2)],
     [replayDelay, () => showAgentStates(4)],
+  ],
+  delegation: [
+    [1550, () => showDelegation(0)],
+    [2350, () => showDelegation(0)],
+    [1800, () => showDelegation(1)],
+    [1150, () => showDelegation(2)],
+    [5200, () => showDelegation(2, true)],
   ],
   tasks: [
     [taskTypingDuration, typeTaskPrompt],

@@ -9,9 +9,9 @@
   <link rel="icon" href="icon.png">
   <link rel="preload" href="fonts/caveat-brush-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="site.css?v=14">
-  <link rel="stylesheet" href="demo.css?v=29">
+  <link rel="stylesheet" href="demo.css?v=30">
   <link rel="stylesheet" href="review-demo.css?v=3">
-  <script type="module" src="story.js?v=29"></script>
+  <script type="module" src="story.js?v=30"></script>
   <script type="module" src="review-demo.js?v=3"></script>
   <title>Your swarm’s best friend</title>
 </head>
@@ -128,6 +128,44 @@
               <article class="grid-tile"><header><svg class="grid-provider" aria-label="Codex" role="img"><use href="#provider-codex"/></svg><strong>Replay the trace</strong></header><small>replay-ui · timeline-player</small><p class="chat-bubble">Play a sample run without invoking tools.</p><p>The timeline renders from recorded events.</p><span class="agent-status"><i></i><span>Working</span></span></article>
               <article class="grid-tile"><header><svg class="grid-provider" aria-label="Codex" role="img"><use href="#provider-codex"/></svg><strong>Seed the replay fixture</strong></header><small>trace-core · fixture</small><p class="chat-bubble">Keep a trace we can replay offline.</p><p>The sample trace is committed.</p><span class="agent-status" data-static-status data-finished><i></i><span>Finished</span></span></article>
               <article class="grid-tile"><header><svg class="grid-provider claude" aria-label="Claude Code" role="img"><use href="#provider-claude"/></svg><strong>Check replay in the browser</strong></header><small>replay-ui · smoke</small><p class="chat-bubble">Open the local replay page.</p><p>Waiting for permission to launch the browser.</p><span class="agent-status" data-static-status data-needs-input><i></i><span>Needs input</span></span></article>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="feature feature-wide" id="delegation" data-scene="delegation" aria-labelledby="delegation-heading">
+        <div class="feature-copy">
+          <h2 id="delegation-heading">Plan with two agents</h2>
+          <p>Choose a provider for each subagent and bring their findings back to the original chat.</p>
+        </div>
+        <div class="scene delegation-scene">
+          <article class="float-panel delegation-chat" aria-label="Example of planning with Codex and OpenCode">
+            <header><svg aria-hidden="true"><use href="#icon-chat"/></svg><strong>Plan large traces</strong><span class="small-muted">Run Replay</span></header>
+            <div class="delegation-body">
+              <p class="chat-bubble">ask codex and opencode how we should handle huge traces. just a plan for now.</p>
+              <div class="delegation-branch">
+                <p>I’ll ask both for an independent plan.</p>
+                <div class="delegation-workers">
+                  <article class="delegation-worker" data-finished>
+                    <header><svg aria-hidden="true"><use href="#provider-codex"/></svg><strong>Codex</strong><span class="delegation-status">Finished</span></header>
+                    <div class="delegation-worker-body">
+                      <p class="delegation-progress">Reading the trace format…</p>
+                      <p class="delegation-answer">Add an offset index so opening a run skips the full trace scan.</p>
+                    </div>
+                  </article>
+                  <article class="delegation-worker" data-finished>
+                    <header><svg aria-hidden="true"><use href="#provider-opencode"/></svg><strong>OpenCode</strong><span class="delegation-status">Finished</span></header>
+                    <div class="delegation-worker-body">
+                      <p class="delegation-progress">Reading the timeline…</p>
+                      <p class="delegation-answer">Load one page of events at a time and fetch more as you scroll.</p>
+                    </div>
+                  </article>
+                </div>
+              </div>
+              <div class="delegation-result">
+                <svg aria-hidden="true"><use href="#icon-list"/></svg>
+                <div><strong>Combined plan</strong><p>Keep the recorder format. Add the offset index, then use it to page through the timeline.</p></div>
+              </div>
             </div>
           </article>
         </div>
@@ -526,6 +564,7 @@
     </div>
     <svg class="demo-icons" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
       <symbol id="icon-grid" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></symbol>
+      <symbol id="provider-opencode" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M13 14H3V2H13V14ZM10.5 4.4H5.5V11.6H10.5V4.4Z"/></symbol>
       <symbol id="icon-copy" viewBox="0 0 24 24"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"/></symbol>
       <symbol id="icon-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><path d="M12 11v5m0-8h.01"/></symbol>
       <symbol id="icon-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><path d="M12 8v4l3 2"/></symbol>
