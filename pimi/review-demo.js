@@ -58,8 +58,26 @@ if (reviewScene) {
   const byId = new Map(prs.map((pr) => [pr.id, pr]));
   const lastFile = new Map(prs.map((pr) => [pr.id, pr.files[0].id]));
   const fileScroll = new Map();
-  const history = [{ mode: 'prs', pr: 'capture', tab: 'overview', file: 'record' }];
+  const initial = { mode: 'prs', pr: 'capture', tab: 'overview', file: 'record' };
+  const tourSteps = {
+    'capture-overview': initial,
+    'capture-changes': { ...initial, tab: 'changes' },
+    'capture-secrets': { ...initial, tab: 'changes', file: 'secrets' },
+    'replay-overview': { ...initial, pr: 'replay', file: 'playback' },
+    'replay-changes': { ...initial, pr: 'replay', tab: 'changes', file: 'playback' },
+  };
+  const worktreeStops = [
+    { title: 'Redact before saving', text: 'The recorder writes the cleaned event to disk.' },
+    { title: 'Replay recorded events', text: 'The timeline displays the trace without invoking tools again.' },
+  ];
+  const history = [initial];
   let index = 0;
+  let renderedState;
+  let interacted = false;
+  let motionActive = false;
+  let worktreeTimer;
+  let panelAnimation;
+  let hunkAnimation;
   let query = '';
   let filter = 'all';
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
@@ -100,7 +118,8 @@ if (reviewScene) {
   }
   function renderPrList(state) {
     const matches = prs.filter(pr => `${pr.repo} ${pr.title} #${pr.number}`.toLowerCase().includes(query) && (filter === 'all' || pr.id === 'replay'));
-    $('#review-demo-pr-list').replaceChildren(...matches.map((pr) => {
+    const list = $('#review-demo-pr-list');
+    list.replaceChildren(...matches.map((pr) => {
       const row = button('review-demo-pr-row', '', () => push({
         mode: 'prs', pr: pr.id, tab: 'overview', file: lastFile.get(pr.id),
       }));
@@ -113,6 +132,7 @@ if (reviewScene) {
       );
       return row;
     }));
+    if (!matches.length) list.append(element('p', 'review-demo-empty', 'No matching pull requests.'));
   }
   function renderOverview(pr) {
     const description = element('div', 'review-demo-overview-card review-demo-description');
@@ -149,16 +169,20 @@ if (reviewScene) {
   function renderChanges(state, pr) {
     const currentFile = pr.files.find((file) => file.id === state.file) ?? pr.files[0];
     const fileList = $('#review-demo-file-list');
-    fileList.replaceChildren(...pr.files.map((file) => {
-      const row = button('review-demo-file-row', '', () => {
-        lastFile.set(pr.id, file.id);
-        push({ ...state, file: file.id });
-      });
-      row.setAttribute('aria-pressed', String(file.id === currentFile.id));
-      row.dataset.file = file.id;
-      row.append(element('span', '', file.path), element('small', '', file.stats));
-      return row;
-    }));
+    if (fileList.dataset.pr !== pr.id) {
+      fileList.dataset.pr = pr.id;
+      fileList.replaceChildren(...pr.files.map((file) => {
+        const row = button('review-demo-file-row', '', () => {
+          lastFile.set(pr.id, file.id);
+          push({ ...history[index], file: file.id });
+        });
+        row.dataset.file = file.id;
+        row.append(element('span', '', file.path), element('small', '', file.stats));
+        return row;
+      }));
+    }
+    for (const row of fileList.children)
+      row.setAttribute('aria-pressed', String(row.dataset.file === currentFile.id));
     const panel = element('article', 'diff-panel');
     const heading = element('header');
     heading.append(element('strong', '', pr.repo), element('small', '', pr.branch));
@@ -179,44 +203,120 @@ if (reviewScene) {
     const scroll = fileScroll.get(`${pr.id}:${currentFile.id}`);
     if (scroll) { pre.scrollTop = scroll.top; pre.scrollLeft = scroll.left; }
   }
-  function render() {
-    const focusedPr = document.activeElement?.dataset.pr;
-    const focusedFile = document.activeElement?.dataset.file;
-    const state = history[index];
+  function stopMotion() {
+    clearTimeout(worktreeTimer);
+    panelAnimation?.cancel();
+    hunkAnimation?.cancel();
+  }
+
+  function animateArrival(panel, tour) {
+    panelAnimation = panel.animate([
+      { opacity: .5, transform: 'translateY(5px)' },
+      { opacity: 1, transform: 'translateY(0)' },
+    ], { duration: 340, easing: 'ease-out' });
+    const addition = tour ? panel.querySelector('.added') : null;
+    if (addition) hunkAnimation = addition.animate([
+      { boxShadow: 'inset 3px 0 transparent' },
+      { boxShadow: 'inset 3px 0 var(--focus)', offset: .26 },
+      { boxShadow: 'inset 3px 0 var(--focus)', offset: .78 },
+      { boxShadow: 'inset 3px 0 transparent' },
+    ], { duration: 1600, easing: 'ease-out' });
+  }
+
+  function showWorktreeStop(step, animate) {
+    const caption = $('.tour-panel');
+    caption.querySelector('.tour-title').textContent = worktreeStops[step].title;
+    caption.querySelector('.tour-description').textContent = worktreeStops[step].text;
+    caption.querySelector('.tour-count').textContent = `${step + 1} / ${worktreeStops.length}`;
+    for (const target of reviewScene.querySelectorAll('[data-stop], [data-review-stop]')) {
+      target.classList.toggle('current', Number(target.dataset.stop ?? target.dataset.reviewStop) === step);
+    }
+    if (animate) animateArrival(caption.querySelector('div'), false);
+    worktreeTimer = setTimeout(() => showWorktreeStop((step + 1) % worktreeStops.length, true), 6500);
+  }
+
+  function render(state = history[index], animate = true, tour = false) {
+    const previous = renderedState;
+    if (previous === state) return;
+    renderedState = state;
+    stopMotion();
     const isPrMode = state.mode === 'prs';
+    const shouldAnimate = previous && animate && motionActive && !document.hidden && !reducedMotion.matches;
     $('#review-demo-prs').hidden = !isPrMode;
     $('#review-demo-worktrees').hidden = isPrMode;
     for (const mode of reviewScene.querySelectorAll('[data-demo-mode]'))
       mode.setAttribute('aria-pressed', String(mode.dataset.demoMode === state.mode));
     $('#review-demo-back').disabled = index === 0;
     $('#review-demo-forward').disabled = index === history.length - 1;
-    if (!isPrMode) return;
+    if (!isPrMode) {
+      if (shouldAnimate && previous.mode !== state.mode) {
+        animateArrival($('.review-body'), false);
+        showWorktreeStop(0, false);
+      }
+      return;
+    }
+
     const pr = byId.get(state.pr);
-    $('#review-demo-pr-context').textContent = `${pr.repo} · #${pr.number} · ${pr.author}`;
-    $('#review-demo-pr-title').textContent = pr.title;
-    $('#review-demo-pr-meta').replaceChildren(
-      element('span', 'review-demo-open-state', 'Open'),
-      element('span', '', `${pr.branch} → main`),
-      element('span', '', `${pr.files.length} files changed`),
-    );
+    if (previous?.pr !== state.pr) {
+      $('#review-demo-pr-context').textContent = `${pr.repo} · #${pr.number} · ${pr.author}`;
+      $('#review-demo-pr-title').textContent = pr.title;
+      $('#review-demo-pr-meta').replaceChildren(
+        element('span', 'review-demo-open-state', 'Open'),
+        element('span', '', `${pr.branch} → main`),
+        element('span', '', `${pr.files.length} files changed`),
+      );
+      renderOverview(pr);
+    }
+    if (!previous) renderPrList(state);
+    for (const row of $('#review-demo-pr-list').querySelectorAll('[data-pr]'))
+      row.setAttribute('aria-pressed', String(row.dataset.pr === state.pr));
     for (const tab of reviewScene.querySelectorAll('[data-demo-tab]')) {
       const selected = tab.dataset.demoTab === state.tab;
       tab.setAttribute('aria-selected', String(selected));
       tab.tabIndex = selected ? 0 : -1;
     }
-    $('#review-demo-overview').hidden = state.tab !== 'overview';
-    $('#review-demo-changes').hidden = state.tab !== 'changes';
-    renderPrList(state);
-    renderOverview(pr);
+    const overview = $('#review-demo-overview');
+    const changes = $('#review-demo-changes');
+    overview.hidden = state.tab !== 'overview';
+    changes.hidden = state.tab !== 'changes';
     if (state.tab === 'changes') renderChanges(state, pr);
-    if (focusedPr) reviewScene.querySelector(`[data-pr="${focusedPr}"]`)?.focus({ preventScroll: true });
-    if (focusedFile) reviewScene.querySelector(`[data-file="${focusedFile}"]`)?.focus({ preventScroll: true });
-    if (!reducedMotion.matches) {
-      const panel = $(state.tab === 'overview' ? '#review-demo-overview' : '#review-demo-changes');
-      panel.getAnimations().forEach(animation => animation.cancel());
-      panel.animate([{ opacity: .35, transform: 'translateY(5px)' }, { opacity: 1, transform: 'translateY(0)' }], { duration: 380, easing: 'ease-out' });
+    if (shouldAnimate) {
+      let panel = overview;
+      if (previous.mode !== state.mode) panel = $('.review-demo-pr-detail');
+      else if (state.tab === 'changes') {
+        const changingFile = previous.tab === state.tab && previous.pr === state.pr;
+        panel = changingFile ? $('#review-demo-diff') : changes;
+      }
+      animateArrival(panel, tour && state.tab === 'changes');
     }
   }
+
+  function takeOver() {
+    if (interacted) return;
+    interacted = true;
+    history[0] = renderedState;
+    stopMotion();
+    reviewScene.dispatchEvent(new Event('review-interaction'));
+  }
+
+  for (const event of ['pointerdown', 'focusin', 'click', 'input']) {
+    reviewScene.addEventListener(event, takeOver, { capture: true });
+  }
+  reviewScene.addEventListener('review-tour-step', event => {
+    if (interacted) return;
+    render(tourSteps[event.detail] ?? initial, Boolean(event.detail), true);
+  });
+  reviewScene.addEventListener('review-motion-change', event => {
+    const wasActive = motionActive;
+    motionActive = event.detail;
+    reviewScene.toggleAttribute('data-motion', motionActive);
+    if (!motionActive) {
+      stopMotion();
+      if (reducedMotion.matches && !interacted) render(initial, false);
+    } else if (!wasActive && renderedState.mode === 'worktrees') {
+      showWorktreeStop(0, false);
+    }
+  });
 
   reviewScene.querySelectorAll('[data-demo-mode]').forEach((control) => {
     control.addEventListener('click', () => push({ ...history[index], mode: control.dataset.demoMode }));
@@ -227,14 +327,12 @@ if (reviewScene) {
   $('#review-demo-search').addEventListener('input', event => {
     query = event.target.value.trim().toLowerCase();
     renderPrList(history[index]);
-    if (!$('#review-demo-pr-list').children.length) $('#review-demo-pr-list').append(element('p', 'review-demo-empty', 'No matching pull requests.'));
   });
   reviewScene.querySelectorAll('[data-pr-filter]').forEach(control => {
     control.addEventListener('click', () => {
       filter = control.dataset.prFilter;
       reviewScene.querySelectorAll('[data-pr-filter]').forEach(button => button.setAttribute('aria-pressed', String(button === control)));
       renderPrList(history[index]);
-      if (!$('#review-demo-pr-list').children.length) $('#review-demo-pr-list').append(element('p', 'review-demo-empty', 'No matching pull requests.'));
     });
   });
   $('.review-demo-pr-tabs').addEventListener('keydown', event => {
@@ -243,9 +341,6 @@ if (reviewScene) {
     const next = event.key === 'Home' ? 'overview' : event.key === 'End' ? 'changes' : history[index].tab === 'overview' ? 'changes' : 'overview';
     push({ ...history[index], tab: next });
     $(`[data-demo-tab="${next}"]`).focus({ preventScroll: true });
-  });
-  reducedMotion.addEventListener('change', () => {
-    if (reducedMotion.matches) reviewScene.getAnimations({ subtree: true }).forEach(animation => animation.cancel());
   });
   $('#review-demo-back').addEventListener('click', () => move(-1));
   $('#review-demo-forward').addEventListener('click', () => move(1));

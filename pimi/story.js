@@ -98,18 +98,21 @@ function moveTask(ready, animate) {
   ], { duration: taskMoveDuration, easing: 'cubic-bezier(.32,.06,.22,1)' });
 }
 
-const tourStops = [
-  { title: 'Redact before saving', text: 'The recorder writes the cleaned event to disk.' },
-  { title: 'Replay recorded events', text: 'The timeline displays the trace without invoking tools again.' },
+const review = document.querySelector('#review');
+const reviewBeats = [
+  [3400, 'capture-overview'],
+  [3900, 'capture-changes'],
+  [2700, 'capture-secrets'],
+  [3400, 'replay-overview'],
+  [3900, 'replay-changes'],
 ];
-function showTour(index) {
-  document.querySelector('.tour-count').textContent = `${index + 1} / ${tourStops.length}`;
-  document.querySelector('.tour-title').textContent = tourStops[index].title;
-  document.querySelector('.tour-description').textContent = tourStops[index].text;
-  for (const target of document.querySelectorAll('[data-stop], [data-review-stop]')) {
-    target.classList.toggle('current', Number(target.dataset.stop ?? target.dataset.reviewStop) === index);
-  }
-}
+let reviewInteracted = false;
+review.addEventListener('review-interaction', () => {
+  reviewInteracted = true;
+  clearTimeout(timers.get(review));
+  timers.delete(review);
+  review.removeAttribute('data-active');
+});
 
 function showMemory(index) {
   document.querySelectorAll('[data-memory-step]').forEach(card => {
@@ -297,10 +300,20 @@ const ideModes = [...ide.querySelectorAll('[data-ide-mode]')];
 const ideSearch = ide.querySelector('#ide-search');
 const ideSearchToggle = ide.querySelector('.ide-search-toggle');
 let ideInteracted = false;
+let ideSearchAnimation;
 
-function showIdeSearch(open) {
+function showIdeSearch(open, animate = true) {
+  const changed = ideSearch.hidden === open;
   ideSearch.hidden = !open;
   ideSearchToggle.setAttribute('aria-expanded', String(open));
+  if (!changed) return;
+  ideSearchAnimation?.cancel();
+  if (open && animate && !document.hidden && !motion.matches) {
+    ideSearchAnimation = ideSearch.animate([
+      { opacity: .5, translate: '0 -5px' },
+      { opacity: 1, translate: '0 0' },
+    ], { duration: 240, easing: 'ease-out' });
+  }
 }
 
 const ideFiles = {
@@ -368,7 +381,7 @@ async function showIdeMode(mode, animate = true) {
   ideModes.forEach(button => button.setAttribute('aria-pressed', String(button.dataset.ideMode === mode)));
   showIdeSearch(false);
   if (previous === next) return;
-  const shouldAnimate = animate && !motion.matches;
+  const shouldAnimate = animate && !document.hidden && !motion.matches;
   if (shouldAnimate && previous) {
     ideModeAnimation = previous.animate([
       { opacity: 1, transform: 'translateY(0)' },
@@ -393,15 +406,13 @@ function stopIdeTour() {
   ideInteracted = true;
   clearTimeout(timers.get(ide));
   timers.delete(ide);
+  ide.removeAttribute('data-active');
 }
 
 ide.addEventListener('focusin', stopIdeTour);
 ide.addEventListener('pointerdown', stopIdeTour);
 ide.querySelectorAll('[data-ide-file]').forEach(button => button.addEventListener('click', () => showIdeFile(button.dataset.ideFile)));
 ide.querySelector('.ide-agent-file').addEventListener('click', () => { showIdeFile('record'); showIdeMode('editor'); });
-motion.addEventListener('change', () => {
-  if (motion.matches) { ideModeAnimation?.cancel(); showIdeMode(ideShell.dataset.mode, false); }
-});
 ide.addEventListener('keydown', event => {
   if (event.key === 'Escape' && !ideSearch.hidden) {
     showIdeSearch(false);
@@ -423,12 +434,26 @@ ide.querySelector('.ide-result').addEventListener('click', () => {
   ide.querySelector('pre').focus({ preventScroll: true });
 });
 
-function showUsage(view) {
-  for (const tab of usageTabs) {
-    const selected = tab.dataset.usageTab === view;
-    tab.setAttribute('aria-pressed', String(selected));
-    document.getElementById(tab.getAttribute('aria-controls')).hidden = !selected;
+let usageAnimation;
+function showUsagePanel(buttons, current, animate) {
+  for (const button of buttons) {
+    const selected = button === current;
+    const panel = document.getElementById(button.getAttribute('aria-controls'));
+    const entering = selected && panel.hidden;
+    button.setAttribute('aria-pressed', String(selected));
+    panel.hidden = !selected;
+    if (entering && animate && !document.hidden && !motion.matches) {
+      usageAnimation?.cancel();
+      usageAnimation = panel.animate([
+        { opacity: .5, transform: 'translateY(4px)' },
+        { opacity: 1, transform: 'translateY(0)' },
+      ], { duration: 290, easing: 'ease-out' });
+    }
   }
+}
+
+function showUsage(view, animate = true) {
+  showUsagePanel(usageTabs, usageTabs.find(tab => tab.dataset.usageTab === view), animate);
 }
 
 function stopUsageTour() {
@@ -445,22 +470,10 @@ for (const tab of usageTabs) {
 }
 const sessionButtons = [...usage.querySelectorAll('[data-usage-session]')];
 for (const button of sessionButtons) {
-  button.addEventListener('click', () => {
-    for (const item of sessionButtons) {
-      const selected = item === button;
-      item.setAttribute('aria-pressed', String(selected));
-      document.getElementById(item.getAttribute('aria-controls')).hidden = !selected;
-    }
-  });
+  button.addEventListener('click', () => showUsagePanel(sessionButtons, button, true));
 }
 for (const period of recapPeriods) {
-  period.addEventListener('click', () => {
-    for (const button of recapPeriods) {
-      const selected = button === period;
-      button.setAttribute('aria-pressed', String(selected));
-      document.getElementById(button.getAttribute('aria-controls')).hidden = !selected;
-    }
-  });
+  period.addEventListener('click', () => showUsagePanel(recapPeriods, period, true));
 }
 
 const automationStatus = document.querySelector('.automation-run-state');
@@ -495,21 +508,20 @@ const scenes = {
       showWorkState(true);
     }],
   ],
-  review: [
-    [6500, () => showTour(0)],
-    [6500, () => showTour(1)],
-  ],
+  review: reviewBeats.map(([delay, beat]) => [delay, animate => {
+    review.dispatchEvent(new CustomEvent('review-tour-step', { detail: animate ? beat : null }));
+  }]),
   ide: [
     [6500, animate => showIdeMode('agent', animate)],
     [7000, animate => showIdeMode('editor', animate)],
-    [5000, () => showIdeSearch(true)],
+    [5000, animate => showIdeSearch(true, animate)],
     [6500, animate => { showIdeMode('editor', animate); showIdeSearch(false); }],
   ],
   memory: [
     [2400, () => showMemory(0)],
     [replayDelay, () => showMemory(1)],
   ],
-  spaces: [[1400], [replayDelay]],
+  spaces: [[0]],
   voice: [
     [950, () => showVoiceExample(0)],
     [1200, () => showVoiceExample(1)],
@@ -525,9 +537,9 @@ const scenes = {
   ],
   library: [[1700, () => showLibraryState(false)], [replayDelay, () => showLibraryState(true)]],
   usage: [
-    [2400, () => showUsage('limits')],
-    [2600, () => showUsage('sessions')],
-    [replayDelay + 2000, () => showUsage('recap')],
+    [2400, animate => showUsage('limits', animate)],
+    [2600, animate => showUsage('sessions', animate)],
+    [replayDelay + 2000, animate => showUsage('recap', animate)],
   ],
 };
 
@@ -537,7 +549,7 @@ function renderScene(feature, index, animate) {
   feature.dataset.step = index;
   feature.dataset.phase = index === 0 ? 'start' : index === steps.length - 1 ? 'done' : 'working';
   render?.(animate);
-  if (animate && (feature.dataset.scene !== 'tasks' || trackedDetail.hidden)) {
+  if (animate && steps.length > 1 && (feature.dataset.scene !== 'tasks' || trackedDetail.hidden)) {
     timers.set(feature, setTimeout(() => renderScene(feature, (index + 1) % steps.length, true), delay));
   }
 }
@@ -546,9 +558,23 @@ function canAnimate(element) {
   return visible.has(element) && !document.hidden && !motion.matches;
 }
 
+function finishIdeMotion() {
+  ideSearchAnimation?.cancel();
+  if (ideModeAnimation?.playState !== 'running') return;
+  const visibleMode = ide.querySelector('.ide-agent').hidden ? 'editor' : 'agent';
+  if (visibleMode === ideShell.dataset.mode) ideModeAnimation.cancel();
+  else showIdeMode(ideShell.dataset.mode, false);
+}
+
 function syncFeature(feature) {
-  if ((feature === usage && usageInteracted) || (feature === ide && ideInteracted)) return;
   const active = canAnimate(feature);
+  if (feature === review) review.dispatchEvent(new CustomEvent('review-motion-change', { detail: active }));
+  if (!active) {
+    if (feature === usage) usageAnimation?.cancel();
+    if (feature === ide) finishIdeMotion();
+    if (feature === taskFeature) taskAnimation?.cancel();
+  }
+  if ((feature === usage && usageInteracted) || (feature === ide && ideInteracted) || (feature === review && reviewInteracted)) return;
   if (active === feature.hasAttribute('data-active')) {
     if (!active && motion.matches && feature.dataset.phase !== 'done') {
       renderScene(feature, scenes[feature.dataset.scene].length - 1, false);

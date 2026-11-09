@@ -127,3 +127,14 @@
   #review .review-demo-filters { gap: 2px; }
   #review .review-demo-filters button { padding-inline: 7px; }
 }
+
+@media (prefers-reduced-motion: no-preference) {
+  #review[data-motion] :is(
+    .review-demo-pr-tabs button,
+    .review-demo-modes button,
+    .review-demo-pr-row,
+    .review-demo-file-row,
+    .review-demo-filters button
+  ) { transition: background-color 220ms ease, border-color 220ms ease, color 220ms ease; }
+  #review[data-motion] :is(.review-repo, .tour-target) { transition: background-color 300ms ease, box-shadow 300ms ease; }
+}
