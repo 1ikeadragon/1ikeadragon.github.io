@@ -6,16 +6,28 @@
 :root {
   color-scheme: light;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  --ink: #30272b;
-  --muted: #6c6066;
-  --page: #f8f5f2;
-  --glow: #ead9dd8c;
-  --accent: #382e34;
-  --accent-hover: #51424a;
-  --accent-text: #fff;
-  --focus: #87596a;
-  --border: #72546130;
-  --surface: #fcf8f8;
+  /* Blush and Dark, as used by the Pimi app and its review surface. */
+  --ink: #2c2529;
+  --muted: #695c62;
+  --page: #faf7f6;
+  --surface: #faf6f5;
+  --panel: #fffdfc;
+  --rail: #f6efef;
+  --tint: #eddddf;
+  --line: #e8dfe0;
+  --border: #d4c5c7;
+  --accent: #382e33;
+  --accent-hover: #51434a;
+  --accent-text: #fffafc;
+  --focus: #825362;
+  --positive: #246749;
+  --negative: #b04138;
+  --working: #265eab;
+  --attention: #85450c;
+  --added: #e7f3ea;
+  --removed: #f9e8e6;
+  --glow: color-mix(in srgb, var(--tint) 55%, transparent);
+  --panel-shadow: 0 24px 65px -32px #4a303041, 0 3px 10px #34262d12;
   color: var(--ink);
   background: var(--page);
   font-synthesis: none;
@@ -24,17 +36,26 @@
 * { box-sizing: border-box; }
 :root[data-theme="dark"] {
   color-scheme: dark;
-  /* Matches the One Dark Pro surfaces used in Pimi's dark recording. */
-  --ink: #e0e4ed;
-  --muted: #bac2ce;
-  --page: #21252b;
-  --glow: #3b45553b;
-  --accent: #8bc2ef;
-  --accent-hover: #a9d3f5;
-  --accent-text: #202630;
-  --focus: #83c0f1;
-  --border: #495363;
-  --surface: #2c313a;
+  --ink: #e9e5e8;
+  --muted: #b8b0b7;
+  --page: #232224;
+  --surface: #29282b;
+  --panel: #262527;
+  --rail: #242325;
+  --tint: #373338;
+  --line: #302e32;
+  --border: #4d484e;
+  --accent: #ccbdc3;
+  --accent-hover: #ded0d6;
+  --accent-text: #322830;
+  --focus: #e0adb9;
+  --positive: #9ed3b4;
+  --negative: #d8847b;
+  --working: #a1bef0;
+  --attention: #eac17c;
+  --added: #2a342e;
+  --removed: #362d30;
+  --panel-shadow: 0 24px 65px -32px #0009, 0 3px 10px #0002;
 }
 body {
   margin: 0;

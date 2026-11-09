@@ -32,7 +32,7 @@ video.addEventListener('loadedmetadata', () => {
 function setTheme(theme) {
   root.dataset.theme = theme;
   themeToggle.setAttribute('aria-pressed', String(theme === 'dark'));
-  themeColor.content = theme === 'dark' ? '#21252b' : '#f8f5f2';
+  themeColor.content = getComputedStyle(root).getPropertyValue('--page').trim();
   if (overviewTheme !== theme) {
     seekAfterThemeChange = video.currentTime || seekAfterThemeChange;
     overviewTheme = theme;

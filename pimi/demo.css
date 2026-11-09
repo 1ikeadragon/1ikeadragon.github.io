@@ -1,18 +1,6 @@
-/* The showcase uses Pimi's light/dark surfaces and small, independent UI scenes. */
-:root {
-  --panel: #fffdfc; --rail: #f6efef; --tint: #eddddf; --line: #e8dfe0;
-  --positive: #267153; --negative: #a14154; --added: #e3f0e8; --removed: #f5e5e8;
-  --panel-shadow: 0 24px 65px -32px #462c3c4a, 0 3px 10px #462c3c08;
-}
-[data-theme="dark"] {
-  --panel: #282c34; --rail: #23272f; --tint: #353c49; --line: #414957;
-  --positive: #a9cf93; --negative: #efa5ad; --added: #293b36; --removed: #412d34;
-  --panel-shadow: 0 24px 65px -32px #0009, 0 3px 10px #0002;
-}
 .demo-icons { position: absolute; width: 0; height: 0; overflow: hidden; }
 .overview { width: min(1100px, calc(100% - 64px)); margin: 0 auto; }
-.overview-frame { position: relative; border: 1px solid var(--line); border-radius: 17px; overflow: hidden; background: var(--panel); box-shadow: 0 32px 95px -35px #5637474a, 0 2px 8px #46333c12; }
-[data-theme="dark"] .overview-frame { box-shadow: 0 32px 95px -35px #000a, 0 2px 8px #0003; }
+.overview-frame { position: relative; border: 1px solid var(--line); border-radius: 17px; overflow: hidden; background: var(--panel); box-shadow: var(--panel-shadow); }
 .scene svg { width: 16px; height: 16px; flex: none; fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
 .overview-frame[data-handheld] { border-color: transparent; box-shadow: none; }
 .overview video { display: block; width: 100%; aspect-ratio: 3 / 2; object-fit: contain; background: var(--panel); }
@@ -61,7 +49,7 @@
 .grid-tile .chat-bubble { justify-self: end; max-width: 95%; padding: 5px 8px; border-radius: 8px 8px 2px 8px; background: var(--tint); }
 .grid-tile code { font-size: .9em; }
 .agent-status { display: flex; align-items: center; gap: 7px; color: var(--muted); font-size: 11px; }
-.agent-status i { width: 6px; height: 6px; border-radius: 50%; background: #7593c9; flex: none; }
+.agent-status i { width: 6px; height: 6px; border-radius: 50%; background: var(--working); flex: none; }
 .agent-status[data-finished] { color: var(--positive); }
 .agent-status[data-needs-input] { color: var(--negative); }
 .agent-status:is([data-finished], [data-needs-input]) i { background: currentColor; }
@@ -70,15 +58,14 @@
 .task-lane { min-width: 0; padding: 8px 6px; border: 1px solid var(--line); border-radius: 8px; background: color-mix(in srgb, var(--rail) 75%, transparent); }
 .task-lane h3 { display: flex; align-items: center; gap: 5px; white-space: nowrap; margin: 0 0 12px; font-size: 10px; font-weight: 550; }
 .task-lane h3 i { width: 5px; height: 5px; border: 1px solid var(--muted); border-radius: 50%; flex: none; }
-.running-lane h3 i { background: #7894cb; border: 0; }
-.review-lane h3 i { background: #bc8b57; border: 0; }
-.done-lane h3 i { background: #6caa80; border: 0; }
+.running-lane h3 i { background: var(--working); border: 0; }
+.review-lane h3 i { background: var(--attention); border: 0; }
+.done-lane h3 i { background: var(--positive); border: 0; }
 .task-card { display: grid; gap: 8px; position: relative; width: 100%; padding: 10px 8px; border: 1px solid var(--line); border-radius: 7px; background: var(--panel); font-size: 11px; line-height: 1.45; box-shadow: 0 2px 4px #34222a06; }
 .task-card small { font-size: 9px; }
 .animated-task { z-index: 2; }
 .progress-track { display: block; height: 3px; background: var(--tint); border-radius: 3px; overflow: hidden; }
-.progress-track i { display: block; width: 40%; height: 100%; background: #ac81a2; }
-[data-theme="dark"] .progress-track i { background: var(--focus); }
+.progress-track i { display: block; width: 40%; height: 100%; background: var(--focus); }
 .animated-task[data-stage="review"] .progress-track i { width: 100%; background: var(--positive); }
 .report-panel { z-index: 3; }
 .report-content { display: grid; gap: 10px; padding: 14px 17px; }
