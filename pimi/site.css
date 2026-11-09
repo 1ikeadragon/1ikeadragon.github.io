@@ -24,24 +24,21 @@
 * { box-sizing: border-box; }
 :root[data-theme="dark"] {
   color-scheme: dark;
-  --ink: #f0e6ec;
-  --muted: #bcb0ba;
-  --page: #18161e;
-  --glow: #50364c65;
-  --accent: #e6c7d6;
-  --accent-hover: #f0d9e4;
-  --accent-text: #2b202a;
-  --focus: #e1a9c8;
-  --border: #cbb1c437;
-  --surface: #25222c;
+  /* Matches the One Dark Pro surfaces used in Pimi's dark recording. */
+  --ink: #e0e4ed;
+  --muted: #bac2ce;
+  --page: #21252b;
+  --glow: #3b45553b;
+  --accent: #8bc2ef;
+  --accent-hover: #a9d3f5;
+  --accent-text: #202630;
+  --focus: #83c0f1;
+  --border: #495363;
+  --surface: #2c313a;
 }
 body {
   margin: 0;
   background: radial-gradient(ellipse 740px 430px at 50% 70px, var(--glow), transparent 84%);
-}
-[data-theme="dark"] body {
-  background: url("night-garden.svg") right top / min(670px, 92vw) auto no-repeat,
-    radial-gradient(ellipse 740px 430px at 50% 70px, var(--glow), transparent 84%);
 }
 h1, p, figure { margin: 0; }
 a { color: inherit; text-underline-offset: 3px; }

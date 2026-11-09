@@ -2,11 +2,39 @@ const root = document.documentElement;
 const motion = window.matchMedia('(prefers-reduced-motion: reduce)');
 const themeToggle = document.querySelector('.theme-toggle');
 const themeColor = document.querySelector('meta[name="theme-color"]');
+const video = document.querySelector('#overview-video');
+const overviewMedia = {
+  light: { src: video.querySelector('source').getAttribute('src'), poster: video.getAttribute('poster') },
+  dark: { src: video.dataset.darkSrc, poster: video.dataset.darkPoster },
+};
+let overviewTheme = 'light';
+let seekAfterThemeChange = 0;
+video.addEventListener('loadedmetadata', () => {
+  if (seekAfterThemeChange > 0 && Number.isFinite(video.duration) && video.duration > 0) {
+    video.currentTime = seekAfterThemeChange % video.duration;
+  }
+  seekAfterThemeChange = 0;
+});
 
 function setTheme(theme) {
   root.dataset.theme = theme;
   themeToggle.setAttribute('aria-pressed', String(theme === 'dark'));
-  themeColor.content = theme === 'dark' ? '#18161e' : '#f8f5f2';
+  themeColor.content = theme === 'dark' ? '#21252b' : '#f8f5f2';
+  if (overviewTheme !== theme) {
+    seekAfterThemeChange = video.currentTime || seekAfterThemeChange;
+    overviewTheme = theme;
+    video.poster = overviewMedia[theme].poster;
+    video.src = overviewMedia[theme].src;
+    video.load();
+  }
+  const x = document.querySelector('[data-embed="x"] iframe[src]');
+  if (x) {
+    const source = new URL(x.src);
+    if (source.searchParams.get('theme') !== theme) {
+      source.searchParams.set('theme', theme);
+      x.src = source.href;
+    }
+  }
 }
 try {
   setTheme(localStorage.getItem('pimi-site-theme') === 'dark' ? 'dark' : 'light');
@@ -19,9 +47,10 @@ let themeTransition;
 themeToggle.addEventListener('click', () => {
   const theme = root.dataset.theme === 'dark' ? 'light' : 'dark';
   themeTransition?.skipTransition();
+  const apply = () => { setTheme(theme); syncVideo(); };
   if (!motion.matches && document.startViewTransition) {
-    themeTransition = document.startViewTransition(() => setTheme(theme));
-  } else setTheme(theme);
+    themeTransition = document.startViewTransition(apply);
+  } else apply();
   try { localStorage.setItem('pimi-site-theme', theme); } catch {
     // Private browsing may deny storage; no persistence is required.
   }
@@ -37,7 +66,6 @@ pet.addEventListener('click', () => {
 
 // The showcase uses sample work. Each visible scene runs independently.
 const features = [...document.querySelectorAll('[data-scene]')];
-const video = document.querySelector('#overview-video');
 const visible = new Set();
 const timers = new Map();
 const replayDelay = 2000;
@@ -152,7 +180,9 @@ if ('IntersectionObserver' in window) {
         target.querySelector('.video-art img').src = 'https://i.ytimg.com/vi/dQw4w9WgXcQ/hqdefault.jpg';
       }
       frame.addEventListener('load', () => target.classList.add('has-embed'), { once: true });
-      frame.src = embeds[target.dataset.embed];
+      frame.src = target.dataset.embed === 'x'
+        ? `${embeds.x}&theme=${root.dataset.theme}`
+        : embeds.youtube;
       frame.hidden = false;
       embedObserver.unobserve(target);
     }
@@ -261,6 +291,50 @@ const usageTabs = [...usage.querySelectorAll('[data-usage-tab]')];
 const recapPeriods = [...usage.querySelectorAll('[data-recap-period]')];
 let usageInteracted = false;
 
+const ide = document.querySelector('#ide');
+const ideShell = ide.querySelector('.ide-shell');
+const ideModes = [...ide.querySelectorAll('[data-ide-mode]')];
+const ideSearch = ide.querySelector('#ide-search');
+const ideSearchToggle = ide.querySelector('.ide-search-toggle');
+let ideInteracted = false;
+
+function showIdeSearch(open) {
+  ideSearch.hidden = !open;
+  ideSearchToggle.setAttribute('aria-expanded', String(open));
+}
+
+function showIdeMode(mode) {
+  ideShell.dataset.mode = mode;
+  ide.querySelector('.ide-agent').hidden = mode !== 'agent';
+  ide.querySelector('.ide-editor').hidden = mode !== 'editor';
+  ideModes.forEach(button => button.setAttribute('aria-pressed', String(button.dataset.ideMode === mode)));
+  showIdeSearch(false);
+}
+
+function stopIdeTour() {
+  ideInteracted = true;
+  clearTimeout(timers.get(ide));
+  timers.delete(ide);
+}
+
+ide.addEventListener('focusin', stopIdeTour);
+ide.addEventListener('keydown', event => {
+  if (event.key === 'Escape' && !ideSearch.hidden) {
+    showIdeSearch(false);
+    ideSearchToggle.focus();
+  } else if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === 'k' && ideShell.dataset.mode === 'editor') {
+    event.preventDefault();
+    showIdeSearch(true);
+    ide.querySelector('.ide-result').focus();
+  }
+});
+ideModes.forEach(button => button.addEventListener('click', () => showIdeMode(button.dataset.ideMode)));
+ideSearchToggle.addEventListener('click', () => showIdeSearch(ideSearch.hidden));
+ide.querySelector('.ide-result').addEventListener('click', () => {
+  showIdeSearch(false);
+  ide.querySelector('pre').focus({ preventScroll: true });
+});
+
 function showUsage(view) {
   for (const tab of usageTabs) {
     const selected = tab.dataset.usageTab === view;
@@ -337,6 +411,12 @@ const scenes = {
     [2200, () => showTour(0)],
     [replayDelay, () => showTour(1)],
   ],
+  ide: [
+    [1600, () => showIdeMode('agent')],
+    [1600, () => showIdeMode('editor')],
+    [1800, () => showIdeSearch(true)],
+    [replayDelay, () => showIdeSearch(false)],
+  ],
   memory: [
     [2400, () => showMemory(0)],
     [replayDelay, () => showMemory(1)],
@@ -357,8 +437,8 @@ const scenes = {
   ],
   library: [[1700, () => showLibraryState(false)], [replayDelay, () => showLibraryState(true)]],
   usage: [
-    [2600, () => showUsage('sessions')],
     [2400, () => showUsage('limits')],
+    [2600, () => showUsage('sessions')],
     [replayDelay + 2000, () => showUsage('recap')],
   ],
 };
@@ -379,7 +459,7 @@ function canAnimate(element) {
 }
 
 function syncFeature(feature) {
-  if (feature === usage && usageInteracted) return;
+  if ((feature === usage && usageInteracted) || (feature === ide && ideInteracted)) return;
   const active = canAnimate(feature);
   if (active === feature.hasAttribute('data-active')) {
     if (!active && motion.matches && feature.dataset.phase !== 'done') {

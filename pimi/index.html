@@ -8,9 +8,11 @@
   <link rel="canonical" href="https://1ikeadragon.github.io/pimi/">
   <link rel="icon" href="icon.png">
   <link rel="preload" href="fonts/caveat-brush-latin.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="site.css?v=12">
-  <link rel="stylesheet" href="demo.css?v=23">
-  <script type="module" src="story.js?v=23"></script>
+  <link rel="stylesheet" href="site.css?v=13">
+  <link rel="stylesheet" href="demo.css?v=24">
+  <link rel="stylesheet" href="review-demo.css?v=1">
+  <script type="module" src="story.js?v=24"></script>
+  <script type="module" src="review-demo.js?v=1"></script>
   <title>Your swarm’s best friend</title>
 </head>
 <body>
@@ -44,9 +46,13 @@
     <section class="overview" aria-label="Pimi in action">
       <div class="overview-frame">
         <span class="overview-window-controls" aria-hidden="true"><i></i><i></i><i></i></span>
-        <video id="overview-video" muted loop playsinline preload="none" poster="showcase/overview.webp?v=4" aria-label="Recorded in Pimi: Agent Grid, Tasks, cross-repo Review, Memory, Spaces, Skills, Automations, and Usage Recap">
-          <source src="showcase/overview.mp4?v=9" type="video/mp4">
-          <a href="showcase/overview.mp4?v=9">Watch the Pimi walkthrough</a>
+        <video id="overview-video" muted loop playsinline preload="none"
+          poster="showcase/overview.webp?v=5"
+          data-dark-poster="showcase/overview-dark.webp?v=1"
+          data-dark-src="showcase/overview-dark.mp4?v=1"
+          aria-label="Recorded in Pimi: Agent and IDE modes, codebase search, Tasks, worktree review, Memory, Spaces, Agent Grid, Automations, and Usage">
+          <source src="showcase/overview.mp4?v=10" type="video/mp4">
+          <a href="showcase/overview.mp4?v=10">Watch the Pimi walkthrough</a>
         </video>
       </div>
       <div class="overview-bottom"><a href="#tasks" class="scroll-cue">See how Pimi works <span aria-hidden="true">↓</span></a>        <button type="button" class="pet" aria-label="Pet Pimi">
@@ -127,23 +133,97 @@
         </div>
       </section>
 
+      <section class="feature feature-wide" id="ide" data-scene="ide" aria-labelledby="ide-heading">
+        <div class="feature-copy">
+          <h2 id="ide-heading">Go from agent to editor</h2>
+          <p>Switch projects, find code by what it does, and read Git blame beside your chat. Flip back to Agent mode whenever you need it.</p>
+        </div>
+        <div class="scene ide-scene">
+          <article class="float-panel ide-shell" data-mode="editor">
+            <header class="ide-titlebar">
+              <strong>Run Replay</strong>
+              <div class="ide-mode-switch" role="group" aria-label="Workspace mode">
+                <button type="button" data-ide-mode="agent" aria-pressed="false"><svg aria-hidden="true"><use href="#icon-chat"/></svg>Agent</button>
+                <button type="button" data-ide-mode="editor" aria-pressed="true"><span aria-hidden="true">‹/›</span>IDE</button>
+              </div>
+            </header>
+            <div class="ide-agent" hidden>
+              <p class="chat-bubble">keep secrets out of the trace before it hits disk</p>
+              <p>The redaction lives in <code>src/record-event.ts</code>. I’ve kept playback separate so it can read the trace without rerunning tools.</p>
+              <div class="ide-agent-file"><svg aria-hidden="true"><use href="#icon-compose"/></svg><strong>record-event.ts</strong><small>src</small></div>
+            </div>
+            <div class="ide-editor">
+              <aside class="ide-explorer" aria-label="Files">
+                <strong>Files</strong>
+                <small>⌄ src</small>
+                <span class="ide-selected-file">record-event.ts</span>
+                <span>playback.ts</span>
+                <span>types.ts</span>
+              </aside>
+              <div class="ide-document">
+                <div class="ide-tabs">
+                  <strong>record-event.ts</strong>
+                  <button type="button" class="ide-search-toggle" aria-label="Search codebase" aria-expanded="false" aria-controls="ide-search"><span aria-hidden="true">⌘K</span><span class="ide-search-label">Search codebase</span></button>
+                </div>
+                <pre tabindex="0" aria-label="Source of src/record-event.ts"><code><span data-line="1"><i>import</i> { redactCredentials } <i>from</i> "./secrets";</span><span data-line="2"> </span><span data-line="3"><i>export async function</i> <b>recordEvent</b>(event, sink) {</span><span data-line="4" class="ide-target-line">  <i>const</i> safe = redactCredentials(event);</span><span data-line="5">  <i>await</i> sink.write(JSON.stringify(safe) + "\n");</span><span data-line="6">}</span></code></pre>
+                <div class="ide-footer"><span>Sam · 7c32d1a · Redact trace events</span><span>Ln 4, Col 3</span></div>
+              </div>
+              <div class="ide-search" id="ide-search" hidden>
+                <div><strong>Code search</strong><span>where do we strip secrets before writing?</span></div>
+                <button type="button" class="ide-result"><strong>src/record-event.ts:4</strong><code>const safe = redactCredentials(event);</code></button>
+              </div>
+            </div>
+          </article>
+        </div>
+      </section>
+
       <section class="feature feature-wide" id="review" data-scene="review" aria-labelledby="review-heading">
         <div class="feature-copy">
           <h2 id="review-heading">Review across repos</h2>
-          <p>Follow a change from the recorder to the replay UI. Keep both worktree diffs open as the file tour takes you through them.</p>
+          <p>Follow pull requests through their overview and changed files, or switch to Worktrees to compare the recorder and replay UI side by side.</p>
         </div>
         <div class="scene review-scene">
-          <article class="float-panel review-shell">
-            <header><svg aria-hidden="true"><use href="#icon-branch"/></svg><strong>Review</strong><span class="review-tab selected">Changes</span><span class="review-tab">Pull requests</span><span class="small-muted">Compare worktrees</span></header>
+          <article class="float-panel review-shell" aria-label="Interactive Review preview">
+            <header class="review-demo-header">
+              <svg aria-hidden="true"><use href="#icon-branch"/></svg><strong>Review</strong>
+              <div class="review-demo-history" role="group" aria-label="Review history">
+                <button type="button" id="review-demo-back" aria-label="Back in Review" title="Back" disabled>‹</button>
+                <button type="button" id="review-demo-forward" aria-label="Forward in Review" title="Forward" disabled>›</button>
+              </div>
+              <div class="review-demo-modes" role="group" aria-label="Review source">
+                <button type="button" data-demo-mode="prs" aria-pressed="true">Pull requests</button>
+                <button type="button" data-demo-mode="worktrees" aria-pressed="false">Worktrees</button>
+              </div>
+            </header>
+            <div id="review-demo-prs" class="review-demo-prs">
+              <aside class="review-demo-pr-rail" aria-label="Pull requests">
+                <div class="review-demo-rail-title"><strong>Pull requests</strong><small>Sample work</small></div>
+                <div id="review-demo-pr-list" class="review-demo-pr-list"></div>
+              </aside>
+              <div class="review-demo-pr-detail">
+                <div class="review-demo-pr-top">
+                  <small id="review-demo-pr-context"></small>
+                  <h3 id="review-demo-pr-title"></h3>
+                  <div class="review-demo-pr-tabs" role="tablist" aria-label="Pull request view">
+                    <button type="button" id="review-demo-overview-tab" role="tab" aria-controls="review-demo-overview" aria-selected="true" data-demo-tab="overview">Overview</button>
+                    <button type="button" id="review-demo-changes-tab" role="tab" aria-controls="review-demo-changes" aria-selected="false" data-demo-tab="changes">Changes</button>
+                  </div>
+                </div>
+                <div id="review-demo-overview" class="review-demo-overview" role="tabpanel" aria-labelledby="review-demo-overview-tab"></div>
+                <div id="review-demo-changes" class="review-demo-changes" role="tabpanel" aria-labelledby="review-demo-changes-tab" hidden>
+                  <aside class="review-demo-file-rail" aria-label="Changed files"><strong>Changed files</strong><div id="review-demo-file-list"></div></aside>
+                  <div id="review-demo-diff" class="review-demo-diff"></div>
+                </div>
+              </div>
+            </div>
+            <div id="review-demo-worktrees" hidden>
             <div class="review-body">
-              <aside class="review-tree" aria-label="Review files and pull requests">
+              <aside class="review-tree" aria-label="Changed worktree files">
                 <small>Changed files</small>
                 <div class="review-file-list">
                   <div class="review-repo current" data-review-stop="0"><strong>trace-core</strong><small>capture-events</small><span>src/record-event.ts</span></div>
                   <div class="review-repo" data-review-stop="1"><strong>replay-ui</strong><small>timeline-player</small><span>src/playback.ts</span></div>
                 </div>
-                <small>Pull requests</small>
-                <div class="review-prs"><div><span>#42 · trace-core</span><strong>Record redacted events</strong><small>Checks passed</small></div><div><span>#18 · replay-ui</span><strong>Replay a recorded trace</strong><small>Open for review</small></div></div>
               </aside>
               <div class="review-main">
                 <div class="diff-pair">
@@ -152,6 +232,7 @@
                 </div>
                 <aside class="tour-panel"><svg aria-hidden="true"><use href="#icon-list"/></svg><div><strong class="tour-title">Redact before saving</strong><p class="tour-description">The recorder writes the cleaned event to disk.</p></div><span class="tour-count">1 / 2</span></aside>
               </div>
+            </div>
             </div>
           </article>
         </div>
@@ -337,8 +418,8 @@
             <header>
               <svg aria-hidden="true"><use href="#icon-list"/></svg><strong>Usage</strong>
               <div class="grid-filter usage-tabs" role="group" aria-label="Usage views">
-                <button type="button" data-usage-tab="sessions" aria-pressed="false" aria-controls="usage-sessions">Sessions</button>
                 <button type="button" data-usage-tab="limits" aria-pressed="false" aria-controls="usage-limits">Provider limits</button>
+                <button type="button" data-usage-tab="sessions" aria-pressed="false" aria-controls="usage-sessions">Sessions</button>
                 <button type="button" data-usage-tab="recap" aria-pressed="true" aria-controls="usage-recap">Recap</button>
               </div>
             </header>
