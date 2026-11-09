@@ -303,12 +303,90 @@ function showIdeSearch(open) {
   ideSearchToggle.setAttribute('aria-expanded', String(open));
 }
 
-function showIdeMode(mode) {
+const ideFiles = {
+  record: { path: 'record-event.ts', lines: [
+    '<i>import</i> { redactCredentials } <i>from</i> "./secrets";',
+    '<i>import type</i> { ToolEvent, TraceSink } <i>from</i> "./types";',
+    '',
+    '<i>export async function</i> <b>recordEvent</b>(',
+    '  event: ToolEvent,',
+    '  sink: TraceSink,',
+    ') {',
+    '  <i>const</i> safe = <b>redactCredentials</b>(event);',
+    '  <i>const</i> line = JSON.stringify(safe);',
+    '',
+    '  <i>await</i> sink.write(line + "\\n");',
+    '}',
+  ] },
+  playback: { path: 'playback.ts', lines: [
+    '<i>import type</i> { ToolEvent } <i>from</i> "./types";', '',
+    '<i>export function</i> <b>replay</b>(events: ToolEvent[], timeline) {',
+    '  <i>for</i> (<i>const</i> event <i>of</i> events) {',
+    '    timeline.append(event);', '  }', '}', '',
+    '// Read the recording. Never invoke tools here.',
+  ] },
+  types: { path: 'types.ts', lines: [
+    '<i>export type</i> ToolEvent = {',
+    '  tool_name: string;', '  event_order: number;',
+    '  payload: Record&lt;string, unknown&gt;;', '};', '',
+    '<i>export type</i> TraceSink = {',
+    '  write(line: string): Promise&lt;void&gt;;', '};',
+  ] },
+};
+function showIdeFile(id) {
+  const file = ideFiles[id];
+  ide.querySelector('.ide-tabs > strong').textContent = file.path;
+  ide.querySelector('.ide-current-path').textContent = file.path;
+  const pre = ide.querySelector('pre');
+  pre.setAttribute('aria-label', `Source of src/${file.path}`);
+  pre.querySelector('code').replaceChildren(...file.lines.map((line, index) => {
+    const row = document.createElement('span');
+    row.dataset.line = index + 1;
+    // Only this fixed, local sample contains markup; no visitor input is rendered.
+    row.innerHTML = line || ' ';
+    row.classList.toggle('ide-target-line', id === 'record' && index === 7);
+    return row;
+  }));
+  pre.scrollTop = 0;
+  pre.scrollLeft = 0;
+  ide.querySelectorAll('[data-ide-file]').forEach(button => {
+    const selected = button.dataset.ideFile === id;
+    button.classList.toggle('ide-selected-file', selected);
+    button.setAttribute('aria-pressed', String(selected));
+  });
+}
+showIdeFile('record');
+let ideModeAnimation;
+let ideModeRevision = 0;
+async function showIdeMode(mode, animate = true) {
+  const revision = ++ideModeRevision;
+  ideModeAnimation?.cancel();
+  const panels = [...ide.querySelectorAll('.ide-agent, .ide-editor')];
+  const next = ide.querySelector(mode === 'agent' ? '.ide-agent' : '.ide-editor');
+  const previous = panels.find(panel => !panel.hidden);
   ideShell.dataset.mode = mode;
-  ide.querySelector('.ide-agent').hidden = mode !== 'agent';
-  ide.querySelector('.ide-editor').hidden = mode !== 'editor';
   ideModes.forEach(button => button.setAttribute('aria-pressed', String(button.dataset.ideMode === mode)));
   showIdeSearch(false);
+  if (previous === next) return;
+  const shouldAnimate = animate && !motion.matches;
+  if (shouldAnimate && previous) {
+    ideModeAnimation = previous.animate([
+      { opacity: 1, transform: 'translateY(0)' },
+      { opacity: 0, transform: 'translateY(6px)' },
+    ], { duration: 180, easing: 'ease-in', fill: 'forwards' });
+    try { await ideModeAnimation.finished; } catch { return; } // A newer mode selection cancels this transition.
+  }
+  if (revision !== ideModeRevision) return;
+  // A programmatic mode change must never leave keyboard focus in a hidden panel.
+  if (previous?.contains(document.activeElement)) {
+    ideModes.find(button => button.dataset.ideMode === mode).focus({ preventScroll: true });
+  }
+  ideModeAnimation?.cancel();
+  panels.forEach(panel => { panel.hidden = panel !== next; });
+  if (shouldAnimate) ideModeAnimation = next.animate([
+    { opacity: 0, transform: 'translateY(10px)' },
+    { opacity: 1, transform: 'translateY(0)' },
+  ], { duration: 520, easing: 'cubic-bezier(.2,.7,.2,1)' });
 }
 
 function stopIdeTour() {
@@ -318,6 +396,12 @@ function stopIdeTour() {
 }
 
 ide.addEventListener('focusin', stopIdeTour);
+ide.addEventListener('pointerdown', stopIdeTour);
+ide.querySelectorAll('[data-ide-file]').forEach(button => button.addEventListener('click', () => showIdeFile(button.dataset.ideFile)));
+ide.querySelector('.ide-agent-file').addEventListener('click', () => { showIdeFile('record'); showIdeMode('editor'); });
+motion.addEventListener('change', () => {
+  if (motion.matches) { ideModeAnimation?.cancel(); showIdeMode(ideShell.dataset.mode, false); }
+});
 ide.addEventListener('keydown', event => {
   if (event.key === 'Escape' && !ideSearch.hidden) {
     showIdeSearch(false);
@@ -329,8 +413,12 @@ ide.addEventListener('keydown', event => {
   }
 });
 ideModes.forEach(button => button.addEventListener('click', () => showIdeMode(button.dataset.ideMode)));
-ideSearchToggle.addEventListener('click', () => showIdeSearch(ideSearch.hidden));
+ideSearchToggle.addEventListener('click', () => {
+  showIdeSearch(ideSearch.hidden);
+  if (!ideSearch.hidden) ide.querySelector('.ide-result').focus({ preventScroll: true });
+});
 ide.querySelector('.ide-result').addEventListener('click', () => {
+  showIdeFile('record');
   showIdeSearch(false);
   ide.querySelector('pre').focus({ preventScroll: true });
 });
@@ -408,14 +496,14 @@ const scenes = {
     }],
   ],
   review: [
-    [2200, () => showTour(0)],
-    [replayDelay, () => showTour(1)],
+    [6500, () => showTour(0)],
+    [6500, () => showTour(1)],
   ],
   ide: [
-    [1600, () => showIdeMode('agent')],
-    [1600, () => showIdeMode('editor')],
-    [1800, () => showIdeSearch(true)],
-    [replayDelay, () => showIdeSearch(false)],
+    [6500, animate => showIdeMode('agent', animate)],
+    [7000, animate => showIdeMode('editor', animate)],
+    [5000, () => showIdeSearch(true)],
+    [6500, animate => { showIdeMode('editor', animate); showIdeSearch(false); }],
   ],
   memory: [
     [2400, () => showMemory(0)],

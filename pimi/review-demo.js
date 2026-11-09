@@ -60,6 +60,9 @@ if (reviewScene) {
   const fileScroll = new Map();
   const history = [{ mode: 'prs', pr: 'capture', tab: 'overview', file: 'record' }];
   let index = 0;
+  let query = '';
+  let filter = 'all';
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
 
   function element(tag, className, value) {
     const node = document.createElement(tag);
@@ -96,11 +99,13 @@ if (reviewScene) {
     render();
   }
   function renderPrList(state) {
-    $('#review-demo-pr-list').replaceChildren(...prs.map((pr) => {
+    const matches = prs.filter(pr => `${pr.repo} ${pr.title} #${pr.number}`.toLowerCase().includes(query) && (filter === 'all' || pr.id === 'replay'));
+    $('#review-demo-pr-list').replaceChildren(...matches.map((pr) => {
       const row = button('review-demo-pr-row', '', () => push({
         mode: 'prs', pr: pr.id, tab: 'overview', file: lastFile.get(pr.id),
       }));
       row.setAttribute('aria-pressed', String(state.pr === pr.id));
+      row.dataset.pr = pr.id;
       row.append(
         element('small', '', `${pr.repo} · #${pr.number}`),
         element('strong', '', pr.title),
@@ -110,22 +115,37 @@ if (reviewScene) {
     }));
   }
   function renderOverview(pr) {
-    const comparison = element('div', 'review-demo-overview-card');
-    comparison.append(
-      element('small', '', 'Comparison'),
-      element('strong', '', `${pr.branch} → main`),
-      element('p', '', pr.summary),
-    );
+    const description = element('div', 'review-demo-overview-card review-demo-description');
+    description.append(element('small', '', 'Description'), element('p', '', pr.summary));
+    const scope = element('ul', 'review-demo-scope');
+    for (const text of (pr.id === 'capture'
+      ? ['Redact credentials before serialization', 'Keep event order and tool names intact', 'Write one event per line']
+      : ['Read events from the saved trace', 'Keep the original event order', 'Render playback without invoking tools']))
+      scope.append(element('li', '', text));
+    description.append(scope);
     const checks = element('div', 'review-demo-overview-card');
-    checks.append(element('small', '', 'Checks'), element('strong', '', pr.checks));
-    const activity = element('div', 'review-demo-overview-card');
-    activity.append(
-      element('small', '', 'Conversation'),
-      element('strong', '', `${pr.author} opened this pull request`),
-      element('p', '', 'Open Changes to inspect the files in this sample review.'),
-    );
-    $('#review-demo-overview').replaceChildren(comparison, checks, activity);
+    checks.append(element('small', '', 'Checks'));
+    for (const label of ['Typecheck', 'Unit tests', 'Build']) {
+      const row = element('div', 'review-demo-check');
+      row.append(element('span', '', '✓'), element('strong', '', label), element('small', '', 'Passed'));
+      checks.append(row);
+    }
+    const reviewers = element('div', 'review-demo-overview-card');
+    reviewers.append(element('small', '', 'Review'), element('strong', '', pr.id === 'capture' ? 'Ready for your review' : 'Review requested'), element('p', '', 'Compare the branch, then inspect each changed file.'));
+    const activity = element('div', 'review-demo-overview-card review-demo-activity');
+    activity.append(element('small', '', 'Conversation'));
+    const entry = element('div', 'review-demo-activity-entry');
+    const copy = element('div');
+    copy.append(element('strong', '', `${pr.author} opened this pull request`), element('p', '', pr.id === 'capture' ? 'The recorder is ready. Please check the redaction boundary before the UI work lands.' : 'Playback is ready to review alongside the recorder changes.'));
+    entry.append(element('span', 'review-demo-avatar', pr.author[0]), copy);
+    activity.append(entry);
+    const openChanges = button('review-demo-open-changes', 'Inspect changed files →', () => {
+      push({ ...history[index], tab: 'changes' });
+      $('#review-demo-changes-tab').focus({ preventScroll: true });
+    });
+    $('#review-demo-overview').replaceChildren(description, checks, reviewers, activity, openChanges);
   }
+
   function renderChanges(state, pr) {
     const currentFile = pr.files.find((file) => file.id === state.file) ?? pr.files[0];
     const fileList = $('#review-demo-file-list');
@@ -135,6 +155,7 @@ if (reviewScene) {
         push({ ...state, file: file.id });
       });
       row.setAttribute('aria-pressed', String(file.id === currentFile.id));
+      row.dataset.file = file.id;
       row.append(element('span', '', file.path), element('small', '', file.stats));
       return row;
     }));
@@ -159,6 +180,8 @@ if (reviewScene) {
     if (scroll) { pre.scrollTop = scroll.top; pre.scrollLeft = scroll.left; }
   }
   function render() {
+    const focusedPr = document.activeElement?.dataset.pr;
+    const focusedFile = document.activeElement?.dataset.file;
     const state = history[index];
     const isPrMode = state.mode === 'prs';
     $('#review-demo-prs').hidden = !isPrMode;
@@ -171,13 +194,28 @@ if (reviewScene) {
     const pr = byId.get(state.pr);
     $('#review-demo-pr-context').textContent = `${pr.repo} · #${pr.number} · ${pr.author}`;
     $('#review-demo-pr-title').textContent = pr.title;
-    for (const tab of reviewScene.querySelectorAll('[data-demo-tab]'))
-      tab.setAttribute('aria-selected', String(tab.dataset.demoTab === state.tab));
+    $('#review-demo-pr-meta').replaceChildren(
+      element('span', 'review-demo-open-state', 'Open'),
+      element('span', '', `${pr.branch} → main`),
+      element('span', '', `${pr.files.length} files changed`),
+    );
+    for (const tab of reviewScene.querySelectorAll('[data-demo-tab]')) {
+      const selected = tab.dataset.demoTab === state.tab;
+      tab.setAttribute('aria-selected', String(selected));
+      tab.tabIndex = selected ? 0 : -1;
+    }
     $('#review-demo-overview').hidden = state.tab !== 'overview';
     $('#review-demo-changes').hidden = state.tab !== 'changes';
     renderPrList(state);
     renderOverview(pr);
     if (state.tab === 'changes') renderChanges(state, pr);
+    if (focusedPr) reviewScene.querySelector(`[data-pr="${focusedPr}"]`)?.focus({ preventScroll: true });
+    if (focusedFile) reviewScene.querySelector(`[data-file="${focusedFile}"]`)?.focus({ preventScroll: true });
+    if (!reducedMotion.matches) {
+      const panel = $(state.tab === 'overview' ? '#review-demo-overview' : '#review-demo-changes');
+      panel.getAnimations().forEach(animation => animation.cancel());
+      panel.animate([{ opacity: .35, transform: 'translateY(5px)' }, { opacity: 1, transform: 'translateY(0)' }], { duration: 380, easing: 'ease-out' });
+    }
   }
 
   reviewScene.querySelectorAll('[data-demo-mode]').forEach((control) => {
@@ -185,6 +223,29 @@ if (reviewScene) {
   });
   reviewScene.querySelectorAll('[data-demo-tab]').forEach((control) => {
     control.addEventListener('click', () => push({ ...history[index], tab: control.dataset.demoTab }));
+  });
+  $('#review-demo-search').addEventListener('input', event => {
+    query = event.target.value.trim().toLowerCase();
+    renderPrList(history[index]);
+    if (!$('#review-demo-pr-list').children.length) $('#review-demo-pr-list').append(element('p', 'review-demo-empty', 'No matching pull requests.'));
+  });
+  reviewScene.querySelectorAll('[data-pr-filter]').forEach(control => {
+    control.addEventListener('click', () => {
+      filter = control.dataset.prFilter;
+      reviewScene.querySelectorAll('[data-pr-filter]').forEach(button => button.setAttribute('aria-pressed', String(button === control)));
+      renderPrList(history[index]);
+      if (!$('#review-demo-pr-list').children.length) $('#review-demo-pr-list').append(element('p', 'review-demo-empty', 'No matching pull requests.'));
+    });
+  });
+  $('.review-demo-pr-tabs').addEventListener('keydown', event => {
+    if (!['ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(event.key)) return;
+    event.preventDefault();
+    const next = event.key === 'Home' ? 'overview' : event.key === 'End' ? 'changes' : history[index].tab === 'overview' ? 'changes' : 'overview';
+    push({ ...history[index], tab: next });
+    $(`[data-demo-tab="${next}"]`).focus({ preventScroll: true });
+  });
+  reducedMotion.addEventListener('change', () => {
+    if (reducedMotion.matches) reviewScene.getAnimations({ subtree: true }).forEach(animation => animation.cancel());
   });
   $('#review-demo-back').addEventListener('click', () => move(-1));
   $('#review-demo-forward').addEventListener('click', () => move(1));

@@ -9,10 +9,10 @@
   <link rel="icon" href="icon.png">
   <link rel="preload" href="fonts/caveat-brush-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="site.css?v=13">
-  <link rel="stylesheet" href="demo.css?v=24">
-  <link rel="stylesheet" href="review-demo.css?v=1">
-  <script type="module" src="story.js?v=24"></script>
-  <script type="module" src="review-demo.js?v=1"></script>
+  <link rel="stylesheet" href="demo.css?v=25">
+  <link rel="stylesheet" href="review-demo.css?v=2">
+  <script type="module" src="story.js?v=25"></script>
+  <script type="module" src="review-demo.js?v=2"></script>
   <title>Your swarm’s best friend</title>
 </head>
 <body>
@@ -47,12 +47,12 @@
       <div class="overview-frame">
         <span class="overview-window-controls" aria-hidden="true"><i></i><i></i><i></i></span>
         <video id="overview-video" muted loop playsinline preload="none"
-          poster="showcase/overview.webp?v=5"
-          data-dark-poster="showcase/overview-dark.webp?v=1"
-          data-dark-src="showcase/overview-dark.mp4?v=1"
+          poster="showcase/overview.webp?v=6"
+          data-dark-poster="showcase/overview-dark.webp?v=2"
+          data-dark-src="showcase/overview-dark.mp4?v=2"
           aria-label="Recorded in Pimi: Agent and IDE modes, codebase search, Tasks, worktree review, Memory, Spaces, Agent Grid, Automations, and Usage">
-          <source src="showcase/overview.mp4?v=10" type="video/mp4">
-          <a href="showcase/overview.mp4?v=10">Watch the Pimi walkthrough</a>
+          <source src="showcase/overview.mp4?v=11" type="video/mp4">
+          <a href="showcase/overview.mp4?v=11">Watch the Pimi walkthrough</a>
         </video>
       </div>
       <div class="overview-bottom"><a href="#tasks" class="scroll-cue">See how Pimi works <span aria-hidden="true">↓</span></a>        <button type="button" class="pet" aria-label="Pet Pimi">
@@ -141,37 +141,54 @@
         <div class="scene ide-scene">
           <article class="float-panel ide-shell" data-mode="editor">
             <header class="ide-titlebar">
-              <strong>Run Replay</strong>
+              <div class="ide-project-title"><small>Projects /</small><strong>Run Replay</strong><span>capture-events</span></div>
               <div class="ide-mode-switch" role="group" aria-label="Workspace mode">
                 <button type="button" data-ide-mode="agent" aria-pressed="false"><svg aria-hidden="true"><use href="#icon-chat"/></svg>Agent</button>
                 <button type="button" data-ide-mode="editor" aria-pressed="true"><span aria-hidden="true">‹/›</span>IDE</button>
               </div>
             </header>
+            <div class="ide-stage">
             <div class="ide-agent" hidden>
-              <p class="chat-bubble">keep secrets out of the trace before it hits disk</p>
-              <p>The redaction lives in <code>src/record-event.ts</code>. I’ve kept playback separate so it can read the trace without rerunning tools.</p>
-              <div class="ide-agent-file"><svg aria-hidden="true"><use href="#icon-compose"/></svg><strong>record-event.ts</strong><small>src</small></div>
+              <div class="ide-chat-heading"><strong>Keep secrets out of traces</strong><small>trace-core · capture-events</small></div>
+              <p class="chat-bubble">Keep secrets out of the trace before it hits disk. Leave playback read-only.</p>
+              <div class="ide-tool-event"><span aria-hidden="true">✓</span> Read src/record-event.ts <small>and src/secrets.ts</small></div>
+              <p>The recorder now cleans each event before writing it. Playback still reads the saved trace without rerunning tools.</p>
+              <button type="button" class="ide-agent-file"><svg aria-hidden="true"><use href="#icon-compose"/></svg><strong>record-event.ts</strong><small>Open in IDE ↗</small></button>
+              <div class="ide-tool-event"><span aria-hidden="true">✓</span> Updated the recorder <small>Ready to inspect</small></div>
+              <div class="ide-composer"><span>Message, @files, /commands</span><small>＋ <span>Codex · Sample conversation</span></small></div>
             </div>
             <div class="ide-editor">
               <aside class="ide-explorer" aria-label="Files">
-                <strong>Files</strong>
+                <div class="ide-explorer-heading"><strong>Files</strong><small>trace-core</small></div>
                 <small>⌄ src</small>
-                <span class="ide-selected-file">record-event.ts</span>
-                <span>playback.ts</span>
-                <span>types.ts</span>
+                <button type="button" data-ide-file="record" class="ide-selected-file" aria-pressed="true">record-event.ts <em>M</em></button>
+                <button type="button" data-ide-file="playback" aria-pressed="false">playback.ts</button>
+                <button type="button" data-ide-file="types" aria-pressed="false">types.ts</button>
+                <small class="ide-root-file">◇ package.json</small>
+                <small class="ide-root-file">◇ README.md</small>
+                <div class="ide-workspace-status"><span>⑂ capture-events</span><small>Local workspace</small></div>
               </aside>
               <div class="ide-document">
                 <div class="ide-tabs">
                   <strong>record-event.ts</strong>
                   <button type="button" class="ide-search-toggle" aria-label="Search codebase" aria-expanded="false" aria-controls="ide-search"><span aria-hidden="true">⌘K</span><span class="ide-search-label">Search codebase</span></button>
                 </div>
-                <pre tabindex="0" aria-label="Source of src/record-event.ts"><code><span data-line="1"><i>import</i> { redactCredentials } <i>from</i> "./secrets";</span><span data-line="2"> </span><span data-line="3"><i>export async function</i> <b>recordEvent</b>(event, sink) {</span><span data-line="4" class="ide-target-line">  <i>const</i> safe = redactCredentials(event);</span><span data-line="5">  <i>await</i> sink.write(JSON.stringify(safe) + "\n");</span><span data-line="6">}</span></code></pre>
-                <div class="ide-footer"><span>Sam · 7c32d1a · Redact trace events</span><span>Ln 4, Col 3</span></div>
+                <div class="ide-breadcrumb">src <span>›</span> <span class="ide-current-path">record-event.ts</span></div>
+                <pre tabindex="0" aria-label="Source of src/record-event.ts"><code></code></pre>
+                <div class="ide-footer"><span>Sam · 7c32d1a · Redact trace events</span><span>TypeScript</span></div>
               </div>
+              <aside class="ide-chat" aria-label="Workspace chat">
+                <div class="ide-chat-heading"><strong>Chat</strong><small>Codex</small></div>
+                <p class="chat-bubble">Keep secrets out of the trace before it hits disk.</p>
+                <div class="ide-tool-event"><span aria-hidden="true">✓</span> Updated record-event.ts</div>
+                <p>Redaction happens before the write. You can inspect the change here.</p>
+                <div class="ide-composer"><span>Message, @files, /commands</span><small>＋ <span>Codex</span></small></div>
+              </aside>
               <div class="ide-search" id="ide-search" hidden>
                 <div><strong>Code search</strong><span>where do we strip secrets before writing?</span></div>
-                <button type="button" class="ide-result"><strong>src/record-event.ts:4</strong><code>const safe = redactCredentials(event);</code></button>
+                <button type="button" class="ide-result"><strong>src/record-event.ts:8</strong><code>const safe = redactCredentials(event);</code></button>
               </div>
+            </div>
             </div>
           </article>
         </div>
@@ -198,12 +215,13 @@
             <div id="review-demo-prs" class="review-demo-prs">
               <aside class="review-demo-pr-rail" aria-label="Pull requests">
                 <div class="review-demo-rail-title"><strong>Pull requests</strong><small>Sample work</small></div>
+                <div class="review-demo-list-controls"><label class="review-demo-search-label"><span class="sr-only">Find a sample pull request</span><input type="search" id="review-demo-search" placeholder="Find a pull request" aria-label="Find a sample pull request"></label><div class="review-demo-filters" role="group" aria-label="Pull request filter"><button type="button" data-pr-filter="all" aria-pressed="true">All</button><button type="button" data-pr-filter="requested" aria-pressed="false">To review</button></div></div>
                 <div id="review-demo-pr-list" class="review-demo-pr-list"></div>
               </aside>
               <div class="review-demo-pr-detail">
                 <div class="review-demo-pr-top">
                   <small id="review-demo-pr-context"></small>
-                  <h3 id="review-demo-pr-title"></h3>
+                  <h3 id="review-demo-pr-title"></h3><div id="review-demo-pr-meta" class="review-demo-pr-meta"></div>
                   <div class="review-demo-pr-tabs" role="tablist" aria-label="Pull request view">
                     <button type="button" id="review-demo-overview-tab" role="tab" aria-controls="review-demo-overview" aria-selected="true" data-demo-tab="overview">Overview</button>
                     <button type="button" id="review-demo-changes-tab" role="tab" aria-controls="review-demo-changes" aria-selected="false" data-demo-tab="changes">Changes</button>
