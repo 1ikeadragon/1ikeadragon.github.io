@@ -39,7 +39,9 @@
 .feature > .scene { grid-area: scene; }
 .feature h2 { margin: 0 0 18px; font-size: clamp(32px, 3.2vw, 45px); font-weight: 550; line-height: 1.09; letter-spacing: -.055em; text-wrap: balance; }
 @media (min-width: 1120px) {
-  .feature {
+  .feature:not([data-layout]) > .feature-copy { max-width: 760px; }
+  .feature:not([data-layout]) > .feature-copy > p { max-width: 580px; margin-inline: auto; }
+  .feature[data-layout] {
     --feature-copy-width: clamp(220px, 19vw, 275px);
     grid-template-areas: "copy scene";
     grid-template-columns: var(--feature-copy-width) minmax(0, 1fr);
@@ -47,11 +49,11 @@
     gap: clamp(40px, 4vw, 72px);
     width: min(1480px, calc(100% - 96px));
   }
-  .feature-stories > .feature:nth-of-type(even) {
+  .feature[data-layout="left"] {
     grid-template-areas: "scene copy";
     grid-template-columns: minmax(0, 1fr) var(--feature-copy-width);
   }
-  .feature > .feature-copy { margin-inline: 0; text-align: start; }
+  .feature[data-layout] > .feature-copy { margin-inline: 0; text-align: start; }
   .feature.mobile-feature { max-width: 850px; }
 }
 .feature-copy > p { color: var(--muted); font-size: 16px; line-height: 1.7; }
