@@ -312,16 +312,6 @@ function typeTaskPrompt() {
   typingFrame = requestAnimationFrame(typeFrame);
 }
 
-const exampleSkill = document.querySelector('.sample-skill');
-function showLibraryState(installed) {
-  document.querySelector(installed ? '.installed-skills' : '.available-skills').append(exampleSkill);
-  document.querySelector('.install-skills').textContent = installed ? 'Installed' : 'Install selected';
-  document.querySelector('.install-hooks').textContent = installed ? 'Uninstall hooks' : 'Install hooks';
-  document.querySelectorAll('.hook-state').forEach(state => {
-    state.textContent = installed ? 'Installed' : 'Not installed';
-  });
-}
-
 const usage = document.querySelector('#usage');
 const usageTabs = [...usage.querySelectorAll('[data-usage-tab]')];
 const recapPeriods = [...usage.querySelectorAll('[data-recap-period]')];
@@ -575,7 +565,6 @@ const scenes = {
     [1200, () => showAutomationRun(3)],
     [replayDelay + 1000, () => showAutomationRun(4)],
   ],
-  library: [[1700, () => showLibraryState(false)], [replayDelay, () => showLibraryState(true)]],
   usage: [
     [2400, animate => showUsage('limits', animate)],
     [2600, animate => showUsage('sessions', animate)],

@@ -402,18 +402,6 @@
   #automations[data-active] .automation-steps [data-status="current"] i { animation: automation-pulse 950ms ease-in-out infinite alternate; }
   @keyframes automation-pulse { to { opacity: .5; transform: scale(.84); } }
 }
-.library-scene { height: 410px; }
-.library-panel { width: 76%; top: 0; left: 0; }
-.hooks-panel { width: 68%; top: 215px; right: 0; }
-.library-body { display: grid; gap: 7px; padding: 11px 13px; font-size: 11px; }
-.library-list-heading { display: flex; align-items: center; justify-content: space-between; gap: 8px; color: var(--muted); }
-.mock-chip { padding: 3px 7px; border: 1px solid var(--line); border-radius: 6px; color: var(--ink); background: var(--rail); white-space: nowrap; }
-.library-list { border: 1px solid var(--line); border-radius: 7px; overflow: hidden; }
-.library-list > div { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 6px 8px; }
-.library-list > div + div { border-top: 1px solid var(--line); }
-.installed-skills .sample-skill { background: var(--added); }
-.hook-state { color: var(--muted); white-space: nowrap; }
-[data-phase="done"] .hook-state { color: var(--positive); }
 .usage-scene { height: auto; }
 .usage-panel { position: relative; width: 100%; top: 0; right: auto; }
 .usage-views { min-height: 245px; }
@@ -461,12 +449,10 @@
     .task-report:not([hidden]),
     .memory-chat article.current .memory-attachment,
     .automation-steps [data-status="complete"] small,
-    .installed-skills .sample-skill,
     .paper-card
   ) { animation: feature-arrival 420ms cubic-bezier(.2,.7,.2,1) both; }
   #agents[data-active] .agent-status:not([data-static-status]),
-  #memory[data-active] .memory-chat article,
-  #library[data-active] :is(.hook-state, .mock-chip) {
+  #memory[data-active] .memory-chat article {
     transition: color 260ms ease, background-color 260ms ease, border-color 260ms ease;
   }
   #memory[data-active] .memory-chat article.current .memory-attachment { box-shadow: inset 0 0 0 1px var(--focus); }
@@ -520,9 +506,6 @@
   .paper-caption small { font-size: 9px; }
   .paper-caption .paper-title { font-size: 11px; }
   .spaces-embed-group { grid-template-columns: minmax(0, 1fr); gap: 8px; padding: 4px 6px 6px; }
-  .library-scene { height: 425px; }
-  .library-panel { width: 95%; }
-  .hooks-panel { width: 88%; top: 230px; }
   .usage-sessions { grid-template-columns: minmax(0, 1fr); gap: 6px; padding: 7px; }
   .usage-session-list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .usage-context { padding: 8px; }
