@@ -98,6 +98,23 @@
 .usage-row .progress-track { grid-column: 1 / -1; }
 .usage-row:last-child .progress-track i { width: 62%; }
 .setup-note { width: min(600px, calc(100% - 48px)); margin: 0 auto; text-align: center; color: var(--muted); font-size: 14px; line-height: 1.55; }
+.mobile-scene { height: auto; display: grid; justify-items: center; }
+.mobile-device {
+  width: min(100%, 322px);
+  padding: 7px;
+  border: 1px solid var(--border);
+  border-radius: 32px;
+  background: #262527;
+  box-shadow: var(--panel-shadow);
+}
+.mobile-device video { display: block; width: 100%; aspect-ratio: 1 / 2; border-radius: 24px; background: var(--panel); }
+@media (min-width: 761px) {
+  .feature.mobile-feature {
+    grid-template-columns: minmax(0, 340px) minmax(0, 322px);
+    justify-content: center;
+    gap: clamp(40px, 8vw, 108px);
+  }
+}
 /* Motion is viewport-scoped; offscreen scenes and reduced-motion users stay still. */
 @media (prefers-reduced-motion: no-preference) {
   .feature .float-panel { transition: transform 700ms cubic-bezier(.2,.7,.2,1), opacity 550ms ease; }

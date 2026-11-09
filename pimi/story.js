@@ -7,38 +7,46 @@ const overviewFrame = video.closest('.overview-frame');
 const foldAt = Number(video.dataset.foldAt);
 const phoneAt = Number(video.dataset.phoneAt);
 const unfoldAt = Number(video.dataset.unfoldAt);
-const overviewMedia = {
-  light: { src: video.querySelector('source').getAttribute('src'), poster: video.getAttribute('poster') },
-  dark: { src: video.dataset.darkSrc, poster: video.dataset.darkPoster },
-};
-let overviewTheme = 'light';
-let seekAfterThemeChange = 0;
+const recordings = [video, document.querySelector('#mobile-video')].map(element => {
+  const recording = {
+    element,
+    light: { src: element.querySelector('source').getAttribute('src'), poster: element.getAttribute('poster') },
+    dark: { src: element.dataset.darkSrc, poster: element.dataset.darkPoster },
+    seek: 0,
+  };
+  element.addEventListener('loadedmetadata', () => {
+    if (recording.seek > 0 && Number.isFinite(element.duration) && element.duration > 0) {
+      element.currentTime = recording.seek % element.duration;
+    }
+    recording.seek = 0;
+    if (element === video) syncOverviewFrame();
+  });
+  return recording;
+});
+const [overviewRecording] = recordings;
+let mediaTheme = 'light';
 function syncOverviewFrame() {
-  const time = seekAfterThemeChange || video.currentTime;
+  const time = overviewRecording.seek || video.currentTime;
   const beforeLoop = !Number.isFinite(video.duration) || time < video.duration - .1;
   overviewFrame.toggleAttribute('data-handheld', time >= foldAt && beforeLoop);
   overviewFrame.toggleAttribute('data-phone', time >= phoneAt && time < unfoldAt);
 }
 video.addEventListener('timeupdate', syncOverviewFrame);
 video.addEventListener('seeked', syncOverviewFrame);
-video.addEventListener('loadedmetadata', () => {
-  if (seekAfterThemeChange > 0 && Number.isFinite(video.duration) && video.duration > 0) {
-    video.currentTime = seekAfterThemeChange % video.duration;
-  }
-  seekAfterThemeChange = 0;
-  syncOverviewFrame();
-});
 
 function setTheme(theme) {
   root.dataset.theme = theme;
   themeToggle.setAttribute('aria-pressed', String(theme === 'dark'));
   themeColor.content = getComputedStyle(root).getPropertyValue('--page').trim();
-  if (overviewTheme !== theme) {
-    seekAfterThemeChange = video.currentTime || seekAfterThemeChange;
-    overviewTheme = theme;
-    video.poster = overviewMedia[theme].poster;
-    video.src = overviewMedia[theme].src;
-    video.load();
+  if (mediaTheme !== theme) {
+    mediaTheme = theme;
+    for (const recording of recordings) {
+      const { element } = recording;
+      recording.seek = element.currentTime || recording.seek;
+      element.poster = recording[theme].poster;
+      element.src = recording[theme].src;
+      element.load();
+    }
   }
   const x = document.querySelector('[data-embed="x"] iframe[src]');
   if (x) {
@@ -60,7 +68,7 @@ let themeTransition;
 themeToggle.addEventListener('click', () => {
   const theme = root.dataset.theme === 'dark' ? 'light' : 'dark';
   themeTransition?.skipTransition();
-  const apply = () => { setTheme(theme); syncVideo(); };
+  const apply = () => { setTheme(theme); syncRecordings(); };
   if (!motion.matches && document.startViewTransition) {
     themeTransition = document.startViewTransition(apply);
   } else apply();
@@ -606,14 +614,18 @@ function syncFeature(feature) {
   }
 }
 
-function syncVideo() {
-  if (canAnimate(video)) void video.play().catch(() => {});
-  else video.pause();
+function syncRecording(element) {
+  if (canAnimate(element)) void element.play().catch(() => {});
+  else element.pause();
+}
+
+function syncRecordings() {
+  for (const { element } of recordings) syncRecording(element);
 }
 
 function syncMotion() {
   features.forEach(syncFeature);
-  syncVideo();
+  syncRecordings();
 }
 
 document.addEventListener('visibilitychange', syncMotion);
@@ -627,14 +639,14 @@ if ('IntersectionObserver' in window) {
       const inView = entry.intersectionRatio >= .25;
       if (inView) visible.add(element);
       else visible.delete(element);
-      if (element === video) syncVideo();
+      if (element instanceof HTMLVideoElement) syncRecording(element);
       else {
         if (inView) element.setAttribute('data-seen', '');
         syncFeature(element);
       }
     }
   }, { threshold: .25 });
-  observer.observe(video);
+  recordings.forEach(({ element }) => observer.observe(element));
   features.forEach(feature => { feature.setAttribute('data-ready', ''); observer.observe(feature); });
 }
 syncMotion();
