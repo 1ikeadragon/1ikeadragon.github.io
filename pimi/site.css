@@ -157,7 +157,7 @@ footer a:hover { text-decoration: underline; }
   ::view-transition-old(root) { animation: none; }
   ::view-transition-new(root) { animation: reveal-theme 360ms ease-out both; }
   @keyframes reveal-theme {
-    from { clip-path: inset(0 0 0 100%); opacity: .94; }
+    from { clip-path: inset(0 100% 0 0); opacity: .94; }
     to { clip-path: inset(0); opacity: 1; }
   }
   .download { transition: background 150ms; }
