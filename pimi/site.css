@@ -104,15 +104,8 @@ h1 {
   visibility: hidden;
 }
 .download-macos { --revealed-radius: 0 9px 9px 0; }
-.download-windows { --revealed-radius: 9px; }
 .download-android { --revealed-radius: 9px 0 0 9px; }
 .download-macos .download-label { right: calc(100% - 1px); border-radius: 9px 0 0 9px; }
-.download-windows .download-label {
-  inset: calc(100% + 6px) auto auto 50%;
-  min-height: 32px;
-  transform: translateX(-50%);
-  pointer-events: none;
-}
 .download-android .download-label { left: calc(100% - 1px); border-radius: 0 9px 9px 0; }
 .download:focus-visible { background: var(--accent-hover); border-radius: var(--revealed-radius); }
 .download:focus-visible .download-label { opacity: 1; visibility: visible; }
