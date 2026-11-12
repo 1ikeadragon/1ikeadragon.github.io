@@ -138,3 +138,40 @@
   ) { transition: background-color 220ms ease, border-color 220ms ease, color 220ms ease; }
   #review[data-motion] :is(.review-repo, .tour-target) { transition: background-color 300ms ease, box-shadow 300ms ease; }
 }
+
+/* Checks, threads, Fix this sheet and chat draft. */
+#review .review-demo-prs { position: relative; }
+#review .review-demo-pr-state { justify-self: start; padding: 1px 7px; border-radius: 9px; background: var(--tint); font-weight: 560; }
+#review .review-demo-pr-state[data-status="failed"] { color: var(--negative); }
+#review .review-demo-pr-state[data-status="running"] { color: var(--working); }
+#review .review-demo-pr-state[data-status="passed"] { color: var(--positive); }
+#review .review-demo-check-head { display: flex; align-items: center; gap: 6px; margin-top: 4px; font-size: 11px; }
+#review .review-demo-badge { padding: 0 6px; border-radius: 8px; background: var(--tint); font-size: 10px; }
+#review .review-demo-check { display: grid; grid-template-columns: 14px minmax(0, 1fr) auto; gap: 6px; align-items: baseline; font-size: 11px; }
+#review .review-demo-check[data-status="failed"] > span { color: var(--negative); }
+#review .review-demo-check[data-status="running"] > span { color: var(--working); }
+#review .review-demo-check[data-status="passed"] > span { color: var(--positive); }
+#review .review-demo-log { margin: 0; padding: 7px 9px; overflow-x: auto; border-radius: 6px; background: var(--panel); border: 1px solid var(--line); color: var(--muted); font: 10px/1.6 ui-monospace, monospace; }
+#review .review-demo-fix, #review .review-demo-sheet .primary { justify-self: start; padding: 5px 12px; border: 0; border-radius: 6px; color: var(--accent-text); background: var(--accent); font-size: 11px; font-weight: 600; }
+#review .review-demo-thread-filter { display: flex; gap: 4px; }
+#review .review-demo-thread-filter button { padding: 2px 8px; border: 1px solid var(--line); border-radius: 6px; color: var(--muted); background: transparent; font-size: 10px; }
+#review .review-demo-thread-filter button[aria-pressed="true"] { color: var(--ink); background: var(--tint); }
+#review .review-demo-thread-row { display: grid; gap: 1px; font-size: 11px; }
+#review .review-demo-commit { display: flex; justify-content: space-between; gap: 8px; font-size: 11px; }
+#review .review-demo-commit code { color: var(--muted); }
+#review .review-demo-file-row.viewed span::after { content: " ✓"; color: var(--positive); }
+#review .review-demo-viewed-toggle, #review .review-demo-ask { padding: 3px 9px; border: 1px solid var(--border); border-radius: 6px; color: var(--ink); background: var(--panel); font-size: 10px; }
+#review .review-demo-thread { display: grid; justify-items: start; gap: 4px; margin: 8px; padding: 9px 11px; border: 1px solid var(--line); border-left: 3px solid var(--focus); border-radius: 7px; background: var(--rail); font-size: 11px; }
+#review .review-demo-thread p { margin: 0; }
+#review .review-demo-sheet { width: min(360px, calc(100% - 24px)); padding: 18px; border: 1px solid var(--border); border-radius: 12px; color: var(--ink); background: var(--panel); }
+#review .review-demo-sheet::backdrop { background: #0006; }
+#review .review-demo-sheet h4 { margin: 0 0 2px; font-size: 15px; }
+#review .review-demo-sheet p { margin: 0 0 8px; color: var(--muted); font-size: 12px; }
+#review .review-demo-sheet label { display: block; margin: 8px 0 4px; font-size: 11px; }
+#review .review-demo-sheet textarea, #review .review-demo-chat textarea { width: 100%; padding: 8px; border: 1px solid var(--border); border-radius: 7px; color: var(--ink); background: var(--rail); font: 12px/1.5 inherit; resize: none; }
+#review .review-demo-chat textarea { min-height: 180px; font: 11px/1.6 ui-monospace, monospace; }
+#review .review-demo-sheet-actions, #review .review-demo-chat-actions { display: flex; justify-content: flex-end; gap: 8px; margin-top: 10px; }
+#review .review-demo-sheet-actions button:not(.primary), #review .review-demo-chat-actions button:not(.review-demo-send) { padding: 5px 12px; border: 1px solid var(--border); border-radius: 6px; color: var(--ink); background: transparent; font-size: 11px; }
+#review .review-demo-chat { position: absolute; inset: 0; z-index: 3; display: grid; align-content: start; gap: 10px; padding: 16px; background: var(--panel); }
+#review .review-demo-chat header { display: flex; justify-content: space-between; align-items: baseline; }
+#review .review-demo-send { width: 28px; height: 28px; border: 0; border-radius: 50%; color: var(--accent-text); background: var(--accent); opacity: .45; }

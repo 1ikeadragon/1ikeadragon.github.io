@@ -5,9 +5,13 @@ if (reviewScene) {
   const $ = (selector) => reviewScene.querySelector(selector);
   const prs = [
     {
-      id: 'capture', repo: 'trace-core', number: 42, title: 'Record redacted events',
-      author: 'Maya', branch: 'capture-events', checks: 'Checks passed',
+      id: 'capture', repo: 'trace-core', number: 42, title: 'Record redacted events', requested: false,
+      author: 'Maya', branch: 'capture-events', checks: 'Checks failing', status: 'failed',
       summary: 'Clean MCP event payloads before they are written to the local trace. Playback can read the ordered lines without exposing credentials.',
+      checkList: [['failed', 'Unit tests', '1 failing'], ['passed', 'Typecheck', ''], ['passed', 'Build', '']],
+      log: ['FAIL src/record-event.test.ts', '  masks proxy-authorization', '  expected "[masked]"', '  received "Bearer demo-token"'],
+      threads: [{ file: 'secrets', author: 'Jules', text: 'Should proxy-authorization be masked too?', resolved: false }, { file: 'record', author: 'Maya', text: 'Moved the write after the redaction call.', resolved: true }],
+      commits: [['Mask credentials before writing', '7c32d1a'], ['Write one event per line', 'a41be09']],
       files: [
         { id: 'record', path: 'src/record-event.ts', stats: '+3 −1', lines: [
           ['context', 5, ' import { redactCredentials } from "./secrets";'],
@@ -27,12 +31,22 @@ if (reviewScene) {
           ['context', 7, ' ]);'],
           ['added', 8, '+ export const redactCredentials = mask(privateKeys);'],
         ] },
+        { id: 'test', path: 'src/record-event.test.ts', stats: '+2 −0', lines: [
+          ['context', 12, ' test("masks credentials", () => {'],
+          ['added', 13, '+  const out = redactCredentials(sample);'],
+          ['added', 14, '+  expect(out.token).toBe("[masked]");'],
+          ['context', 15, ' });'],
+        ] },
       ],
     },
     {
-      id: 'replay', repo: 'replay-ui', number: 18, title: 'Replay a recorded trace',
-      author: 'Jules', branch: 'timeline-player', checks: 'Review requested',
+      id: 'replay', repo: 'replay-ui', number: 18, title: 'Replay a recorded trace', requested: true,
+      author: 'Jules', branch: 'timeline-player', checks: 'Checks running', status: 'running',
       summary: 'Show each recorded tool event in the timeline in its original order. The replay view reads the trace and does not rerun tools.',
+      checkList: [['running', 'Build', ''], ['passed', 'Typecheck', ''], ['passed', 'Unit tests', '']],
+      log: [],
+      threads: [],
+      commits: [['Render events from the saved trace', '3be90c4']],
       files: [
         { id: 'playback', path: 'src/playback.ts', stats: '+3 −1', lines: [
           ['context', 9, ' import type { ToolEvent } from "./types";'],
@@ -53,11 +67,27 @@ if (reviewScene) {
         ] },
       ],
     },
+    {
+      id: 'fixture', repo: 'trace-core', number: 43, title: 'Add the sample trace fixture', requested: true,
+      author: 'Sam', branch: 'seed-fixture', checks: 'Checks passed', status: 'passed',
+      summary: 'Commit a small recorded run so replay tests can run offline.',
+      checkList: [['passed', 'Typecheck', ''], ['passed', 'Unit tests', ''], ['passed', 'Build', '']],
+      log: [],
+      threads: [],
+      commits: [['Add the sample trace', '90d2e1f']],
+      files: [
+        { id: 'fixture', path: 'fixtures/sample-run.ndjson', stats: '+2 −0', lines: [
+          ['added', 1, '+{"tool_name":"read_file","event_order":1}'],
+          ['added', 2, '+{"tool_name":"write_file","event_order":2}'],
+        ] },
+      ],
+    },
   ];
 
   const byId = new Map(prs.map((pr) => [pr.id, pr]));
   const lastFile = new Map(prs.map((pr) => [pr.id, pr.files[0].id]));
   const fileScroll = new Map();
+  const viewed = new Set();
   const initial = { mode: 'prs', pr: 'capture', tab: 'overview', file: 'record' };
   const tourSteps = {
     'capture-overview': initial,
@@ -66,16 +96,11 @@ if (reviewScene) {
     'replay-overview': { ...initial, pr: 'replay', file: 'playback' },
     'replay-changes': { ...initial, pr: 'replay', tab: 'changes', file: 'playback' },
   };
-  const worktreeStops = [
-    { title: 'Redact before saving', text: 'The recorder writes the cleaned event to disk.' },
-    { title: 'Replay recorded events', text: 'The timeline displays the trace without invoking tools again.' },
-  ];
   const history = [initial];
   let index = 0;
   let renderedState;
   let interacted = false;
   let motionActive = false;
-  let worktreeTimer;
   let panelAnimation;
   let hunkAnimation;
   let query = '';
@@ -117,7 +142,7 @@ if (reviewScene) {
     render();
   }
   function renderPrList(state) {
-    const matches = prs.filter(pr => `${pr.repo} ${pr.title} #${pr.number}`.toLowerCase().includes(query) && (filter === 'all' || pr.id === 'replay'));
+    const matches = prs.filter(pr => `${pr.repo} ${pr.title} #${pr.number}`.toLowerCase().includes(query) && (filter === 'all' || pr.requested));
     const list = $('#review-demo-pr-list');
     list.replaceChildren(...matches.map((pr) => {
       const row = button('review-demo-pr-row', '', () => push({
@@ -128,42 +153,94 @@ if (reviewScene) {
       row.append(
         element('small', '', `${pr.repo} · #${pr.number}`),
         element('strong', '', pr.title),
-        element('span', 'review-demo-pr-state', pr.checks),
+        (() => { const chip = element('span', 'review-demo-pr-state', pr.checks); chip.dataset.status = pr.status; return chip; })(),
       );
       return row;
     }));
     if (!matches.length) list.append(element('p', 'review-demo-empty', 'No matching pull requests.'));
   }
+  let threadFilter = 'unresolved';
+  const draftFor = (pr, check, note) => [
+    `Fix the failing check "${check[1]}" on ${pr.repo} #${pr.number} (${pr.title}).`,
+    '', 'Log tail:', ...pr.log.map(line => `  ${line}`),
+    ...(note ? ['', `Note: ${note}`] : []),
+  ].join('\n');
+  function openSheet(pr, check) {
+    $('#review-demo-sheet-target').textContent = `${check[1]} · ${pr.repo} #${pr.number}`;
+    $('#review-demo-note').value = '';
+    const sheet = $('#review-demo-sheet');
+    sheet.dataset.pr = pr.id;
+    sheet.showModal();
+  }
+  function showChat(text) {
+    $('#review-demo-draft').value = text;
+    $('#review-demo-chat').hidden = false;
+    $('#review-demo-back-to-review').focus({ preventScroll: true });
+  }
+  function overviewCard(title, ...children) {
+    const card = element('div', 'review-demo-overview-card');
+    card.append(element('small', '', title), ...children);
+    return card;
+  }
+  function renderThreads(pr, list) {
+    const shown = pr.threads.filter(t => threadFilter === 'all' || !t.resolved);
+    list.replaceChildren(...(shown.length ? shown : [element('p', '', 'No unresolved threads.')]).map(t => {
+      if (!t.text) return t;
+      const row = element('div', 'review-demo-thread-row');
+      row.append(element('strong', '', t.author), element('span', '', t.text), element('small', '', `${t.resolved ? 'Resolved' : 'Unresolved'} · ${pr.files.find(f => f.id === t.file).path}`));
+      return row;
+    }));
+  }
   function renderOverview(pr) {
-    const description = element('div', 'review-demo-overview-card review-demo-description');
-    description.append(element('small', '', 'Description'), element('p', '', pr.summary));
-    const scope = element('ul', 'review-demo-scope');
-    for (const text of (pr.id === 'capture'
-      ? ['Redact credentials before serialization', 'Keep event order and tool names intact', 'Write one event per line']
-      : ['Read events from the saved trace', 'Keep the original event order', 'Render playback without invoking tools']))
-      scope.append(element('li', '', text));
-    description.append(scope);
-    const checks = element('div', 'review-demo-overview-card');
-    checks.append(element('small', '', 'Checks'));
-    for (const label of ['Typecheck', 'Unit tests', 'Build']) {
-      const row = element('div', 'review-demo-check');
-      row.append(element('span', '', '✓'), element('strong', '', label), element('small', '', 'Passed'));
-      checks.append(row);
+    const description = overviewCard('Description', element('p', '', pr.summary));
+    description.classList.add('review-demo-description');
+    const checks = overviewCard('Checks');
+    for (const [status, label] of [['failed', 'Failed'], ['running', 'Running'], ['passed', 'Passed']]) {
+      const items = pr.checkList.filter(c => c[0] === status);
+      if (!items.length) continue;
+      const head = element('div', 'review-demo-check-head');
+      head.append(element('strong', '', label), element('span', 'review-demo-badge', String(items.length)));
+      checks.append(head);
+      for (const item of items) {
+        const row = element('div', 'review-demo-check');
+        row.dataset.status = status;
+        row.append(element('span', '', status === 'failed' ? '✕' : status === 'running' ? '…' : '✓'), element('strong', '', item[1]), element('small', '', item[2] || (status === 'running' ? 'Running' : 'Passed')));
+        checks.append(row);
+        if (status === 'failed' && pr.log.length) {
+          const log = element('pre', 'review-demo-log', pr.log.join('\n'));
+          log.tabIndex = 0;
+          log.setAttribute('aria-label', `Log tail for ${item[1]}`);
+          checks.append(log, button('review-demo-fix', 'Fix this', () => openSheet(pr, item)));
+        }
+      }
     }
-    const reviewers = element('div', 'review-demo-overview-card');
-    reviewers.append(element('small', '', 'Review'), element('strong', '', pr.id === 'capture' ? 'Ready for your review' : 'Review requested'), element('p', '', 'Compare the branch, then inspect each changed file.'));
-    const activity = element('div', 'review-demo-overview-card review-demo-activity');
-    activity.append(element('small', '', 'Conversation'));
-    const entry = element('div', 'review-demo-activity-entry');
-    const copy = element('div');
-    copy.append(element('strong', '', `${pr.author} opened this pull request`), element('p', '', pr.id === 'capture' ? 'The recorder is ready. Please check the redaction boundary before the UI work lands.' : 'Playback is ready to review alongside the recorder changes.'));
-    entry.append(element('span', 'review-demo-avatar', pr.author[0]), copy);
-    activity.append(entry);
+    const threads = overviewCard('Threads');
+    const filters = element('div', 'review-demo-thread-filter');
+    filters.setAttribute('role', 'group');
+    filters.setAttribute('aria-label', 'Thread filter');
+    const list = element('div', 'review-demo-thread-list');
+    for (const [value, label] of [['unresolved', 'Unresolved'], ['all', 'All']]) {
+      const b = button('', label, () => {
+        threadFilter = value;
+        for (const other of filters.children) other.setAttribute('aria-pressed', String(other === b));
+        renderThreads(pr, list);
+      });
+      b.setAttribute('aria-pressed', String(threadFilter === value));
+      filters.append(b);
+    }
+    renderThreads(pr, list);
+    threads.append(filters, list);
+    const commits = overviewCard('Commits');
+    for (const [message, sha] of pr.commits) {
+      const row = element('div', 'review-demo-commit');
+      row.append(element('strong', '', message), element('code', '', sha));
+      commits.append(row);
+    }
     const openChanges = button('review-demo-open-changes', 'Inspect changed files →', () => {
       push({ ...history[index], tab: 'changes' });
       $('#review-demo-changes-tab').focus({ preventScroll: true });
     });
-    $('#review-demo-overview').replaceChildren(description, checks, reviewers, activity, openChanges);
+    $('#review-demo-overview').replaceChildren(description, checks, threads, commits, openChanges);
   }
 
   function renderChanges(state, pr) {
@@ -177,12 +254,17 @@ if (reviewScene) {
           push({ ...history[index], file: file.id });
         });
         row.dataset.file = file.id;
-        row.append(element('span', '', file.path), element('small', '', file.stats));
+        const marks = pr.threads.filter(t => t.file === file.id && !t.resolved).length;
+        row.append(element('span', '', file.path), element('small', '', `${file.stats}${marks ? ` · ${marks} thread` : ''}`));
+        row.dataset.viewedMark = '';
         return row;
       }));
     }
-    for (const row of fileList.children)
+    for (const row of fileList.children) {
       row.setAttribute('aria-pressed', String(row.dataset.file === currentFile.id));
+      row.classList.toggle('viewed', viewed.has(`${pr.id}:${row.dataset.file}`));
+    }
+    $('#review-demo-viewed').textContent = `${pr.files.filter(f => viewed.has(`${pr.id}:${f.id}`)).length}/${pr.files.length} viewed`;
     const panel = element('article', 'diff-panel');
     const heading = element('header');
     heading.append(element('strong', '', pr.repo), element('small', '', pr.branch));
@@ -198,13 +280,26 @@ if (reviewScene) {
       code.append(row);
     }
     pre.append(code);
+    const key = `${pr.id}:${currentFile.id}`;
+    const mark = button('review-demo-viewed-toggle', viewed.has(key) ? 'Viewed ✓' : 'Mark viewed', () => {
+      if (viewed.has(key)) viewed.delete(key); else viewed.add(key);
+      renderedState = null;
+      render(history[index], false);
+    });
+    mark.setAttribute('aria-pressed', String(viewed.has(key)));
+    fileHeading.append(mark);
     panel.append(heading, fileHeading, pre);
+    for (const t of pr.threads.filter(x => x.file === currentFile.id)) {
+      const box = element('div', 'review-demo-thread');
+      box.append(element('strong', '', `${t.author} · ${t.resolved ? 'Resolved' : 'Unresolved'}`), element('p', '', t.text),
+        button('review-demo-ask', 'Ask in chat', () => showChat(`About ${currentFile.path} in ${pr.repo} #${pr.number}:\n${t.author} said "${t.text}"\n\nWhat should change?`)));
+      panel.append(box);
+    }
     $('#review-demo-diff').replaceChildren(panel);
     const scroll = fileScroll.get(`${pr.id}:${currentFile.id}`);
     if (scroll) { pre.scrollTop = scroll.top; pre.scrollLeft = scroll.left; }
   }
   function stopMotion() {
-    clearTimeout(worktreeTimer);
     panelAnimation?.cancel();
     hunkAnimation?.cancel();
   }
@@ -223,18 +318,6 @@ if (reviewScene) {
     ], { duration: 1600, easing: 'ease-out' });
   }
 
-  function showWorktreeStop(step, animate) {
-    const caption = $('.tour-panel');
-    caption.querySelector('.tour-title').textContent = worktreeStops[step].title;
-    caption.querySelector('.tour-description').textContent = worktreeStops[step].text;
-    caption.querySelector('.tour-count').textContent = `${step + 1} / ${worktreeStops.length}`;
-    for (const target of reviewScene.querySelectorAll('[data-stop], [data-review-stop]')) {
-      target.classList.toggle('current', Number(target.dataset.stop ?? target.dataset.reviewStop) === step);
-    }
-    if (animate) animateArrival(caption.querySelector('div'), false);
-    worktreeTimer = setTimeout(() => showWorktreeStop((step + 1) % worktreeStops.length, true), 6500);
-  }
-
   function render(state = history[index], animate = true, tour = false) {
     const previous = renderedState;
     if (previous === state) return;
@@ -249,10 +332,7 @@ if (reviewScene) {
     $('#review-demo-back').disabled = index === 0;
     $('#review-demo-forward').disabled = index === history.length - 1;
     if (!isPrMode) {
-      if (shouldAnimate && previous.mode !== state.mode) {
-        animateArrival($('.review-body'), false);
-        showWorktreeStop(0, false);
-      }
+      if (shouldAnimate && previous.mode !== state.mode) animateArrival($('.review-body'), false);
       return;
     }
 
@@ -313,8 +393,6 @@ if (reviewScene) {
     if (!motionActive) {
       stopMotion();
       if (reducedMotion.matches && !interacted) render(initial, false);
-    } else if (!wasActive && renderedState.mode === 'worktrees') {
-      showWorktreeStop(0, false);
     }
   });
 
@@ -342,6 +420,16 @@ if (reviewScene) {
     push({ ...history[index], tab: next });
     $(`[data-demo-tab="${next}"]`).focus({ preventScroll: true });
   });
+  $('#review-demo-sheet-cancel').addEventListener('click', () => $('#review-demo-sheet').close());
+  $('#review-demo-sheet-open').addEventListener('click', () => {
+    const sheet = $('#review-demo-sheet');
+    const pr = byId.get(sheet.dataset.pr);
+    const check = pr.checkList.find(c => c[0] === 'failed');
+    const text = draftFor(pr, check, $('#review-demo-note').value.trim());
+    sheet.close();
+    showChat(text);
+  });
+  $('#review-demo-back-to-review').addEventListener('click', () => { $('#review-demo-chat').hidden = true; });
   $('#review-demo-back').addEventListener('click', () => move(-1));
   $('#review-demo-forward').addEventListener('click', () => move(1));
   render();

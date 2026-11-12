@@ -3,14 +3,11 @@ const motion = window.matchMedia('(prefers-reduced-motion: reduce)');
 const themeToggle = document.querySelector('.theme-toggle');
 const themeColor = document.querySelector('meta[name="theme-color"]');
 const video = document.querySelector('#overview-video');
-const overviewFrame = video.closest('.overview-frame');
-const foldAt = Number(video.dataset.foldAt);
-const phoneAt = Number(video.dataset.phoneAt);
-const unfoldAt = Number(video.dataset.unfoldAt);
-const recordings = [video, document.querySelector('#mobile-video')].map(element => {
+const systemDark = window.matchMedia('(prefers-color-scheme: dark)');
+const recordings = [video, document.querySelector('#mobile-video')].filter(Boolean).map(element => {
   const recording = {
     element,
-    light: { src: element.querySelector('source').getAttribute('src'), poster: element.getAttribute('poster') },
+    light: { src: element.querySelector('source').getAttribute('src'), poster: element.dataset.poster },
     dark: { src: element.dataset.darkSrc, poster: element.dataset.darkPoster },
     seek: 0,
   };
@@ -19,21 +16,10 @@ const recordings = [video, document.querySelector('#mobile-video')].map(element 
       element.currentTime = recording.seek % element.duration;
     }
     recording.seek = 0;
-    if (element === video) syncOverviewFrame();
   });
   return recording;
 });
-const [overviewRecording] = recordings;
-let mediaTheme = 'light';
-function syncOverviewFrame() {
-  const time = overviewRecording.seek || video.currentTime;
-  const beforeLoop = !Number.isFinite(video.duration) || time < video.duration - .1;
-  overviewFrame.toggleAttribute('data-handheld', time >= foldAt && beforeLoop);
-  overviewFrame.toggleAttribute('data-phone', time >= phoneAt && time < unfoldAt);
-}
-video.addEventListener('timeupdate', syncOverviewFrame);
-video.addEventListener('seeked', syncOverviewFrame);
-
+let mediaTheme = null;
 function setTheme(theme) {
   root.dataset.theme = theme;
   themeToggle.setAttribute('aria-pressed', String(theme === 'dark'));
@@ -57,12 +43,16 @@ function setTheme(theme) {
     }
   }
 }
-try {
-  setTheme(localStorage.getItem('pimi-site-theme') === 'dark' ? 'dark' : 'light');
-} catch {
-  // Storage is optional. The theme control still works for this visit.
-  setTheme('light');
+function storedTheme() {
+  try { const stored = localStorage.getItem('pimi-site-theme'); return stored === 'dark' || stored === 'light' ? stored : null; } catch { return null; }
 }
+// The inline script in <head> set the first paint; this applies the same choice to media.
+setTheme(storedTheme() ?? (systemDark.matches ? 'dark' : 'light'));
+systemDark.addEventListener('change', () => {
+  if (storedTheme()) return;
+  setTheme(systemDark.matches ? 'dark' : 'light');
+  syncRecordings();
+});
 themeToggle.hidden = false;
 let themeTransition;
 themeToggle.addEventListener('click', () => {
@@ -77,13 +67,14 @@ themeToggle.addEventListener('click', () => {
   }
 });
 
-const pet = document.querySelector('.pet');
-let petTimer;
-pet.addEventListener('click', () => {
-  pet.setAttribute('data-petted', '');
-  clearTimeout(petTimer);
-  petTimer = setTimeout(() => pet.removeAttribute('data-petted'), 1200);
-});
+for (const pet of document.querySelectorAll('.pet')) {
+  let petTimer;
+  pet.addEventListener('click', () => {
+    pet.setAttribute('data-petted', '');
+    clearTimeout(petTimer);
+    petTimer = setTimeout(() => pet.removeAttribute('data-petted'), 1200);
+  });
+}
 
 // The showcase uses sample work. Each visible scene runs independently.
 const features = [...document.querySelectorAll('[data-scene]')];
@@ -128,7 +119,7 @@ const reviewBeats = [
   [3900, 'replay-changes'],
 ];
 let reviewInteracted = false;
-review.addEventListener('review-interaction', () => {
+review?.addEventListener('review-interaction', () => {
   reviewInteracted = true;
   clearTimeout(timers.get(review));
   timers.delete(review);
@@ -552,6 +543,11 @@ const scenes = {
     [replayDelay, () => showMemory(1)],
   ],
   spaces: [[0]],
+  images: [[0]],
+  search: [[0]],
+  attack: [[0]],
+  mobile: [[0]],
+  pimi: [[0]],
   voice: [
     [950, () => showVoiceExample(0)],
     [1200, () => showVoiceExample(1)],
@@ -623,8 +619,19 @@ function syncFeature(feature) {
 }
 
 function syncRecording(element) {
-  if (canAnimate(element)) void element.play().catch(() => {});
+  const wrap = element.parentElement;
+  const manual = element.hasAttribute('controls');
+  if (canAnimate(element) || (manual && visible.has(element) && !document.hidden)) void element.play().catch(() => {});
   else element.pause();
+  // Reduced motion: never autoplay. Offer an explicit Play button instead.
+  wrap.toggleAttribute('data-rm', motion.matches && !manual);
+}
+for (const { element } of recordings) {
+  element.parentElement.querySelector('.rm-play')?.addEventListener('click', () => {
+    element.controls = true;
+    void element.play().catch(() => {});
+    syncRecording(element);
+  });
 }
 
 function syncRecordings() {

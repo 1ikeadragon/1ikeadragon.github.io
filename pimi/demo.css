@@ -2,11 +2,9 @@
 .overview { width: min(1100px, calc(100% - 64px)); margin: 0 auto; }
 .overview-frame { position: relative; border: 1px solid var(--line); border-radius: 17px; overflow: hidden; background: var(--panel); box-shadow: var(--panel-shadow); }
 .scene svg { width: 16px; height: 16px; flex: none; fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
-.overview-frame[data-handheld] { border-color: transparent; box-shadow: none; }
 .overview video { display: block; width: 100%; aspect-ratio: 3 / 2; object-fit: contain; background: var(--panel); }
 @media (prefers-reduced-motion: no-preference) {
-  .overview-frame { transition: border-color 220ms ease, box-shadow 220ms ease; }
-}
+  }
 .overview-bottom { position: relative; display: flex; align-items: center; justify-content: center; min-height: 80px; }
 .scroll-cue { display: flex; align-items: center; gap: 12px; color: var(--muted); font-size: 12px; text-decoration: none; padding: 15px; }
 .scroll-cue span { font-size: 18px; }
@@ -217,12 +215,6 @@
   .overview { width: calc(100% - 24px); }
   .overview-frame { border-radius: 10px; container-type: inline-size; }
   .overview video { height: calc(100cqw * 2 / 3); object-fit: cover; }
-  .overview-frame[data-phone] video {
-    height: max(calc(100cqw * 2 / 3), min(175cqw, 80svh));
-  }
-  @media (prefers-reduced-motion: no-preference) {
-    .overview video { transition: height 520ms cubic-bezier(.25,.65,.25,1); }
-  }
   .overview-bottom { min-height: 82px; }
   .pet { width: 66px; bottom: 5px; }
   .scroll-cue { align-self: start; margin-top: 3px; font-size: 11px; }
@@ -292,7 +284,6 @@
 .review-tree { display: grid; align-content: start; gap: 12px; padding: 17px 13px; border-right: 1px solid var(--line); background: var(--rail); }
 .review-file-list, .review-prs { display: grid; gap: 8px; }
 .review-repo, .review-prs > div { display: grid; gap: 3px; min-width: 0; padding: 8px; border-radius: 7px; font-size: 11px; overflow-wrap: anywhere; }
-.review-repo.current { background: var(--tint); }
 .review-repo > span, .review-prs > div > span { color: var(--muted); font-size: 10px; }
 .review-prs > div { background: var(--panel); border: 1px solid var(--line); }
 .review-prs small { color: var(--positive); }
@@ -311,10 +302,6 @@
 .diff-panel code > span::before { display: inline-block; width: 2.55em; content: attr(data-line); color: var(--muted); font-size: .85em; text-align: right; padding-right: 1em; }
 .added { background: var(--added); }
 .removed { background: var(--removed); }
-.tour-target.current { box-shadow: inset 3px 0 var(--focus); background: color-mix(in srgb, var(--added), var(--focus) 20%); }
-.tour-panel { display: flex; align-items: center; gap: 11px; padding: 13px; border: 1px solid var(--line); border-radius: 8px; background: var(--rail); }
-.tour-count { margin-left: auto; color: var(--muted); font-size: 11px; white-space: nowrap; }
-.tour-panel p { margin-top: 3px; color: var(--muted); font-size: 12px; }
 
 .memory-body { display: grid; grid-template-columns: minmax(135px, .55fr) minmax(0, 1.2fr) minmax(0, 1fr); min-height: 265px; }
 .memory-list { display: grid; align-content: start; gap: 4px; padding: 14px; border-right: 1px solid var(--line); font-size: 12px; background: var(--rail); }

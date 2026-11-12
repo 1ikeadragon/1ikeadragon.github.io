@@ -1,19 +1,22 @@
 <!doctype html>
-<html lang="en" data-theme="light">
+<html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Pimi brings your coding agents, tasks, and diffs together on macOS and Android.">
+  <meta name="description" content="Pimi is an open-source desktop app for working with coding agents: chat, tasks, review, and an editor in one window. macOS, with an Android companion.">
   <meta name="theme-color" content="#faf7f6">
   <link rel="canonical" href="https://1ikeadragon.github.io/pimi/">
   <link rel="icon" href="icon.png">
   <link rel="preload" href="fonts/caveat-brush-latin.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="site.css?v=15">
-  <link rel="stylesheet" href="demo.css?v=33">
-  <link rel="stylesheet" href="review-demo.css?v=3">
-  <script type="module" src="story.js?v=31"></script>
-  <script type="module" src="review-demo.js?v=3"></script>
-  <title>Your swarm’s best friend</title>
+  <script>try{var t=localStorage.getItem('pimi-site-theme');document.documentElement.dataset.theme=t==='dark'||t==='light'?t:matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'}catch(e){document.documentElement.dataset.theme='light'}</script>
+  <link rel="stylesheet" href="site.css?v=16">
+  <link rel="stylesheet" href="demo.css?v=34">
+  <link rel="stylesheet" href="review-demo.css?v=4">
+  <link rel="stylesheet" href="more-demo.css?v=1">
+  <script type="module" src="story.js?v=32"></script>
+  <script type="module" src="review-demo.js?v=4"></script>
+  <script type="module" src="more-demo.js?v=2"></script>
+  <title>Pimi: your swarm’s best friend</title>
 </head>
 <body>
   <button class="theme-toggle" type="button" aria-label="Dark mode" aria-pressed="false" title="Switch color theme" hidden>
@@ -24,32 +27,35 @@
     <section class="hero wrap" aria-labelledby="headline">
       <p class="brand"><img src="icon.png" width="38" height="38" alt="">Pimi</p>
       <h1 id="headline">Your swarm’s best friend.</h1>
+      <p class="lede">An open-source desktop workspace for coding agents. Chat with them, track their work, and review what they changed.</p>
       <div class="downloads">
-        <a class="download download-macos" aria-label="Download for macOS" href="https://github.com/1ikeadragon/pimi/releases/latest/download/Pimi-macOS-arm64.dmg">
+        <a class="download download-macos" href="https://github.com/1ikeadragon/pimi/releases/latest/download/Pimi-macOS-arm64.dmg">
           <svg viewBox="0 0 24 24" aria-hidden="true">
             <!-- Apple silhouette from Simple Icons. -->
             <path d="M12.152 6.896c-.948 0-2.415-1.078-3.96-1.04-2.04.027-3.91 1.183-4.961 3.014-2.117 3.675-.546 9.103 1.519 12.09 1.013 1.454 2.208 3.09 3.792 3.039 1.52-.065 2.09-.987 3.935-.987 1.831 0 2.35.987 3.96.948 1.637-.026 2.676-1.48 3.676-2.948 1.156-1.688 1.636-3.325 1.662-3.415-.039-.013-3.182-1.221-3.22-4.857-.026-3.04 2.48-4.494 2.597-4.559-1.429-2.09-3.623-2.324-4.39-2.376-2-.156-3.675 1.09-4.61 1.09zM15.53 3.83c.843-1.012 1.4-2.427 1.245-3.83-1.207.052-2.662.805-3.532 1.818-.78.896-1.454 2.338-1.273 3.714 1.338.104 2.715-.688 3.559-1.701"/>
           </svg>
-          <span class="download-label" aria-hidden="true">Download for macOS</span>
+          <span class="download-label">Download for macOS</span>
         </a>
-        <a class="download download-android" aria-label="Download for Android" href="https://github.com/1ikeadragon/pimi/releases/latest/download/Pimi-Android-arm64.apk">
+        <a class="download download-android" href="https://github.com/1ikeadragon/pimi/releases/latest/download/Pimi-Android-arm64.apk">
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18.4395 5.5586c-.675 1.1664-1.352 2.3318-2.0274 3.498-.0366-.0155-.0742-.0286-.1113-.043-1.8249-.6957-3.484-.8-4.42-.787-1.8551.0185-3.3544.4643-4.2597.8203-.084-.1494-1.7526-3.021-2.0215-3.4864a1.1451 1.1451 0 0 0-.1406-.1914c-.3312-.364-.9054-.4859-1.379-.203-.475.282-.7136.9361-.3886 1.5019 1.9466 3.3696-.0966-.2158 1.9473 3.3593.0172.031-.4946.2642-1.3926 1.0177C2.8987 12.176.452 14.772 0 18.9902h24c-.119-1.1108-.3686-2.099-.7461-3.0683-.7438-1.9118-1.8435-3.2928-2.7402-4.1836a12.1048 12.1048 0 0 0-2.1309-1.6875c.6594-1.122 1.312-2.2559 1.9649-3.3848.2077-.3615.1886-.7956-.0079-1.1191a1.1001 1.1001 0 0 0-.8515-.5332c-.5225-.0536-.9392.3128-1.0488.5449zm-.0391 8.461c.3944.5926.324 1.3306-.1563 1.6503-.4799.3197-1.188.0985-1.582-.4941-.3944-.5927-.324-1.3307.1563-1.6504.4727-.315 1.1812-.1086 1.582.4941zM7.207 13.5273c.4803.3197.5506 1.0577.1563 1.6504-.394.5926-1.1038.8138-1.584.4941-.48-.3197-.5503-1.0577-.1563-1.6504.4008-.6021 1.1087-.8106 1.584-.4941z"/></svg>
-          <span class="download-label" aria-hidden="true">Download for Android</span>
+          <span class="download-label">Download for Android</span>
         </a>
       </div>
+      <p class="hero-note">macOS 13+ on Apple silicon. The Android app is a companion: it pairs to Pimi on your computer.</p>
+      <p class="hero-links"><a href="https://github.com/1ikeadragon/pimi/releases/latest">Release notes</a><a href="https://github.com/1ikeadragon/pimi">Source on GitHub</a></p>
     </section>
 
     <section class="overview" aria-label="Pimi in action">
       <div class="overview-frame">
-        <video id="overview-video" muted loop playsinline preload="none"
-          poster="showcase/overview.webp?v=10"
-          data-dark-poster="showcase/overview-dark.webp?v=6"
-          data-dark-src="showcase/overview-dark.mp4?v=6"
-          data-fold-at="66" data-phone-at="67.25" data-unfold-at="87.25"
-          aria-label="Recorded in Pimi: build and review a cache change on desktop, then continue the same conversation on Android">
-          <source src="showcase/overview.mp4?v=15" type="video/mp4">
-          <a href="showcase/overview.mp4?v=15">Watch the Pimi walkthrough</a>
+        <video id="overview-video" muted loop playsinline preload="none" width="1440" height="960"
+          data-poster="showcase/overview.webp?v=11"
+          data-dark-poster="showcase/overview-dark.webp?v=11"
+          data-dark-src="showcase/overview-dark.mp4?v=11"
+          aria-label="Recorded in Pimi: ask a question in a chat, turn it into a task, follow the agents working on it, then open the code in the editor.">
+          <source src="showcase/overview.mp4?v=11" type="video/mp4">
+          <a href="showcase/overview.mp4?v=11">Watch the Pimi walkthrough</a>
         </video>
+        <button type="button" class="rm-play">Play video</button>
       </div>
       <div class="overview-bottom"><a href="#tasks" class="scroll-cue">See how Pimi works <span aria-hidden="true">↓</span></a>        <button type="button" class="pet" aria-label="Pet Pimi">
           <svg viewBox="0 0 128 118" aria-hidden="true">
@@ -167,10 +173,36 @@
         </div>
       </section>
 
+      <section class="feature" id="images" data-layout="left" data-scene="images" aria-labelledby="images-heading">
+        <div class="feature-copy">
+          <h2 id="images-heading">Images land in the chat</h2>
+          <p>Screenshots an agent reads, images from MCP tools, and generated images show up in the conversation. Several from one tool call form a grid. Click one to open it full size.</p>
+        </div>
+        <div class="scene wide-scene">
+          <article class="float-panel" aria-label="Sample chat with a grid of three screenshots">
+            <header><svg aria-hidden="true"><use href="#icon-chat"/></svg><strong>Check the sample shop</strong><span class="small-muted">Sample work</span></header>
+            <div class="chat-demo-body">
+              <p class="chat-bubble">open the sample shop and tell me what looks broken</p>
+              <div class="tool-row"><span aria-hidden="true">✓</span> Read 3 screenshots</div>
+              <div class="image-grid">
+                <button type="button" data-shot="0" aria-label="Open screenshot: sign-up form"><img src="showcase/chat/form.webp?v=1" width="480" height="300" alt="Sample sign-up form with an empty email field and an error message" loading="lazy" decoding="async"></button>
+                <button type="button" data-shot="1" aria-label="Open screenshot: cart"><img src="showcase/chat/cart.webp?v=1" width="480" height="300" alt="Sample cart with three items and a TypeError message" loading="lazy" decoding="async"></button>
+                <button type="button" data-shot="2" aria-label="Open screenshot: settings"><img src="showcase/chat/settings.webp?v=1" width="480" height="300" alt="Sample settings page showing a key-shaped value" loading="lazy" decoding="async"></button>
+              </div>
+              <p>The form accepts an empty email, checkout throws on a missing total, and settings shows a key-shaped value.</p>
+            </div>
+          </article>
+          <dialog class="lightbox" aria-label="Screenshot viewer">
+            <img alt="" width="480" height="300">
+            <div class="lightbox-bar"><button type="button" data-shot-step="-1">Previous</button><span class="lightbox-count" aria-live="polite"></span><button type="button" data-shot-step="1">Next</button><button type="button" data-shot-close autofocus>Close</button></div>
+          </dialog>
+        </div>
+      </section>
+
       <section class="feature" id="ide" data-layout="right" data-scene="ide" aria-labelledby="ide-heading">
         <div class="feature-copy">
           <h2 id="ide-heading">Go from agent to editor</h2>
-          <p>Switch projects, find code by what it does, and read Git blame beside your chat. Flip back to Agent mode whenever you need it.</p>
+          <p>Switch projects, find code by what it does, and read Git blame beside your chat. Hover a blame line for the commit, or click it to open that commit’s change. Flip back to Agent mode whenever you need it.</p>
         </div>
         <div class="scene ide-scene">
           <article class="float-panel ide-shell" data-mode="editor">
@@ -209,7 +241,7 @@
                 </div>
                 <div class="ide-breadcrumb">src <span>›</span> <span class="ide-current-path">record-event.ts</span></div>
                 <pre tabindex="0" aria-label="Source of src/record-event.ts"><code></code></pre>
-                <div class="ide-footer"><span>Sam · 7c32d1a · Redact trace events</span><span>TypeScript</span></div>
+                <div class="ide-footer"><span class="blame"><button type="button" class="blame-line" aria-describedby="blame-card">Sam · 7c32d1a · Redact trace events</button><span class="blame-card" id="blame-card" role="tooltip"><strong>Redact trace events</strong><small>Sam · Nov 4, 2026 · 7c32d1a</small><small>Click to open this commit’s change</small></span></span><span>TypeScript</span></div>
               </div>
               <aside class="ide-chat" aria-label="Workspace chat">
                 <div class="ide-chat-heading"><strong>Chat</strong><small>Codex</small></div>
@@ -228,13 +260,55 @@
         </div>
       </section>
 
-      <section class="feature" id="review" data-layout="left" data-scene="review" aria-labelledby="review-heading">
+      <section class="feature" id="search" data-layout="left" data-scene="search" aria-labelledby="search-heading">
         <div class="feature-copy">
-          <h2 id="review-heading">Review across repos</h2>
-          <p>Follow pull requests through their overview and changed files, or switch to Worktrees to compare the recorder and replay UI side by side.</p>
+          <h2 id="search-heading">Find anything</h2>
+          <p>Search every file in a workspace with Cmd/Ctrl+Shift+F, with regex, globs, and replace with a preview. Cmd/Ctrl+F finds text in the pane you are in: chat, editor, terminal, diff, or browser. Cmd/Ctrl+K opens commands and settings.</p>
+          <p class="fine">The keys follow VS Code.</p>
+        </div>
+        <div class="scene wide-scene">
+          <article class="float-panel search-demo" aria-label="Sample search, find and command palette">
+            <header>
+              <svg aria-hidden="true"><use href="#icon-search"/></svg><strong>Search</strong>
+              <div class="seg" role="group" aria-label="Sample view">
+                <button type="button" data-sd-tab="search" aria-pressed="true">Search files</button>
+                <button type="button" data-sd-tab="find" aria-pressed="false">Find in pane</button>
+                <button type="button" data-sd-tab="palette" aria-pressed="false">Commands</button>
+              </div>
+            </header>
+            <div class="sd-panel" data-sd-panel="search">
+              <div class="sd-row"><input id="sd-query" type="text" value="redactCredentials" aria-label="Search query" spellcheck="false">
+                <button type="button" class="sd-toggle" data-sd-opt="case" aria-pressed="false" aria-label="Match case" title="Match case">Aa</button>
+                <button type="button" class="sd-toggle" data-sd-opt="word" aria-pressed="false" aria-label="Match whole word" title="Whole word">ab</button>
+                <button type="button" class="sd-toggle" data-sd-opt="regex" aria-pressed="false" aria-label="Use regular expression" title="Regex">.*</button></div>
+              <div class="sd-row"><input id="sd-glob" type="text" value="src/**/*.ts" aria-label="Files to include" spellcheck="false"></div>
+              <div class="sd-row"><input id="sd-replace" type="text" value="maskCredentials" aria-label="Replace with" spellcheck="false"><button type="button" class="sd-btn" id="sd-preview" aria-expanded="false">Preview replace</button></div>
+              <p class="sd-summary" id="sd-summary" role="status"></p>
+              <div id="sd-results" class="sd-results"></div>
+              <div id="sd-diff" class="sd-diff" hidden></div>
+            </div>
+            <div class="sd-panel" data-sd-panel="find" hidden>
+              <div class="sd-findbar"><input id="sd-find" type="text" value="redact" aria-label="Find in chat" spellcheck="false"><span id="sd-find-count" role="status"></span><button type="button" class="sd-btn" id="sd-prev" aria-label="Previous match">↑</button><button type="button" class="sd-btn" id="sd-next" aria-label="Next match">↓</button></div>
+              <div class="sd-chat" id="sd-chat"></div>
+            </div>
+            <div class="sd-panel" data-sd-panel="palette" hidden>
+              <div class="sd-palette"><input id="sd-pal" type="text" value="" placeholder="Type a command, or % to search settings" aria-label="Command palette" spellcheck="false" autocomplete="off">
+                <div id="sd-pal-list" class="sd-pal-list"></div></div>
+              <div id="sd-setting" class="sd-setting" hidden></div>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="feature" id="review" data-layout="right" data-scene="review" aria-labelledby="review-heading">
+        <div class="feature-copy">
+          <h2 id="review-heading">Review pull requests</h2>
+          <p>Your GitHub pull requests in one inbox. Overview shows the description, checks, threads, and commits. Changes shows the diff with review threads in place.</p>
+          <p>When a check fails, Fix this opens a chat with the log already attached. Nothing is sent until you send it.</p>
+          <p class="fine">Needs the GitHub CLI signed in on your computer.</p>
         </div>
         <div class="scene review-scene">
-          <article class="float-panel review-shell" aria-label="Interactive Review preview">
+          <article class="float-panel review-shell" aria-label="Interactive Review preview with sample work">
             <header class="review-demo-header">
               <svg aria-hidden="true"><use href="#icon-branch"/></svg><strong>Review</strong>
               <div class="review-demo-history" role="group" aria-label="Review history">
@@ -263,50 +337,124 @@
                 </div>
                 <div id="review-demo-overview" class="review-demo-overview" role="tabpanel" aria-labelledby="review-demo-overview-tab"></div>
                 <div id="review-demo-changes" class="review-demo-changes" role="tabpanel" aria-labelledby="review-demo-changes-tab" hidden>
-                  <aside class="review-demo-file-rail" aria-label="Changed files"><strong>Changed files</strong><div id="review-demo-file-list"></div></aside>
+                  <aside class="review-demo-file-rail" aria-label="Changed files"><strong>Changed files</strong><small id="review-demo-viewed"></small><div id="review-demo-file-list"></div></aside>
                   <div id="review-demo-diff" class="review-demo-diff"></div>
                 </div>
               </div>
-            </div>
-            <div id="review-demo-worktrees" hidden>
-            <div class="review-body">
-              <aside class="review-tree" aria-label="Changed worktree files">
-                <small>Changed files</small>
-                <div class="review-file-list">
-                  <div class="review-repo current" data-review-stop="0"><strong>trace-core</strong><small>capture-events</small><span>src/record-event.ts</span></div>
-                  <div class="review-repo" data-review-stop="1"><strong>replay-ui</strong><small>timeline-player</small><span>src/playback.ts</span></div>
-                </div>
-              </aside>
-              <div class="review-main">
-                <div class="diff-pair">
-                  <article class="diff-panel"><header><strong>trace-core</strong><small>capture-events</small></header><div class="diff-file"><span>src/record-event.ts</span><span class="diff-stats"><b>+3</b> <b>−1</b></span></div><pre tabindex="0" aria-label="Diff for src/record-event.ts in trace-core"><code><span class="code-context" data-line="5"> import { redactCredentials } from "./secrets";</span><span class="code-context" data-line="6"> </span><span class="code-context" data-line="7"> async function recordEvent(event, sink) {</span><span class="line removed" data-line="8">−  await sink.write(JSON.stringify(event));</span><span class="line added tour-target current" data-line="8" data-stop="0">+  const safe = redactCredentials(event);</span><span class="line added" data-line="9">+  const line = JSON.stringify(safe);</span><span class="line added" data-line="10">+  await sink.write(line + "\n");</span><span class="code-context" data-line="11"> }</span></code></pre></article>
-                  <article class="diff-panel"><header><strong>replay-ui</strong><small>timeline-player</small></header><div class="diff-file"><span>src/playback.ts</span><span class="diff-stats"><b>+3</b> <b>−1</b></span></div><pre tabindex="0" aria-label="Diff for src/playback.ts in replay-ui"><code><span class="code-context" data-line="9"> import type { ToolEvent } from "./types";</span><span class="code-context" data-line="10"> </span><span class="code-context" data-line="11"> function replay(events, timeline) {</span><span class="line removed" data-line="12">−  return runTools(events);</span><span class="line added tour-target" data-line="12" data-stop="1">+  for (const event of events) {</span><span class="line added" data-line="13">+    timeline.append(event);</span><span class="line added" data-line="14">+  }</span><span class="code-context" data-line="15"> }</span></code></pre></article>
-                </div>
-                <aside class="tour-panel"><svg aria-hidden="true"><use href="#icon-list"/></svg><div><strong class="tour-title">Redact before saving</strong><p class="tour-description">The recorder writes the cleaned event to disk.</p></div><span class="tour-count">1 / 2</span></aside>
+              <div id="review-demo-chat" class="review-demo-chat" hidden>
+                <header><strong>Chat</strong><small>Draft · nothing is sent</small></header>
+                <label class="sr-only" for="review-demo-draft">Message draft</label>
+                <textarea id="review-demo-draft" rows="9" readonly></textarea>
+                <div class="review-demo-chat-actions"><button type="button" id="review-demo-back-to-review">Back to review</button><button type="button" class="review-demo-send" disabled aria-label="Send (disabled in this preview)">↑</button></div>
               </div>
             </div>
+            <div id="review-demo-worktrees" hidden>
+              <div class="review-body">
+                <aside class="review-tree" aria-label="Changed worktree files">
+                  <small>Changed files</small>
+                  <div class="review-file-list">
+                    <div class="review-repo"><strong>trace-core</strong><small>capture-events</small><span>src/record-event.ts</span></div>
+                    <div class="review-repo"><strong>replay-ui</strong><small>timeline-player</small><span>src/playback.ts</span></div>
+                  </div>
+                </aside>
+                <div class="review-main">
+                  <div class="diff-pair">
+                    <article class="diff-panel"><header><strong>trace-core</strong><small>capture-events</small></header><div class="diff-file"><span>src/record-event.ts</span><span class="diff-stats"><b>+3</b> <b>−1</b></span></div><pre tabindex="0" aria-label="Diff for src/record-event.ts in trace-core"><code><span class="code-context" data-line="5"> import { redactCredentials } from "./secrets";</span><span class="code-context" data-line="6"> </span><span class="code-context" data-line="7"> async function recordEvent(event, sink) {</span><span class="line removed" data-line="8">−  await sink.write(JSON.stringify(event));</span><span class="line added" data-line="8">+  const safe = redactCredentials(event);</span><span class="line added" data-line="9">+  const line = JSON.stringify(safe);</span><span class="line added" data-line="10">+  await sink.write(line + "\n");</span><span class="code-context" data-line="11"> }</span></code></pre></article>
+                    <article class="diff-panel"><header><strong>replay-ui</strong><small>timeline-player</small></header><div class="diff-file"><span>src/playback.ts</span><span class="diff-stats"><b>+3</b> <b>−1</b></span></div><pre tabindex="0" aria-label="Diff for src/playback.ts in replay-ui"><code><span class="code-context" data-line="9"> import type { ToolEvent } from "./types";</span><span class="code-context" data-line="10"> </span><span class="code-context" data-line="11"> function replay(events, timeline) {</span><span class="line removed" data-line="12">−  return runTools(events);</span><span class="line added" data-line="12">+  for (const event of events) {</span><span class="line added" data-line="13">+    timeline.append(event);</span><span class="line added" data-line="14">+  }</span><span class="code-context" data-line="15"> }</span></code></pre></article>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <dialog id="review-demo-sheet" class="review-demo-sheet" aria-labelledby="review-demo-sheet-title">
+              <h4 id="review-demo-sheet-title">Fix with an agent</h4>
+              <p>Prefills a chat. Nothing is sent or pushed.</p>
+              <p class="review-demo-sheet-target" id="review-demo-sheet-target"></p>
+              <label for="review-demo-note">Add a note (optional)</label>
+              <textarea id="review-demo-note" rows="3" placeholder="For example: keep the public API unchanged"></textarea>
+              <div class="review-demo-sheet-actions"><button type="button" id="review-demo-sheet-cancel">Cancel</button><button type="button" id="review-demo-sheet-open" class="primary">Open in chat</button></div>
+            </dialog>
+          </article>
+        </div>
+      </section>
+
+      <section class="feature" id="attack" data-layout="right" data-scene="attack" aria-labelledby="attack-heading">
+        <div class="feature-copy">
+          <h2 id="attack-heading">Attack what you built</h2>
+          <p>Point a lead agent and its helpers at an app you are running locally. They click through it, look for bugs and leaked secrets, and report findings as they go, with repro steps and evidence.</p>
+          <p>Each agent gets a tile with a live preview. Set a time and token budget, pause or stop at any point, and send a finding to a Fix it agent. Switch the board to Terminal, Browser, Visualize, or Desktop (macOS) to follow the run, and open Audit for a log of what each agent did and spent.</p>
+          <p class="caveat">Browser tabs are limited to localhost and one host you name. Agents are told to read only, but their shell is not sandboxed, so run it against something you can afford to break.</p>
+        </div>
+        <div class="scene wide-scene">
+          <article class="float-panel attack-demo" aria-label="Sample Attack run with agent tiles and findings">
+            <header><svg aria-hidden="true"><use href="#icon-shield"/></svg><strong>Attack</strong><span class="small-muted">Sample run · localhost:3000</span></header>
+            <div class="ad-runbar"><span class="ad-live"><i></i>Running</span><span>04:12 of 15:00</span><span>38k of 100k tokens</span><span class="ad-spacer"></span><button type="button" class="sd-btn" data-ad-run aria-pressed="false">Pause</button><button type="button" class="sd-btn" disabled>Stop</button></div>
+            <div class="seg ad-subviews" role="group" aria-label="Board view">
+              <button type="button" data-ad-view="overview" aria-pressed="true">Overview</button>
+              <button type="button" data-ad-view="terminal" aria-pressed="false">Terminal</button>
+              <button type="button" data-ad-view="browser" aria-pressed="false">Browser</button>
+              <button type="button" data-ad-view="visualize" aria-pressed="false">Visualize</button>
+              <button type="button" data-ad-view="desktop" aria-pressed="false">Desktop</button>
+              <button type="button" data-ad-view="audit" aria-pressed="false">Audit</button>
+            </div>
+            <div class="ad-body">
+              <div class="ad-board">
+                <div data-ad-panel="overview" class="ad-tiles">
+                  <article class="ad-tile"><strong>UI QA and chaos</strong><small>Lead</small><div class="ad-preview"><b>Sign up</b><i></i><i></i><em>Create account</em></div><span class="agent-status"><i></i><span>Working</span></span></article>
+                  <article class="ad-tile"><strong>Secrets and config auditor</strong><small>Helper</small><div class="ad-preview"><code>.env.example</code><i></i><i></i></div><span class="agent-status"><i></i><span>Working</span></span></article>
+                </div>
+                <pre data-ad-panel="terminal" hidden tabindex="0" aria-label="Sample terminal output">$ curl -s localhost:3000/api/cart
+{"items":[],"total":null}
+$ grep -rn "sk-" .env.example
+.env.example:2:API_KEY=sk-demo-not-a-real-key</pre>
+                <div data-ad-panel="browser" hidden class="ad-browser"><div class="ad-url">localhost:3000/checkout</div><div class="ad-preview big"><b>Checkout</b><i></i><em>Pay</em><p class="err-text">TypeError: total is undefined</p></div></div>
+                <div data-ad-panel="visualize" hidden class="ad-viz" role="img" aria-label="Findings by severity: 1 high, 2 medium, 1 low"><div><span>High</span><b style="--w:25%"></b>1</div><div><span>Medium</span><b style="--w:50%"></b>2</div><div><span>Low</span><b style="--w:25%"></b>1</div></div>
+                <dl data-ad-panel="desktop" hidden class="ad-access"><div><dt>Accessibility</dt><dd>Granted</dd></div><div><dt>Screen</dt><dd>Granted</dd></div><div><dt>Input</dt><dd>Granted</dd></div></dl>
+                <table data-ad-panel="audit" hidden class="ad-audit"><thead><tr><th>Agent</th><th>Action</th><th>Detail</th></tr></thead><tbody><tr><td>UI QA</td><td>Navigate</td><td>localhost:3000/checkout</td></tr><tr><td>UI QA</td><td>Click</td><td>Pay</td></tr><tr><td>Auditor</td><td>Shell</td><td>grep -rn "sk-" .env.example</td></tr></tbody></table>
+              </div>
+              <div class="ad-findings">
+                <small>Findings</small>
+                <button type="button" class="ad-finding" aria-pressed="true" data-ad-finding="0"><span class="sev high">High</span><strong>Pay button throws on an empty cart</strong></button>
+                <button type="button" class="ad-finding" aria-pressed="false" data-ad-finding="1"><span class="sev med">Medium</span><strong>Sign-up accepts an empty email</strong></button>
+                <button type="button" class="ad-finding" aria-pressed="false" data-ad-finding="2"><span class="sev low">Low</span><strong>Key-shaped value in .env.example</strong></button>
+                <div class="ad-detail" id="ad-detail" aria-live="polite"></div>
+              </div>
             </div>
           </article>
         </div>
       </section>
 
-      <section class="feature mobile-feature" id="mobile" data-layout="right" aria-labelledby="mobile-heading">
+      <section class="feature mobile-feature" id="mobile" data-layout="right" data-scene="mobile" aria-labelledby="mobile-heading">
         <div class="feature-copy">
-          <h2 id="mobile-heading">Pick up a chat on your phone</h2>
-          <p>Pair over Wi-Fi to send a follow-up and see the same task board.</p>
+          <h2 id="mobile-heading">Pick it up on your phone</h2>
+          <p>Pimi for Android is a companion to the desktop app. Your agents keep running on your computer; the phone connects to it so you can read a chat, send a follow-up, and check the task board.</p>
+          <div class="pair-options">
+            <p><strong>Same Wi-Fi.</strong> Scan the QR code in Settings → Pair a device.</p>
+            <p><strong>From anywhere.</strong> Run your own relay on a server you control and pair through it. The connection is encrypted end to end between your phone and your computer. The relay passes the traffic along and cannot read it; it sees IP addresses, timing, and message sizes.</p>
+          </div>
+          <p class="fine">Keep the pairing code private, set a daemon password, and keep the computer awake.</p>
+          <p class="fine link-row"><a href="https://github.com/1ikeadragon/pimi/blob/main/docs/self-hosted-relay.md">Set up a relay</a> <a href="https://github.com/1ikeadragon/pimi/blob/main/SECURITY.md#relay-threat-model">How the encryption works</a> <a href="https://github.com/1ikeadragon/pimi/blob/main/public-docs/connectivity.md#tailscale">Use Tailscale instead</a></p>
         </div>
-        <figure class="scene mobile-scene">
+        <div class="scene mobile-scene">
           <div class="mobile-device">
-            <video id="mobile-video" muted loop playsinline preload="none"
-              poster="showcase/android-light.webp"
-              data-dark-poster="showcase/android-dark.webp"
+            <video id="mobile-video" muted loop playsinline preload="none" width="540" height="1080"
+              data-poster="showcase/android-light.webp?v=2"
+              data-dark-poster="showcase/android-dark.webp?v=2"
               data-dark-src="showcase/android-dark.mp4"
               aria-label="Pimi for Android recording showing a chat follow-up and the linked task">
               <source src="showcase/android-light.mp4" type="video/mp4">
               <a href="showcase/android-light.mp4">Watch Pimi for Android</a>
             </video>
+            <button type="button" class="rm-play">Play video</button>
           </div>
-        </figure>
+          <figure class="relay-diagram" aria-label="Phone to your computer through a relay you run, encrypted end to end">
+            <svg viewBox="0 0 520 150" role="img" aria-labelledby="relay-title"><title id="relay-title">Your phone connects to your computer through a relay on your server. The connection is encrypted end to end, so the relay sees ciphertext only.</title>
+              <g class="rd-box"><rect x="4" y="40" width="130" height="62" rx="10"/><rect x="195" y="40" width="130" height="62" rx="10"/><rect x="386" y="40" width="130" height="62" rx="10"/></g>
+              <g class="rd-arrow"><path d="M136 71h57m-9-6 9 6-9 6M325 71h-0m0 0h59m-9-6 9 6-9 6"/></g>
+              <g class="rd-text" text-anchor="middle"><text x="69" y="76">Phone</text><text x="260" y="68">Relay</text><text x="260" y="86" class="rd-small">your server</text><text x="451" y="76">Your computer</text><text x="165" y="30" class="rd-small">encrypted</text><text x="355" y="30" class="rd-small">encrypted</text><text x="260" y="124" class="rd-small">sees ciphertext only</text></g>
+            </svg>
+            <figcaption class="pair-sheet"><strong>Pair a device</strong><span class="pair-choice" aria-current="true">Same Wi-Fi</span><span class="pair-choice">Relay · end-to-end encrypted, scan a QR code</span><span class="pair-placeholder" aria-hidden="true">Not a QR code</span><small>Placeholder. The real code is shown only in Settings on your computer.</small></figcaption>
+          </figure>
+        </div>
       </section>
 
       <section class="feature" id="memory" data-scene="memory" aria-labelledby="memory-heading">
@@ -439,7 +587,7 @@
       <section class="feature" id="automations" data-scene="automations" aria-labelledby="automations-heading">
         <div class="feature-copy">
           <h2 id="automations-heading">Let the routine work run on a schedule</h2>
-          <p>Every Friday, an agent replays the fixtures and checks that redaction and event order still work.</p>
+          <p>Every Friday, an agent replays the fixtures and checks that redaction and event order still work. Chain steps and checks when one agent is not enough.</p>
         </div>
         <div class="scene automation-scene">
           <article class="float-panel automation-panel">
@@ -540,9 +688,42 @@
           </article>
         </div>
       </section>
+      <section class="feature" id="pimi" data-scene="pimi" aria-labelledby="pimi-heading">
+        <div class="feature-copy">
+          <h2 id="pimi-heading">Meet Pimi</h2>
+          <p>Pimi sits in the chat while an agent works, and listens when you ask Pimi something. Go on, pet her.</p>
+        </div>
+        <div class="scene pimi-scene"><button type="button" class="pet pet-large" aria-label="Pet Pimi">
+          <svg viewBox="0 0 128 118" aria-hidden="true">
+            <ellipse cx="67" cy="108" rx="45" ry="6" fill="currentColor" opacity=".09"/>
+            <g class="pet-tail">
+              <path d="M92 95c20-8 32-25 24-40-5-9-16-10-23-5 8 0 12 8 6 13-5 3-9 1-11-5-4 8-2 17 4 23Z" fill="#f2eadb" stroke="#252326" stroke-width="1.9" stroke-linejoin="round"/>
+              <path d="M105 53c7 4 7 11 3 17-3 4-7 6-12 7" fill="none" stroke="#fffdf8" stroke-width="2.2" stroke-linecap="round"/>
+            </g>
+            <path d="M35 71c-12 8-15 22-7 31 4 4 17 5 23 2 9 5 29 4 37 0 10 2 17-3 17-9-1-10-9-21-21-28Z" fill="#f5eee2" stroke="#252326" stroke-width="1.9"/>
+            <path d="M48 71c-9 6-14 15-9 24 3 6 8 6 13 9l6-5 6 5 7-6c10-5 11-17 4-26Z" fill="#fffefa"/>
+            <path d="M33 103c4-3 10-3 14-1m35 2c4-3 9-3 14-1" fill="none" stroke="#383433" stroke-width="1.5" stroke-linecap="round"/>
+            <g class="pet-head">
+              <path d="M34 41c-2-7-1-20 3-29 7 3 14 9 17 15 6-2 12-2 18 0 5-7 11-12 18-14 4 9 4 20 1 29 7 5 11 12 9 20l-4-1 2 7-6-1-1 6-6-1c-6 8-14 11-22 9-10 2-18-1-24-8l-7 2-1-6-6 1 3-7-5 1c-1-9 4-17 11-23Z" fill="#fffefa" stroke="#252326" stroke-width="1.9" stroke-linejoin="round"/>
+              <path d="M39 21c-1 6-1 12 1 17l10-6c-3-5-6-8-11-11Zm48 1c1 6 0 12-2 17l-9-6c3-5 7-9 11-11Z" fill="#ded0bf"/>
+              <path d="M32 59c4-4 11-6 17-3 5 2 9 0 14-4 5 4 9 6 14 4 7-3 14 0 17 4l-5 9-6-1c-4 6-11 10-20 9-11 1-16-3-21-9l-6 1Z" fill="#f3ecdf"/>
+              <path d="M48 40q6-4 12-4m6 0q7 0 12 4" fill="none" stroke="#e2d8c9" stroke-width="2" stroke-linecap="round"/>
+              <g class="pet-eyes" fill="#252326"><ellipse cx="47" cy="51" rx="3.3" ry="4"/><ellipse cx="79" cy="51" rx="3.3" ry="4"/><circle cx="48" cy="50" r="1" fill="#fffefa"/><circle cx="80" cy="50" r="1" fill="#fffefa"/></g>
+              <path class="pet-happy-eyes" d="M43 52q4-5 8 0m24 0q4-5 8 0" fill="none" stroke="#252326" stroke-width="2" stroke-linecap="round"/>
+              <path d="M58 59q5-3 10 0c1 3-2 6-5 6s-6-3-5-6Z" fill="#252326"/>
+              <path class="pet-mouth" d="M54 65q4 5 9 1 5 4 9-1" fill="none" stroke="#383433" stroke-width="1.5" stroke-linecap="round"/>
+              <g class="pet-smile"><path d="M53 65q10 7 20 0c0 9-4 13-10 13s-10-4-10-13Z" fill="#302c2d"/><path d="M58 74q5-5 10 0-5 6-10 0Z" fill="#d7c7bc"/></g>
+            </g>
+            <path class="pet-heart" d="M105 26c-11-7-4-15 0-10 4-5 11 3 0 10Z" fill="currentColor"/>
+          </svg>
+        </button></div>
+      </section>
+
       <p class="setup-note">Connect the providers you use, import an existing session, and check for harness updates in Settings.</p>
     </div>
     <svg class="demo-icons" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+      <symbol id="icon-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="6"/><path d="m20 20-4.5-4.5"/></symbol>
+      <symbol id="icon-shield" viewBox="0 0 24 24"><path d="M12 3 5 6v5c0 5 3 8 7 10 4-2 7-5 7-10V6Z"/></symbol>
       <symbol id="icon-grid" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></symbol>
       <symbol id="provider-opencode" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M13 14H3V2H13V14ZM10.5 4.4H5.5V11.6H10.5V4.4Z"/></symbol>
       <symbol id="icon-copy" viewBox="0 0 24 24"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"/></symbol>
@@ -566,14 +747,17 @@
     </svg>
 
     <div class="site-bottom wrap">
-      <details class="install" id="install">
-        <summary>Installation</summary>
-        <div class="install-content">
-          <p><strong>macOS 13+ · Apple silicon.</strong> Drag Pimi into Applications. The app is ad-hoc signed and isn’t notarized by Apple.</p>
-          <p><a href="https://support.apple.com/en-us/102445">First-launch help</a></p>
-          <p><a href="https://github.com/1ikeadragon/pimi/releases/latest/download/SHA256SUMS.txt">Checksums</a><a href="https://github.com/1ikeadragon/pimi/releases/latest">Release notes</a></p>
-        </div>
-      </details>
+      <section class="install" id="install" aria-labelledby="install-heading">
+        <h2 id="install-heading">Install</h2>
+        <dl class="install-list">
+          <div><dt>macOS</dt><dd>macOS 13 or later, Apple silicon. Drag Pimi into Applications. The app is ad-hoc signed and not notarized by Apple, so the first launch needs one extra step. <a href="https://support.apple.com/en-us/102445">First-launch help</a></dd></div>
+          <div><dt>Android</dt><dd>Android 10 or later, arm64. Install the APK, then pair it to Pimi on your computer. <a href="https://github.com/1ikeadragon/pimi/blob/main/docs/android.md#pimi-apk">Android notes</a></dd></div>
+          <div><dt>Verify</dt><dd><a href="https://github.com/1ikeadragon/pimi/releases/latest/download/SHA256SUMS.txt">Checksums</a> <a href="https://github.com/1ikeadragon/pimi/releases/latest">Release notes</a></dd></div>
+          <div><dt>Build it yourself</dt><dd><code>npm ci</code>, <code>npm run setup</code>, <code>npm run pimi:package:mac</code>. <a href="https://github.com/1ikeadragon/pimi#build-from-source">Build from source</a></dd></div>
+          <div><dt>Open source</dt><dd>Pimi is free and open source under Apache 2.0, and it stays that way. It began as a fork of <a href="https://github.com/getpaseo/paseo">Paseo</a>. <a href="https://github.com/1ikeadragon/pimi">Source</a> <a href="LICENSE.txt">License</a> <a href="https://github.com/1ikeadragon/pimi/blob/main/SECURITY.md">Security and network activity</a></dd></div>
+          <div><dt>Coming from Paseo?</dt><dd><a href="https://github.com/1ikeadragon/pimi/blob/main/docs/paseo-migration.md">Keep your sessions and plugins</a></dd></div>
+        </dl>
+      </section>
       <footer>
         <a href="https://github.com/1ikeadragon/pimi">GitHub</a>
         <a href="https://x.com/iminurputer">Twitter / X</a>
