@@ -137,7 +137,7 @@ async function createPlayer(host, entries, {hero=false,live=true,lazy=false}={})
   const events=new AbortController();
   const timers=new Set();
   const motionTimers=new Set();
-  let current, index=0, visible=false, destroyed=false, manual=false, active=false, generation=0, timer;
+  let current, index=0, requestedIndex=0, visible=false, destroyed=false, manual=false, active=false, generation=0, timer;
   let started=!lazy;
   const frames=new Set();
   let scale=1;
@@ -183,6 +183,7 @@ async function createPlayer(host, entries, {hero=false,live=true,lazy=false}={})
   function remove(frame){frames.delete(frame);frame.node.remove();}
   async function show(next, {instant=false}={}){
     started=true;
+    requestedIndex=next;
     const request=++generation;
     clearClock();clearMotion();
     let incoming;
@@ -232,7 +233,9 @@ async function createPlayer(host, entries, {hero=false,live=true,lazy=false}={})
   const preload=lazy?new IntersectionObserver(entries=>{if(entries[0].isIntersecting){ensureInitial();preload.disconnect();}},{rootMargin:'500px 0px'}):null;
   preload?.observe(host);
   const intersection=new IntersectionObserver(entries=>{visible=entries[0].isIntersecting;if(visible)ensureInitial();setActive();},{threshold:.12});intersection.observe(host);
-  const appearanceObserver=new MutationObserver(()=>{if(current)void show(index,{instant:true});});appearanceObserver.observe(document.documentElement,{attributes:true,attributeFilter:['data-theme']});
+  // Theme transitions can finish while another capture is decoding. Re-theme
+  // the requested scene, rather than restoring the previously rendered scene.
+  const appearanceObserver=new MutationObserver(()=>{if(started)void show(requestedIndex);});appearanceObserver.observe(document.documentElement,{attributes:true,attributeFilter:['data-theme']});
   if(!lazy)await show(0,{instant:true});
   return {select(id){const next=entries.findIndex(entry=>entry.id===id);if(next<0)return false;manual=true;void show(next);return true;},destroy(){destroyed=true;generation++;events.abort();resizeObserver.disconnect();intersection.disconnect();preload?.disconnect();appearanceObserver.disconnect();for(const timer of timers)clearTimeout(timer);clearMotion();for(const frame of frames)frame.node.remove();frames.clear();host.replaceChildren();host.classList.remove('rs-player');}};
 }

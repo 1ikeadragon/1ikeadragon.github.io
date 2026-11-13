@@ -1,7 +1,6 @@
-import { mountRealHero, mountRealFeatures } from './real-showcase.js?v=39';
+import { mountRealHero, mountRealFeatures } from './real-showcase.js?v=42';
 
 const root = document.documentElement;
-const motion = window.matchMedia('(prefers-reduced-motion: reduce)');
 const systemTheme = window.matchMedia('(prefers-color-scheme: dark)');
 const themeButton = document.querySelector('.theme-toggle');
 
@@ -24,9 +23,7 @@ applyTheme(['dark', 'light'].includes(savedTheme) ? savedTheme : systemTheme.mat
 themeButton.hidden = false;
 themeButton.addEventListener('click', () => {
   const theme = root.dataset.theme === 'dark' ? 'light' : 'dark';
-  if (!motion.matches && document.startViewTransition) {
-    document.startViewTransition(() => applyTheme(theme));
-  } else applyTheme(theme);
+  applyTheme(theme);
   try { localStorage.setItem('pimi-site-theme', theme); }
   catch { /* Private browsing still gets the selected theme. */ }
 });
