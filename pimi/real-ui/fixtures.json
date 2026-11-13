@@ -1,0 +1,494 @@
+{
+  "spaces": {
+    "items": [
+      {
+        "id": "8f005048-440b-42c1-a002-503c2aa4fc79",
+        "updatedAt": "2026-11-13T17:57:42.846Z",
+        "kind": "link",
+        "url": "https://arxiv.org/abs/2610.18933",
+        "embedUrl": "https://arxiv.org/html/2610.18933",
+        "preview": {
+          "title": "The Agentic Scientist: Orchestrating Coding Agents for Automated Scientific (Co-)Discovery",
+          "text": "Computer Science > Artificial Intelligence\n\narXiv:2610.18933 (cs)\n\n[Submitted on 13 Oct 2026]\n\nTitle:The Agentic Scientist: Orchestrating Coding Agents for Automated Scientific (Co-)Discovery\n\nAuthors:Robert Tjarko Lange, Luca Grillotti, Yutaro Yamada, Rujikorn Charakorn, David Ha\n\nView PDF\nHTML (experimental)\n\nAbstract:Modern coding agents are fundamentally reshaping the role of human input for computational research: they write code, launch in silico experiments, analyze their results, and autonomously operate with ever-increasing time horizons. Despite these developments, fully autonomous research agents suffer from a limited ideation radius and myopic hill-climbing search dynamics. To bridge this gap, we introduce The Agentic Scientist, an end-to-end distributed pipeline for human researchers to conduct computational research alongside modern coding agents. Building on its predecessor, our system decomposes research into task drafting, idea generation, planning, sandboxed experimentation, result aggregation, baseline and ablation construction, post-hoc analysis, and report writing. Importantly, each step in the pipeline is powered by the next generation of coding agents and leverages agentic self-verification. The overall research process is driven by a meta-controller that manages parallel research agents and enforces rubric verification at each stage. This design enables the same orchestration layer to be reused across heterogeneous domains with different execution environments, agentic coding harnesses, and evaluation metrics. Our system can be used across a spectrum of autonomy: either as a co-scientist tool or to perform end-to-end scientific investigation. Within the co-scientist setting, we leveraged a development version of our system to submit a single research paper, which got accepted for publication at ALIFE 2026. We further apply The Agentic Scientist fully autonomously to open problem-solving tasks in machine learning, and demonstrate the system's capability of scientific discovery across different domains of computational research. Our ablations suggest that reliable scientific autonomy depends not only on base model capabilities, but also on the cross-agent orchestration layer.\n\nComments:\n\n88 pages\n\nSubjects:\n\nArtificial Intelligence (cs.AI); Computation and Language (cs.CL); Machine Learning (cs.LG)\n\nCite as:\n\narXiv:2610.18933 [cs.AI]\n\n(or\narXiv:2610.18933v1 [cs.AI] for this version)\n\nhttps://doi.org/10.48550/arXiv.2610.18933\n\nFocus to learn more\n\narXiv-issued DOI via DataCite\n\nSubmission history\nFrom: Robert Tjarko Lange [view email]\n[v1]\nTue, 13 Oct 2026 11:28:03 UTC (30,709 KB)\n\nFull-text links:\n\nAccess Paper:\n\nView PDF\n\nHTML (experimental)\n\nTeX Source\n\nview license\n\nAdditional Features\n\nAudio Summary\n\nCurrent browse context:\n\ncs.AI\n\n< prev\n\n|\nnext >\n\nnew\n|\nrecent\n| 2026-10\n\nChange to browse by:\n\ncs\n\ncs.CL\n\ncs.LG\n\nReferences & Citations\n\nSciX\n\nGoogle Scholar\n\nSemantic Scholar\n\nexport BibTeX citation\n\nBookmark\n\nBibliographic Tools\n\nBibliographic and Citation Tools\n\nBibliographic Explorer Toggle\n\nBibliographic Explorer (What is the Explorer?)\n\nConnected Papers Toggle\n\nConnected Papers (What is Connected Papers?)\n\nLitmaps Toggle\n\nLitmaps (What is Litmaps?)\n\nscite.ai Toggle\n\nscite Smart Citations (What are Smart Citations?)\n\nCode, Data, Media\n\nCode, Data and Media Associated with this Article\n\nalphaXiv Toggle\n\nalphaXiv (What is alphaXiv?)\n\nLinks to Code Toggle\n\nCatalyzeX Code Finder for Papers (What is CatalyzeX?)\n\nDagsHub Toggle\n\nDagsHub (What is DagsHub?)\n\nGotitPub Toggle\n\nGotit.pub (What is GotitPub?)\n\nHuggingface Toggle\n\nHugging Face (What is Huggingface?)\n\nScienceCast Toggle\n\nScienceCast (What is ScienceCast?)\n\nDemos\n\nDemos\n\nReplicate Toggle\n\nReplicate (What is Replicate?)\n\nSpaces Toggle\n\nHugging Face Spaces (What is Spaces?)\n\nSpaces Toggle\n\nTXYZ.AI (What is TXYZ.AI?)\n\nRelated Papers\n\nRecommenders and Search Tools\n\nLink to Influence Flower\n\nInfluence Flower (What are Influence Flowers?)\n\nCore recommender toggle\n\nCORE Recommender (What is CORE?)\n\nAuthor\n\nVenue\n\nInstitution\n\nTopic\n\nAbout arXivLabs\n\narXivLabs: experimental projects with community collaborators\n\narXivLabs is a framework that allows collaborators to develop and share new arXiv features directly on our website.\n\nBoth individuals and organizations that work with arXivLabs have embraced and accepted our values of openness, community, excellence, and user data privacy. arXiv is committed to these values and only works with partners that adhere to them.\n\nHave an idea for a project that will add value for arXiv's community? Learn more about arXivLabs.\n\nWhich authors of this paper are endorsers? |\nDisable MathJax (What is MathJax?)",
+          "truncated": false
+        }
+      },
+      {
+        "id": "79d1ed3f-9d64-4e54-abfc-a15b5a6479fd",
+        "updatedAt": "2026-11-13T17:57:42.845Z",
+        "kind": "link",
+        "url": "https://arxiv.org/abs/2610.14224",
+        "embedUrl": "https://arxiv.org/html/2610.14224",
+        "preview": {
+          "title": "Harness^2: Recursive Agent Harnessing for an Open World",
+          "text": "Computer Science > Artificial Intelligence\n\narXiv:2610.14224 (cs)\n\n[Submitted on 9 Oct 2026]\n\nTitle:Harness^2: Recursive Agent Harnessing for an Open World\n\nAuthors:Ruiyao Xu, Yanfei Chen, Zhongying CuiZhu, Bhavana Dalvi Mishra, Yifei Ming, Han Yu, Rujun Han, Chen-Yu Lee, Tomas Pfister\n\nView PDF\nHTML (experimental)\n\nAbstract:LLM agents' capabilities depend not only on their underlying models but also on their execution harnesses. Recursive self-improvement (RSI) offers a promising approach to automatically evolve these harnesses. However, deploying RSI in open-world settings still faces two critical challenges. First, open-world tasks are typically unseen during the harness design phase and novel at test time, leaving no ground-truth verifiers to reliably guide online harness edits. Second, the RSI process remains highly task-specific and fails to generalize to novel scenarios. We introduce Harness^2, a plug-and-play, recursive agent harnessing framework that addresses these challenges through two connected levels of recursion. Task-level recursion refines the current task's harness using a contrastive Propose-Probe-Compose step that reliably guides edits without ground-truth verifiers, and can be scaled further via parallel or sequential recursion. Harnessing-level recursion then extracts experience from these edits to update a continual improvement harness, enabling the agent to better adapt to future tasks. Across three professional benchmarks and four model-harness configurations, a single step consistently improves GLM-5 and Gemini 3.5 Flash over their base harnesses, yielding gains of up to 11.5 points on WorkBuddy-Bench, 4.5 points on JobBench, and 11.8 percentage points on LAB, with further gains as the task-level recursion budget increases.\n\nSubjects:\n\nArtificial Intelligence (cs.AI); Computation and Language (cs.CL); Machine Learning (cs.LG)\n\nCite as:\n\narXiv:2610.14224 [cs.AI]\n\n(or\narXiv:2610.14224v1 [cs.AI] for this version)\n\nhttps://doi.org/10.48550/arXiv.2610.14224\n\nFocus to learn more\n\narXiv-issued DOI via DataCite\n\nSubmission history\nFrom: Yanfei Chen [view email]\n[v1]\nFri, 9 Oct 2026 18:34:25 UTC (6,866 KB)\n\nFull-text links:\n\nAccess Paper:\n\nView PDF\n\nHTML (experimental)\n\nTeX Source\n\nview license\n\nAdditional Features\n\nAudio Summary\n\nCurrent browse context:\n\ncs.AI\n\n< prev\n\n|\nnext >\n\nnew\n|\nrecent\n| 2026-10\n\nChange to browse by:\n\ncs\n\ncs.CL\n\ncs.LG\n\nReferences & Citations\n\nSciX\n\nGoogle Scholar\n\nSemantic Scholar\n\nexport BibTeX citation\n\nBookmark\n\nBibliographic Tools\n\nBibliographic and Citation Tools\n\nBibliographic Explorer Toggle\n\nBibliographic Explorer (What is the Explorer?)\n\nConnected Papers Toggle\n\nConnected Papers (What is Connected Papers?)\n\nLitmaps Toggle\n\nLitmaps (What is Litmaps?)\n\nscite.ai Toggle\n\nscite Smart Citations (What are Smart Citations?)\n\nCode, Data, Media\n\nCode, Data and Media Associated with this Article\n\nalphaXiv Toggle\n\nalphaXiv (What is alphaXiv?)\n\nLinks to Code Toggle\n\nCatalyzeX Code Finder for Papers (What is CatalyzeX?)\n\nDagsHub Toggle\n\nDagsHub (What is DagsHub?)\n\nGotitPub Toggle\n\nGotit.pub (What is GotitPub?)\n\nHuggingface Toggle\n\nHugging Face (What is Huggingface?)\n\nScienceCast Toggle\n\nScienceCast (What is ScienceCast?)\n\nDemos\n\nDemos\n\nReplicate Toggle\n\nReplicate (What is Replicate?)\n\nSpaces Toggle\n\nHugging Face Spaces (What is Spaces?)\n\nSpaces Toggle\n\nTXYZ.AI (What is TXYZ.AI?)\n\nRelated Papers\n\nRecommenders and Search Tools\n\nLink to Influence Flower\n\nInfluence Flower (What are Influence Flowers?)\n\nCore recommender toggle\n\nCORE Recommender (What is CORE?)\n\nAuthor\n\nVenue\n\nInstitution\n\nTopic\n\nAbout arXivLabs\n\narXivLabs: experimental projects with community collaborators\n\narXivLabs is a framework that allows collaborators to develop and share new arXiv features directly on our website.\n\nBoth individuals and organizations that work with arXivLabs have embraced and accepted our values of openness, community, excellence, and user data privacy. arXiv is committed to these values and only works with partners that adhere to them.\n\nHave an idea for a project that will add value for arXiv's community? Learn more about arXivLabs.\n\nWhich authors of this paper are endorsers? |\nDisable MathJax (What is MathJax?)",
+          "truncated": false
+        }
+      },
+      {
+        "id": "636c3f07-515a-47db-807a-b87d8337c796",
+        "updatedAt": "2026-11-13T17:57:42.844Z",
+        "kind": "link",
+        "url": "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+        "embedUrl": "https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ"
+      },
+      {
+        "id": "c9121286-62a3-4020-b693-90beeb6661df",
+        "updatedAt": "2026-11-13T17:57:42.843Z",
+        "kind": "note",
+        "text": "what if failed healthchecks keep the old preview alive? no reason to break a working deploy"
+      },
+      {
+        "id": "ea29a8b4-d90b-4a81-af9f-5dda2d1f62aa",
+        "updatedAt": "2026-11-13T17:57:42.842Z",
+        "kind": "link",
+        "url": "https://x.com/iminurputer/status/2117279420377694564",
+        "embedUrl": "https://platform.twitter.com/embed/Tweet.html?id=2117279420377694564&dnt=true",
+        "preview": {
+          "title": "Debarshi",
+          "text": "been working super hard on this and so happy to see it out in the wild anddd that too on my birthday!!! :)\n\nDeep Review is more than just a PR check\n\nit goes beyond the diff to understand your application and how your team builds\n\ntalk to it, challenge it, teach it, even praise… https://t.co/WW4bOF32En",
+          "truncated": true
+        }
+      },
+      {
+        "id": "a3c8e800-4387-472e-9165-46242b6c1435",
+        "updatedAt": "2026-11-13T17:57:42.841Z",
+        "kind": "note",
+        "text": "TODO - add deep review to PRs hahaha"
+      },
+      {
+        "id": "7d819318-8c8b-48ea-beae-3e36a4175c15",
+        "updatedAt": "2026-11-13T17:57:42.840Z",
+        "kind": "note",
+        "text": "if the healthcheck flaks out keep the old preview alive. also dont let the deploy bot roast our TLS key again"
+      }
+    ]
+  },
+  "memory": {
+    "catalog": {
+      "projects": [
+        {
+          "id": "prj_ce30d88258e741a4",
+          "name": "api",
+          "root": "/tmp/pimi-real-site-20261113/repos/api",
+          "archived": false
+        },
+        {
+          "id": "prj_6c367773e702e3ff",
+          "name": "dashboard",
+          "root": "/tmp/pimi-real-site-20261113/repos/dashboard",
+          "archived": false
+        },
+        {
+          "id": "prj_a4dd258b7f1c9b8f",
+          "name": "certs",
+          "root": "/tmp/pimi-real-site-20261113/repos/certs",
+          "archived": false
+        }
+      ]
+    },
+    "scopes": {
+      "global": {
+        "notes": [
+          {
+            "key": "review-preferences",
+            "text": "Keep review comments specific. Explain what breaks, what triggers it and where.",
+            "updatedAt": "2026-11-13T17:55:42.167Z"
+          }
+        ]
+      },
+      "prj_ce30d88258e741a4": {
+        "notes": [
+          {
+            "key": "preview-environment-rules",
+            "text": "Each PR gets an isolated environment. Keep secrets scoped to that preview. Wait for a health check before switching traffic. Failed deploys keep the previous route.",
+            "updatedAt": "2026-11-13T17:55:42.169Z"
+          }
+        ]
+      },
+      "prj_6c367773e702e3ff": {
+        "notes": []
+      },
+      "prj_a4dd258b7f1c9b8f": {
+        "notes": [
+          {
+            "key": "certificate-policy",
+            "text": "Reject weak private keys before a request is submitted. Never use test fixtures for production issuance.",
+            "updatedAt": "2026-11-13T17:55:42.170Z"
+          }
+        ]
+      }
+    }
+  },
+  "board": {
+    "serverId": "srv_6ZaN-EuLpNYA",
+    "labels": [
+      {
+        "name": "preview",
+        "color": "sky"
+      },
+      {
+        "name": "security",
+        "color": "orange"
+      }
+    ],
+    "taskLabels": {
+      "f4f1a1c4-58b1-47fd-af62-c1678c128fb5": [
+        "preview"
+      ],
+      "c46178f1-59a6-4c18-8a26-6cb5b61917cb": [
+        "preview"
+      ]
+    },
+    "cards": [
+      {
+        "path": "/private/tmp/pimi-real-site-20261113/repos/api",
+        "repo": "api",
+        "head": "070ae3e888ae47f330be309eba59bb0990373d30",
+        "branch": "feat/healthy-preview",
+        "unavailable": false,
+        "root": "/private/tmp/pimi-real-site-20261113/repos/api",
+        "dirty": true,
+        "ahead": 1,
+        "name": "Preview deploys",
+        "lane": "review",
+        "agents": [
+          {
+            "id": "1f3028b2-7bdd-4789-b69d-e5e5d4f2fedd",
+            "chatUrl": "pimi://h/srv_6ZaN-EuLpNYA/agent/1f3028b2-7bdd-4789-b69d-e5e5d4f2fedd",
+            "title": "Preview deploys",
+            "provider": "codex-acp",
+            "model": "gpt",
+            "updatedAt": "2026-11-13T17:59:08.581Z",
+            "thinkingOptionId": null,
+            "cwd": "/tmp/pimi-real-site-20261113/repos/api",
+            "workspaceId": "wks_0581fc65e15d4010",
+            "status": "idle",
+            "needsInput": false
+          },
+          {
+            "id": "f92bc483-d530-4e4b-81fe-0a8aff96b735",
+            "chatUrl": "pimi://h/srv_6ZaN-EuLpNYA/agent/f92bc483-d530-4e4b-81fe-0a8aff96b735",
+            "title": "Wait for healthy preview",
+            "provider": "codex-acp",
+            "model": "gpt",
+            "updatedAt": "2026-11-13T17:55:40.854Z",
+            "thinkingOptionId": null,
+            "cwd": "/tmp/pimi-real-site-20261113/repos/api",
+            "workspaceId": "wks_0581fc65e15d4010",
+            "status": "closed",
+            "needsInput": false
+          }
+        ],
+        "workspaceId": "wks_0581fc65e15d4010",
+        "labels": [
+          "preview"
+        ],
+        "linkedLabels": [
+          "preview"
+        ],
+        "prUrl": "https://github.com/sidetrack/api/pull/42",
+        "pullRequest": {
+          "url": "https://github.com/sidetrack/api/pull/42",
+          "state": "open"
+        },
+        "taskLinks": [
+          {
+            "id": "f4f1a1c4-58b1-47fd-af62-c1678c128fb5",
+            "title": "Wait for healthy preview"
+          },
+          {
+            "id": "c46178f1-59a6-4c18-8a26-6cb5b61917cb",
+            "title": "Preview deploys"
+          }
+        ],
+        "previews": []
+      },
+      {
+        "path": "/private/tmp/pimi-real-site-20261113/repos/dashboard",
+        "repo": "dashboard",
+        "head": "8bf639c4f078819f163e6be5fbfd5e32afb49b95",
+        "branch": "feat/deploy-status",
+        "unavailable": false,
+        "root": "/private/tmp/pimi-real-site-20261113/repos/dashboard",
+        "dirty": false,
+        "ahead": 1,
+        "name": "Deploy dashboard",
+        "lane": "review",
+        "agents": [
+          {
+            "id": "acb288a5-b040-45f6-9300-c5570a69d2e4",
+            "chatUrl": "pimi://h/srv_6ZaN-EuLpNYA/agent/acb288a5-b040-45f6-9300-c5570a69d2e4",
+            "title": "Deploy status cards",
+            "provider": "claude-acp",
+            "model": "sonnet",
+            "updatedAt": "2026-11-13T17:55:41.087Z",
+            "thinkingOptionId": null,
+            "cwd": "/tmp/pimi-real-site-20261113/repos/dashboard",
+            "workspaceId": "wks_6b6174680397c0e2",
+            "status": "closed",
+            "needsInput": false
+          }
+        ],
+        "workspaceId": "wks_6b6174680397c0e2",
+        "labels": [
+          "preview"
+        ],
+        "linkedLabels": [
+          "preview"
+        ],
+        "taskLinks": [
+          {
+            "id": "c46178f1-59a6-4c18-8a26-6cb5b61917cb",
+            "title": "Preview deploys"
+          }
+        ],
+        "previews": []
+      },
+      {
+        "path": "/private/tmp/pimi-real-site-20261113/repos/certs",
+        "repo": "certs",
+        "head": "6ddc0a2e1a9df223b06b166e67eb0beab1eba045",
+        "branch": "fix/reject-weak-keys",
+        "unavailable": false,
+        "root": "/private/tmp/pimi-real-site-20261113/repos/certs",
+        "dirty": false,
+        "ahead": 1,
+        "name": "Certificate guard",
+        "lane": "review",
+        "agents": [
+          {
+            "id": "ba2a3eb8-a2f9-407f-9618-2bcbf3abacf5",
+            "chatUrl": "pimi://h/srv_6ZaN-EuLpNYA/agent/ba2a3eb8-a2f9-407f-9618-2bcbf3abacf5",
+            "title": "Reject weak TLS keys",
+            "provider": "claude-acp",
+            "model": "sonnet",
+            "updatedAt": "2026-11-13T17:55:41.619Z",
+            "thinkingOptionId": null,
+            "cwd": "/tmp/pimi-real-site-20261113/repos/certs",
+            "workspaceId": "wks_8f9eba3fb2cd73fe",
+            "status": "closed",
+            "needsInput": false
+          }
+        ],
+        "workspaceId": "wks_8f9eba3fb2cd73fe",
+        "labels": [
+          "security"
+        ],
+        "linkedLabels": [],
+        "taskLinks": [],
+        "previews": []
+      }
+    ],
+    "repositories": [
+      {
+        "path": "/private/tmp/pimi-real-site-20261113/repos/api",
+        "name": "api"
+      },
+      {
+        "path": "/private/tmp/pimi-real-site-20261113/repos/dashboard",
+        "name": "dashboard"
+      },
+      {
+        "path": "/private/tmp/pimi-real-site-20261113/repos/certs",
+        "name": "certs"
+      },
+      {
+        "path": "/tmp/pimi-real-site-20261113/repos/api",
+        "name": "api"
+      },
+      {
+        "path": "/tmp/pimi-real-site-20261113/repos/dashboard",
+        "name": "dashboard"
+      },
+      {
+        "path": "/tmp/pimi-real-site-20261113/repos/certs",
+        "name": "certs"
+      }
+    ],
+    "otherAgents": [],
+    "warnings": [],
+    "native": true
+  },
+  "tasks": {
+    "tasks": [
+      {
+        "title": "Capture failed deploy logs",
+        "brief": "Keep failed build output beside the preview health check so the dashboard can explain what went wrong.",
+        "labels": [
+          "preview"
+        ],
+        "root": "/private/tmp/pimi-real-site-20261113/repos/dashboard",
+        "mode": "chat",
+        "id": "509be81e-2497-48a7-8f79-d153488ad1b0",
+        "base": "8bf639c4f078819f163e6be5fbfd5e32afb49b95",
+        "repositories": [
+          {
+            "root": "/private/tmp/pimi-real-site-20261113/repos/dashboard",
+            "base": "8bf639c4f078819f163e6be5fbfd5e32afb49b95"
+          }
+        ],
+        "done": false,
+        "stage": "ready",
+        "source": {
+          "serverId": "srv_6ZaN-EuLpNYA",
+          "agentId": "1f3028b2-7bdd-4789-b69d-e5e5d4f2fedd"
+        },
+        "experiments": []
+      },
+      {
+        "title": "Reject weak TLS keys",
+        "brief": "Keep the deliberately weak private_key: 4 fixture away from certificate issuance.",
+        "labels": [
+          "security"
+        ],
+        "root": "/private/tmp/pimi-real-site-20261113/repos/certs",
+        "mode": "chat",
+        "id": "3bdcd4da-7efb-4c89-b41e-92fc7b7cddc1",
+        "base": "6ddc0a2e1a9df223b06b166e67eb0beab1eba045",
+        "repositories": [
+          {
+            "root": "/private/tmp/pimi-real-site-20261113/repos/certs",
+            "base": "6ddc0a2e1a9df223b06b166e67eb0beab1eba045"
+          }
+        ],
+        "done": true,
+        "stage": "done",
+        "source": {
+          "serverId": "srv_6ZaN-EuLpNYA",
+          "agentId": "1f3028b2-7bdd-4789-b69d-e5e5d4f2fedd"
+        },
+        "experiments": [],
+        "completedAt": "2026-11-13T18:14:30.627Z"
+      },
+      {
+        "title": "Write deploy quickstart",
+        "brief": "Explain how to create a preview and read its build logs.",
+        "labels": [
+          "preview"
+        ],
+        "root": "/private/tmp/pimi-real-site-20261113/repos/dashboard",
+        "mode": "chat",
+        "id": "5fb67ae9-2d30-4fad-9fc4-b00c40527f5e",
+        "base": "8bf639c4f078819f163e6be5fbfd5e32afb49b95",
+        "repositories": [
+          {
+            "root": "/private/tmp/pimi-real-site-20261113/repos/dashboard",
+            "base": "8bf639c4f078819f163e6be5fbfd5e32afb49b95"
+          }
+        ],
+        "done": false,
+        "stage": "backlog",
+        "source": {
+          "serverId": "srv_6ZaN-EuLpNYA",
+          "agentId": "1f3028b2-7bdd-4789-b69d-e5e5d4f2fedd"
+        },
+        "experiments": []
+      },
+      {
+        "title": "Wait for healthy preview",
+        "brief": "Switch traffic only after the preview passes its health check.",
+        "labels": [
+          "preview"
+        ],
+        "root": "/private/tmp/pimi-real-site-20261113/repos/api",
+        "mode": "chat",
+        "id": "f4f1a1c4-58b1-47fd-af62-c1678c128fb5",
+        "base": "070ae3e888ae47f330be309eba59bb0990373d30",
+        "repositories": [
+          {
+            "root": "/private/tmp/pimi-real-site-20261113/repos/api",
+            "base": "070ae3e888ae47f330be309eba59bb0990373d30"
+          }
+        ],
+        "done": false,
+        "stage": "review",
+        "source": {
+          "serverId": "srv_6ZaN-EuLpNYA",
+          "agentId": "1f3028b2-7bdd-4789-b69d-e5e5d4f2fedd"
+        },
+        "experiments": [
+          {
+            "title": "Health check guard",
+            "hypothesis": "Keep the last healthy route on failure.",
+            "id": "47c1a724-8ff2-4558-bfa9-b383f1c87b89",
+            "root": "/private/tmp/pimi-real-site-20261113/repos/api",
+            "path": "/private/tmp/pimi-real-site-20261113/repos/api",
+            "workspaceId": "wks_0581fc65e15d4010",
+            "pullRequest": {
+              "url": "https://github.com/sidetrack/api/pull/42",
+              "state": "open"
+            },
+            "launch": null,
+            "error": null,
+            "report": "",
+            "reportSource": null,
+            "reportTruncated": false
+          }
+        ]
+      },
+      {
+        "title": "Preview deploys",
+        "brief": "Give every PR an isolated environment. Codex handles the API and Claude handles the dashboard.",
+        "labels": [
+          "preview"
+        ],
+        "root": "/private/tmp/pimi-real-site-20261113/repos/api",
+        "mode": "chat",
+        "id": "c46178f1-59a6-4c18-8a26-6cb5b61917cb",
+        "base": "070ae3e888ae47f330be309eba59bb0990373d30",
+        "repositories": [
+          {
+            "root": "/private/tmp/pimi-real-site-20261113/repos/api",
+            "base": "070ae3e888ae47f330be309eba59bb0990373d30"
+          },
+          {
+            "root": "/private/tmp/pimi-real-site-20261113/repos/dashboard",
+            "base": "8bf639c4f078819f163e6be5fbfd5e32afb49b95"
+          }
+        ],
+        "done": false,
+        "stage": "in-progress",
+        "source": {
+          "serverId": "srv_6ZaN-EuLpNYA",
+          "agentId": "1f3028b2-7bdd-4789-b69d-e5e5d4f2fedd"
+        },
+        "experiments": [
+          {
+            "title": "Preview API",
+            "hypothesis": "Wait for a healthy preview before switching traffic.",
+            "id": "c8c804b7-2ea6-48fb-8ec5-534d2be9c9ec",
+            "root": "/private/tmp/pimi-real-site-20261113/repos/api",
+            "path": "/private/tmp/pimi-real-site-20261113/repos/api",
+            "workspaceId": "wks_0581fc65e15d4010",
+            "pullRequest": {
+              "url": "https://github.com/sidetrack/api/pull/42",
+              "state": "open"
+            },
+            "launch": null,
+            "error": null,
+            "report": "",
+            "reportSource": null,
+            "reportTruncated": false
+          },
+          {
+            "title": "Dashboard status cards",
+            "hypothesis": "Follow build, health and live deploy status.",
+            "id": "de2ea273-7c14-4cae-bac1-9cc72450d1d8",
+            "root": "/private/tmp/pimi-real-site-20261113/repos/dashboard",
+            "path": "/private/tmp/pimi-real-site-20261113/repos/dashboard",
+            "workspaceId": "wks_6b6174680397c0e2",
+            "launch": null,
+            "error": null,
+            "report": "",
+            "reportSource": null,
+            "reportTruncated": false
+          }
+        ]
+      }
+    ]
+  },
+  "assets": {
+    "/api/spaces/poster?v=dQw4w9WgXcQ": "./assets/2fc77b4a0620f5dc.jpg"
+  }
+}

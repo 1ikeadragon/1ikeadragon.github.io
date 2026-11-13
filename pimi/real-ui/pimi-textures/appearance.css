@@ -1,0 +1,120 @@
+/* Shared by Pimi's desktop shell and its loopback workspace. */
+:root[data-appearance] {
+  --pimi-ink: url("./blush.svg");
+  --pimi-ink-size: clamp(440px, 77%, 1080px) auto;
+  --pimi-ink-position: right -16px bottom -52px;
+  --pimi-material: url("./paper.svg");
+}
+
+:root[data-appearance="paper"],
+:root[data-appearance="ayu-light"] {
+  --pimi-ink: none;
+}
+
+:root[data-appearance="dark"] {
+  --pimi-ink: radial-gradient(ellipse at 84% 14%, #aca9b209, transparent 76%);
+  --pimi-ink-size: 100% 100%;
+  --pimi-ink-position: center;
+  --pimi-material: url("./graphite.svg");
+}
+
+:root[data-appearance="one-dark"],
+:root[data-appearance="nord"],
+:root[data-appearance="gruvbox"],
+:root[data-appearance="catppuccin-mocha"] {
+  --pimi-ink: none;
+  --pimi-material: url("./graphite.svg");
+}
+
+:root[data-appearance="sakura"] {
+  --pimi-ink:
+    url("./sakura.svg"), radial-gradient(ellipse at 95% 9%, #e7b9e66b, transparent 70%);
+  --pimi-ink-size: min(100%, 1160px) auto, 100% 100%;
+  --pimi-ink-position: right bottom, center;
+  --pimi-glass: #fff7f9bb;
+}
+
+:root[data-appearance="cel-night"] {
+  --pimi-ink:
+    url("./cel-night.svg"),
+    radial-gradient(ellipse at 88% 17%, #7279b939, transparent 72%);
+  --pimi-ink-size: min(100%, 1160px) auto, 100% 100%;
+  --pimi-ink-position: right bottom, center;
+  --pimi-material: url("./graphite.svg");
+  --pimi-glass: #262945cc;
+}
+
+:root:is([data-appearance="sakura"], [data-appearance="cel-night"]) [data-pimi-background] {
+  background-position:
+    var(--pimi-ink-position),
+    top left;
+  background-size: var(--pimi-ink-size), auto;
+  background-repeat: no-repeat, no-repeat, repeat;
+}
+
+@media (prefers-contrast: no-preference) and (forced-colors: none) {
+  :root:is([data-appearance="sakura"], [data-appearance="cel-night"]) [data-pimi-glass] {
+    background-color: var(--pimi-glass);
+    backdrop-filter: blur(18px);
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  :root[data-appearance="system"] {
+    --pimi-ink: radial-gradient(ellipse at 84% 14%, #aca9b209, transparent 76%);
+    --pimi-ink-size: 100% 100%;
+    --pimi-ink-position: center;
+    --pimi-material: url("./graphite.svg");
+  }
+}
+
+:root[data-appearance] [data-pimi-background] {
+  background-image: var(--pimi-ink), var(--pimi-material);
+  background-position:
+    var(--pimi-ink-position),
+    top left;
+  background-size: var(--pimi-ink-size), auto;
+  background-repeat: no-repeat, repeat;
+}
+
+:root[data-appearance] [data-pimi-material] {
+  background-image: var(--pimi-material);
+}
+
+[data-pimi-agent-grid] {
+  --pimi-ink: none;
+}
+
+@media (prefers-contrast: more), (forced-colors: active) {
+  :root[data-appearance] {
+    --pimi-ink: none;
+    --pimi-material: none;
+  }
+}
+
+[data-pimi-sidebar-frame] {
+  transition: width 160ms cubic-bezier(0.22, 0.75, 0.25, 1);
+}
+
+[data-pimi-sidebar-frame][data-pimi-sidebar-resizing="true"] {
+  transition: none;
+}
+
+[data-pimi-sidebar-content] {
+  transition:
+    opacity 120ms ease-out,
+    transform 160ms cubic-bezier(0.22, 0.75, 0.25, 1);
+}
+
+[data-pimi-sidebar-frame="rail"] [data-pimi-sidebar-content] {
+  opacity: 0;
+  transform: translateX(-8px);
+  visibility: hidden;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-pimi-sidebar-frame],
+  [data-pimi-sidebar-content] {
+    transition: none;
+  }
+}

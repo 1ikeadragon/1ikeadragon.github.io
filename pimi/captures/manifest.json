@@ -1,0 +1,353 @@
+{
+  "version": 1,
+  "width": 2880,
+  "height": 1752,
+  "scenes": [
+    {
+      "id": "agent",
+      "label": "Chat",
+      "dark": "agent-dark.webp",
+      "light": "agent-light.webp",
+      "lightDimensions": [
+        2880,
+        1752
+      ],
+      "darkDimensions": [
+        2880,
+        1752
+      ]
+    },
+    {
+      "id": "agents",
+      "label": "Agents",
+      "dark": "agents-dark.webp",
+      "light": "agents-light.webp",
+      "lightDimensions": [
+        2880,
+        1752
+      ],
+      "darkDimensions": [
+        2880,
+        1752
+      ]
+    },
+    {
+      "id": "attack",
+      "label": "Attack",
+      "dark": "attack-dark.webp",
+      "light": "attack-light.webp",
+      "lightDimensions": [
+        2880,
+        1752
+      ],
+      "darkDimensions": [
+        2880,
+        1752
+      ]
+    },
+    {
+      "id": "automation-output",
+      "label": "Automation report",
+      "dark": "automation-output-dark.webp",
+      "light": "automation-output-light.webp",
+      "lightDimensions": [
+        2880,
+        1752
+      ],
+      "darkDimensions": [
+        2880,
+        1752
+      ]
+    },
+    {
+      "id": "automations",
+      "label": "Automations",
+      "dark": "automations-dark.webp",
+      "light": "automations-light.webp",
+      "lightDimensions": [
+        2880,
+        1752
+      ],
+      "darkDimensions": [
+        2880,
+        1752
+      ]
+    },
+    {
+      "id": "ide-annotation",
+      "label": "Annotate code",
+      "light": "ide-annotation-light.webp",
+      "lightDimensions": [
+        2880,
+        1748
+      ],
+      "dark": "ide-annotation-dark.webp",
+      "darkDimensions": [
+        2880,
+        1748
+      ]
+    },
+    {
+      "id": "ide-annotation-chat",
+      "label": "Annotations",
+      "dark": "ide-annotation-chat-dark.webp",
+      "light": "ide-annotation-chat-light.webp",
+      "lightDimensions": [
+        2880,
+        1748
+      ],
+      "darkDimensions": [
+        2880,
+        1748
+      ]
+    },
+    {
+      "id": "ide",
+      "label": "IDE",
+      "dark": "ide-dark.webp",
+      "light": "ide-light.webp",
+      "lightDimensions": [
+        2880,
+        1752
+      ],
+      "darkDimensions": [
+        2880,
+        1752
+      ]
+    },
+    {
+      "id": "ide-references",
+      "label": "Code references",
+      "dark": "ide-references-dark.webp",
+      "light": "ide-references-light.webp",
+      "lightDimensions": [
+        2880,
+        1752
+      ],
+      "darkDimensions": [
+        2880,
+        1752
+      ]
+    },
+    {
+      "id": "memory",
+      "label": "Memory",
+      "dark": "memory-dark.webp",
+      "light": "memory-light.webp",
+      "lightDimensions": [
+        2880,
+        1748
+      ],
+      "darkDimensions": [
+        2880,
+        1752
+      ]
+    },
+    {
+      "id": "mobile-chat",
+      "label": "Mobile chat",
+      "mobile": true,
+      "appVersion": "0.17.39",
+      "platform": "android",
+      "dark": "mobile-chat-dark.webp",
+      "light": "mobile-chat-light.webp",
+      "lightDimensions": [
+        696,
+        1546
+      ],
+      "darkDimensions": [
+        696,
+        1546
+      ]
+    },
+    {
+      "id": "mobile-task-detail",
+      "label": "Mobile task details",
+      "mobile": true,
+      "appVersion": "0.17.39",
+      "platform": "android",
+      "dark": "mobile-task-detail-dark.webp",
+      "light": "mobile-task-detail-light.webp",
+      "lightDimensions": [
+        696,
+        1546
+      ],
+      "darkDimensions": [
+        696,
+        1546
+      ]
+    },
+    {
+      "id": "mobile-tasks",
+      "label": "Mobile tasks",
+      "mobile": true,
+      "appVersion": "0.17.39",
+      "platform": "android",
+      "dark": "mobile-tasks-dark.webp",
+      "light": "mobile-tasks-light.webp",
+      "lightDimensions": [
+        696,
+        1546
+      ],
+      "darkDimensions": [
+        696,
+        1546
+      ]
+    },
+    {
+      "id": "profile",
+      "label": "Profiles",
+      "dark": "profile-dark.webp",
+      "light": "profile-light.webp",
+      "lightDimensions": [
+        2880,
+        1752
+      ],
+      "darkDimensions": [
+        2880,
+        1752
+      ]
+    },
+    {
+      "id": "review-changes",
+      "label": "PR changes",
+      "dark": "review-changes-dark.webp",
+      "light": "review-changes-light.webp",
+      "lightDimensions": [
+        2880,
+        1752
+      ],
+      "darkDimensions": [
+        2880,
+        1752
+      ]
+    },
+    {
+      "id": "review-overview",
+      "label": "Pull requests",
+      "dark": "review-overview-dark.webp",
+      "light": "review-overview-light.webp",
+      "lightDimensions": [
+        2880,
+        1752
+      ],
+      "darkDimensions": [
+        2880,
+        1752
+      ]
+    },
+    {
+      "id": "review-split",
+      "label": "Side by side",
+      "dark": "review-split-dark.webp",
+      "light": "review-split-light.webp",
+      "lightDimensions": [
+        2880,
+        1752
+      ],
+      "darkDimensions": [
+        2880,
+        1752
+      ]
+    },
+    {
+      "id": "spaces",
+      "label": "Spaces",
+      "dark": "spaces-dark.webp",
+      "light": "spaces-light.webp",
+      "lightDimensions": [
+        2880,
+        1752
+      ],
+      "darkDimensions": [
+        2880,
+        1752
+      ]
+    },
+    {
+      "id": "spaces-paper",
+      "label": "Saved paper",
+      "dark": "spaces-paper-dark.webp",
+      "light": "spaces-paper-light.webp",
+      "lightDimensions": [
+        2880,
+        1752
+      ],
+      "darkDimensions": [
+        2880,
+        1752
+      ]
+    },
+    {
+      "id": "task-detail",
+      "label": "Task details",
+      "dark": "task-detail-dark.webp",
+      "light": "task-detail-light.webp",
+      "lightDimensions": [
+        2880,
+        1752
+      ],
+      "darkDimensions": [
+        2880,
+        1752
+      ]
+    },
+    {
+      "id": "tasks",
+      "label": "Tasks",
+      "dark": "tasks-dark.webp",
+      "light": "tasks-light.webp",
+      "lightDimensions": [
+        2880,
+        1752
+      ],
+      "darkDimensions": [
+        2880,
+        1752
+      ]
+    },
+    {
+      "id": "visual",
+      "label": "Interactive visuals",
+      "dark": "visual-dark.webp",
+      "light": "visual-light.webp",
+      "lightDimensions": [
+        2880,
+        1748
+      ],
+      "darkDimensions": [
+        2880,
+        1752
+      ],
+      "artifactBounds": {
+        "light": {
+          "x": 528,
+          "y": 219.5,
+          "width": 704,
+          "height": 360
+        },
+        "dark": {
+          "x": 528,
+          "y": 221.5,
+          "width": 704,
+          "height": 360
+        }
+      }
+    },
+    {
+      "id": "ask-pimi",
+      "light": "spaces-light.webp",
+      "dark": "spaces-dark.webp",
+      "label": "Ask Pimi",
+      "aliasOf": "spaces",
+      "lightDimensions": [
+        2880,
+        1752
+      ],
+      "darkDimensions": [
+        2880,
+        1752
+      ]
+    }
+  ]
+}

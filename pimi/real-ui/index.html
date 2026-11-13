@@ -1,0 +1,794 @@
+<!doctype html>
+<html lang="en" data-appearance="light">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="light dark" />
+    <title>Pimi</title>
+    <link rel="icon" type="image/svg+xml" href="./pimi-mark.svg" />
+    <link rel="stylesheet" href="./pimi-textures/appearance.css" />
+    <link rel="stylesheet" href="./style.css" />
+    <link rel="stylesheet" href="./spaces.css" />
+    <script type="module" src="./fixture-host.js"></script>
+  </head>
+  <body>
+    <svg xmlns="http://www.w3.org/2000/svg" class="workspace-glyphs" aria-hidden="true">
+      <symbol id="glyph-chat" viewBox="0 0 24 24">
+        <path d="M5 19v-3H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1h16a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H9z" />
+      </symbol>
+      <symbol id="glyph-tasks" viewBox="0 0 24 24">
+        <path d="m3 7 2 2 4-4m3 2h9M3 13h6m3 0h9M3 19h6m3 0h9" />
+      </symbol>
+      <symbol id="glyph-board" viewBox="0 0 24 24">
+        <rect x="3" y="4" width="18" height="16" rx="2" />
+        <path d="M9 4v16m6-16v16" />
+      </symbol>
+      <symbol id="glyph-folder" viewBox="0 0 24 24">
+        <path d="M3 7a2 2 0 0 1 2-2h5l2 2h7a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+      </symbol>
+      <symbol id="glyph-memory" viewBox="0 0 24 24">
+        <rect x="5" y="3" width="15" height="18" rx="2" />
+        <path d="M3 8h4m-4 4h4m-4 4h4m3-7h6m-6 4h6" />
+      </symbol>
+      <symbol id="glyph-spaces" viewBox="0 0 24 24">
+        <path
+          d="M20 13V5a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1v14a1 1 0 0 0 1 1h8m7-7-7 7v-5a2 2 0 0 1 2-2z"
+        />
+      </symbol>
+      <symbol id="glyph-copy-reference" viewBox="0 0 24 24">
+        <rect x="8" y="8" width="12" height="12" rx="2" />
+        <path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2" />
+      </symbol>
+      <symbol id="glyph-link" viewBox="0 0 24 24">
+        <path
+          d="M10 13a3 3 0 0 0 4 .1l4-4a3 3 0 0 0-4.2-4.3L12 6.6m0 10.8-1.8 1.8A3 3 0 0 1 6 15l4-4a3 3 0 0 1 4-.1"
+        />
+      </symbol>
+      <symbol id="glyph-play" viewBox="0 0 24 24"><path d="m9 5 11 7-11 7z" /></symbol>
+      <symbol id="glyph-search" viewBox="0 0 24 24">
+        <circle cx="10.5" cy="10.5" r="6.5" />
+        <path d="m16 16 4 4" />
+      </symbol>
+      <symbol id="glyph-list" viewBox="0 0 24 24">
+        <path d="M9 6h11M9 12h11M9 18h11M4 6h1m-1 6h1m-1 6h1" />
+      </symbol>
+      <symbol id="glyph-mic" viewBox="0 0 24 24">
+        <rect x="9" y="2" width="6" height="13" rx="3" />
+        <path d="M5 10v2a7 7 0 0 0 14 0v-2M12 19v3m-4 0h8" />
+      </symbol>
+      <symbol id="glyph-stop" viewBox="0 0 24 24">
+        <rect x="6" y="6" width="12" height="12" rx="2" />
+      </symbol>
+      <symbol id="glyph-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14" /></symbol>
+      <symbol id="glyph-compose" viewBox="0 0 24 24">
+        <path d="M11 4H6a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-5" />
+        <path d="m10 14 1-4 7-7 3 3-7 7-4 1Z" />
+      </symbol>
+      <symbol id="glyph-back" viewBox="0 0 24 24"><path d="m12 5-7 7 7 7M5 12h14" /></symbol>
+      <symbol id="glyph-more" viewBox="0 0 24 24">
+        <path d="M5 12h.01M12 12h.01M19 12h.01" stroke-width="3" />
+      </symbol>
+      <symbol id="glyph-reload" viewBox="0 0 24 24">
+        <path d="M20 4v5h-5m5 0A8 8 0 1 0 20 15" />
+      </symbol>
+      <symbol id="glyph-compare" viewBox="0 0 24 24">
+        <rect x="3" y="4" width="18" height="16" rx="2" />
+        <path d="M12 4v16m-6-9h3m6 3h3" />
+      </symbol>
+      <symbol id="glyph-branch" viewBox="0 0 24 24">
+        <circle cx="6" cy="5" r="2" />
+        <circle cx="6" cy="19" r="2" />
+        <circle cx="18" cy="5" r="2" />
+        <path d="M6 7v10M18 7v1a6 6 0 0 1-6 6H6" />
+      </symbol>
+      <symbol id="glyph-settings" viewBox="0 0 24 24">
+        <path d="M4 7h7m4 0h5M4 17h3m4 0h9" />
+        <circle cx="13" cy="7" r="2" />
+        <circle cx="9" cy="17" r="2" />
+      </symbol>
+    </svg>
+    <div id="pimi-voice-dock" class="voice-command-dock" hidden>
+      <div class="voice-command-feedback">
+        <span id="pimi-voice-status" class="voice-command-status" role="status" hidden>
+          <svg id="pimi-voice-wave" viewBox="0 0 18 18" aria-hidden="true" hidden>
+            <rect x="1" y="7" width="3" height="4" rx="1.5" />
+            <rect x="7" y="6" width="3" height="6" rx="1.5" />
+            <rect x="13" y="7" width="3" height="4" rx="1.5" />
+          </svg>
+          <span id="pimi-voice-message"></span>
+        </span>
+        <section
+          id="pimi-voice-receipt"
+          class="voice-command-receipt"
+          aria-label="Ask Pimi receipt"
+          hidden
+        >
+          <div class="voice-command-receipt-content">
+            <div class="voice-command-outgoing">
+              <p id="pimi-voice-transcript"></p>
+              <button id="pimi-voice-dismiss" type="button" aria-label="Dismiss Ask Pimi receipt">
+                ×
+              </button>
+            </div>
+            <p class="voice-command-result" role="status"><span id="pimi-voice-result"></span></p>
+          </div>
+        </section>
+      </div>
+      <button
+        id="pimi-voice-toggle"
+        type="button"
+        aria-label="Pimi · Start listening"
+        aria-pressed="false"
+        title="Pimi · Start listening"
+      >
+        <img src="./pimi-textures/voice-pimi.svg" alt="" />
+        <span class="voice-command-badge">
+          <svg class="glyph" aria-hidden="true">
+            <use id="pimi-voice-glyph" href="#glyph-mic" />
+          </svg>
+        </span>
+      </button>
+    </div>
+    <header class="topbar">
+      <nav aria-label="Workspace layouts">
+        <a
+          id="show-agents"
+          href="pimi-agents://open"
+          target="_blank"
+          aria-label="Chat"
+          title="Chat"
+          hidden
+        >
+          <svg class="glyph" aria-hidden="true"><use href="#glyph-chat" /></svg><span>Chat</span>
+        </a>
+        <button id="show-tasks" aria-label="Tasks" title="Tasks" aria-current="page">
+          <svg class="glyph" aria-hidden="true"><use href="#glyph-tasks" /></svg><span>Tasks</span>
+        </button>
+        <button id="show-board" aria-label="Work" title="Work">
+          <svg class="glyph" aria-hidden="true"><use href="#glyph-board" /></svg><span>Work</span>
+        </button>
+        <button id="show-memory" aria-label="Memory" title="Memory" hidden>
+          <svg class="glyph" aria-hidden="true"><use href="#glyph-memory" /></svg
+          ><span>Memory</span>
+        </button>
+        <button id="show-spaces" aria-label="Spaces" title="Spaces" hidden>
+          <svg class="glyph" aria-hidden="true"><use href="#glyph-spaces" /></svg
+          ><span>Spaces</span>
+        </button>
+      </nav>
+      <div class="toolbar-actions">
+        <button
+          id="open-settings"
+          class="button quiet glyph-button"
+          aria-label="Appearance"
+          title="Appearance"
+          type="button"
+          hidden
+        >
+          <svg class="glyph" aria-hidden="true"><use href="#glyph-settings" /></svg>
+        </button>
+      </div>
+    </header>
+    <main>
+      <section id="tasks" aria-label="Tasks">
+        <div class="section-header tasks-header">
+          <div class="task-heading-group">
+            <button id="task-board-back" class="button quiet" type="button" hidden>
+              <svg class="glyph" aria-hidden="true"><use href="#glyph-back" /></svg> Tasks
+            </button>
+            <h1 id="task-view-title">Tasks</h1>
+          </div>
+          <div id="task-board-controls" class="task-board-controls">
+            <label class="task-search-box">
+              <svg class="glyph" aria-hidden="true"><use href="#glyph-search" /></svg>
+              <input
+                id="task-search"
+                type="search"
+                aria-label="Find tasks"
+                placeholder="Find tasks"
+                aria-keyshortcuts="/"
+              />
+            </label>
+            <button
+              id="task-attention"
+              class="button quiet"
+              type="button"
+              aria-pressed="false"
+              title="Show tasks that need attention"
+            >
+              <span class="task-attention-mark" aria-hidden="true">!</span> Needs attention
+            </button>
+            <div class="task-layout-picker" role="group" aria-label="Task layout">
+              <button
+                id="tasks-as-board"
+                class="button quiet glyph-button"
+                type="button"
+                aria-pressed="true"
+                aria-label="Board view"
+                title="Board view"
+              >
+                <svg class="glyph" aria-hidden="true"><use href="#glyph-board" /></svg>
+              </button>
+              <button
+                id="tasks-as-list"
+                class="button quiet glyph-button"
+                type="button"
+                aria-pressed="false"
+                aria-label="List view"
+                title="List view"
+              >
+                <svg class="glyph" aria-hidden="true"><use href="#glyph-list" /></svg>
+              </button>
+            </div>
+            <button id="new-task" class="button primary" type="button">
+              <svg class="glyph" aria-hidden="true"><use href="#glyph-plus" /></svg>
+              <span id="new-task-label">New task</span>
+            </button>
+          </div>
+        </div>
+        <p id="task-warning" class="warning" role="alert" hidden></p>
+        <div id="task-board">
+          <div id="task-board-empty" class="task-board-empty" hidden>
+            <svg class="glyph" aria-hidden="true"><use href="#glyph-tasks" /></svg>
+            <h2 id="task-empty-title"></h2>
+            <p id="task-empty-description" class="subtitle"></p>
+          </div>
+          <div id="task-list" class="lanes task-lanes" aria-label="Task board"></div>
+        </div>
+        <div id="task-content" class="task-content" data-pimi-material hidden>
+          <form id="task-create" class="task-form" hidden>
+            <h2>New task</h2>
+            <p id="task-proposal-context" class="subtitle" hidden>
+              Review the agent’s proposal before saving it. You can edit the brief and keep the work
+              items you want to keep.
+            </p>
+            <label
+              >Title
+              <input name="title" required maxlength="100" placeholder="Improve agent performance"
+            /></label>
+            <label
+              >Brief
+              <textarea
+                name="brief"
+                required
+                maxlength="2400"
+                rows="5"
+                placeholder="What are we trying to accomplish?"
+              ></textarea>
+            </label>
+            <label
+              >Worker workspace
+              <select name="mode">
+                <option value="chat">Chat</option>
+                <option value="worktree">Git worktree</option>
+              </select></label
+            >
+            <label
+              >Repository
+              <select id="task-repository"></select
+            ></label>
+            <p id="task-no-repositories" class="subtitle" hidden>
+              You can save the brief now and attach a repository later.
+            </p>
+            <fieldset id="task-proposal-experiments" class="task-proposal-experiments" hidden>
+              <legend>Proposed work items</legend>
+              <div id="task-proposal-ideas"></div>
+            </fieldset>
+            <div id="task-create-labels" class="task-label-field"></div>
+            <div class="task-actions task-create-actions">
+              <button id="cancel-task" class="button quiet" type="button">Cancel</button>
+              <button
+                id="dictate-create"
+                class="button quiet glyph-button"
+                aria-label="Dictate brief"
+                title="Dictate brief"
+                type="button"
+                hidden
+              >
+                <svg class="glyph" aria-hidden="true"><use href="#glyph-mic" /></svg>
+              </button>
+              <button id="create-task" class="button primary" type="submit">Create task</button>
+            </div>
+          </form>
+          <section id="task-detail" hidden>
+            <div class="task-heading">
+              <h2 id="task-title" tabindex="-1"></h2>
+              <details id="task-edit-details">
+                <summary class="button quiet">Edit task…</summary>
+                <form id="task-edit" class="task-form">
+                  <label>Title <input name="title" required maxlength="100" /></label>
+                  <label
+                    >Brief <textarea name="brief" required maxlength="2400" rows="4"></textarea>
+                  </label>
+                  <label
+                    >Worker workspace
+                    <select name="mode">
+                      <option value="chat">Chat</option>
+                      <option value="worktree">Git worktree</option>
+                    </select></label
+                  >
+                  <div class="task-actions">
+                    <button
+                      id="dictate-edit"
+                      class="button secondary dictate-brief"
+                      type="button"
+                      hidden
+                    >
+                      Dictate brief
+                    </button>
+                    <button class="button primary" type="submit">Save changes</button>
+                  </div>
+                </form>
+              </details>
+            </div>
+            <p id="task-brief" class="task-brief"></p>
+            <div
+              id="task-detail-views"
+              class="task-detail-views"
+              role="group"
+              aria-label="Task view"
+            >
+              <button
+                id="show-task-reports"
+                type="button"
+                aria-controls="task-reports"
+                aria-pressed="false"
+              >
+                Reports
+              </button>
+              <button
+                id="show-task-work"
+                type="button"
+                aria-controls="task-work"
+                aria-pressed="true"
+              >
+                Work items
+              </button>
+            </div>
+            <div class="task-detail-layout">
+              <section
+                id="task-reports"
+                class="task-reports"
+                aria-labelledby="task-report-title"
+                hidden
+              >
+                <div class="task-report-picker">
+                  <label for="task-report-worker" class="visually-hidden">Report worker</label>
+                  <select id="task-report-worker" class="task-stage-select"></select>
+                  <p id="task-report-progress" class="subtitle" role="status"></p>
+                </div>
+                <div class="task-report-header">
+                  <h2 id="task-report-title"></h2>
+                  <div id="task-report-actions" class="task-report-actions"></div>
+                </div>
+                <p id="task-report-status" class="subtitle" role="status" hidden></p>
+                <div id="task-report-document" class="task-report-document"></div>
+                <details id="task-report-brief" class="experiment-details">
+                  <summary>Work brief</summary>
+                  <p id="task-report-instructions" class="experiment-hypothesis"></p>
+                </details>
+              </section>
+              <section
+                id="task-work"
+                class="task-experiments"
+                aria-labelledby="experiments-heading"
+              >
+                <div class="work-item-header">
+                  <h2 id="experiments-heading">Work items</h2>
+                  <p id="task-progress" class="subtitle" role="status"></p>
+                </div>
+                <div id="task-repository-next" class="task-repository-next" hidden>
+                  <p class="subtitle">Attach a repository to start agents on this task.</p>
+                  <button id="task-open-attachment" class="button secondary" type="button">
+                    Choose repository
+                  </button>
+                </div>
+                <details id="add-experiment">
+                  <summary class="button secondary">Add work item…</summary>
+                  <form id="task-idea" class="task-form">
+                    <label
+                      >Title
+                      <input
+                        name="title"
+                        required
+                        maxlength="55"
+                        placeholder="Try caching provider metadata"
+                    /></label>
+                    <label
+                      >Instructions
+                      <textarea name="hypothesis" required maxlength="1600" rows="3"></textarea>
+                    </label>
+                    <label
+                      >Repository
+                      <select id="experiment-repository"></select
+                    ></label>
+                    <label id="experiment-worktree-field"
+                      >Worktree
+                      <select id="experiment-worktree"></select
+                    ></label>
+                    <div class="task-actions">
+                      <button class="button primary" type="submit">Add work item</button>
+                    </div>
+                  </form>
+                </details>
+                <details id="task-plan-details" hidden>
+                  <summary class="button quiet">Plan delegated work</summary>
+                  <form id="task-run" class="task-form">
+                    <div class="task-run-controls">
+                      <label
+                        >Default agent model
+                        <select id="task-model"></select
+                      ></label>
+                      <button id="task-models" class="button quiet" type="button" hidden>
+                        Refresh models
+                      </button>
+                      <div class="task-run-actions">
+                        <button id="suggest-experiments" class="button secondary" type="button">
+                          Suggest 2 drafts
+                        </button>
+                        <button id="run-task" class="button primary" type="submit">
+                          Start agents
+                        </button>
+                      </div>
+                    </div>
+                    <p id="task-run-note" class="subtitle" role="status"></p>
+                  </form>
+                </details>
+                <div id="experiment-list"></div>
+              </section>
+              <aside class="task-properties" aria-label="Task properties">
+                <label class="task-property-label"
+                  >Stage
+                  <select id="task-stage" class="task-stage-select" aria-label="Task stage"></select
+                ></label>
+                <div id="task-labels" class="task-label-field"></div>
+                <div class="task-repositories">
+                  <h3>Repositories</h3>
+                  <div id="task-context" class="task-repository-list"></div>
+                  <details id="task-attach-details">
+                    <summary class="button quiet">
+                      <svg class="glyph" aria-hidden="true"><use href="#glyph-plus" /></svg> Attach
+                      repository
+                    </summary>
+                    <form id="task-attach-repository" class="task-form">
+                      <label class="visually-hidden" for="task-attach-root"
+                        >Repository to attach</label
+                      >
+                      <select id="task-attach-root" required></select>
+                      <p id="task-attach-hint" class="subtitle" hidden>
+                        Add a Git repository in Work to start agents.
+                      </p>
+                      <button id="attach-task-repository" class="button secondary" type="submit">
+                        Attach
+                      </button>
+                    </form>
+                  </details>
+                </div>
+                <div class="task-property-actions">
+                  <a
+                    id="task-source-chat"
+                    class="button quiet"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    hidden
+                    >Original chat</a
+                  >
+                  <button id="task-close" class="button quiet" type="button">Mark done</button>
+                </div>
+              </aside>
+            </div>
+          </section>
+        </div>
+      </section>
+
+      <section id="board" class="board-view" hidden>
+        <div class="section-header">
+          <h1>Work</h1>
+        </div>
+        <div class="board-tools">
+          <input
+            id="board-search"
+            class="search"
+            type="search"
+            aria-label="Search worktrees and agents"
+            placeholder="Find a worktree or agent"
+            autocomplete="off"
+            aria-keyshortcuts="/"
+          />
+          <kbd title="Focus search">/</kbd>
+          <div class="board-actions">
+            <details class="watch">
+              <summary class="button secondary">Add repository…</summary>
+              <div class="watch-panel">
+                <form id="watch-repo" class="compare">
+                  <label>
+                    Repository path
+                    <input
+                      id="repo-path"
+                      placeholder="/path/to/repository"
+                      autocomplete="off"
+                      required
+                    />
+                  </label>
+                  <button id="add-repo" class="button primary" type="submit">Add</button>
+                </form>
+                <p id="watch-error" class="warning" role="alert" hidden></p>
+              </div>
+            </details>
+          </div>
+        </div>
+        <p id="live-status" class="subtitle" role="status" hidden></p>
+        <p id="board-warning" class="warning" hidden></p>
+        <div id="lanes" class="lanes" aria-label="Work board"></div>
+        <section id="other-agents" class="other-agents" hidden aria-labelledby="agents-heading">
+          <h2 id="agents-heading">Other active sessions</h2>
+          <p class="subtitle">Sessions outside your watched repositories.</p>
+          <div id="agent-list"></div>
+        </section>
+      </section>
+      <section id="memory" aria-label="Memory" hidden>
+        <header class="memory-header">
+          <div class="memory-header-copy">
+            <h1>Memory</h1>
+            <p class="subtitle">Shared notes your agents can recall.</p>
+          </div>
+          <svg class="memory-synapses" viewBox="0 0 460 150" aria-hidden="true" focusable="false">
+            <g fill="none" stroke="currentColor" stroke-width="1" opacity=".52">
+              <path d="M18 91c45 9 64-18 104-18s56 18 92 9 34-32 68-33 61 26 91 23 45-26 78-28" />
+              <path d="M68 121c30-19 41-47 75-54s63 26 94 23 48-34 81-31 55 42 106 30" />
+              <path d="M95 26c45-1 40 33 70 39s53-14 84-14 54 40 83 40 54-54 95-64" />
+              <path d="M140 122c31 1 44-18 66-37s28-53 69-57 41 30 77 34 55-20 92-6" />
+              <path d="M189 25c17 21 31 20 54 27s26 44 54 52 51-14 77-7 34 28 58 27" />
+              <path d="M170 134c36-14 60-11 91-22s42-39 69-34 35 27 71 33" />
+              <path d="M280 14c10 28 45 32 73 19s52 0 72 18" />
+            </g>
+            <g fill="currentColor">
+              <circle cx="68" cy="121" r="2.1" opacity=".52" />
+              <circle cx="95" cy="26" r="2.6" opacity=".64" />
+              <circle cx="143" cy="67" r="3.2" opacity=".76" />
+              <circle cx="170" cy="134" r="2.4" opacity=".59" />
+              <circle cx="189" cy="25" r="2" opacity=".68" />
+              <circle cx="214" cy="82" r="3.4" />
+              <circle cx="243" cy="52" r="3" opacity=".72" />
+              <circle cx="275" cy="28" r="2.8" opacity=".72" />
+              <circle cx="297" cy="104" r="3.5" />
+              <circle cx="318" cy="59" r="2.3" opacity=".82" />
+              <circle cx="332" cy="91" r="3.3" opacity=".84" />
+              <circle cx="353" cy="33" r="2.6" opacity=".68" />
+              <circle cx="373" cy="72" r="4" />
+              <circle cx="401" cy="111" r="2.6" opacity=".72" />
+              <circle cx="427" cy="27" r="2.7" opacity=".79" />
+            </g>
+          </svg>
+          <div class="memory-header-actions">
+            <button
+              id="memory-reload"
+              class="button quiet glyph-button"
+              type="button"
+              aria-label="Reload memory"
+              title="Reload memory"
+            >
+              <svg class="glyph" aria-hidden="true"><use href="#glyph-reload" /></svg>
+            </button>
+            <button id="memory-new" class="button primary" type="button">
+              <svg class="glyph" aria-hidden="true"><use href="#glyph-compose" /></svg> New note
+            </button>
+          </div>
+        </header>
+        <p id="memory-warning" class="warning" role="alert" hidden></p>
+        <div id="memory-content" class="memory-layout" data-loading>
+          <aside class="memory-browser" aria-label="Memory scopes and notes">
+            <div class="memory-scope">
+              <label class="memory-scope-field">
+                Memory scope
+                <select id="memory-scope">
+                  <option value="">Across projects</option>
+                </select>
+              </label>
+              <p id="memory-scope-caption" class="subtitle">Shared across projects on this host.</p>
+            </div>
+            <div class="memory-list-heading">
+              <h2>Notes</h2>
+              <span id="memory-note-count" class="memory-note-count subtitle"></span>
+            </div>
+            <div class="memory-note-list"><div id="memory-notes"></div></div>
+            <p id="memory-empty" class="subtitle" hidden></p>
+          </aside>
+          <div class="memory-detail" data-pimi-material>
+            <div id="memory-placeholder" class="memory-placeholder">
+              <svg class="glyph" aria-hidden="true"><use href="#glyph-memory" /></svg>
+              <h2>Choose a note</h2>
+              <p class="subtitle">Open a saved note to read or edit it.</p>
+            </div>
+            <form id="memory-form" class="task-form" hidden>
+              <div class="memory-editor-heading">
+                <h2 id="memory-note-heading">New note</h2>
+                <p id="memory-note-scope" class="subtitle"></p>
+              </div>
+              <label id="memory-key-field">
+                Note key
+                <input
+                  name="key"
+                  required
+                  maxlength="64"
+                  pattern="[a-z0-9](?:[a-z0-9_]|-)*"
+                  spellcheck="false"
+                  placeholder="build-command"
+                />
+              </label>
+              <label>
+                Note
+                <textarea name="text" required maxlength="4000" rows="9"></textarea>
+              </label>
+              <div class="task-actions">
+                <button id="memory-forget" class="button quiet" type="button" hidden>
+                  Forget…
+                </button>
+                <div class="memory-save-actions">
+                  <button id="memory-cancel" class="button secondary" type="button">Cancel</button>
+                  <button id="memory-save" class="button primary" type="submit">Save note</button>
+                </div>
+              </div>
+            </form>
+            <p id="memory-status" class="subtitle" role="status" hidden></p>
+          </div>
+        </div>
+      </section>
+      <section id="spaces" aria-label="Spaces" hidden>
+        <template id="spaces-copy-icon"
+          ><svg class="glyph" aria-hidden="true"><use href="#glyph-copy-reference" /></svg
+        ></template>
+        <template id="spaces-link-icon"
+          ><svg class="glyph" aria-hidden="true"><use href="#glyph-link" /></svg
+        ></template>
+        <template id="spaces-video-icon"
+          ><svg class="glyph" aria-hidden="true"><use href="#glyph-play" /></svg
+        ></template>
+        <template id="spaces-repo-icon"
+          ><svg class="glyph" aria-hidden="true"><use href="#glyph-branch" /></svg
+        ></template>
+        <template id="spaces-paper-icon"
+          ><svg class="glyph" aria-hidden="true"><use href="#glyph-list" /></svg
+        ></template>
+        <div class="section-header spaces-header">
+          <div>
+            <h1>Spaces</h1>
+            <p class="subtitle">Paste a note, image, or link into your scratchbook.</p>
+          </div>
+          <div class="spaces-controls">
+            <label class="task-search-box">
+              <svg class="glyph" aria-hidden="true"><use href="#glyph-search" /></svg>
+              <input
+                id="spaces-search"
+                type="search"
+                maxlength="160"
+                aria-label="Search Spaces"
+                placeholder="Search Spaces"
+              />
+            </label>
+            <button id="spaces-new" class="button primary" type="button">
+              <svg class="glyph" aria-hidden="true"><use href="#glyph-compose" /></svg> New note
+            </button>
+          </div>
+        </div>
+        <p id="spaces-error" class="warning" role="alert" hidden></p>
+        <p id="spaces-status" class="subtitle" role="status" hidden></p>
+        <div class="spaces-board" tabindex="0" aria-label="Scratchbook">
+          <p id="spaces-copy-feedback" class="spaces-copy-feedback" role="status" hidden>
+            <svg class="glyph" aria-hidden="true" viewBox="0 0 24 24">
+              <circle cx="12" cy="12" r="8" />
+              <path d="M12 11v5m0-8h.01" />
+            </svg>
+            Card ID copied
+          </p>
+          <p id="spaces-empty" class="spaces-empty" hidden>
+            <svg class="glyph" aria-hidden="true"><use href="#glyph-spaces" /></svg>
+            <span id="spaces-empty-text">Your cards will appear here.</span>
+          </p>
+          <div id="spaces-items" class="spaces-grid"></div>
+        </div>
+        <dialog
+          id="spaces-card-dialog"
+          class="settings-dialog spaces-dialog"
+          aria-labelledby="spaces-card-title"
+        >
+          <form id="spaces-card-form">
+            <p id="spaces-card-copy-feedback" class="spaces-copy-feedback" role="status" hidden>
+              <svg class="glyph" aria-hidden="true" viewBox="0 0 24 24">
+                <circle cx="12" cy="12" r="8" />
+                <path d="M12 11v5m0-8h.01" />
+              </svg>
+              Card ID copied
+            </p>
+            <div class="spaces-card-heading">
+              <h2 id="spaces-card-title">New note</h2>
+              <code id="spaces-card-reference"></code>
+            </div>
+            <label id="spaces-note-label"
+              >Note<textarea id="spaces-note-text" rows="7" maxlength="65536" required></textarea>
+            </label>
+            <img id="spaces-card-image" alt="Pasted image" hidden />
+            <div id="spaces-card-link" class="spaces-card-link-detail" hidden>
+              <p id="spaces-card-url"></p>
+              <p id="spaces-card-link-text" hidden></p>
+              <p id="spaces-card-link-status" class="subtitle" role="status" hidden></p>
+              <div id="spaces-paper-reader" hidden></div>
+              <p id="spaces-paper-unavailable" class="subtitle" role="status" hidden>
+                HTML preview unavailable. Open the paper in your browser to find its abstract or
+                PDF.
+              </p>
+              <div class="spaces-link-actions">
+                <button
+                  id="spaces-open-link"
+                  class="button secondary"
+                  type="button"
+                  data-space-url=""
+                >
+                  Open in browser
+                </button>
+              </div>
+            </div>
+            <p id="spaces-card-error" class="warning" role="alert" hidden></p>
+            <div class="spaces-dialog-actions">
+              <button id="spaces-remove" class="button quiet" type="button" hidden>
+                Remove card
+              </button>
+              <div>
+                <button id="spaces-copy" class="button quiet" type="button" hidden>
+                  Copy reference
+                </button>
+                <button id="spaces-close" class="button secondary" type="button">Cancel</button>
+                <button id="spaces-save" class="button primary" type="submit">Save note</button>
+              </div>
+            </div>
+          </form>
+        </dialog>
+        <dialog
+          id="spaces-remove-dialog"
+          class="settings-dialog"
+          aria-labelledby="spaces-remove-title"
+        >
+          <h2 id="spaces-remove-title">Remove this card?</h2>
+          <p>Its reference will stop working.</p>
+          <form method="dialog" class="spaces-dialog-actions">
+            <button class="button secondary" value="cancel">Cancel</button>
+            <button class="button primary" value="remove">Remove card</button>
+          </form>
+        </dialog>
+      </section>
+    </main>
+    <dialog id="memory-forget-dialog" class="settings-dialog" aria-labelledby="memory-forget-title">
+      <h2 id="memory-forget-title">Forget this note?</h2>
+      <p id="memory-forget-description"></p>
+      <form class="task-actions" method="dialog">
+        <button class="button secondary" value="cancel" autofocus>Cancel</button>
+        <button class="button primary" value="forget">Forget note</button>
+      </form>
+    </dialog>
+    <dialog id="settings-dialog" class="settings-dialog" aria-labelledby="settings-title">
+      <h2 id="settings-title">Settings</h2>
+      <div class="task-form">
+        <label>
+          Appearance
+          <select id="appearance">
+            <option value="system">System</option>
+            <option value="light">Blush</option>
+            <option value="dark">Dark</option>
+            <option value="paper">Paper</option>
+            <option value="sakura">Sakura Glass</option>
+            <option value="cel-night">Cel Night</option>
+            <option value="ayu-light">Ayu Light</option>
+            <option value="one-dark">One Dark Pro</option>
+            <option value="nord">Nord</option>
+            <option value="gruvbox">Gruvbox Dark</option>
+            <option value="catppuccin-mocha">Catppuccin Mocha</option>
+          </select>
+        </label>
+        <p id="appearance-error" class="warning" role="alert" hidden></p>
+        <form class="task-actions" method="dialog">
+          <button class="button secondary">Done</button>
+        </form>
+      </div>
+    </dialog>
+  </body>
+</html>

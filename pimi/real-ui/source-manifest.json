@@ -1,0 +1,176 @@
+{
+  "description": "Actual native Pimi workspace assets; only index asset URLs and texture URLs rebased. UI scripts and CSS otherwise unchanged.",
+  "files": [
+    {
+      "file": "index.html",
+      "source": "/Users/debxrshi/Research/Pimi/pimi/public/index.html",
+      "sourceSha256": "e0999bda4b44cbaab6e0e3b5ec428752da9d9671289c5e406b3229a8c0ffc358",
+      "servedSha256": "36e88896c283d039022ac8a0d68efcb7b339c1bed317d6e961029690dc084bb6",
+      "outputSha256": "f17d5679a0aef72672d27052b5740858f3ff937492a45a00ecdec11c4a7dbe13",
+      "matchesCheckout": false,
+      "transform": "Relative asset URLs; fixture bootstrap imports unchanged app module"
+    },
+    {
+      "file": "app.js",
+      "source": "/Users/debxrshi/Research/Pimi/pimi/public/app.js",
+      "sourceSha256": "1481d33b1f1c551735686ab577eae536f2074178cb67fe8282d84c619593ec7e",
+      "servedSha256": "1481d33b1f1c551735686ab577eae536f2074178cb67fe8282d84c619593ec7e",
+      "outputSha256": "1481d33b1f1c551735686ab577eae536f2074178cb67fe8282d84c619593ec7e",
+      "matchesCheckout": true,
+      "transform": null
+    },
+    {
+      "file": "tasks.js",
+      "source": "/Users/debxrshi/Research/Pimi/pimi/public/tasks.js",
+      "sourceSha256": "ca62d5568985e3628d8f1742e42c975a3bcd1a925c609250d123207e6b5e1408",
+      "servedSha256": "ca62d5568985e3628d8f1742e42c975a3bcd1a925c609250d123207e6b5e1408",
+      "outputSha256": "ca62d5568985e3628d8f1742e42c975a3bcd1a925c609250d123207e6b5e1408",
+      "matchesCheckout": true,
+      "transform": null
+    },
+    {
+      "file": "labels.js",
+      "source": "/Users/debxrshi/Research/Pimi/pimi/public/labels.js",
+      "sourceSha256": "6066edadc6afd64a867ba5e477ab317a47057412e3d70e38d6eef005447363e3",
+      "servedSha256": "6066edadc6afd64a867ba5e477ab317a47057412e3d70e38d6eef005447363e3",
+      "outputSha256": "6066edadc6afd64a867ba5e477ab317a47057412e3d70e38d6eef005447363e3",
+      "matchesCheckout": true,
+      "transform": null
+    },
+    {
+      "file": "memory.js",
+      "source": "/Users/debxrshi/Research/Pimi/pimi/public/memory.js",
+      "sourceSha256": "561b7fba325fe7e670704674ca2674f81c26eee1b5d6277ce38cc1e8a93853e9",
+      "servedSha256": "561b7fba325fe7e670704674ca2674f81c26eee1b5d6277ce38cc1e8a93853e9",
+      "outputSha256": "561b7fba325fe7e670704674ca2674f81c26eee1b5d6277ce38cc1e8a93853e9",
+      "matchesCheckout": true,
+      "transform": null
+    },
+    {
+      "file": "spaces.js",
+      "source": "/Users/debxrshi/Research/Pimi/pimi/public/spaces.js",
+      "sourceSha256": "f53cbd3bc63060793a89824b85fff43ffadfdae50a3a2b83babdb28baa09dc8c",
+      "servedSha256": "f53cbd3bc63060793a89824b85fff43ffadfdae50a3a2b83babdb28baa09dc8c",
+      "outputSha256": "f53cbd3bc63060793a89824b85fff43ffadfdae50a3a2b83babdb28baa09dc8c",
+      "matchesCheckout": true,
+      "transform": null
+    },
+    {
+      "file": "spaces.css",
+      "source": "/Users/debxrshi/Research/Pimi/pimi/public/spaces.css",
+      "sourceSha256": "d3ad646df08e677855906551e1262996b3866f59272e01bb926e517aa3fa68be",
+      "servedSha256": "d3ad646df08e677855906551e1262996b3866f59272e01bb926e517aa3fa68be",
+      "outputSha256": "d3ad646df08e677855906551e1262996b3866f59272e01bb926e517aa3fa68be",
+      "matchesCheckout": true,
+      "transform": null
+    },
+    {
+      "file": "task-board.js",
+      "source": "/Users/debxrshi/Research/Pimi/pimi/public/task-board.js",
+      "sourceSha256": "01471113563c0e924904025e2f8ad3185da9ec7a98b1bebf8461599a83e914aa",
+      "servedSha256": "01471113563c0e924904025e2f8ad3185da9ec7a98b1bebf8461599a83e914aa",
+      "outputSha256": "01471113563c0e924904025e2f8ad3185da9ec7a98b1bebf8461599a83e914aa",
+      "matchesCheckout": true,
+      "transform": null
+    },
+    {
+      "file": "board-motion.js",
+      "source": "/Users/debxrshi/Research/Pimi/pimi/public/board-motion.js",
+      "sourceSha256": "ff5601239a315fb4d6ed418703d4bd6f07e3a46dd3d08f8edd5f14ec4cd5af88",
+      "servedSha256": "ff5601239a315fb4d6ed418703d4bd6f07e3a46dd3d08f8edd5f14ec4cd5af88",
+      "outputSha256": "ff5601239a315fb4d6ed418703d4bd6f07e3a46dd3d08f8edd5f14ec4cd5af88",
+      "matchesCheckout": true,
+      "transform": null
+    },
+    {
+      "file": "live-updates.js",
+      "source": "/Users/debxrshi/Research/Pimi/pimi/public/live-updates.js",
+      "sourceSha256": "3dcf8381a3db20069935f09f9ba8cc0719b7bb02efa16ce1934daa25d7ca9811",
+      "servedSha256": "3dcf8381a3db20069935f09f9ba8cc0719b7bb02efa16ce1934daa25d7ca9811",
+      "outputSha256": "3dcf8381a3db20069935f09f9ba8cc0719b7bb02efa16ce1934daa25d7ca9811",
+      "matchesCheckout": true,
+      "transform": null
+    },
+    {
+      "file": "style.css",
+      "source": "/Users/debxrshi/Research/Pimi/pimi/public/style.css",
+      "sourceSha256": "9641ef7d9a6d18481b278faa47d33ee0049f503f264a1d447ef141a38d337b8b",
+      "servedSha256": "9641ef7d9a6d18481b278faa47d33ee0049f503f264a1d447ef141a38d337b8b",
+      "outputSha256": "9641ef7d9a6d18481b278faa47d33ee0049f503f264a1d447ef141a38d337b8b",
+      "matchesCheckout": true,
+      "transform": null
+    },
+    {
+      "file": "pimi-mark.svg",
+      "source": "/Users/debxrshi/Research/Pimi/pimi/public/pimi-mark.svg",
+      "sourceSha256": "1c8afd45a4b44625af07a4cd47cc86065cd8df177d8642371d029c28a4892eb4",
+      "servedSha256": "1c8afd45a4b44625af07a4cd47cc86065cd8df177d8642371d029c28a4892eb4",
+      "outputSha256": "1c8afd45a4b44625af07a4cd47cc86065cd8df177d8642371d029c28a4892eb4",
+      "matchesCheckout": true,
+      "transform": null
+    },
+    {
+      "file": "pimi-textures/appearance.css",
+      "source": "/Users/debxrshi/Research/Pimi/packages/app/public/pimi-textures/appearance.css",
+      "sourceSha256": "9efef9531245e2081f719aca72335e56e2cc16099bd48e0de3ce6c084e2f4521",
+      "servedSha256": "9efef9531245e2081f719aca72335e56e2cc16099bd48e0de3ce6c084e2f4521",
+      "outputSha256": "d72427cdf6580efc634b6e5a640ac2eb5cafd237571a48e9cbe6784ab9a7e99d",
+      "matchesCheckout": true,
+      "transform": "Relative texture URLs"
+    },
+    {
+      "file": "pimi-textures/blush.svg",
+      "source": "/Users/debxrshi/Research/Pimi/packages/app/public/pimi-textures/blush.svg",
+      "sourceSha256": "febc30914f2eaf1a67b14b4e4fc0cc455bde541ca279b217537ff627c033a83a",
+      "servedSha256": "febc30914f2eaf1a67b14b4e4fc0cc455bde541ca279b217537ff627c033a83a",
+      "outputSha256": "febc30914f2eaf1a67b14b4e4fc0cc455bde541ca279b217537ff627c033a83a",
+      "matchesCheckout": true,
+      "transform": null
+    },
+    {
+      "file": "pimi-textures/paper.svg",
+      "source": "/Users/debxrshi/Research/Pimi/packages/app/public/pimi-textures/paper.svg",
+      "sourceSha256": "d6a1cf41570c9ad1bda8058ea6b2246d93d561788a2f22782a381ece76fb709b",
+      "servedSha256": "d6a1cf41570c9ad1bda8058ea6b2246d93d561788a2f22782a381ece76fb709b",
+      "outputSha256": "d6a1cf41570c9ad1bda8058ea6b2246d93d561788a2f22782a381ece76fb709b",
+      "matchesCheckout": true,
+      "transform": null
+    },
+    {
+      "file": "pimi-textures/graphite.svg",
+      "source": "/Users/debxrshi/Research/Pimi/packages/app/public/pimi-textures/graphite.svg",
+      "sourceSha256": "30ee2e33bab90ccc9dd28e3942cc2a19a07ff6b592782b9a472f5735e6eaf429",
+      "servedSha256": "30ee2e33bab90ccc9dd28e3942cc2a19a07ff6b592782b9a472f5735e6eaf429",
+      "outputSha256": "30ee2e33bab90ccc9dd28e3942cc2a19a07ff6b592782b9a472f5735e6eaf429",
+      "matchesCheckout": true,
+      "transform": null
+    },
+    {
+      "file": "pimi-textures/voice-pimi.svg",
+      "source": "/Users/debxrshi/Research/Pimi/packages/app/public/pimi-textures/voice-pimi.svg",
+      "sourceSha256": "36987756c73e2f45dfade2acec498706ca8c34e9e039574c48451a5e9f68e3d5",
+      "servedSha256": "36987756c73e2f45dfade2acec498706ca8c34e9e039574c48451a5e9f68e3d5",
+      "outputSha256": "36987756c73e2f45dfade2acec498706ca8c34e9e039574c48451a5e9f68e3d5",
+      "matchesCheckout": true,
+      "transform": null
+    },
+    {
+      "file": "pimi-textures/sakura.svg",
+      "source": "/Users/debxrshi/Research/Pimi/packages/app/public/pimi-textures/sakura.svg",
+      "sourceSha256": "8d61721bd381fe00be5f3fb6a372f39c16226887338f1def089e9e2f605fb997",
+      "servedSha256": "8d61721bd381fe00be5f3fb6a372f39c16226887338f1def089e9e2f605fb997",
+      "outputSha256": "8d61721bd381fe00be5f3fb6a372f39c16226887338f1def089e9e2f605fb997",
+      "matchesCheckout": true,
+      "transform": null
+    },
+    {
+      "file": "pimi-textures/cel-night.svg",
+      "source": "/Users/debxrshi/Research/Pimi/packages/app/public/pimi-textures/cel-night.svg",
+      "sourceSha256": "8685b5b97576f52dfbb3d18f7de0288f6b51844002f4cd7c1673ff43f64508be",
+      "servedSha256": "8685b5b97576f52dfbb3d18f7de0288f6b51844002f4cd7c1673ff43f64508be",
+      "outputSha256": "8685b5b97576f52dfbb3d18f7de0288f6b51844002f4cd7c1673ff43f64508be",
+      "matchesCheckout": true,
+      "transform": null
+    }
+  ]
+}

@@ -1,0 +1,3030 @@
+{
+  "sourceApp": "Native Pimi apps with controlled local demonstration data",
+  "platforms": {
+    "desktop": {
+      "name": "Pimi",
+      "version": "0.17.38",
+      "platform": "macos"
+    },
+    "mobile": {
+      "name": "Pimi",
+      "version": "0.17.39",
+      "platform": "android",
+      "rawDimensions": [
+        696,
+        1604
+      ],
+      "deviceCrop": [
+        0,
+        58,
+        696,
+        1604
+      ],
+      "outputDimensions": [
+        696,
+        1546
+      ],
+      "declaration": "Only the Mac emulator title bar was cropped. The real Android status bar, application UI and navigation bar remain unchanged. No desktop masks or invented phone chrome were applied."
+    }
+  },
+  "declaration": "Actual app captures. Only OS sharing/cursor overlay pixels in the documented top strips were replaced with actual renderer pixels. No app UI was painted, no scaling/sharpening/color filters were applied. JPEG sources remain originally lossy; lossless WebP preserves their decoded pixels after the documented OS cleanup. Original ICC color profiles are preserved; other original metadata is not republished.",
+  "nativeFrame": [
+    2880,
+    1752
+  ],
+  "trafficStatus": "omitted-no-unoccluded-source",
+  "trafficCandidatesChecked": [
+    {
+      "name": "light-traffic-default.png",
+      "validTrafficPixels": false
+    },
+    {
+      "name": "light-traffic.png",
+      "validTrafficPixels": false
+    },
+    {
+      "name": "agents-dark.png",
+      "validTrafficPixels": false
+    },
+    {
+      "name": "pimi-actual-agent.jpg",
+      "validTrafficPixels": false
+    },
+    {
+      "name": "pimi-actual-automation-editor.jpg",
+      "validTrafficPixels": false
+    },
+    {
+      "name": "pimi-actual-automations.jpg",
+      "validTrafficPixels": false
+    },
+    {
+      "name": "pimi-actual-memory.jpg",
+      "validTrafficPixels": false
+    },
+    {
+      "name": "pimi-actual-review.jpg",
+      "validTrafficPixels": false
+    },
+    {
+      "name": "pimi-actual-spaces.jpg",
+      "validTrafficPixels": false
+    },
+    {
+      "name": "pimi-real-chat-light.png",
+      "validTrafficPixels": false
+    }
+  ],
+  "assets": [
+    {
+      "scene": "agent",
+      "theme": "dark",
+      "output": "agent-dark.webp",
+      "source": {
+        "name": "agent-dark.png",
+        "sha256": "b0a8925f10ed69616666ef5dabe1d30ff5fef3df0787c9fd2abfd9c6aacb4b4d",
+        "format": "JPEG",
+        "width": 2880,
+        "height": 1752,
+        "bytes": 568485,
+        "iccProfileBytes": 4064
+      },
+      "outputFormat": "WEBP",
+      "lossless": true,
+      "width": 2880,
+      "height": 1752,
+      "outputSha256": "007dbdad5cad5f1ccf851b3edb72b47f39dabc481d79e6a52fefbfad841b9c79",
+      "outputBytes": 1038388,
+      "crop": null,
+      "masks": [
+        {
+          "bbox": [
+            0,
+            0,
+            156,
+            72
+          ],
+          "purpose": "Remove OS capture/share badge; restore actual app-renderer header pixels.",
+          "pixelSource": {
+            "name": "header-dark.png",
+            "sha256": "a41990e0324104ffc57a7d31df5ff485001a0c720b3517bdb6fe0dcd6aad4f1c",
+            "format": "PNG",
+            "width": 2880,
+            "height": 2880,
+            "bytes": 3821729
+          },
+          "trafficButtons": "No unobscured actual OS traffic source available; decoration omitted rather than invented."
+        },
+        {
+          "bbox": [
+            1820,
+            0,
+            1960,
+            72
+          ],
+          "purpose": "Remove cursor from blank top strip only.",
+          "pixelSource": {
+            "name": "header-dark.png",
+            "sha256": "a41990e0324104ffc57a7d31df5ff485001a0c720b3517bdb6fe0dcd6aad4f1c",
+            "format": "PNG",
+            "width": 2880,
+            "height": 2880,
+            "bytes": 3821729
+          }
+        }
+      ],
+      "pixelsBelow72Unchanged": true,
+      "cacheKey": {
+        "source": "b0a8925f10ed69616666ef5dabe1d30ff5fef3df0787c9fd2abfd9c6aacb4b4d",
+        "clean": "a41990e0324104ffc57a7d31df5ff485001a0c720b3517bdb6fe0dcd6aad4f1c",
+        "traffic": null,
+        "version": 3,
+        "deviceCrop": null
+      },
+      "sourceIccPreserved": true,
+      "compressedPixelPayloadUnchangedDuringProfileRestore": true,
+      "platform": "macos",
+      "appVersion": "0.17.38"
+    },
+    {
+      "scene": "agent",
+      "theme": "light",
+      "output": "agent-light.webp",
+      "source": {
+        "name": "agent-light.png",
+        "sha256": "08b03721adf492570e21af0d009db2f5257d3bf0e7774b799a8a06a7b9f0683c",
+        "format": "JPEG",
+        "width": 2880,
+        "height": 1752,
+        "bytes": 599562,
+        "iccProfileBytes": 4064
+      },
+      "outputFormat": "WEBP",
+      "lossless": true,
+      "width": 2880,
+      "height": 1752,
+      "outputSha256": "786e9b607a6f811fa1d50184fdc56958a5c7f3e5e63e460cdfe30056a75a0400",
+      "outputBytes": 881158,
+      "crop": null,
+      "masks": [
+        {
+          "bbox": [
+            0,
+            0,
+            156,
+            72
+          ],
+          "purpose": "Remove OS capture/share badge; restore actual app-renderer header pixels.",
+          "pixelSource": {
+            "name": "shell-tasks-light.png",
+            "sha256": "ffdfc025cde7974d07931add4b6917f3f7ee641a868207116a201bf4c8de91c2",
+            "format": "PNG",
+            "width": 2880,
+            "height": 2880,
+            "bytes": 2840818
+          },
+          "trafficButtons": "No unobscured actual OS traffic source available; decoration omitted rather than invented."
+        },
+        {
+          "bbox": [
+            1820,
+            0,
+            1960,
+            72
+          ],
+          "purpose": "Remove cursor from blank top strip only.",
+          "pixelSource": {
+            "name": "shell-tasks-light.png",
+            "sha256": "ffdfc025cde7974d07931add4b6917f3f7ee641a868207116a201bf4c8de91c2",
+            "format": "PNG",
+            "width": 2880,
+            "height": 2880,
+            "bytes": 2840818
+          }
+        }
+      ],
+      "pixelsBelow72Unchanged": true,
+      "cacheKey": {
+        "source": "08b03721adf492570e21af0d009db2f5257d3bf0e7774b799a8a06a7b9f0683c",
+        "clean": "ffdfc025cde7974d07931add4b6917f3f7ee641a868207116a201bf4c8de91c2",
+        "traffic": null,
+        "version": 3,
+        "deviceCrop": null
+      },
+      "sourceIccPreserved": true,
+      "compressedPixelPayloadUnchangedDuringProfileRestore": true,
+      "platform": "macos",
+      "appVersion": "0.17.38"
+    },
+    {
+      "scene": "agents",
+      "theme": "dark",
+      "output": "agents-dark.webp",
+      "source": {
+        "name": "agents-dark.png",
+        "sha256": "9c006240ccd5c4b07900cbf3959588e59170c93cc29cc93d4de13f163bc5b292",
+        "format": "JPEG",
+        "width": 2880,
+        "height": 1752,
+        "bytes": 717779,
+        "iccProfileBytes": 4064
+      },
+      "outputFormat": "WEBP",
+      "lossless": true,
+      "sourceIccPreserved": true,
+      "width": 2880,
+      "height": 1752,
+      "outputSha256": "ba4650e8e9088b213a00c6fd8a19e1e3977b1194689f7b00a8455ce7be0fda49",
+      "outputBytes": 1024866,
+      "crop": null,
+      "masks": [
+        {
+          "bbox": [
+            0,
+            0,
+            156,
+            72
+          ],
+          "purpose": "Remove OS capture/share badge; restore actual app-renderer header pixels.",
+          "pixelSource": {
+            "name": "header-dark.png",
+            "sha256": "a41990e0324104ffc57a7d31df5ff485001a0c720b3517bdb6fe0dcd6aad4f1c",
+            "format": "PNG",
+            "width": 2880,
+            "height": 2880,
+            "bytes": 3821729,
+            "iccProfileBytes": 0
+          },
+          "trafficButtons": "No unobscured actual OS traffic source available; decoration omitted rather than invented."
+        },
+        {
+          "bbox": [
+            1820,
+            0,
+            1960,
+            72
+          ],
+          "purpose": "Remove cursor from blank top strip only.",
+          "pixelSource": {
+            "name": "header-dark.png",
+            "sha256": "a41990e0324104ffc57a7d31df5ff485001a0c720b3517bdb6fe0dcd6aad4f1c",
+            "format": "PNG",
+            "width": 2880,
+            "height": 2880,
+            "bytes": 3821729,
+            "iccProfileBytes": 0
+          }
+        }
+      ],
+      "pixelsBelow72Unchanged": true,
+      "cacheKey": {
+        "source": "9c006240ccd5c4b07900cbf3959588e59170c93cc29cc93d4de13f163bc5b292",
+        "clean": "a41990e0324104ffc57a7d31df5ff485001a0c720b3517bdb6fe0dcd6aad4f1c",
+        "traffic": null,
+        "version": 3,
+        "deviceCrop": null
+      },
+      "platform": "macos",
+      "appVersion": "0.17.38"
+    },
+    {
+      "scene": "agents",
+      "theme": "light",
+      "output": "agents-light.webp",
+      "source": {
+        "name": "agents-light.png",
+        "sha256": "9e3fc09e2b486e3a18f29cfdd75aed75d75c63f3562e5567fd391c0002ec9102",
+        "format": "JPEG",
+        "width": 2880,
+        "height": 1752,
+        "bytes": 751481,
+        "iccProfileBytes": 4064
+      },
+      "outputFormat": "WEBP",
+      "lossless": true,
+      "sourceIccPreserved": true,
+      "width": 2880,
+      "height": 1752,
+      "outputSha256": "67708c1c3ef0583ae243ed4cb85a5c3a454abef1e86acdb8a1941c817b1e7abd",
+      "outputBytes": 1209192,
+      "crop": null,
+      "masks": [
+        {
+          "bbox": [
+            0,
+            0,
+            156,
+            72
+          ],
+          "purpose": "Remove OS capture/share badge; restore actual app-renderer header pixels.",
+          "pixelSource": {
+            "name": "shell-tasks-light.png",
+            "sha256": "ffdfc025cde7974d07931add4b6917f3f7ee641a868207116a201bf4c8de91c2",
+            "format": "PNG",
+            "width": 2880,
+            "height": 2880,
+            "bytes": 2840818,
+            "iccProfileBytes": 0
+          },
+          "trafficButtons": "No unobscured actual OS traffic source available; decoration omitted rather than invented."
+        },
+        {
+          "bbox": [
+            1820,
+            0,
+            1960,
+            72
+          ],
+          "purpose": "Remove cursor from blank top strip only.",
+          "pixelSource": {
+            "name": "shell-tasks-light.png",
+            "sha256": "ffdfc025cde7974d07931add4b6917f3f7ee641a868207116a201bf4c8de91c2",
+            "format": "PNG",
+            "width": 2880,
+            "height": 2880,
+            "bytes": 2840818,
+            "iccProfileBytes": 0
+          }
+        }
+      ],
+      "pixelsBelow72Unchanged": true,
+      "cacheKey": {
+        "source": "9e3fc09e2b486e3a18f29cfdd75aed75d75c63f3562e5567fd391c0002ec9102",
+        "clean": "ffdfc025cde7974d07931add4b6917f3f7ee641a868207116a201bf4c8de91c2",
+        "traffic": null,
+        "version": 3,
+        "deviceCrop": null
+      },
+      "platform": "macos",
+      "appVersion": "0.17.38"
+    },
+    {
+      "scene": "attack",
+      "theme": "dark",
+      "output": "attack-dark.webp",
+      "source": {
+        "name": "attack-dark.png",
+        "sha256": "e4ee7765f33547e0f8bdcdec103402e134e849a3839365d1cf71a661753f2378",
+        "format": "JPEG",
+        "width": 2880,
+        "height": 1752,
+        "bytes": 424385,
+        "iccProfileBytes": 4064
+      },
+      "outputFormat": "WEBP",
+      "lossless": true,
+      "sourceIccPreserved": true,
+      "width": 2880,
+      "height": 1752,
+      "outputSha256": "c679f999ef30fe8372e5a9a152a8356761719ce23a1740f417e54d7215eb3b2e",
+      "outputBytes": 567452,
+      "crop": null,
+      "masks": [
+        {
+          "bbox": [
+            0,
+            0,
+            156,
+            72
+          ],
+          "purpose": "Remove OS capture/share badge; restore actual app-renderer header pixels.",
+          "pixelSource": {
+            "name": "header-dark.png",
+            "sha256": "a41990e0324104ffc57a7d31df5ff485001a0c720b3517bdb6fe0dcd6aad4f1c",
+            "format": "PNG",
+            "width": 2880,
+            "height": 2880,
+            "bytes": 3821729,
+            "iccProfileBytes": 0
+          },
+          "trafficButtons": "No unobscured actual OS traffic source available; decoration omitted rather than invented."
+        },
+        {
+          "bbox": [
+            1820,
+            0,
+            1960,
+            72
+          ],
+          "purpose": "Remove cursor from blank top strip only.",
+          "pixelSource": {
+            "name": "header-dark.png",
+            "sha256": "a41990e0324104ffc57a7d31df5ff485001a0c720b3517bdb6fe0dcd6aad4f1c",
+            "format": "PNG",
+            "width": 2880,
+            "height": 2880,
+            "bytes": 3821729,
+            "iccProfileBytes": 0
+          }
+        }
+      ],
+      "pixelsBelow72Unchanged": true,
+      "cacheKey": {
+        "source": "e4ee7765f33547e0f8bdcdec103402e134e849a3839365d1cf71a661753f2378",
+        "clean": "a41990e0324104ffc57a7d31df5ff485001a0c720b3517bdb6fe0dcd6aad4f1c",
+        "traffic": null,
+        "version": 3,
+        "deviceCrop": null
+      },
+      "platform": "macos",
+      "appVersion": "0.17.38"
+    },
+    {
+      "scene": "attack",
+      "theme": "light",
+      "output": "attack-light.webp",
+      "source": {
+        "name": "attack-light.png",
+        "sha256": "63653c1113501b24ddb118fba9b06db5b723928d99f62ef91cd26aac9026051e",
+        "format": "JPEG",
+        "width": 2880,
+        "height": 1752,
+        "bytes": 381729,
+        "iccProfileBytes": 4064
+      },
+      "outputFormat": "WEBP",
+      "lossless": true,
+      "sourceIccPreserved": true,
+      "width": 2880,
+      "height": 1752,
+      "outputSha256": "adfcf3d6524a307e8a06dd0f123b40e78bfe39c89175a63ec9d989b6c79fe7eb",
+      "outputBytes": 489508,
+      "crop": null,
+      "masks": [
+        {
+          "bbox": [
+            0,
+            0,
+            156,
+            72
+          ],
+          "purpose": "Remove OS capture/share badge; restore actual app-renderer header pixels.",
+          "pixelSource": {
+            "name": "shell-tasks-light.png",
+            "sha256": "ffdfc025cde7974d07931add4b6917f3f7ee641a868207116a201bf4c8de91c2",
+            "format": "PNG",
+            "width": 2880,
+            "height": 2880,
+            "bytes": 2840818,
+            "iccProfileBytes": 0
+          },
+          "trafficButtons": "No unobscured actual OS traffic source available; decoration omitted rather than invented."
+        },
+        {
+          "bbox": [
+            1820,
+            0,
+            1960,
+            72
+          ],
+          "purpose": "Remove cursor from blank top strip only.",
+          "pixelSource": {
+            "name": "shell-tasks-light.png",
+            "sha256": "ffdfc025cde7974d07931add4b6917f3f7ee641a868207116a201bf4c8de91c2",
+            "format": "PNG",
+            "width": 2880,
+            "height": 2880,
+            "bytes": 2840818,
+            "iccProfileBytes": 0
+          }
+        }
+      ],
+      "pixelsBelow72Unchanged": true,
+      "cacheKey": {
+        "source": "63653c1113501b24ddb118fba9b06db5b723928d99f62ef91cd26aac9026051e",
+        "clean": "ffdfc025cde7974d07931add4b6917f3f7ee641a868207116a201bf4c8de91c2",
+        "traffic": null,
+        "version": 3,
+        "deviceCrop": null
+      },
+      "platform": "macos",
+      "appVersion": "0.17.38"
+    },
+    {
+      "scene": "automation-output",
+      "theme": "dark",
+      "output": "automation-output-dark.webp",
+      "source": {
+        "name": "automation-output-dark.png",
+        "sha256": "c49056d7bda6235be3044767022fe687657011465674d3839a8d76b01073d9c7",
+        "format": "JPEG",
+        "width": 2880,
+        "height": 1752,
+        "bytes": 360432,
+        "iccProfileBytes": 4064
+      },
+      "outputFormat": "WEBP",
+      "lossless": true,
+      "width": 2880,
+      "height": 1752,
+      "outputSha256": "9b6448645408c5b6ecadb46f048148c2e5df399525d01ca6be564151590858e2",
+      "outputBytes": 397972,
+      "crop": null,
+      "masks": [
+        {
+          "bbox": [
+            0,
+            0,
+            156,
+            72
+          ],
+          "purpose": "Remove OS capture/share badge; restore actual app-renderer header pixels.",
+          "pixelSource": {
+            "name": "header-dark.png",
+            "sha256": "a41990e0324104ffc57a7d31df5ff485001a0c720b3517bdb6fe0dcd6aad4f1c",
+            "format": "PNG",
+            "width": 2880,
+            "height": 2880,
+            "bytes": 3821729
+          },
+          "trafficButtons": "No unobscured actual OS traffic source available; decoration omitted rather than invented."
+        },
+        {
+          "bbox": [
+            1820,
+            0,
+            1960,
+            72
+          ],
+          "purpose": "Remove cursor from blank top strip only.",
+          "pixelSource": {
+            "name": "header-dark.png",
+            "sha256": "a41990e0324104ffc57a7d31df5ff485001a0c720b3517bdb6fe0dcd6aad4f1c",
+            "format": "PNG",
+            "width": 2880,
+            "height": 2880,
+            "bytes": 3821729
+          }
+        }
+      ],
+      "pixelsBelow72Unchanged": true,
+      "cacheKey": {
+        "source": "c49056d7bda6235be3044767022fe687657011465674d3839a8d76b01073d9c7",
+        "clean": "a41990e0324104ffc57a7d31df5ff485001a0c720b3517bdb6fe0dcd6aad4f1c",
+        "traffic": null,
+        "version": 3,
+        "deviceCrop": null
+      },
+      "sourceIccPreserved": true,
+      "compressedPixelPayloadUnchangedDuringProfileRestore": true,
+      "platform": "macos",
+      "appVersion": "0.17.38"
+    },
+    {
+      "scene": "automation-output",
+      "theme": "light",
+      "output": "automation-output-light.webp",
+      "source": {
+        "name": "automation-output-light.png",
+        "sha256": "235fcf63016371f08615aa30d55fdf72f408cb6ded9899e08925fb378e1b87a2",
+        "format": "JPEG",
+        "width": 2880,
+        "height": 1752,
+        "bytes": 373458,
+        "iccProfileBytes": 4064
+      },
+      "outputFormat": "WEBP",
+      "lossless": true,
+      "width": 2880,
+      "height": 1752,
+      "outputSha256": "8a0215b8c1b093828053866e56d046df65eab346dafa9712d5ee06a8b6f85b65",
+      "outputBytes": 416292,
+      "crop": null,
+      "masks": [
+        {
+          "bbox": [
+            0,
+            0,
+            156,
+            72
+          ],
+          "purpose": "Remove OS capture/share badge; restore actual app-renderer header pixels.",
+          "pixelSource": {
+            "name": "shell-tasks-light.png",
+            "sha256": "ffdfc025cde7974d07931add4b6917f3f7ee641a868207116a201bf4c8de91c2",
+            "format": "PNG",
+            "width": 2880,
+            "height": 2880,
+            "bytes": 2840818
+          },
+          "trafficButtons": "No unobscured actual OS traffic source available; decoration omitted rather than invented."
+        },
+        {
+          "bbox": [
+            1820,
+            0,
+            1960,
+            72
+          ],
+          "purpose": "Remove cursor from blank top strip only.",
+          "pixelSource": {
+            "name": "shell-tasks-light.png",
+            "sha256": "ffdfc025cde7974d07931add4b6917f3f7ee641a868207116a201bf4c8de91c2",
+            "format": "PNG",
+            "width": 2880,
+            "height": 2880,
+            "bytes": 2840818
+          }
+        }
+      ],
+      "pixelsBelow72Unchanged": true,
+      "cacheKey": {
+        "source": "235fcf63016371f08615aa30d55fdf72f408cb6ded9899e08925fb378e1b87a2",
+        "clean": "ffdfc025cde7974d07931add4b6917f3f7ee641a868207116a201bf4c8de91c2",
+        "traffic": null,
+        "version": 3,
+        "deviceCrop": null
+      },
+      "sourceIccPreserved": true,
+      "compressedPixelPayloadUnchangedDuringProfileRestore": true,
+      "platform": "macos",
+      "appVersion": "0.17.38"
+    },
+    {
+      "scene": "automations",
+      "theme": "dark",
+      "output": "automations-dark.webp",
+      "source": {
+        "name": "automations-dark.png",
+        "sha256": "1b8301b33465ccd0417432981dfdadc33e5b1cb064255c4fbbac196be507cad6",
+        "format": "JPEG",
+        "width": 2880,
+        "height": 1752,
+        "bytes": 275579,
+        "iccProfileBytes": 4064
+      },
+      "outputFormat": "WEBP",
+      "lossless": true,
+      "width": 2880,
+      "height": 1752,
+      "outputSha256": "4ec7784e4c80fc8b1c3d697c1acb11b32afd26ff2f05f60917b0a69ad5ba472d",
+      "outputBytes": 281196,
+      "crop": null,
+      "masks": [
+        {
+          "bbox": [
+            0,
+            0,
+            156,
+            72
+          ],
+          "purpose": "Remove OS capture/share badge; restore actual app-renderer header pixels.",
+          "pixelSource": {
+            "name": "header-dark.png",
+            "sha256": "a41990e0324104ffc57a7d31df5ff485001a0c720b3517bdb6fe0dcd6aad4f1c",
+            "format": "PNG",
+            "width": 2880,
+            "height": 2880,
+            "bytes": 3821729
+          },
+          "trafficButtons": "No unobscured actual OS traffic source available; decoration omitted rather than invented."
+        },
+        {
+          "bbox": [
+            1820,
+            0,
+            1960,
+            72
+          ],
+          "purpose": "Remove cursor from blank top strip only.",
+          "pixelSource": {
+            "name": "header-dark.png",
+            "sha256": "a41990e0324104ffc57a7d31df5ff485001a0c720b3517bdb6fe0dcd6aad4f1c",
+            "format": "PNG",
+            "width": 2880,
+            "height": 2880,
+            "bytes": 3821729
+          }
+        }
+      ],
+      "pixelsBelow72Unchanged": true,
+      "cacheKey": {
+        "source": "1b8301b33465ccd0417432981dfdadc33e5b1cb064255c4fbbac196be507cad6",
+        "clean": "a41990e0324104ffc57a7d31df5ff485001a0c720b3517bdb6fe0dcd6aad4f1c",
+        "traffic": null,
+        "version": 3,
+        "deviceCrop": null
+      },
+      "sourceIccPreserved": true,
+      "compressedPixelPayloadUnchangedDuringProfileRestore": true,
+      "platform": "macos",
+      "appVersion": "0.17.38"
+    },
+    {
+      "scene": "automations",
+      "theme": "light",
+      "output": "automations-light.webp",
+      "source": {
+        "name": "automations-light.png",
+        "sha256": "131ee4afb87f5bc38f3df9eeac31dcef1522399838f1f12130f57fde9fe7dd17",
+        "format": "JPEG",
+        "width": 2880,
+        "height": 1752,
+        "bytes": 284077,
+        "iccProfileBytes": 4064
+      },
+      "outputFormat": "WEBP",
+      "lossless": true,
+      "width": 2880,
+      "height": 1752,
+      "outputSha256": "a8a89e8b25af0a287344e230dc129d6f50b3e67f0769ac33155c201ece7e5a99",
+      "outputBytes": 290222,
+      "crop": null,
+      "masks": [
+        {
+          "bbox": [
+            0,
+            0,
+            156,
+            72
+          ],
+          "purpose": "Remove OS capture/share badge; restore actual app-renderer header pixels.",
+          "pixelSource": {
+            "name": "shell-tasks-light.png",
+            "sha256": "ffdfc025cde7974d07931add4b6917f3f7ee641a868207116a201bf4c8de91c2",
+            "format": "PNG",
+            "width": 2880,
+            "height": 2880,
+            "bytes": 2840818
+          },
+          "trafficButtons": "No unobscured actual OS traffic source available; decoration omitted rather than invented."
+        },
+        {
+          "bbox": [
+            1820,
+            0,
+            1960,
+            72
+          ],
+          "purpose": "Remove cursor from blank top strip only.",
+          "pixelSource": {
+            "name": "shell-tasks-light.png",
+            "sha256": "ffdfc025cde7974d07931add4b6917f3f7ee641a868207116a201bf4c8de91c2",
+            "format": "PNG",
+            "width": 2880,
+            "height": 2880,
+            "bytes": 2840818
+          }
+        }
+      ],
+      "pixelsBelow72Unchanged": true,
+      "cacheKey": {
+        "source": "131ee4afb87f5bc38f3df9eeac31dcef1522399838f1f12130f57fde9fe7dd17",
+        "clean": "ffdfc025cde7974d07931add4b6917f3f7ee641a868207116a201bf4c8de91c2",
+        "traffic": null,
+        "version": 3,
+        "deviceCrop": null
+      },
+      "sourceIccPreserved": true,
+      "compressedPixelPayloadUnchangedDuringProfileRestore": true,
+      "platform": "macos",
+      "appVersion": "0.17.38"
+    },
+    {
+      "scene": "ide-annotation-chat",
+      "theme": "dark",
+      "output": "ide-annotation-chat-dark.webp",
+      "source": {
+        "name": "ide-annotation-chat-dark.png",
+        "sha256": "5ee2cdce5cfbb7494f0e42cfee4d6049de41dda1966f6edfbc2ab84d453c6b37",
+        "format": "JPEG",
+        "width": 2880,
+        "height": 1748,
+        "bytes": 557190,
+        "iccProfileBytes": 4064
+      },
+      "outputFormat": "WEBP",
+      "lossless": true,
+      "sourceIccPreserved": true,
+      "width": 2880,
+      "height": 1748,
+      "outputSha256": "b41b7dbc7d8c5d63f8f6d1fb613184c3bb133cc7c8e7859ac5db13f2bbc97a08",
+      "outputBytes": 1081080,
+      "crop": null,
+      "masks": [
+        {
+          "bbox": [
+            0,
+            0,
+            156,
+            72
+          ],
+          "purpose": "Remove OS capture/share badge; restore actual app-renderer header pixels.",
+          "pixelSource": {
+            "name": "header-dark.png",
+            "sha256": "a41990e0324104ffc57a7d31df5ff485001a0c720b3517bdb6fe0dcd6aad4f1c",
+            "format": "PNG",
+            "width": 2880,
+            "height": 2880,
+            "bytes": 3821729,
+            "iccProfileBytes": 0
+          },
+          "trafficButtons": "No unobscured actual OS traffic source available; decoration omitted rather than invented."
+        },
+        {
+          "bbox": [
+            1820,
+            0,
+            1960,
+            72
+          ],
+          "purpose": "Remove cursor from blank top strip only.",
+          "pixelSource": {
+            "name": "header-dark.png",
+            "sha256": "a41990e0324104ffc57a7d31df5ff485001a0c720b3517bdb6fe0dcd6aad4f1c",
+            "format": "PNG",
+            "width": 2880,
+            "height": 2880,
+            "bytes": 3821729,
+            "iccProfileBytes": 0
+          }
+        }
+      ],
+      "pixelsBelow72Unchanged": true,
+      "sourceCropPixelsUnchanged": null,
+      "platform": "macos",
+      "appVersion": "0.17.38",
+      "cacheKey": {
+        "source": "5ee2cdce5cfbb7494f0e42cfee4d6049de41dda1966f6edfbc2ab84d453c6b37",
+        "clean": "a41990e0324104ffc57a7d31df5ff485001a0c720b3517bdb6fe0dcd6aad4f1c",
+        "traffic": null,
+        "version": 3,
+        "deviceCrop": null
+      }
+    },
+    {
+      "scene": "ide-annotation-chat",
+      "theme": "light",
+      "output": "ide-annotation-chat-light.webp",
+      "source": {
+        "name": "ide-annotation-chat-light.png",
+        "sha256": "690c1452408ade97a637965962c88b34db1d6c362143cc1a5deeac110c2a017e",
+        "format": "JPEG",
+        "width": 2880,
+        "height": 1748,
+        "bytes": 591692,
+        "iccProfileBytes": 4064
+      },
+      "outputFormat": "WEBP",
+      "lossless": true,
+      "sourceIccPreserved": true,
+      "width": 2880,
+      "height": 1748,
+      "outputSha256": "7bbbd048627dd443379c00c4825f52a7ddd63af6e4cead4eeee0bf14d78fe4f6",
+      "outputBytes": 1121708,
+      "crop": null,
+      "masks": [
+        {
+          "bbox": [
+            0,
+            0,
+            156,
+            72
+          ],
+          "purpose": "Remove OS capture/share badge; restore actual app-renderer header pixels.",
+          "pixelSource": {
+            "name": "shell-tasks-light.png",
+            "sha256": "ffdfc025cde7974d07931add4b6917f3f7ee641a868207116a201bf4c8de91c2",
+            "format": "PNG",
+            "width": 2880,
+            "height": 2880,
+            "bytes": 2840818,
+            "iccProfileBytes": 0
+          },
+          "trafficButtons": "No unobscured actual OS traffic source available; decoration omitted rather than invented."
+        },
+        {
+          "bbox": [
+            1820,
+            0,
+            1960,
+            72
+          ],
+          "purpose": "Remove cursor from blank top strip only.",
+          "pixelSource": {
+            "name": "shell-tasks-light.png",
+            "sha256": "ffdfc025cde7974d07931add4b6917f3f7ee641a868207116a201bf4c8de91c2",
+            "format": "PNG",
+            "width": 2880,
+            "height": 2880,
+            "bytes": 2840818,
+            "iccProfileBytes": 0
+          }
+        }
+      ],
+      "pixelsBelow72Unchanged": true,
+      "sourceCropPixelsUnchanged": null,
+      "platform": "macos",
+      "appVersion": "0.17.38",
+      "cacheKey": {
+        "source": "690c1452408ade97a637965962c88b34db1d6c362143cc1a5deeac110c2a017e",
+        "clean": "ffdfc025cde7974d07931add4b6917f3f7ee641a868207116a201bf4c8de91c2",
+        "traffic": null,
+        "version": 3,
+        "deviceCrop": null
+      }
+    },
+    {
+      "scene": "ide",
+      "theme": "dark",
+      "output": "ide-dark.webp",
+      "source": {
+        "name": "ide-dark.png",
+        "sha256": "3da5cece868affb5c26cf28d458f04bfee21db4c73f72dfb750770540fb70596",
+        "format": "JPEG",
+        "width": 2880,
+        "height": 1752,
+        "bytes": 526302,
+        "iccProfileBytes": 4064
+      },
+      "outputFormat": "WEBP",
+      "lossless": true,
+      "width": 2880,
+      "height": 1752,
+      "outputSha256": "857cd2e09ba8ecc6b8051bf74ad8daa6bf685426684142bdc979cdc5b94a93b6",
+      "outputBytes": 962456,
+      "crop": null,
+      "masks": [
+        {
+          "bbox": [
+            0,
+            0,
+            156,
+            72
+          ],
+          "purpose": "Remove OS capture/share badge; restore actual app-renderer header pixels.",
+          "pixelSource": {
+            "name": "header-dark.png",
+            "sha256": "a41990e0324104ffc57a7d31df5ff485001a0c720b3517bdb6fe0dcd6aad4f1c",
+            "format": "PNG",
+            "width": 2880,
+            "height": 2880,
+            "bytes": 3821729
+          },
+          "trafficButtons": "No unobscured actual OS traffic source available; decoration omitted rather than invented."
+        },
+        {
+          "bbox": [
+            1820,
+            0,
+            1960,
+            72
+          ],
+          "purpose": "Remove cursor from blank top strip only.",
+          "pixelSource": {
+            "name": "header-dark.png",
+            "sha256": "a41990e0324104ffc57a7d31df5ff485001a0c720b3517bdb6fe0dcd6aad4f1c",
+            "format": "PNG",
+            "width": 2880,
+            "height": 2880,
+            "bytes": 3821729
+          }
+        }
+      ],
+      "pixelsBelow72Unchanged": true,
+      "cacheKey": {
+        "source": "3da5cece868affb5c26cf28d458f04bfee21db4c73f72dfb750770540fb70596",
+        "clean": "a41990e0324104ffc57a7d31df5ff485001a0c720b3517bdb6fe0dcd6aad4f1c",
+        "traffic": null,
+        "version": 3,
+        "deviceCrop": null
+      },
+      "sourceIccPreserved": true,
+      "compressedPixelPayloadUnchangedDuringProfileRestore": true,
+      "platform": "macos",
+      "appVersion": "0.17.38"
+    },
+    {
+      "scene": "ide",
+      "theme": "light",
+      "output": "ide-light.webp",
+      "source": {
+        "name": "ide-light.png",
+        "sha256": "cc22d61a28111869a83fb0f0cba008fa90cdf64f402fbfb8205a46e73566c946",
+        "format": "JPEG",
+        "width": 2880,
+        "height": 1752,
+        "bytes": 552972,
+        "iccProfileBytes": 4064
+      },
+      "outputFormat": "WEBP",
+      "lossless": true,
+      "width": 2880,
+      "height": 1752,
+      "outputSha256": "2bd1b26595ec5dcb9ba52323e04d4042c326456790350cdf33fb9edf3a8fbdb6",
+      "outputBytes": 1069328,
+      "crop": null,
+      "masks": [
+        {
+          "bbox": [
+            0,
+            0,
+            156,
+            72
+          ],
+          "purpose": "Remove OS capture/share badge; restore actual app-renderer header pixels.",
+          "pixelSource": {
+            "name": "shell-tasks-light.png",
+            "sha256": "ffdfc025cde7974d07931add4b6917f3f7ee641a868207116a201bf4c8de91c2",
+            "format": "PNG",
+            "width": 2880,
+            "height": 2880,
+            "bytes": 2840818
+          },
+          "trafficButtons": "No unobscured actual OS traffic source available; decoration omitted rather than invented."
+        },
+        {
+          "bbox": [
+            1820,
+            0,
+            1960,
+            72
+          ],
+          "purpose": "Remove cursor from blank top strip only.",
+          "pixelSource": {
+            "name": "shell-tasks-light.png",
+            "sha256": "ffdfc025cde7974d07931add4b6917f3f7ee641a868207116a201bf4c8de91c2",
+            "format": "PNG",
+            "width": 2880,
+            "height": 2880,
+            "bytes": 2840818
+          }
+        }
+      ],
+      "pixelsBelow72Unchanged": true,
+      "cacheKey": {
+        "source": "cc22d61a28111869a83fb0f0cba008fa90cdf64f402fbfb8205a46e73566c946",
+        "clean": "ffdfc025cde7974d07931add4b6917f3f7ee641a868207116a201bf4c8de91c2",
+        "traffic": null,
+        "version": 3,
+        "deviceCrop": null
+      },
+      "sourceIccPreserved": true,
+      "compressedPixelPayloadUnchangedDuringProfileRestore": true,
+      "platform": "macos",
+      "appVersion": "0.17.38"
+    },
+    {
+      "scene": "ide-references",
+      "theme": "dark",
+      "output": "ide-references-dark.webp",
+      "source": {
+        "name": "ide-references-dark.png",
+        "sha256": "ce882b41a9035ee164a96f60384026faea24f60e4ab10746bf30784bb9ce5299",
+        "format": "JPEG",
+        "width": 2880,
+        "height": 1752,
+        "bytes": 525166,
+        "iccProfileBytes": 4064
+      },
+      "outputFormat": "WEBP",
+      "lossless": true,
+      "width": 2880,
+      "height": 1752,
+      "outputSha256": "d8cdc2feaa47f5483524cb214b39d5a1ba829fd57a349ad843155038ffd3c841",
+      "outputBytes": 955474,
+      "crop": null,
+      "masks": [
+        {
+          "bbox": [
+            0,
+            0,
+            156,
+            72
+          ],
+          "purpose": "Remove OS capture/share badge; restore actual app-renderer header pixels.",
+          "pixelSource": {
+            "name": "header-dark.png",
+            "sha256": "a41990e0324104ffc57a7d31df5ff485001a0c720b3517bdb6fe0dcd6aad4f1c",
+            "format": "PNG",
+            "width": 2880,
+            "height": 2880,
+            "bytes": 3821729
+          },
+          "trafficButtons": "No unobscured actual OS traffic source available; decoration omitted rather than invented."
+        },
+        {
+          "bbox": [
+            1820,
+            0,
+            1960,
+            72
+          ],
+          "purpose": "Remove cursor from blank top strip only.",
+          "pixelSource": {
+            "name": "header-dark.png",
+            "sha256": "a41990e0324104ffc57a7d31df5ff485001a0c720b3517bdb6fe0dcd6aad4f1c",
+            "format": "PNG",
+            "width": 2880,
+            "height": 2880,
+            "bytes": 3821729
+          }
+        }
+      ],
+      "pixelsBelow72Unchanged": true,
+      "cacheKey": {
+        "source": "ce882b41a9035ee164a96f60384026faea24f60e4ab10746bf30784bb9ce5299",
+        "clean": "a41990e0324104ffc57a7d31df5ff485001a0c720b3517bdb6fe0dcd6aad4f1c",
+        "traffic": null,
+        "version": 3,
+        "deviceCrop": null
+      },
+      "sourceIccPreserved": true,
+      "compressedPixelPayloadUnchangedDuringProfileRestore": true,
+      "platform": "macos",
+      "appVersion": "0.17.38"
+    },
+    {
+      "scene": "ide-references",
+      "theme": "light",
+      "output": "ide-references-light.webp",
+      "source": {
+        "name": "ide-references-light.png",
+        "sha256": "60bb7927a50b47e3d60a102ee712437d6f35d6096fcfcb66027a180b86a97d1f",
+        "format": "JPEG",
+        "width": 2880,
+        "height": 1752,
+        "bytes": 555249,
+        "iccProfileBytes": 4064
+      },
+      "outputFormat": "WEBP",
+      "lossless": true,
+      "width": 2880,
+      "height": 1752,
+      "outputSha256": "08e566905890711ebf94a932de163eb7e460a1a6fba9cc87389d3b73aed168ee",
+      "outputBytes": 1019382,
+      "crop": null,
+      "masks": [
+        {
+          "bbox": [
+            0,
+            0,
+            156,
+            72
+          ],
+          "purpose": "Remove OS capture/share badge; restore actual app-renderer header pixels.",
+          "pixelSource": {
+            "name": "shell-tasks-light.png",
+            "sha256": "ffdfc025cde7974d07931add4b6917f3f7ee641a868207116a201bf4c8de91c2",
+            "format": "PNG",
+            "width": 2880,
+            "height": 2880,
+            "bytes": 2840818
+          },
+          "trafficButtons": "No unobscured actual OS traffic source available; decoration omitted rather than invented."
+        },
+        {
+          "bbox": [
+            1820,
+            0,
+            1960,
+            72
+          ],
+          "purpose": "Remove cursor from blank top strip only.",
+          "pixelSource": {
+            "name": "shell-tasks-light.png",
+            "sha256": "ffdfc025cde7974d07931add4b6917f3f7ee641a868207116a201bf4c8de91c2",
+            "format": "PNG",
+            "width": 2880,
+            "height": 2880,
+            "bytes": 2840818
+          }
+        }
+      ],
+      "pixelsBelow72Unchanged": true,
+      "cacheKey": {
+        "source": "60bb7927a50b47e3d60a102ee712437d6f35d6096fcfcb66027a180b86a97d1f",
+        "clean": "ffdfc025cde7974d07931add4b6917f3f7ee641a868207116a201bf4c8de91c2",
+        "traffic": null,
+        "version": 3,
+        "deviceCrop": null
+      },
+      "sourceIccPreserved": true,
+      "compressedPixelPayloadUnchangedDuringProfileRestore": true,
+      "platform": "macos",
+      "appVersion": "0.17.38"
+    },
+    {
+      "scene": "memory",
+      "theme": "dark",
+      "output": "memory-dark.webp",
+      "source": {
+        "name": "memory-dark.png",
+        "sha256": "7dd2792e86ebf23969e4a867f68e754f7eb43f3db0032eb6a6a76aad43db7107",
+        "format": "JPEG",
+        "width": 2880,
+        "height": 1752,
+        "bytes": 519666,
+        "iccProfileBytes": 4064
+      },
+      "outputFormat": "WEBP",
+      "lossless": true,
+      "width": 2880,
+      "height": 1752,
+      "outputSha256": "29a104600343eab7fb7cbd0090032d4125cbd30be683c55ad75b5504225bf221",
+      "outputBytes": 921644,
+      "crop": null,
+      "masks": [
+        {
+          "bbox": [
+            0,
+            0,
+            156,
+            72
+          ],
+          "purpose": "Remove OS capture/share badge; restore actual app-renderer header pixels.",
+          "pixelSource": {
+            "name": "header-dark.png",
+            "sha256": "a41990e0324104ffc57a7d31df5ff485001a0c720b3517bdb6fe0dcd6aad4f1c",
+            "format": "PNG",
+            "width": 2880,
+            "height": 2880,
+            "bytes": 3821729
+          },
+          "trafficButtons": "No unobscured actual OS traffic source available; decoration omitted rather than invented."
+        },
+        {
+          "bbox": [
+            1820,
+            0,
+            1960,
+            72
+          ],
+          "purpose": "Remove cursor from blank top strip only.",
+          "pixelSource": {
+            "name": "header-dark.png",
+            "sha256": "a41990e0324104ffc57a7d31df5ff485001a0c720b3517bdb6fe0dcd6aad4f1c",
+            "format": "PNG",
+            "width": 2880,
+            "height": 2880,
+            "bytes": 3821729
+          }
+        }
+      ],
+      "pixelsBelow72Unchanged": true,
+      "cacheKey": {
+        "source": "7dd2792e86ebf23969e4a867f68e754f7eb43f3db0032eb6a6a76aad43db7107",
+        "clean": "a41990e0324104ffc57a7d31df5ff485001a0c720b3517bdb6fe0dcd6aad4f1c",
+        "traffic": null,
+        "version": 3,
+        "deviceCrop": null
+      },
+      "sourceIccPreserved": true,
+      "compressedPixelPayloadUnchangedDuringProfileRestore": true,
+      "platform": "macos",
+      "appVersion": "0.17.38"
+    },
+    {
+      "scene": "memory",
+      "theme": "light",
+      "output": "memory-light.webp",
+      "source": {
+        "name": "memory-light.png",
+        "sha256": "e13afa81014b68ed2b9ae56647c89057344183e1747110ee93e157ef441c5e85",
+        "format": "JPEG",
+        "width": 2880,
+        "height": 1748,
+        "bytes": 520515,
+        "iccProfileBytes": 4064
+      },
+      "outputFormat": "WEBP",
+      "lossless": true,
+      "sourceIccPreserved": true,
+      "width": 2880,
+      "height": 1748,
+      "outputSha256": "6d829e60f77e4ae283a68a2cecc9296e1d76b71b2c446d007a694f1de08835cc",
+      "outputBytes": 749804,
+      "crop": null,
+      "masks": [
+        {
+          "bbox": [
+            0,
+            0,
+            156,
+            72
+          ],
+          "purpose": "Remove OS capture/share badge; restore actual app-renderer header pixels.",
+          "pixelSource": {
+            "name": "shell-tasks-light.png",
+            "sha256": "ffdfc025cde7974d07931add4b6917f3f7ee641a868207116a201bf4c8de91c2",
+            "format": "PNG",
+            "width": 2880,
+            "height": 2880,
+            "bytes": 2840818,
+            "iccProfileBytes": 0
+          },
+          "trafficButtons": "No unobscured actual OS traffic source available; decoration omitted rather than invented."
+        },
+        {
+          "bbox": [
+            1820,
+            0,
+            1960,
+            72
+          ],
+          "purpose": "Remove cursor from blank top strip only.",
+          "pixelSource": {
+            "name": "shell-tasks-light.png",
+            "sha256": "ffdfc025cde7974d07931add4b6917f3f7ee641a868207116a201bf4c8de91c2",
+            "format": "PNG",
+            "width": 2880,
+            "height": 2880,
+            "bytes": 2840818,
+            "iccProfileBytes": 0
+          }
+        }
+      ],
+      "pixelsBelow72Unchanged": true,
+      "cacheKey": {
+        "source": "e13afa81014b68ed2b9ae56647c89057344183e1747110ee93e157ef441c5e85",
+        "clean": "ffdfc025cde7974d07931add4b6917f3f7ee641a868207116a201bf4c8de91c2",
+        "traffic": null,
+        "version": 3,
+        "deviceCrop": null
+      },
+      "platform": "macos",
+      "appVersion": "0.17.38"
+    },
+    {
+      "scene": "mobile-chat",
+      "theme": "dark",
+      "output": "mobile-chat-dark.webp",
+      "source": {
+        "name": "mobile-chat-dark-raw.png",
+        "sha256": "7ac506c709dd2ec9f2193c75c01cf4fa5a8b6a6abb5274e39f24221bf9b73ec5",
+        "format": "JPEG",
+        "width": 696,
+        "height": 1604,
+        "bytes": 185916,
+        "iccProfileBytes": 4064
+      },
+      "outputFormat": "WEBP",
+      "lossless": true,
+      "sourceIccPreserved": true,
+      "width": 696,
+      "height": 1546,
+      "outputSha256": "f9bd96d99df0f4cddeffbd77e5080e20f1e32324948318ba16d482f4ae8768e4",
+      "outputBytes": 214204,
+      "crop": [
+        0,
+        58,
+        696,
+        1604
+      ],
+      "masks": [],
+      "pixelsBelow72Unchanged": null,
+      "sourceCropPixelsUnchanged": true,
+      "platform": "android",
+      "appVersion": "0.17.39",
+      "cacheKey": {
+        "source": "7ac506c709dd2ec9f2193c75c01cf4fa5a8b6a6abb5274e39f24221bf9b73ec5",
+        "clean": null,
+        "traffic": null,
+        "version": 3,
+        "deviceCrop": [
+          0,
+          58,
+          696,
+          1604
+        ]
+      }
+    },
+    {
+      "scene": "mobile-chat",
+      "theme": "light",
+      "output": "mobile-chat-light.webp",
+      "source": {
+        "name": "mobile-chat-light-raw.png",
+        "sha256": "9cf231c0ada9e046141a7ae8e9db9bb75ae6b11aab4478765debed7a1a1f0c0b",
+        "format": "JPEG",
+        "width": 696,
+        "height": 1604,
+        "bytes": 193088,
+        "iccProfileBytes": 4064
+      },
+      "outputFormat": "WEBP",
+      "lossless": true,
+      "sourceIccPreserved": true,
+      "width": 696,
+      "height": 1546,
+      "outputSha256": "279f345a398464758727ae0ec7151856bb375ae34a618fbb080c58c6b4f6ff99",
+      "outputBytes": 241166,
+      "crop": [
+        0,
+        58,
+        696,
+        1604
+      ],
+      "masks": [],
+      "pixelsBelow72Unchanged": null,
+      "sourceCropPixelsUnchanged": true,
+      "platform": "android",
+      "appVersion": "0.17.39",
+      "cacheKey": {
+        "source": "9cf231c0ada9e046141a7ae8e9db9bb75ae6b11aab4478765debed7a1a1f0c0b",
+        "clean": null,
+        "traffic": null,
+        "version": 3,
+        "deviceCrop": [
+          0,
+          58,
+          696,
+          1604
+        ]
+      }
+    },
+    {
+      "scene": "mobile-task-detail",
+      "theme": "dark",
+      "output": "mobile-task-detail-dark.webp",
+      "source": {
+        "name": "mobile-task-detail-dark-raw.png",
+        "sha256": "d8a02054753ee56b77a7732209e6047ad33cee1eba8071f89be5c427d9937ce6",
+        "format": "JPEG",
+        "width": 696,
+        "height": 1604,
+        "bytes": 78297,
+        "iccProfileBytes": 4064
+      },
+      "outputFormat": "WEBP",
+      "lossless": true,
+      "sourceIccPreserved": true,
+      "width": 696,
+      "height": 1546,
+      "outputSha256": "55e7ce158bd5e6cee902575f031fd7718c4f8b3c922e15daf38f2465afa671e4",
+      "outputBytes": 65866,
+      "crop": [
+        0,
+        58,
+        696,
+        1604
+      ],
+      "masks": [],
+      "pixelsBelow72Unchanged": null,
+      "sourceCropPixelsUnchanged": true,
+      "platform": "android",
+      "appVersion": "0.17.39",
+      "cacheKey": {
+        "source": "d8a02054753ee56b77a7732209e6047ad33cee1eba8071f89be5c427d9937ce6",
+        "clean": null,
+        "traffic": null,
+        "version": 3,
+        "deviceCrop": [
+          0,
+          58,
+          696,
+          1604
+        ]
+      }
+    },
+    {
+      "scene": "mobile-task-detail",
+      "theme": "light",
+      "output": "mobile-task-detail-light.webp",
+      "source": {
+        "name": "mobile-task-detail-light-raw.png",
+        "sha256": "7ee0e40b152399aa0f29e48a4131bca11130e18862d2db6145b7222c822f2ac4",
+        "format": "JPEG",
+        "width": 696,
+        "height": 1604,
+        "bytes": 81599,
+        "iccProfileBytes": 4064
+      },
+      "outputFormat": "WEBP",
+      "lossless": true,
+      "sourceIccPreserved": true,
+      "width": 696,
+      "height": 1546,
+      "outputSha256": "81bcc7169ed3bfcb1f1211b05120b0d8862eda2b4740a54bb94c3fe8bb67f3df",
+      "outputBytes": 73126,
+      "crop": [
+        0,
+        58,
+        696,
+        1604
+      ],
+      "masks": [],
+      "pixelsBelow72Unchanged": null,
+      "sourceCropPixelsUnchanged": true,
+      "platform": "android",
+      "appVersion": "0.17.39",
+      "cacheKey": {
+        "source": "7ee0e40b152399aa0f29e48a4131bca11130e18862d2db6145b7222c822f2ac4",
+        "clean": null,
+        "traffic": null,
+        "version": 3,
+        "deviceCrop": [
+          0,
+          58,
+          696,
+          1604
+        ]
+      }
+    },
+    {
+      "scene": "mobile-tasks",
+      "theme": "dark",
+      "output": "mobile-tasks-dark.webp",
+      "source": {
+        "name": "mobile-tasks-dark-raw.png",
+        "sha256": "b436dc12dca3027ac18d6960f497b34403dc574497b5e12cc83e719e1fbaec0e",
+        "format": "JPEG",
+        "width": 696,
+        "height": 1604,
+        "bytes": 86347,
+        "iccProfileBytes": 4064
+      },
+      "outputFormat": "WEBP",
+      "lossless": true,
+      "sourceIccPreserved": true,
+      "width": 696,
+      "height": 1546,
+      "outputSha256": "c710e3e798f8600e4207d627e0d788dec23f872d96e808bb22209a24f01d79e6",
+      "outputBytes": 65038,
+      "crop": [
+        0,
+        58,
+        696,
+        1604
+      ],
+      "masks": [],
+      "pixelsBelow72Unchanged": null,
+      "sourceCropPixelsUnchanged": true,
+      "platform": "android",
+      "appVersion": "0.17.39",
+      "cacheKey": {
+        "source": "b436dc12dca3027ac18d6960f497b34403dc574497b5e12cc83e719e1fbaec0e",
+        "clean": null,
+        "traffic": null,
+        "version": 3,
+        "deviceCrop": [
+          0,
+          58,
+          696,
+          1604
+        ]
+      }
+    },
+    {
+      "scene": "mobile-tasks",
+      "theme": "light",
+      "output": "mobile-tasks-light.webp",
+      "source": {
+        "name": "mobile-tasks-light-raw.png",
+        "sha256": "1e1f08b355c195e7210844f281739372d52da17b2d96c4403f4114fcd6174ccd",
+        "format": "JPEG",
+        "width": 696,
+        "height": 1604,
+        "bytes": 91149,
+        "iccProfileBytes": 4064
+      },
+      "outputFormat": "WEBP",
+      "lossless": true,
+      "sourceIccPreserved": true,
+      "width": 696,
+      "height": 1546,
+      "outputSha256": "d12107ac91c01675b83164d4e1bca8d9f2e8be63b66c1827f9727bcf2b313f1a",
+      "outputBytes": 73196,
+      "crop": [
+        0,
+        58,
+        696,
+        1604
+      ],
+      "masks": [],
+      "pixelsBelow72Unchanged": null,
+      "sourceCropPixelsUnchanged": true,
+      "platform": "android",
+      "appVersion": "0.17.39",
+      "cacheKey": {
+        "source": "1e1f08b355c195e7210844f281739372d52da17b2d96c4403f4114fcd6174ccd",
+        "clean": null,
+        "traffic": null,
+        "version": 3,
+        "deviceCrop": [
+          0,
+          58,
+          696,
+          1604
+        ]
+      }
+    },
+    {
+      "scene": "profile",
+      "theme": "dark",
+      "output": "profile-dark.webp",
+      "source": {
+        "name": "profile-dark.png",
+        "sha256": "9e5750edaee7045e595a3b84658218caedaaa3573a6cf603cc3e2ec186795726",
+        "format": "JPEG",
+        "width": 2880,
+        "height": 1752,
+        "bytes": 390726,
+        "iccProfileBytes": 4064
+      },
+      "outputFormat": "WEBP",
+      "lossless": true,
+      "width": 2880,
+      "height": 1752,
+      "outputSha256": "dd138e9c7fd0ab87783ad8922f7bc32e5c5017e175cfd4d48f4cf88859c56819",
+      "outputBytes": 402208,
+      "crop": null,
+      "masks": [
+        {
+          "bbox": [
+            0,
+            0,
+            156,
+            72
+          ],
+          "purpose": "Remove OS capture/share badge; restore actual app-renderer header pixels.",
+          "pixelSource": {
+            "name": "header-dark.png",
+            "sha256": "a41990e0324104ffc57a7d31df5ff485001a0c720b3517bdb6fe0dcd6aad4f1c",
+            "format": "PNG",
+            "width": 2880,
+            "height": 2880,
+            "bytes": 3821729
+          },
+          "trafficButtons": "No unobscured actual OS traffic source available; decoration omitted rather than invented."
+        },
+        {
+          "bbox": [
+            1820,
+            0,
+            1960,
+            72
+          ],
+          "purpose": "Remove cursor from blank top strip only.",
+          "pixelSource": {
+            "name": "header-dark.png",
+            "sha256": "a41990e0324104ffc57a7d31df5ff485001a0c720b3517bdb6fe0dcd6aad4f1c",
+            "format": "PNG",
+            "width": 2880,
+            "height": 2880,
+            "bytes": 3821729
+          }
+        }
+      ],
+      "pixelsBelow72Unchanged": true,
+      "cacheKey": {
+        "source": "9e5750edaee7045e595a3b84658218caedaaa3573a6cf603cc3e2ec186795726",
+        "clean": "a41990e0324104ffc57a7d31df5ff485001a0c720b3517bdb6fe0dcd6aad4f1c",
+        "traffic": null,
+        "version": 3,
+        "deviceCrop": null
+      },
+      "sourceIccPreserved": true,
+      "compressedPixelPayloadUnchangedDuringProfileRestore": true,
+      "platform": "macos",
+      "appVersion": "0.17.38"
+    },
+    {
+      "scene": "profile",
+      "theme": "light",
+      "output": "profile-light.webp",
+      "source": {
+        "name": "profile-light.png",
+        "sha256": "e4d0f42f9ca403a83235467e7cd7574def77a1d4c7e80d42da4c7b0ffa4c7444",
+        "format": "JPEG",
+        "width": 2880,
+        "height": 1752,
+        "bytes": 402050,
+        "iccProfileBytes": 4064
+      },
+      "outputFormat": "WEBP",
+      "lossless": true,
+      "sourceIccPreserved": true,
+      "width": 2880,
+      "height": 1752,
+      "outputSha256": "1bcf16a36eca63f7e8301faf0cf0742083a044576f99cb2c1a895e0df7cd4dd5",
+      "outputBytes": 429752,
+      "crop": null,
+      "masks": [
+        {
+          "bbox": [
+            0,
+            0,
+            156,
+            72
+          ],
+          "purpose": "Remove OS capture/share badge; restore actual app-renderer header pixels.",
+          "pixelSource": {
+            "name": "shell-tasks-light.png",
+            "sha256": "ffdfc025cde7974d07931add4b6917f3f7ee641a868207116a201bf4c8de91c2",
+            "format": "PNG",
+            "width": 2880,
+            "height": 2880,
+            "bytes": 2840818,
+            "iccProfileBytes": 0
+          },
+          "trafficButtons": "No unobscured actual OS traffic source available; decoration omitted rather than invented."
+        },
+        {
+          "bbox": [
+            1820,
+            0,
+            1960,
+            72
+          ],
+          "purpose": "Remove cursor from blank top strip only.",
+          "pixelSource": {
+            "name": "shell-tasks-light.png",
+            "sha256": "ffdfc025cde7974d07931add4b6917f3f7ee641a868207116a201bf4c8de91c2",
+            "format": "PNG",
+            "width": 2880,
+            "height": 2880,
+            "bytes": 2840818,
+            "iccProfileBytes": 0
+          }
+        }
+      ],
+      "pixelsBelow72Unchanged": true,
+      "cacheKey": {
+        "source": "e4d0f42f9ca403a83235467e7cd7574def77a1d4c7e80d42da4c7b0ffa4c7444",
+        "clean": "ffdfc025cde7974d07931add4b6917f3f7ee641a868207116a201bf4c8de91c2",
+        "traffic": null,
+        "version": 3,
+        "deviceCrop": null
+      },
+      "platform": "macos",
+      "appVersion": "0.17.38"
+    },
+    {
+      "scene": "review-changes",
+      "theme": "dark",
+      "output": "review-changes-dark.webp",
+      "source": {
+        "name": "review-changes-dark.png",
+        "sha256": "4278aa8c4aaf722abbd508a888969a26e7deabe106fa9b3ad3b6ffcb111f295c",
+        "format": "JPEG",
+        "width": 2880,
+        "height": 1752,
+        "bytes": 558609,
+        "iccProfileBytes": 4064
+      },
+      "outputFormat": "WEBP",
+      "lossless": true,
+      "width": 2880,
+      "height": 1752,
+      "outputSha256": "c68f40c78e12e1c9e5a1ff5a734e9af8100615bf4df6e27e6cbe8a78ff8c06af",
+      "outputBytes": 1152282,
+      "crop": null,
+      "masks": [
+        {
+          "bbox": [
+            0,
+            0,
+            156,
+            72
+          ],
+          "purpose": "Remove OS capture/share badge; restore actual app-renderer header pixels.",
+          "pixelSource": {
+            "name": "header-dark.png",
+            "sha256": "a41990e0324104ffc57a7d31df5ff485001a0c720b3517bdb6fe0dcd6aad4f1c",
+            "format": "PNG",
+            "width": 2880,
+            "height": 2880,
+            "bytes": 3821729
+          },
+          "trafficButtons": "No unobscured actual OS traffic source available; decoration omitted rather than invented."
+        },
+        {
+          "bbox": [
+            1820,
+            0,
+            1960,
+            72
+          ],
+          "purpose": "Remove cursor from blank top strip only.",
+          "pixelSource": {
+            "name": "header-dark.png",
+            "sha256": "a41990e0324104ffc57a7d31df5ff485001a0c720b3517bdb6fe0dcd6aad4f1c",
+            "format": "PNG",
+            "width": 2880,
+            "height": 2880,
+            "bytes": 3821729
+          }
+        }
+      ],
+      "pixelsBelow72Unchanged": true,
+      "cacheKey": {
+        "source": "4278aa8c4aaf722abbd508a888969a26e7deabe106fa9b3ad3b6ffcb111f295c",
+        "clean": "a41990e0324104ffc57a7d31df5ff485001a0c720b3517bdb6fe0dcd6aad4f1c",
+        "traffic": null,
+        "version": 3,
+        "deviceCrop": null
+      },
+      "sourceIccPreserved": true,
+      "compressedPixelPayloadUnchangedDuringProfileRestore": true,
+      "platform": "macos",
+      "appVersion": "0.17.38"
+    },
+    {
+      "scene": "review-changes",
+      "theme": "light",
+      "output": "review-changes-light.webp",
+      "source": {
+        "name": "review-changes-light.png",
+        "sha256": "c4105e457e28b2c7f97f30e409d1c975a9e499bbdc96eae1a4b218803eb6bc38",
+        "format": "JPEG",
+        "width": 2880,
+        "height": 1752,
+        "bytes": 583759,
+        "iccProfileBytes": 4064
+      },
+      "outputFormat": "WEBP",
+      "lossless": true,
+      "width": 2880,
+      "height": 1752,
+      "outputSha256": "53f9a9e8904e2467bcd5372bc01a8c5ad3e744e36da9f68075de1b5eaf53f871",
+      "outputBytes": 1086066,
+      "crop": null,
+      "masks": [
+        {
+          "bbox": [
+            0,
+            0,
+            156,
+            72
+          ],
+          "purpose": "Remove OS capture/share badge; restore actual app-renderer header pixels.",
+          "pixelSource": {
+            "name": "shell-tasks-light.png",
+            "sha256": "ffdfc025cde7974d07931add4b6917f3f7ee641a868207116a201bf4c8de91c2",
+            "format": "PNG",
+            "width": 2880,
+            "height": 2880,
+            "bytes": 2840818
+          },
+          "trafficButtons": "No unobscured actual OS traffic source available; decoration omitted rather than invented."
+        },
+        {
+          "bbox": [
+            1820,
+            0,
+            1960,
+            72
+          ],
+          "purpose": "Remove cursor from blank top strip only.",
+          "pixelSource": {
+            "name": "shell-tasks-light.png",
+            "sha256": "ffdfc025cde7974d07931add4b6917f3f7ee641a868207116a201bf4c8de91c2",
+            "format": "PNG",
+            "width": 2880,
+            "height": 2880,
+            "bytes": 2840818
+          }
+        }
+      ],
+      "pixelsBelow72Unchanged": true,
+      "cacheKey": {
+        "source": "c4105e457e28b2c7f97f30e409d1c975a9e499bbdc96eae1a4b218803eb6bc38",
+        "clean": "ffdfc025cde7974d07931add4b6917f3f7ee641a868207116a201bf4c8de91c2",
+        "traffic": null,
+        "version": 3,
+        "deviceCrop": null
+      },
+      "sourceIccPreserved": true,
+      "compressedPixelPayloadUnchangedDuringProfileRestore": true,
+      "platform": "macos",
+      "appVersion": "0.17.38"
+    },
+    {
+      "scene": "review-overview",
+      "theme": "dark",
+      "output": "review-overview-dark.webp",
+      "source": {
+        "name": "review-overview-dark.png",
+        "sha256": "7222ea8ffb2a2988d676331bf5068bfe555459182decd118aee900d72ab658d3",
+        "format": "JPEG",
+        "width": 2880,
+        "height": 1752,
+        "bytes": 470314,
+        "iccProfileBytes": 4064
+      },
+      "outputFormat": "WEBP",
+      "lossless": true,
+      "width": 2880,
+      "height": 1752,
+      "outputSha256": "cd518cedc5d939163d8954407ac93503588d1c1234c2b5bfed6a40450f0b8f1d",
+      "outputBytes": 841598,
+      "crop": null,
+      "masks": [
+        {
+          "bbox": [
+            0,
+            0,
+            156,
+            72
+          ],
+          "purpose": "Remove OS capture/share badge; restore actual app-renderer header pixels.",
+          "pixelSource": {
+            "name": "header-dark.png",
+            "sha256": "a41990e0324104ffc57a7d31df5ff485001a0c720b3517bdb6fe0dcd6aad4f1c",
+            "format": "PNG",
+            "width": 2880,
+            "height": 2880,
+            "bytes": 3821729
+          },
+          "trafficButtons": "No unobscured actual OS traffic source available; decoration omitted rather than invented."
+        },
+        {
+          "bbox": [
+            1820,
+            0,
+            1960,
+            72
+          ],
+          "purpose": "Remove cursor from blank top strip only.",
+          "pixelSource": {
+            "name": "header-dark.png",
+            "sha256": "a41990e0324104ffc57a7d31df5ff485001a0c720b3517bdb6fe0dcd6aad4f1c",
+            "format": "PNG",
+            "width": 2880,
+            "height": 2880,
+            "bytes": 3821729
+          }
+        }
+      ],
+      "pixelsBelow72Unchanged": true,
+      "cacheKey": {
+        "source": "7222ea8ffb2a2988d676331bf5068bfe555459182decd118aee900d72ab658d3",
+        "clean": "a41990e0324104ffc57a7d31df5ff485001a0c720b3517bdb6fe0dcd6aad4f1c",
+        "traffic": null,
+        "version": 3,
+        "deviceCrop": null
+      },
+      "sourceIccPreserved": true,
+      "compressedPixelPayloadUnchangedDuringProfileRestore": true,
+      "platform": "macos",
+      "appVersion": "0.17.38"
+    },
+    {
+      "scene": "review-overview",
+      "theme": "light",
+      "output": "review-overview-light.webp",
+      "source": {
+        "name": "review-overview-light.png",
+        "sha256": "fa0fd342284623202fedd9a5f0a24406bce79ec74f105f46f67dcaec45959dea",
+        "format": "JPEG",
+        "width": 2880,
+        "height": 1752,
+        "bytes": 501493,
+        "iccProfileBytes": 4064
+      },
+      "outputFormat": "WEBP",
+      "lossless": true,
+      "width": 2880,
+      "height": 1752,
+      "outputSha256": "ed491cf073b363184aebe2070b61c5ec9fc4860c515242f7b6cbbd76d54c6dcf",
+      "outputBytes": 706534,
+      "crop": null,
+      "masks": [
+        {
+          "bbox": [
+            0,
+            0,
+            156,
+            72
+          ],
+          "purpose": "Remove OS capture/share badge; restore actual app-renderer header pixels.",
+          "pixelSource": {
+            "name": "shell-tasks-light.png",
+            "sha256": "ffdfc025cde7974d07931add4b6917f3f7ee641a868207116a201bf4c8de91c2",
+            "format": "PNG",
+            "width": 2880,
+            "height": 2880,
+            "bytes": 2840818
+          },
+          "trafficButtons": "No unobscured actual OS traffic source available; decoration omitted rather than invented."
+        },
+        {
+          "bbox": [
+            1820,
+            0,
+            1960,
+            72
+          ],
+          "purpose": "Remove cursor from blank top strip only.",
+          "pixelSource": {
+            "name": "shell-tasks-light.png",
+            "sha256": "ffdfc025cde7974d07931add4b6917f3f7ee641a868207116a201bf4c8de91c2",
+            "format": "PNG",
+            "width": 2880,
+            "height": 2880,
+            "bytes": 2840818
+          }
+        }
+      ],
+      "pixelsBelow72Unchanged": true,
+      "cacheKey": {
+        "source": "fa0fd342284623202fedd9a5f0a24406bce79ec74f105f46f67dcaec45959dea",
+        "clean": "ffdfc025cde7974d07931add4b6917f3f7ee641a868207116a201bf4c8de91c2",
+        "traffic": null,
+        "version": 3,
+        "deviceCrop": null
+      },
+      "sourceIccPreserved": true,
+      "compressedPixelPayloadUnchangedDuringProfileRestore": true,
+      "platform": "macos",
+      "appVersion": "0.17.38"
+    },
+    {
+      "scene": "review-split",
+      "theme": "dark",
+      "output": "review-split-dark.webp",
+      "source": {
+        "name": "review-split-dark.png",
+        "sha256": "7ddaed34a1359251d1cae5d7e0370bfdcfae0f134419f71a464e8c471cdf8b89",
+        "format": "JPEG",
+        "width": 2880,
+        "height": 1752,
+        "bytes": 549875,
+        "iccProfileBytes": 4064
+      },
+      "outputFormat": "WEBP",
+      "lossless": true,
+      "width": 2880,
+      "height": 1752,
+      "outputSha256": "a23ea616cd1aabc8b667b6beece6cb265d13f5cc6bdcf417bd34e2264bdf99a4",
+      "outputBytes": 1128078,
+      "crop": null,
+      "masks": [
+        {
+          "bbox": [
+            0,
+            0,
+            156,
+            72
+          ],
+          "purpose": "Remove OS capture/share badge; restore actual app-renderer header pixels.",
+          "pixelSource": {
+            "name": "header-dark.png",
+            "sha256": "a41990e0324104ffc57a7d31df5ff485001a0c720b3517bdb6fe0dcd6aad4f1c",
+            "format": "PNG",
+            "width": 2880,
+            "height": 2880,
+            "bytes": 3821729
+          },
+          "trafficButtons": "No unobscured actual OS traffic source available; decoration omitted rather than invented."
+        },
+        {
+          "bbox": [
+            1820,
+            0,
+            1960,
+            72
+          ],
+          "purpose": "Remove cursor from blank top strip only.",
+          "pixelSource": {
+            "name": "header-dark.png",
+            "sha256": "a41990e0324104ffc57a7d31df5ff485001a0c720b3517bdb6fe0dcd6aad4f1c",
+            "format": "PNG",
+            "width": 2880,
+            "height": 2880,
+            "bytes": 3821729
+          }
+        }
+      ],
+      "pixelsBelow72Unchanged": true,
+      "cacheKey": {
+        "source": "7ddaed34a1359251d1cae5d7e0370bfdcfae0f134419f71a464e8c471cdf8b89",
+        "clean": "a41990e0324104ffc57a7d31df5ff485001a0c720b3517bdb6fe0dcd6aad4f1c",
+        "traffic": null,
+        "version": 3,
+        "deviceCrop": null
+      },
+      "sourceIccPreserved": true,
+      "compressedPixelPayloadUnchangedDuringProfileRestore": true,
+      "platform": "macos",
+      "appVersion": "0.17.38"
+    },
+    {
+      "scene": "review-split",
+      "theme": "light",
+      "output": "review-split-light.webp",
+      "source": {
+        "name": "review-split-light.png",
+        "sha256": "261807567213a919508ae41afdf39b3cf63a61177cae34ae9d43f5265b260108",
+        "format": "JPEG",
+        "width": 2880,
+        "height": 1752,
+        "bytes": 576338,
+        "iccProfileBytes": 4064
+      },
+      "outputFormat": "WEBP",
+      "lossless": true,
+      "width": 2880,
+      "height": 1752,
+      "outputSha256": "ede174b57a9be035cd645b81a848082cb8474b231c6a2c6376dda6020e1aeb25",
+      "outputBytes": 1065988,
+      "crop": null,
+      "masks": [
+        {
+          "bbox": [
+            0,
+            0,
+            156,
+            72
+          ],
+          "purpose": "Remove OS capture/share badge; restore actual app-renderer header pixels.",
+          "pixelSource": {
+            "name": "shell-tasks-light.png",
+            "sha256": "ffdfc025cde7974d07931add4b6917f3f7ee641a868207116a201bf4c8de91c2",
+            "format": "PNG",
+            "width": 2880,
+            "height": 2880,
+            "bytes": 2840818
+          },
+          "trafficButtons": "No unobscured actual OS traffic source available; decoration omitted rather than invented."
+        },
+        {
+          "bbox": [
+            1820,
+            0,
+            1960,
+            72
+          ],
+          "purpose": "Remove cursor from blank top strip only.",
+          "pixelSource": {
+            "name": "shell-tasks-light.png",
+            "sha256": "ffdfc025cde7974d07931add4b6917f3f7ee641a868207116a201bf4c8de91c2",
+            "format": "PNG",
+            "width": 2880,
+            "height": 2880,
+            "bytes": 2840818
+          }
+        }
+      ],
+      "pixelsBelow72Unchanged": true,
+      "cacheKey": {
+        "source": "261807567213a919508ae41afdf39b3cf63a61177cae34ae9d43f5265b260108",
+        "clean": "ffdfc025cde7974d07931add4b6917f3f7ee641a868207116a201bf4c8de91c2",
+        "traffic": null,
+        "version": 3,
+        "deviceCrop": null
+      },
+      "sourceIccPreserved": true,
+      "compressedPixelPayloadUnchangedDuringProfileRestore": true,
+      "platform": "macos",
+      "appVersion": "0.17.38"
+    },
+    {
+      "scene": "spaces",
+      "theme": "dark",
+      "output": "spaces-dark.webp",
+      "source": {
+        "name": "spaces-dark.png",
+        "sha256": "ea2be5b841de458e15058e79a44065e8ad7bacae6e49375a51a68248edbdebd5",
+        "format": "JPEG",
+        "width": 2880,
+        "height": 1752,
+        "bytes": 583567,
+        "iccProfileBytes": 4064
+      },
+      "outputFormat": "WEBP",
+      "lossless": true,
+      "width": 2880,
+      "height": 1752,
+      "outputSha256": "7f7bcd7bdcd3b7100b885c447eeb757f3c5a0f41c841c37babec7340f1882eec",
+      "outputBytes": 1145016,
+      "crop": null,
+      "masks": [
+        {
+          "bbox": [
+            0,
+            0,
+            156,
+            72
+          ],
+          "purpose": "Remove OS capture/share badge; restore actual app-renderer header pixels.",
+          "pixelSource": {
+            "name": "header-dark.png",
+            "sha256": "a41990e0324104ffc57a7d31df5ff485001a0c720b3517bdb6fe0dcd6aad4f1c",
+            "format": "PNG",
+            "width": 2880,
+            "height": 2880,
+            "bytes": 3821729
+          },
+          "trafficButtons": "No unobscured actual OS traffic source available; decoration omitted rather than invented."
+        },
+        {
+          "bbox": [
+            1820,
+            0,
+            1960,
+            72
+          ],
+          "purpose": "Remove cursor from blank top strip only.",
+          "pixelSource": {
+            "name": "header-dark.png",
+            "sha256": "a41990e0324104ffc57a7d31df5ff485001a0c720b3517bdb6fe0dcd6aad4f1c",
+            "format": "PNG",
+            "width": 2880,
+            "height": 2880,
+            "bytes": 3821729
+          }
+        }
+      ],
+      "pixelsBelow72Unchanged": true,
+      "cacheKey": {
+        "source": "ea2be5b841de458e15058e79a44065e8ad7bacae6e49375a51a68248edbdebd5",
+        "clean": "a41990e0324104ffc57a7d31df5ff485001a0c720b3517bdb6fe0dcd6aad4f1c",
+        "traffic": null,
+        "version": 3,
+        "deviceCrop": null
+      },
+      "sourceIccPreserved": true,
+      "compressedPixelPayloadUnchangedDuringProfileRestore": true,
+      "platform": "macos",
+      "appVersion": "0.17.38"
+    },
+    {
+      "scene": "spaces",
+      "theme": "light",
+      "output": "spaces-light.webp",
+      "source": {
+        "name": "spaces-light.png",
+        "sha256": "206f6da3f941d696b66d60f3ec2fe70795c522f6160a3c051b3930e7697211a4",
+        "format": "JPEG",
+        "width": 2880,
+        "height": 1752,
+        "bytes": 569886,
+        "iccProfileBytes": 4064
+      },
+      "outputFormat": "WEBP",
+      "lossless": true,
+      "width": 2880,
+      "height": 1752,
+      "outputSha256": "8c18e353ea5316b5ad2594ee917f2cc75077c1fd68ed5281feadceddd6ebb97d",
+      "outputBytes": 1174038,
+      "crop": null,
+      "masks": [
+        {
+          "bbox": [
+            0,
+            0,
+            156,
+            72
+          ],
+          "purpose": "Remove OS capture/share badge; restore actual app-renderer header pixels.",
+          "pixelSource": {
+            "name": "shell-tasks-light.png",
+            "sha256": "ffdfc025cde7974d07931add4b6917f3f7ee641a868207116a201bf4c8de91c2",
+            "format": "PNG",
+            "width": 2880,
+            "height": 2880,
+            "bytes": 2840818
+          },
+          "trafficButtons": "No unobscured actual OS traffic source available; decoration omitted rather than invented."
+        },
+        {
+          "bbox": [
+            1820,
+            0,
+            1960,
+            72
+          ],
+          "purpose": "Remove cursor from blank top strip only.",
+          "pixelSource": {
+            "name": "shell-tasks-light.png",
+            "sha256": "ffdfc025cde7974d07931add4b6917f3f7ee641a868207116a201bf4c8de91c2",
+            "format": "PNG",
+            "width": 2880,
+            "height": 2880,
+            "bytes": 2840818
+          }
+        }
+      ],
+      "pixelsBelow72Unchanged": true,
+      "cacheKey": {
+        "source": "206f6da3f941d696b66d60f3ec2fe70795c522f6160a3c051b3930e7697211a4",
+        "clean": "ffdfc025cde7974d07931add4b6917f3f7ee641a868207116a201bf4c8de91c2",
+        "traffic": null,
+        "version": 3,
+        "deviceCrop": null
+      },
+      "sourceIccPreserved": true,
+      "compressedPixelPayloadUnchangedDuringProfileRestore": true,
+      "platform": "macos",
+      "appVersion": "0.17.38"
+    },
+    {
+      "scene": "spaces-paper",
+      "theme": "dark",
+      "output": "spaces-paper-dark.webp",
+      "source": {
+        "name": "spaces-paper-dark.png",
+        "sha256": "0dd91c2a1fc52dd289aaabc67fb11e9a4cc1927d537409059bbb0788027b4064",
+        "format": "JPEG",
+        "width": 2880,
+        "height": 1752,
+        "bytes": 634759,
+        "iccProfileBytes": 4064
+      },
+      "outputFormat": "WEBP",
+      "lossless": true,
+      "width": 2880,
+      "height": 1752,
+      "outputSha256": "7f2284d12d56e85fa742bd9598ad4bf4362a5fb973cb07de986b19beb7b67b06",
+      "outputBytes": 776936,
+      "crop": null,
+      "masks": [
+        {
+          "bbox": [
+            0,
+            0,
+            156,
+            72
+          ],
+          "purpose": "Remove OS capture/share badge; restore actual app-renderer header pixels.",
+          "pixelSource": {
+            "name": "header-dark.png",
+            "sha256": "a41990e0324104ffc57a7d31df5ff485001a0c720b3517bdb6fe0dcd6aad4f1c",
+            "format": "PNG",
+            "width": 2880,
+            "height": 2880,
+            "bytes": 3821729
+          },
+          "trafficButtons": "No unobscured actual OS traffic source available; decoration omitted rather than invented."
+        },
+        {
+          "bbox": [
+            1820,
+            0,
+            1960,
+            72
+          ],
+          "purpose": "Remove cursor from blank top strip only.",
+          "pixelSource": {
+            "name": "header-dark.png",
+            "sha256": "a41990e0324104ffc57a7d31df5ff485001a0c720b3517bdb6fe0dcd6aad4f1c",
+            "format": "PNG",
+            "width": 2880,
+            "height": 2880,
+            "bytes": 3821729
+          }
+        }
+      ],
+      "pixelsBelow72Unchanged": true,
+      "cacheKey": {
+        "source": "0dd91c2a1fc52dd289aaabc67fb11e9a4cc1927d537409059bbb0788027b4064",
+        "clean": "a41990e0324104ffc57a7d31df5ff485001a0c720b3517bdb6fe0dcd6aad4f1c",
+        "traffic": null,
+        "version": 3,
+        "deviceCrop": null
+      },
+      "sourceIccPreserved": true,
+      "compressedPixelPayloadUnchangedDuringProfileRestore": true,
+      "platform": "macos",
+      "appVersion": "0.17.38"
+    },
+    {
+      "scene": "spaces-paper",
+      "theme": "light",
+      "output": "spaces-paper-light.webp",
+      "source": {
+        "name": "spaces-paper-light.png",
+        "sha256": "fa4972f2a1f071733f7bf0158f1286052edcbb71cb16680ea807bd9d5d1cf115",
+        "format": "JPEG",
+        "width": 2880,
+        "height": 1752,
+        "bytes": 628576,
+        "iccProfileBytes": 4064
+      },
+      "outputFormat": "WEBP",
+      "lossless": true,
+      "width": 2880,
+      "height": 1752,
+      "outputSha256": "a0497de6a179211063e464d59208feee37c9eba024fd251ee8673ea55a1bb58a",
+      "outputBytes": 769852,
+      "crop": null,
+      "masks": [
+        {
+          "bbox": [
+            0,
+            0,
+            156,
+            72
+          ],
+          "purpose": "Remove OS capture/share badge; restore actual app-renderer header pixels.",
+          "pixelSource": {
+            "name": "shell-tasks-light.png",
+            "sha256": "ffdfc025cde7974d07931add4b6917f3f7ee641a868207116a201bf4c8de91c2",
+            "format": "PNG",
+            "width": 2880,
+            "height": 2880,
+            "bytes": 2840818
+          },
+          "trafficButtons": "No unobscured actual OS traffic source available; decoration omitted rather than invented."
+        },
+        {
+          "bbox": [
+            1820,
+            0,
+            1960,
+            72
+          ],
+          "purpose": "Remove cursor from blank top strip only.",
+          "pixelSource": {
+            "name": "shell-tasks-light.png",
+            "sha256": "ffdfc025cde7974d07931add4b6917f3f7ee641a868207116a201bf4c8de91c2",
+            "format": "PNG",
+            "width": 2880,
+            "height": 2880,
+            "bytes": 2840818
+          }
+        }
+      ],
+      "pixelsBelow72Unchanged": true,
+      "cacheKey": {
+        "source": "fa4972f2a1f071733f7bf0158f1286052edcbb71cb16680ea807bd9d5d1cf115",
+        "clean": "ffdfc025cde7974d07931add4b6917f3f7ee641a868207116a201bf4c8de91c2",
+        "traffic": null,
+        "version": 3,
+        "deviceCrop": null
+      },
+      "sourceIccPreserved": true,
+      "compressedPixelPayloadUnchangedDuringProfileRestore": true,
+      "platform": "macos",
+      "appVersion": "0.17.38"
+    },
+    {
+      "scene": "task-detail",
+      "theme": "dark",
+      "output": "task-detail-dark.webp",
+      "source": {
+        "name": "task-detail-dark.png",
+        "sha256": "f43b2837785c640ab537102adf32bce355c0bf8ed2ee789271752151545cd283",
+        "format": "JPEG",
+        "width": 2880,
+        "height": 1752,
+        "bytes": 620038,
+        "iccProfileBytes": 4064
+      },
+      "outputFormat": "WEBP",
+      "lossless": true,
+      "width": 2880,
+      "height": 1752,
+      "outputSha256": "ec1984b5c7d06824d050132a1438bce2408f7ed57267d484c9b872ae47dac839",
+      "outputBytes": 845638,
+      "crop": null,
+      "masks": [
+        {
+          "bbox": [
+            0,
+            0,
+            156,
+            72
+          ],
+          "purpose": "Remove OS capture/share badge; restore actual app-renderer header pixels.",
+          "pixelSource": {
+            "name": "header-dark.png",
+            "sha256": "a41990e0324104ffc57a7d31df5ff485001a0c720b3517bdb6fe0dcd6aad4f1c",
+            "format": "PNG",
+            "width": 2880,
+            "height": 2880,
+            "bytes": 3821729
+          },
+          "trafficButtons": "No unobscured actual OS traffic source available; decoration omitted rather than invented."
+        },
+        {
+          "bbox": [
+            1820,
+            0,
+            1960,
+            72
+          ],
+          "purpose": "Remove cursor from blank top strip only.",
+          "pixelSource": {
+            "name": "header-dark.png",
+            "sha256": "a41990e0324104ffc57a7d31df5ff485001a0c720b3517bdb6fe0dcd6aad4f1c",
+            "format": "PNG",
+            "width": 2880,
+            "height": 2880,
+            "bytes": 3821729
+          }
+        }
+      ],
+      "pixelsBelow72Unchanged": true,
+      "cacheKey": {
+        "source": "f43b2837785c640ab537102adf32bce355c0bf8ed2ee789271752151545cd283",
+        "clean": "a41990e0324104ffc57a7d31df5ff485001a0c720b3517bdb6fe0dcd6aad4f1c",
+        "traffic": null,
+        "version": 3,
+        "deviceCrop": null
+      },
+      "sourceIccPreserved": true,
+      "compressedPixelPayloadUnchangedDuringProfileRestore": true,
+      "platform": "macos",
+      "appVersion": "0.17.38"
+    },
+    {
+      "scene": "task-detail",
+      "theme": "light",
+      "output": "task-detail-light.webp",
+      "source": {
+        "name": "task-detail-light.png",
+        "sha256": "307966212b18886aa9a54a9263a2719bbd25399314b4d10c30d953cd2593dd35",
+        "format": "JPEG",
+        "width": 2880,
+        "height": 1752,
+        "bytes": 611567,
+        "iccProfileBytes": 4064
+      },
+      "outputFormat": "WEBP",
+      "lossless": true,
+      "width": 2880,
+      "height": 1752,
+      "outputSha256": "099c94719048fed77709bfb1b1de8b68763ff700dbf3382f3ed27de369274ac1",
+      "outputBytes": 850820,
+      "crop": null,
+      "masks": [
+        {
+          "bbox": [
+            0,
+            0,
+            156,
+            72
+          ],
+          "purpose": "Remove OS capture/share badge; restore actual app-renderer header pixels.",
+          "pixelSource": {
+            "name": "shell-tasks-light.png",
+            "sha256": "ffdfc025cde7974d07931add4b6917f3f7ee641a868207116a201bf4c8de91c2",
+            "format": "PNG",
+            "width": 2880,
+            "height": 2880,
+            "bytes": 2840818
+          },
+          "trafficButtons": "No unobscured actual OS traffic source available; decoration omitted rather than invented."
+        },
+        {
+          "bbox": [
+            1820,
+            0,
+            1960,
+            72
+          ],
+          "purpose": "Remove cursor from blank top strip only.",
+          "pixelSource": {
+            "name": "shell-tasks-light.png",
+            "sha256": "ffdfc025cde7974d07931add4b6917f3f7ee641a868207116a201bf4c8de91c2",
+            "format": "PNG",
+            "width": 2880,
+            "height": 2880,
+            "bytes": 2840818
+          }
+        }
+      ],
+      "pixelsBelow72Unchanged": true,
+      "cacheKey": {
+        "source": "307966212b18886aa9a54a9263a2719bbd25399314b4d10c30d953cd2593dd35",
+        "clean": "ffdfc025cde7974d07931add4b6917f3f7ee641a868207116a201bf4c8de91c2",
+        "traffic": null,
+        "version": 3,
+        "deviceCrop": null
+      },
+      "sourceIccPreserved": true,
+      "compressedPixelPayloadUnchangedDuringProfileRestore": true,
+      "platform": "macos",
+      "appVersion": "0.17.38"
+    },
+    {
+      "scene": "tasks",
+      "theme": "dark",
+      "output": "tasks-dark.webp",
+      "source": {
+        "name": "tasks-dark.png",
+        "sha256": "c93cf905770d062b7617c518c5bcdccc4c11a33d8bf29c8a6cbd69b87a105a8f",
+        "format": "JPEG",
+        "width": 2880,
+        "height": 1752,
+        "bytes": 501119,
+        "iccProfileBytes": 4064
+      },
+      "outputFormat": "WEBP",
+      "lossless": true,
+      "width": 2880,
+      "height": 1752,
+      "outputSha256": "a1ae8e75c1ac1bc39e677047d5ccd080d580e4588b2f2d7ccbaf514cba95bcf2",
+      "outputBytes": 1064094,
+      "crop": null,
+      "masks": [
+        {
+          "bbox": [
+            0,
+            0,
+            156,
+            72
+          ],
+          "purpose": "Remove OS capture/share badge; restore actual app-renderer header pixels.",
+          "pixelSource": {
+            "name": "header-dark.png",
+            "sha256": "a41990e0324104ffc57a7d31df5ff485001a0c720b3517bdb6fe0dcd6aad4f1c",
+            "format": "PNG",
+            "width": 2880,
+            "height": 2880,
+            "bytes": 3821729
+          },
+          "trafficButtons": "No unobscured actual OS traffic source available; decoration omitted rather than invented."
+        },
+        {
+          "bbox": [
+            1820,
+            0,
+            1960,
+            72
+          ],
+          "purpose": "Remove cursor from blank top strip only.",
+          "pixelSource": {
+            "name": "header-dark.png",
+            "sha256": "a41990e0324104ffc57a7d31df5ff485001a0c720b3517bdb6fe0dcd6aad4f1c",
+            "format": "PNG",
+            "width": 2880,
+            "height": 2880,
+            "bytes": 3821729
+          }
+        }
+      ],
+      "pixelsBelow72Unchanged": true,
+      "cacheKey": {
+        "source": "c93cf905770d062b7617c518c5bcdccc4c11a33d8bf29c8a6cbd69b87a105a8f",
+        "clean": "a41990e0324104ffc57a7d31df5ff485001a0c720b3517bdb6fe0dcd6aad4f1c",
+        "traffic": null,
+        "version": 3,
+        "deviceCrop": null
+      },
+      "sourceIccPreserved": true,
+      "compressedPixelPayloadUnchangedDuringProfileRestore": true,
+      "platform": "macos",
+      "appVersion": "0.17.38"
+    },
+    {
+      "scene": "tasks",
+      "theme": "light",
+      "output": "tasks-light.webp",
+      "source": {
+        "name": "tasks-light.png",
+        "sha256": "031e4b13a11842ad138ce0e44c0c524e6eb5abfd60b046a44e698ad1a70b297f",
+        "format": "JPEG",
+        "width": 2880,
+        "height": 1752,
+        "bytes": 510681,
+        "iccProfileBytes": 4064
+      },
+      "outputFormat": "WEBP",
+      "lossless": true,
+      "width": 2880,
+      "height": 1752,
+      "outputSha256": "e4bb0bc3b240f32ca214242ccbc32c1799ee075308849dc6519a3bc778e5c8fa",
+      "outputBytes": 856166,
+      "crop": null,
+      "masks": [
+        {
+          "bbox": [
+            0,
+            0,
+            156,
+            72
+          ],
+          "purpose": "Remove OS capture/share badge; restore actual app-renderer header pixels.",
+          "pixelSource": {
+            "name": "shell-tasks-light.png",
+            "sha256": "ffdfc025cde7974d07931add4b6917f3f7ee641a868207116a201bf4c8de91c2",
+            "format": "PNG",
+            "width": 2880,
+            "height": 2880,
+            "bytes": 2840818
+          },
+          "trafficButtons": "No unobscured actual OS traffic source available; decoration omitted rather than invented."
+        },
+        {
+          "bbox": [
+            1820,
+            0,
+            1960,
+            72
+          ],
+          "purpose": "Remove cursor from blank top strip only.",
+          "pixelSource": {
+            "name": "shell-tasks-light.png",
+            "sha256": "ffdfc025cde7974d07931add4b6917f3f7ee641a868207116a201bf4c8de91c2",
+            "format": "PNG",
+            "width": 2880,
+            "height": 2880,
+            "bytes": 2840818
+          }
+        }
+      ],
+      "pixelsBelow72Unchanged": true,
+      "cacheKey": {
+        "source": "031e4b13a11842ad138ce0e44c0c524e6eb5abfd60b046a44e698ad1a70b297f",
+        "clean": "ffdfc025cde7974d07931add4b6917f3f7ee641a868207116a201bf4c8de91c2",
+        "traffic": null,
+        "version": 3,
+        "deviceCrop": null
+      },
+      "sourceIccPreserved": true,
+      "compressedPixelPayloadUnchangedDuringProfileRestore": true,
+      "platform": "macos",
+      "appVersion": "0.17.38"
+    },
+    {
+      "scene": "visual",
+      "theme": "dark",
+      "output": "visual-dark.webp",
+      "source": {
+        "name": "visual-dark.png",
+        "sha256": "e6622e72be83e55d7f4262e568a7fb4fab1ba7b8383fff7def0ab0398fb93b9a",
+        "format": "JPEG",
+        "width": 2880,
+        "height": 1752,
+        "bytes": 442517,
+        "iccProfileBytes": 4064
+      },
+      "outputFormat": "WEBP",
+      "lossless": true,
+      "sourceIccPreserved": true,
+      "width": 2880,
+      "height": 1752,
+      "outputSha256": "945bcd978bde01bc2e9dfb48e70641172e14cb2115c8d05a8db2ede2b462d7d8",
+      "outputBytes": 719016,
+      "crop": null,
+      "masks": [
+        {
+          "bbox": [
+            0,
+            0,
+            156,
+            72
+          ],
+          "purpose": "Remove OS capture/share badge; restore actual app-renderer header pixels.",
+          "pixelSource": {
+            "name": "header-dark.png",
+            "sha256": "a41990e0324104ffc57a7d31df5ff485001a0c720b3517bdb6fe0dcd6aad4f1c",
+            "format": "PNG",
+            "width": 2880,
+            "height": 2880,
+            "bytes": 3821729,
+            "iccProfileBytes": 0
+          },
+          "trafficButtons": "No unobscured actual OS traffic source available; decoration omitted rather than invented."
+        },
+        {
+          "bbox": [
+            1820,
+            0,
+            1960,
+            72
+          ],
+          "purpose": "Remove cursor from blank top strip only.",
+          "pixelSource": {
+            "name": "header-dark.png",
+            "sha256": "a41990e0324104ffc57a7d31df5ff485001a0c720b3517bdb6fe0dcd6aad4f1c",
+            "format": "PNG",
+            "width": 2880,
+            "height": 2880,
+            "bytes": 3821729,
+            "iccProfileBytes": 0
+          }
+        }
+      ],
+      "pixelsBelow72Unchanged": true,
+      "cacheKey": {
+        "source": "e6622e72be83e55d7f4262e568a7fb4fab1ba7b8383fff7def0ab0398fb93b9a",
+        "clean": "a41990e0324104ffc57a7d31df5ff485001a0c720b3517bdb6fe0dcd6aad4f1c",
+        "traffic": null,
+        "version": 3,
+        "deviceCrop": null
+      },
+      "platform": "macos",
+      "appVersion": "0.17.38"
+    },
+    {
+      "scene": "visual",
+      "theme": "light",
+      "output": "visual-light.webp",
+      "source": {
+        "name": "visual-light.png",
+        "sha256": "13a4dcb99dbffcb0c7ba5acca186b4b0f14d1149606e4aad80413b0c50e1b296",
+        "format": "JPEG",
+        "width": 2880,
+        "height": 1748,
+        "bytes": 471840,
+        "iccProfileBytes": 4064
+      },
+      "outputFormat": "WEBP",
+      "lossless": true,
+      "sourceIccPreserved": true,
+      "width": 2880,
+      "height": 1748,
+      "outputSha256": "37d5ed08ad0e48a7afca80ca2f97097ea5fc5e5ea3e7121b606b8e504f208d59",
+      "outputBytes": 696676,
+      "crop": null,
+      "masks": [
+        {
+          "bbox": [
+            0,
+            0,
+            156,
+            72
+          ],
+          "purpose": "Remove OS capture/share badge; restore actual app-renderer header pixels.",
+          "pixelSource": {
+            "name": "shell-tasks-light.png",
+            "sha256": "ffdfc025cde7974d07931add4b6917f3f7ee641a868207116a201bf4c8de91c2",
+            "format": "PNG",
+            "width": 2880,
+            "height": 2880,
+            "bytes": 2840818,
+            "iccProfileBytes": 0
+          },
+          "trafficButtons": "No unobscured actual OS traffic source available; decoration omitted rather than invented."
+        },
+        {
+          "bbox": [
+            1820,
+            0,
+            1960,
+            72
+          ],
+          "purpose": "Remove cursor from blank top strip only.",
+          "pixelSource": {
+            "name": "shell-tasks-light.png",
+            "sha256": "ffdfc025cde7974d07931add4b6917f3f7ee641a868207116a201bf4c8de91c2",
+            "format": "PNG",
+            "width": 2880,
+            "height": 2880,
+            "bytes": 2840818,
+            "iccProfileBytes": 0
+          }
+        }
+      ],
+      "pixelsBelow72Unchanged": true,
+      "cacheKey": {
+        "source": "13a4dcb99dbffcb0c7ba5acca186b4b0f14d1149606e4aad80413b0c50e1b296",
+        "clean": "ffdfc025cde7974d07931add4b6917f3f7ee641a868207116a201bf4c8de91c2",
+        "traffic": null,
+        "version": 3,
+        "deviceCrop": null
+      },
+      "platform": "macos",
+      "appVersion": "0.17.38"
+    },
+    {
+      "scene": "ide-annotation",
+      "theme": "light",
+      "output": "ide-annotation-light.webp",
+      "source": {
+        "name": "ide-annotation-light.png",
+        "sha256": "60ad425ff1246ef4f4bd9867e1d28e4a116f3ceecd9041e8852054db629794b0",
+        "format": "JPEG",
+        "width": 2880,
+        "height": 1748,
+        "bytes": 582170,
+        "iccProfileBytes": 4064
+      },
+      "outputFormat": "WEBP",
+      "lossless": true,
+      "sourceIccPreserved": true,
+      "width": 2880,
+      "height": 1748,
+      "outputSha256": "a20771a3eeed5ea59b0896629c4a8eb8685b7ad0a2862d616bb9f43a3934ccc3",
+      "outputBytes": 1101900,
+      "crop": null,
+      "masks": [
+        {
+          "bbox": [
+            0,
+            0,
+            156,
+            72
+          ],
+          "purpose": "Remove OS capture/share badge; restore actual app-renderer header pixels.",
+          "pixelSource": {
+            "name": "shell-tasks-light.png",
+            "sha256": "ffdfc025cde7974d07931add4b6917f3f7ee641a868207116a201bf4c8de91c2",
+            "format": "PNG",
+            "width": 2880,
+            "height": 2880,
+            "bytes": 2840818,
+            "iccProfileBytes": 0
+          },
+          "trafficButtons": "No unobscured actual OS traffic source available; decoration omitted rather than invented."
+        },
+        {
+          "bbox": [
+            1820,
+            0,
+            1960,
+            72
+          ],
+          "purpose": "Remove cursor from blank top strip only.",
+          "pixelSource": {
+            "name": "shell-tasks-light.png",
+            "sha256": "ffdfc025cde7974d07931add4b6917f3f7ee641a868207116a201bf4c8de91c2",
+            "format": "PNG",
+            "width": 2880,
+            "height": 2880,
+            "bytes": 2840818,
+            "iccProfileBytes": 0
+          }
+        }
+      ],
+      "pixelsBelow72Unchanged": true,
+      "sourceCropPixelsUnchanged": null,
+      "platform": "macos",
+      "appVersion": "0.17.38",
+      "cacheKey": {
+        "source": "60ad425ff1246ef4f4bd9867e1d28e4a116f3ceecd9041e8852054db629794b0",
+        "clean": "ffdfc025cde7974d07931add4b6917f3f7ee641a868207116a201bf4c8de91c2",
+        "traffic": null,
+        "version": 3,
+        "deviceCrop": null
+      }
+    },
+    {
+      "scene": "ide-annotation",
+      "theme": "dark",
+      "output": "ide-annotation-dark.webp",
+      "source": {
+        "name": "ide-annotation-dark.png",
+        "sha256": "84043ba561ad510318556fe375c374f48a190edb8bdbb1469463db2840cd3b0b",
+        "format": "JPEG",
+        "width": 2880,
+        "height": 1748,
+        "bytes": 549009,
+        "iccProfileBytes": 4064
+      },
+      "outputFormat": "WEBP",
+      "lossless": true,
+      "sourceIccPreserved": true,
+      "width": 2880,
+      "height": 1748,
+      "outputSha256": "469eb8cf4cc163b6356800c36f916e34513ce598a126ef6429d0950da31bfd6f",
+      "outputBytes": 1046762,
+      "crop": null,
+      "masks": [
+        {
+          "bbox": [
+            0,
+            0,
+            156,
+            72
+          ],
+          "purpose": "Remove OS capture/share badge; restore actual app-renderer header pixels.",
+          "pixelSource": {
+            "name": "header-dark.png",
+            "sha256": "a41990e0324104ffc57a7d31df5ff485001a0c720b3517bdb6fe0dcd6aad4f1c",
+            "format": "PNG",
+            "width": 2880,
+            "height": 2880,
+            "bytes": 3821729,
+            "iccProfileBytes": 0
+          },
+          "trafficButtons": "No unobscured actual OS traffic source available; decoration omitted rather than invented."
+        },
+        {
+          "bbox": [
+            1820,
+            0,
+            1960,
+            72
+          ],
+          "purpose": "Remove cursor from blank top strip only.",
+          "pixelSource": {
+            "name": "header-dark.png",
+            "sha256": "a41990e0324104ffc57a7d31df5ff485001a0c720b3517bdb6fe0dcd6aad4f1c",
+            "format": "PNG",
+            "width": 2880,
+            "height": 2880,
+            "bytes": 3821729,
+            "iccProfileBytes": 0
+          }
+        }
+      ],
+      "pixelsBelow72Unchanged": true,
+      "sourceCropPixelsUnchanged": null,
+      "platform": "macos",
+      "appVersion": "0.17.38",
+      "cacheKey": {
+        "source": "84043ba561ad510318556fe375c374f48a190edb8bdbb1469463db2840cd3b0b",
+        "clean": "a41990e0324104ffc57a7d31df5ff485001a0c720b3517bdb6fe0dcd6aad4f1c",
+        "traffic": null,
+        "version": 3,
+        "deviceCrop": null
+      }
+    }
+  ],
+  "omitted": [
+    {
+      "source": "work-dark.png",
+      "reason": "Work scene deliberately omitted by capture review."
+    },
+    {
+      "source": "work-light.png",
+      "reason": "Work scene deliberately omitted by capture review."
+    }
+  ]
+}
