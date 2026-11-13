@@ -1,0 +1,39 @@
+.overview { width: min(1180px, calc(100% - 64px)); margin: 14px auto 0; }
+.overview-frame { position: relative; min-width: 0; }
+.overview-bottom { position: relative; height: 85px; }
+.overview-bottom .pet { position: absolute; right: 14px; bottom: 0; width: 84px; padding: 0; border: 0; background: transparent; color: var(--muted); cursor: pointer; }
+.pet svg { display: block; width: 100%; overflow: visible; }
+.pet-tail { transform-origin: 91px 88px; }
+.pet-head { transform-origin: 63px 67px; }
+.pet-smile, .pet-happy-eyes, .pet-heart { opacity: 0; }
+.pet:is(:hover, :focus-visible, [data-petted]) :is(.pet-smile, .pet-happy-eyes, .pet-heart) { opacity: 1; }
+.pet:is(:hover, :focus-visible, [data-petted]) :is(.pet-eyes, .pet-mouth) { opacity: 0; }
+.demo-icons { position: absolute; width: 0; height: 0; overflow: hidden; }
+.hero-note { font-size: 17px; }
+.hero-links { color: var(--muted); }
+.site-bottom { margin-top: 70px; }
+.feature-stories { overflow: clip; }
+@media (prefers-reduced-motion: no-preference) {
+  .pet:is(:hover, :focus-visible, [data-petted]) .pet-tail { animation: wag 300ms ease-in-out infinite alternate; }
+  .pet:is(:hover, :focus-visible, [data-petted]) .pet-head { animation: nod 480ms ease-in-out infinite alternate; }
+  @keyframes wag { from { transform: rotate(-8deg); } to { transform: rotate(12deg); } }
+  @keyframes nod { from { transform: rotate(-2deg); } to { transform: rotate(3deg); } }
+}
+@media (max-width: 680px) {
+  .overview { width: calc(100% - 24px); }
+  .overview-bottom { height: 60px; }
+  .overview-bottom .pet { width: 66px; right: 8px; }
+  .hero-note { font-size: 15px; }
+}
+.scroll-cue { display: inline-flex; align-items: center; gap: 9px; color: var(--muted); font-size: 13px; text-decoration: none; }
+.overview-bottom { display: flex; align-items: center; justify-content: center; }
+@media (hover: hover) and (min-width: 600px) {
+  .download { gap: 0; padding-inline: 17px; }
+  .download-label { max-width: 0; overflow: hidden; white-space: nowrap; opacity: 0; }
+  .download:is(:hover, :focus-visible) { gap: 9px; }
+  .download:is(:hover, :focus-visible) .download-label { max-width: 195px; opacity: 1; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .download { transition: background 160ms, gap 240ms ease; }
+  .download-label { transition: max-width 240ms ease, opacity 160ms; }
+}

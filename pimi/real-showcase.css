@@ -1,0 +1,48 @@
+@import url('./usage-showcase.css');
+/* Real app frames only. Everything styled here is outside the captured product. */
+.rs-player{width:100%;min-width:0;color:var(--ink);position:relative;text-align:left}
+.rs-stage{position:relative;width:100%;aspect-ratio:1440/876;overflow:hidden;isolation:isolate;perspective:1600px;transition:height .6s ease;border-radius:12px;box-shadow:0 12px 34px color-mix(in srgb,var(--ink) 8%,transparent)}
+.rs-frame{position:absolute;inset:0;opacity:1;transition:opacity .6s ease;overflow:hidden}
+.rs-world{position:absolute;left:0;top:0;width:1440px;height:876px;transform-origin:0 0}
+.rs-capture{display:block;width:1440px!important;height:var(--rs-frame-height,876px)!important;max-width:none!important;object-fit:contain;object-position:center;user-select:none;-webkit-user-drag:none}
+.rs-native-panel{position:absolute;left:320px;top:36px;width:1120px;height:840px;border:0;opacity:0;background:var(--panel);transition:opacity .16s ease}
+.rs-native-panel.rs-native-ready{opacity:1}
+.rs-instant{transition:none!important}
+.rs-controls{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;padding:19px 16px 0;min-height:73px}
+.rs-choices{display:flex;justify-content:center;gap:2px;flex-wrap:wrap;max-width:100%}
+.rs-choice{display:grid;place-items:center;width:24px;height:25px;margin:0;padding:0;border:0;background:none;cursor:pointer;color:var(--muted);border-radius:5px}
+.rs-dot{width:5px;height:5px;border-radius:50%;background:currentColor;opacity:.34;transition:width .2s,opacity .2s,color .2s}
+.rs-choice[aria-pressed=true]{color:var(--accent)}.rs-choice[aria-pressed=true] .rs-dot{width:17px;border-radius:4px;opacity:1}
+.rs-choice:hover .rs-dot{opacity:.8}.rs-choice:focus-visible{outline:2px solid var(--focus,var(--accent));outline-offset:1px}
+.rs-caption{margin:0;color:var(--muted);font:12px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;text-align:center;min-height:18px}
+.rs-error{color:var(--muted);font-size:13px;text-align:center;margin:18px 0}
+.rs-player [hidden]{display:none!important}
+.rs-features{width:100%;min-width:0}
+.rs-section{width:min(1440px,calc(100% - 64px));margin:130px auto 0;scroll-margin-top:70px}
+.rs-heading{max-width:780px;margin:0 auto 38px;text-align:center;font:500 clamp(30px,3.2vw,46px)/1.15 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;letter-spacing:-1.8px;color:var(--ink);text-wrap:balance}
+.rs-scene{width:100%;min-width:0}
+.rs-usage{width:min(100%,1000px);margin:0 auto}
+.rs-folding{transition:opacity 1s ease;z-index:2;pointer-events:none}
+.rs-folding .rs-world{perspective:1600px;transform-style:preserve-3d}
+.rs-fold-half{position:absolute;top:0;height:var(--rs-frame-height,876px);width:720px;overflow:hidden;backface-visibility:hidden;transform-style:preserve-3d;animation-duration:1s;animation-timing-function:cubic-bezier(.3,.05,.2,1);animation-fill-mode:both}
+.rs-fold-half>.rs-capture{position:absolute;top:0}
+.rs-fold-left{left:0;transform-origin:right center;animation-name:rs-fold-left}.rs-fold-left>.rs-capture{left:0}
+.rs-fold-right{right:0;transform-origin:left center;animation-name:rs-fold-right}.rs-fold-right>.rs-capture{left:-720px}
+.rs-fold-arrival{transition:opacity .6s .25s ease}
+@keyframes rs-fold-left{0%{transform:rotateY(0)}100%{transform:rotateY(86deg)}}
+@keyframes rs-fold-right{0%{transform:rotateY(0)}100%{transform:rotateY(-86deg)}}
+@media(min-width:1600px){.rs-section{margin-top:155px}}
+@media(max-width:700px){.rs-section{width:calc(100% - 24px);margin-top:80px}.rs-heading{font-size:31px;letter-spacing:-1.2px;margin-bottom:26px;padding:0 12px}.rs-controls{padding-top:12px;gap:6px;min-height:64px}.rs-choice{width:22px;height:24px}.rs-caption{font-size:11px}.rs-choices{max-width:330px}.rs-usage{width:100%}}
+@media(prefers-reduced-motion:reduce){.rs-stage,.rs-frame,.rs-native-panel,.rs-dot{transition:none!important}.rs-fold-half{animation:none!important}.rs-fold-arrival{transition:none!important}}
+
+.rs-supporting-copy{max-width:570px;margin:-20px auto 34px;padding:0 15px;text-align:center;color:var(--muted);font:16px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;text-wrap:balance}
+@media(max-width:700px){.rs-supporting-copy{margin:-10px auto 25px;font-size:14px;max-width:360px}}
+
+.rs-stage-mobile{border-radius:0;box-shadow:none}
+.rs-artifact-panel{position:absolute;left:528px;top:221.5px;width:704px;height:360px;border:0;opacity:0}
+.rs-artifact-panel.rs-artifact-ready{opacity:1}
+
+/* Outer macOS decoration only; the entire product body remains captured UI. */
+.rs-os-controls{position:absolute;left:16px;top:16px;display:flex;gap:9px;pointer-events:none}
+.rs-os-controls i{display:block;box-sizing:border-box;width:14px;height:14px;border-radius:50%;background:#ff5f57;border:1px solid #00000014}
+.rs-os-controls i:nth-child(2){background:#febc2e}.rs-os-controls i:nth-child(3){background:#28c840}
